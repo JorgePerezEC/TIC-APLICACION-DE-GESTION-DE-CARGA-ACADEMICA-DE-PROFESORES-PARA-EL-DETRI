@@ -1,0 +1,102 @@
+T:\UNI EPN\University\TESIS - CARGA HORARIA\Visual Projects\Carga Horaria Project\Directorio-Logica\bin\Debug\net6.0-windows\Directorio-LogicaNegocio.deps.json
+T:\UNI EPN\University\TESIS - CARGA HORARIA\Visual Projects\Carga Horaria Project\Directorio-Logica\bin\Debug\net6.0-windows\Directorio-LogicaNegocio.dll
+T:\UNI EPN\University\TESIS - CARGA HORARIA\Visual Projects\Carga Horaria Project\Directorio-Logica\bin\Debug\net6.0-windows\Directorio-LogicaNegocio.pdb
+T:\UNI EPN\University\TESIS - CARGA HORARIA\Visual Projects\Carga Horaria Project\Directorio-Logica\bin\Debug\net6.0-windows\Directorio-Datos.dll
+T:\UNI EPN\University\TESIS - CARGA HORARIA\Visual Projects\Carga Horaria Project\Directorio-Logica\bin\Debug\net6.0-windows\Directorio-Entidades.dll
+T:\UNI EPN\University\TESIS - CARGA HORARIA\Visual Projects\Carga Horaria Project\Directorio-Logica\bin\Debug\net6.0-windows\Directorio-Datos.pdb
+T:\UNI EPN\University\TESIS - CARGA HORARIA\Visual Projects\Carga Horaria Project\Directorio-Logica\bin\Debug\net6.0-windows\Directorio-Entidades.pdb
+T:\UNI EPN\University\TESIS - CARGA HORARIA\Visual Projects\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\Directorio-LogicaNegocio.csproj.AssemblyReference.cache
+T:\UNI EPN\University\TESIS - CARGA HORARIA\Visual Projects\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\Directorio-LogicaNegocio.GeneratedMSBuildEditorConfig.editorconfig
+T:\UNI EPN\University\TESIS - CARGA HORARIA\Visual Projects\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\Directorio-LogicaNegocio.AssemblyInfoInputs.cache
+T:\UNI EPN\University\TESIS - CARGA HORARIA\Visual Projects\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\Directorio-LogicaNegocio.AssemblyInfo.cs
+T:\UNI EPN\University\TESIS - CARGA HORARIA\Visual Projects\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\Directorio-LogicaNegocio.csproj.CoreCompileInputs.cache
+T:\UNI EPN\University\TESIS - CARGA HORARIA\Visual Projects\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\Directorio-LogicaNegocio.csproj.CopyComplete
+T:\UNI EPN\University\TESIS - CARGA HORARIA\Visual Projects\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\Directorio-LogicaNegocio.dll
+T:\UNI EPN\University\TESIS - CARGA HORARIA\Visual Projects\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\refint\Directorio-LogicaNegocio.dll
+T:\UNI EPN\University\TESIS - CARGA HORARIA\Visual Projects\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\Directorio-LogicaNegocio.pdb
+T:\UNI EPN\University\TESIS - CARGA HORARIA\Visual Projects\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\ref\Directorio-LogicaNegocio.dll
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\TESIS - CARGA HORARIA\Visual Projects\Carga Horaria Project\Directorio-Logica\bin\Debug\net6.0-windows\Directorio-LogicaNegocio.deps.json
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\TESIS - CARGA HORARIA\Visual Projects\Carga Horaria Project\Directorio-Logica\bin\Debug\net6.0-windows\Directorio-LogicaNegocio.dll
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\TESIS - CARGA HORARIA\Visual Projects\Carga Horaria Project\Directorio-Logica\bin\Debug\net6.0-windows\Directorio-LogicaNegocio.pdb
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\TESIS - CARGA HORARIA\Visual Projects\Carga Horaria Project\Directorio-Logica\bin\Debug\net6.0-windows\Directorio-Datos.dll
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\TESIS - CARGA HORARIA\Visual Projects\Carga Horaria Project\Directorio-Logica\bin\Debug\net6.0-windows\Directorio-Entidades.dll
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\TESIS - CARGA HORARIA\Visual Projects\Carga Horaria Project\Directorio-Logica\bin\Debug\net6.0-windows\Directorio-Datos.pdb
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\TESIS - CARGA HORARIA\Visual Projects\Carga Horaria Project\Directorio-Logica\bin\Debug\net6.0-windows\Directorio-Entidades.pdb
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\TESIS - CARGA HORARIA\Visual Projects\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\Directorio-LogicaNegocio.csproj.AssemblyReference.cache
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\TESIS - CARGA HORARIA\Visual Projects\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\Directorio-LogicaNegocio.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\TESIS - CARGA HORARIA\Visual Projects\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\Directorio-LogicaNegocio.AssemblyInfoInputs.cache
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\TESIS - CARGA HORARIA\Visual Projects\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\Directorio-LogicaNegocio.AssemblyInfo.cs
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\TESIS - CARGA HORARIA\Visual Projects\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\Directorio-LogicaNegocio.csproj.CoreCompileInputs.cache
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\TESIS - CARGA HORARIA\Visual Projects\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\Directorio-LogicaNegocio.csproj.CopyComplete
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\TESIS - CARGA HORARIA\Visual Projects\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\Directorio-LogicaNegocio.dll
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\TESIS - CARGA HORARIA\Visual Projects\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\refint\Directorio-LogicaNegocio.dll
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\TESIS - CARGA HORARIA\Visual Projects\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\Directorio-LogicaNegocio.pdb
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\TESIS - CARGA HORARIA\Visual Projects\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\ref\Directorio-LogicaNegocio.dll
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\prjct\Carga Horaria Project\Directorio-Logica\bin\Debug\net6.0-windows\Directorio-LogicaNegocio.deps.json
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\prjct\Carga Horaria Project\Directorio-Logica\bin\Debug\net6.0-windows\Directorio-LogicaNegocio.dll
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\prjct\Carga Horaria Project\Directorio-Logica\bin\Debug\net6.0-windows\Directorio-LogicaNegocio.pdb
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\prjct\Carga Horaria Project\Directorio-Logica\bin\Debug\net6.0-windows\Directorio-Datos.dll
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\prjct\Carga Horaria Project\Directorio-Logica\bin\Debug\net6.0-windows\Directorio-Entidades.dll
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\prjct\Carga Horaria Project\Directorio-Logica\bin\Debug\net6.0-windows\Directorio-Datos.pdb
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\prjct\Carga Horaria Project\Directorio-Logica\bin\Debug\net6.0-windows\Directorio-Entidades.pdb
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\prjct\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\Directorio-LogicaNegocio.csproj.AssemblyReference.cache
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\prjct\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\Directorio-LogicaNegocio.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\prjct\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\Directorio-LogicaNegocio.AssemblyInfoInputs.cache
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\prjct\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\Directorio-LogicaNegocio.AssemblyInfo.cs
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\prjct\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\Directorio-LogicaNegocio.csproj.CoreCompileInputs.cache
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\prjct\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\Directorio-LogicaNegocio.csproj.CopyComplete
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\prjct\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\Directorio-LogicaNegocio.dll
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\prjct\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\refint\Directorio-LogicaNegocio.dll
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\prjct\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\Directorio-LogicaNegocio.pdb
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\prjct\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\ref\Directorio-LogicaNegocio.dll
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\Avance18Abril\Carga Horaria Project\Directorio-Logica\bin\Debug\net6.0-windows\Directorio-LogicaNegocio.deps.json
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\Avance18Abril\Carga Horaria Project\Directorio-Logica\bin\Debug\net6.0-windows\Directorio-LogicaNegocio.dll
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\Avance18Abril\Carga Horaria Project\Directorio-Logica\bin\Debug\net6.0-windows\Directorio-LogicaNegocio.pdb
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\Avance18Abril\Carga Horaria Project\Directorio-Logica\bin\Debug\net6.0-windows\Directorio-Datos.dll
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\Avance18Abril\Carga Horaria Project\Directorio-Logica\bin\Debug\net6.0-windows\Directorio-Entidades.dll
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\Avance18Abril\Carga Horaria Project\Directorio-Logica\bin\Debug\net6.0-windows\Directorio-Datos.pdb
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\Avance18Abril\Carga Horaria Project\Directorio-Logica\bin\Debug\net6.0-windows\Directorio-Entidades.pdb
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\Avance18Abril\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\Directorio-LogicaNegocio.csproj.AssemblyReference.cache
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\Avance18Abril\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\Directorio-LogicaNegocio.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\Avance18Abril\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\Directorio-LogicaNegocio.AssemblyInfoInputs.cache
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\Avance18Abril\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\Directorio-LogicaNegocio.AssemblyInfo.cs
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\Avance18Abril\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\Directorio-LogicaNegocio.csproj.CoreCompileInputs.cache
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\Avance18Abril\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\Directorio-LogicaNegocio.csproj.CopyComplete
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\Avance18Abril\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\Directorio-LogicaNegocio.dll
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\Avance18Abril\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\refint\Directorio-LogicaNegocio.dll
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\Avance18Abril\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\Directorio-LogicaNegocio.pdb
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\Avance18Abril\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\ref\Directorio-LogicaNegocio.dll
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\Avance9May\Carga Horaria Project\Directorio-Logica\bin\Debug\net6.0-windows\Directorio-LogicaNegocio.deps.json
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\Avance9May\Carga Horaria Project\Directorio-Logica\bin\Debug\net6.0-windows\Directorio-LogicaNegocio.dll
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\Avance9May\Carga Horaria Project\Directorio-Logica\bin\Debug\net6.0-windows\Directorio-LogicaNegocio.pdb
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\Avance9May\Carga Horaria Project\Directorio-Logica\bin\Debug\net6.0-windows\Directorio-Datos.dll
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\Avance9May\Carga Horaria Project\Directorio-Logica\bin\Debug\net6.0-windows\Directorio-Entidades.dll
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\Avance9May\Carga Horaria Project\Directorio-Logica\bin\Debug\net6.0-windows\Directorio-Datos.pdb
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\Avance9May\Carga Horaria Project\Directorio-Logica\bin\Debug\net6.0-windows\Directorio-Entidades.pdb
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\Avance9May\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\Directorio-LogicaNegocio.csproj.AssemblyReference.cache
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\Avance9May\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\Directorio-LogicaNegocio.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\Avance9May\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\Directorio-LogicaNegocio.AssemblyInfoInputs.cache
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\Avance9May\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\Directorio-LogicaNegocio.AssemblyInfo.cs
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\Avance9May\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\Directorio-LogicaNegocio.csproj.CoreCompileInputs.cache
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\Avance9May\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\Directorio-LogicaNegocio.csproj.CopyComplete
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\Avance9May\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\Directorio-LogicaNegocio.dll
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\Avance9May\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\refint\Directorio-LogicaNegocio.dll
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\Avance9May\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\Directorio-LogicaNegocio.pdb
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\Avance9May\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\ref\Directorio-LogicaNegocio.dll
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\21 MAY\Carga Horaria Project\Directorio-Logica\bin\Debug\net6.0-windows\Directorio-LogicaNegocio.deps.json
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\21 MAY\Carga Horaria Project\Directorio-Logica\bin\Debug\net6.0-windows\Directorio-LogicaNegocio.dll
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\21 MAY\Carga Horaria Project\Directorio-Logica\bin\Debug\net6.0-windows\Directorio-LogicaNegocio.pdb
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\21 MAY\Carga Horaria Project\Directorio-Logica\bin\Debug\net6.0-windows\Directorio-Datos.dll
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\21 MAY\Carga Horaria Project\Directorio-Logica\bin\Debug\net6.0-windows\Directorio-Entidades.dll
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\21 MAY\Carga Horaria Project\Directorio-Logica\bin\Debug\net6.0-windows\Directorio-Datos.pdb
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\21 MAY\Carga Horaria Project\Directorio-Logica\bin\Debug\net6.0-windows\Directorio-Entidades.pdb
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\21 MAY\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\Directorio-LogicaNegocio.csproj.AssemblyReference.cache
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\21 MAY\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\Directorio-LogicaNegocio.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\21 MAY\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\Directorio-LogicaNegocio.AssemblyInfoInputs.cache
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\21 MAY\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\Directorio-LogicaNegocio.AssemblyInfo.cs
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\21 MAY\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\Directorio-LogicaNegocio.csproj.CoreCompileInputs.cache
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\21 MAY\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\Directorio-LogicaNegocio.csproj.CopyComplete
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\21 MAY\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\Directorio-LogicaNegocio.dll
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\21 MAY\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\refint\Directorio-LogicaNegocio.dll
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\21 MAY\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\Directorio-LogicaNegocio.pdb
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\21 MAY\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\ref\Directorio-LogicaNegocio.dll

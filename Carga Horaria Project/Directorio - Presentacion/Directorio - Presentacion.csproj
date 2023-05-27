@@ -1,0 +1,71 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <RootNamespace>Directorio___Presentacion</RootNamespace>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+
+	<NoWarn>CS8618</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="iTextSharp" Version="5.5.13.3" />
+    <PackageReference Include="LiveCharts.WinForms.NetCore3" Version="0.9.7" />
+    <PackageReference Include="MaterialSkin.2" Version="2.3.1" />
+    <PackageReference Include="Microsoft.ReportingServices.ReportViewerControl.Winforms" Version="150.1576.0" />
+    <PackageReference Include="OxyPlot.WindowsForms" Version="2.1.2" />
+    <PackageReference Include="ScottPlot" Version="4.1.60" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Directorio-Entidades\Directorio-Entidades.csproj" />
+    <ProjectReference Include="..\Directorio-Logica\Directorio-LogicaNegocio.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="dbCargaHorariaAprilDataSet.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>dbCargaHorariaAprilDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="dbCargaHorariaAprilDataSet_DocentesNames.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>dbCargaHorariaAprilDataSet_DocentesNames.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="dbCargaHorariaAprilDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dbCargaHorariaAprilDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="dbCargaHorariaAprilDataSet_DocentesNames.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dbCargaHorariaAprilDataSet_DocentesNames.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Images\EPNLogo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="CRUD Data Interfaces\SubForms_HorasExigibles\" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,17 @@
+T:\UNI EPN\University\TESIS - CARGA HORARIA\Visual Projects\Carga Horaria Project\Directorio-Logica\bin\Debug\net6.0-windows\Directorio-Logica.deps.json
+T:\UNI EPN\University\TESIS - CARGA HORARIA\Visual Projects\Carga Horaria Project\Directorio-Logica\bin\Debug\net6.0-windows\Directorio-Logica.dll
+T:\UNI EPN\University\TESIS - CARGA HORARIA\Visual Projects\Carga Horaria Project\Directorio-Logica\bin\Debug\net6.0-windows\Directorio-Logica.pdb
+T:\UNI EPN\University\TESIS - CARGA HORARIA\Visual Projects\Carga Horaria Project\Directorio-Logica\bin\Debug\net6.0-windows\Directorio-Datos.dll
+T:\UNI EPN\University\TESIS - CARGA HORARIA\Visual Projects\Carga Horaria Project\Directorio-Logica\bin\Debug\net6.0-windows\Directorio-Entidades.dll
+T:\UNI EPN\University\TESIS - CARGA HORARIA\Visual Projects\Carga Horaria Project\Directorio-Logica\bin\Debug\net6.0-windows\Directorio-Datos.pdb
+T:\UNI EPN\University\TESIS - CARGA HORARIA\Visual Projects\Carga Horaria Project\Directorio-Logica\bin\Debug\net6.0-windows\Directorio-Entidades.pdb
+T:\UNI EPN\University\TESIS - CARGA HORARIA\Visual Projects\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\Directorio-Logica.csproj.AssemblyReference.cache
+T:\UNI EPN\University\TESIS - CARGA HORARIA\Visual Projects\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\Directorio-Logica.GeneratedMSBuildEditorConfig.editorconfig
+T:\UNI EPN\University\TESIS - CARGA HORARIA\Visual Projects\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\Directorio-Logica.AssemblyInfoInputs.cache
+T:\UNI EPN\University\TESIS - CARGA HORARIA\Visual Projects\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\Directorio-Logica.AssemblyInfo.cs
+T:\UNI EPN\University\TESIS - CARGA HORARIA\Visual Projects\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\Directorio-Logica.csproj.CoreCompileInputs.cache
+T:\UNI EPN\University\TESIS - CARGA HORARIA\Visual Projects\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\Directorio-Logica.csproj.CopyComplete
+T:\UNI EPN\University\TESIS - CARGA HORARIA\Visual Projects\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\Directorio-Logica.dll
+T:\UNI EPN\University\TESIS - CARGA HORARIA\Visual Projects\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\refint\Directorio-Logica.dll
+T:\UNI EPN\University\TESIS - CARGA HORARIA\Visual Projects\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\Directorio-Logica.pdb
+T:\UNI EPN\University\TESIS - CARGA HORARIA\Visual Projects\Carga Horaria Project\Directorio-Logica\obj\Debug\net6.0-windows\ref\Directorio-Logica.dll

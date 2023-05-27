@@ -1,0 +1,125 @@
+﻿using Directorio_Datos;
+using Directorio_Entidades;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Directorio_Logica
+{
+    public class CN_Asignatura
+    {
+        private DAL_Asignatura objetoCData = new DAL_Asignatura();
+
+        private bool state = false;
+        public DataTable MostrarAsignaturas()
+        {
+            DataTable tabla = new DataTable();
+            tabla = objetoCData.MostrarRegistros();
+            return tabla;
+        }
+        public DataTable MostrarAsignaturasWithGroups_CNegocio()
+        {
+            DataTable tabla = new DataTable();
+            tabla = objetoCData.MostrarAsignaturasConGrupos();
+            return tabla;
+        }
+        public DataTable MostrarAllAsignaturasCmb_CNegocio()
+        {
+            DataTable tabla = new DataTable();
+            tabla = objetoCData.MostrarRegistrosToCmbDAL();
+            return tabla;
+        }
+        #region CRUD Methods
+        public bool CreateAsignaturaNeg(string nameAsig, string tpAsig, string cod, string hTot, string hSem, string lvlAsig, string estado)
+        {
+            try
+            {
+                if (estado == "True")
+                {
+                    state = true;
+                }
+                ClsAsignatura ObjAsignatura = new ClsAsignatura()
+                {
+                    NombreAsignatura = nameAsig,
+                    TipoAsignatura = tpAsig,
+                    CodigoAsignatura = cod,
+                    HorasAsignaturaTotales = Convert.ToInt32(hTot),
+                    HorasAsignaturaSemanales = Convert.ToInt32(hSem),
+                    NivelAsignatura = lvlAsig,
+                    Estado = state
+                };
+                objetoCData.CreateAsignatura(ObjAsignatura);
+
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error" + ex.Message);
+                return false;
+
+            }
+
+        }
+
+        public bool UpdateAsignaturaNeg(string idAsignatura, string nameAsig, string tpAsig, string cod, string hTot, string hSem, string lvlAsig, string estado)
+        {
+            try
+            {
+                if (estado == "True")
+                {
+                    state = true;
+                }
+                ClsAsignatura ObjAsignatura = new ClsAsignatura()
+                {
+                    IdAsignatura = Convert.ToInt32(idAsignatura),
+                    NombreAsignatura = nameAsig,
+                    TipoAsignatura = tpAsig,
+                    CodigoAsignatura = cod,
+                    HorasAsignaturaTotales = Convert.ToInt32(hTot),
+                    HorasAsignaturaSemanales = Convert.ToInt32(hSem),
+                    NivelAsignatura = lvlAsig,
+                    Estado = state
+                };
+                objetoCData.UpdateAsignatura(ObjAsignatura);
+
+
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error" + ex.Message);
+                return false;
+
+            }
+
+        }
+        public bool DeleteAsignaturaNeg(string idAsignatura)
+        {
+            try
+            {
+                ClsAsignatura ObjAsignatura = new ClsAsignatura()
+                {
+                    IdAsignatura = Convert.ToInt32(idAsignatura)
+                };
+                objetoCData.DeleteAsignatura(ObjAsignatura);
+
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error" + ex.Message);
+                return false;
+
+            }
+
+        }
+        #endregion
+
+    }
+}

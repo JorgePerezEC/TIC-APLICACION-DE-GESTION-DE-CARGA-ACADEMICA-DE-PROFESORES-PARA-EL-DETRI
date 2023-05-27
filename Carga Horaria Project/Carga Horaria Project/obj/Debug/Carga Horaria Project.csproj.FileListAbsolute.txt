@@ -1,0 +1,3 @@
+T:\UNI EPN\University\TESIS - CARGA HORARIA\Visual Projects\Carga Horaria Project\Carga Horaria Project\obj\Debug\Carga Horaria Project.csproj.AssemblyReference.cache
+T:\UNI EPN\University\TESIS - CARGA HORARIA\Visual Projects\Carga Horaria Project\Carga Horaria Project\obj\Debug\Carga Horaria Project.csproj.SuggestedBindingRedirects.cache
+T:\UNI EPN\University\TESIS - CARGA HORARIA\Visual Projects\Carga Horaria Project\Carga Horaria Project\obj\Debug\Carga Horaria Project.csproj.CoreCompileInputs.cache

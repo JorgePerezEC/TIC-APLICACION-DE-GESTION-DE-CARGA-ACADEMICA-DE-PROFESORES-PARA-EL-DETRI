@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Compile Update="AcademicLoads Interfaces\FrmAcademicsLoads_Viewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="AcademicLoads Interfaces\FrmCreate_AcademicLoad.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="AcademicLoads Interfaces\FrmCRUD_Asignaturas_Ac_Load.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="AcademicLoads Interfaces\FrmCRUD_Docencia_Ac_Load.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="AcademicLoads Interfaces\FrmCRUD_Gestion_Ac_Load.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="AcademicLoads Interfaces\FrmCRUD_Investigacion_Ac_Load.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="AcademicLoads Interfaces\Sub_Frms\FrmCUActividad_AL.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="AcademicLoads Interfaces\Sub_Frms\FrmCUAsignatura_AL.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="CRUD Data Interfaces\FrmCRUD_Actividad.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="CRUD Data Interfaces\FrmCRUD_Asignatura.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="CRUD Data Interfaces\FrmCRUD_Carrera.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="CRUD Data Interfaces\FrmCRUD_Departamento.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="CRUD Data Interfaces\FrmCRUD_Docente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="CRUD Data Interfaces\FrmCRUD_GrupoAsignatura.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="CRUD Data Interfaces\FrmCRUD_HorarioAsignatura.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="CRUD Data Interfaces\FrmCRUD_HorasExigibles.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="CRUD Data Interfaces\FrmCRUD_Semestre.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="CRUD Data Interfaces\FrmCRUD_TipoActividad.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="CRUD Data Interfaces\FrmCRUD_TipoDocente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Main.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Reportes Frms\FrmReporteDocentesCargas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Reportes\Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup />
+</Project>
