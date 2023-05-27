@@ -111,7 +111,7 @@
             this.dgLstRegistros.RowHeadersWidth = 51;
             this.dgLstRegistros.RowTemplate.Height = 29;
             this.dgLstRegistros.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgLstRegistros.Size = new System.Drawing.Size(1213, 307);
+            this.dgLstRegistros.Size = new System.Drawing.Size(716, 381);
             this.dgLstRegistros.TabIndex = 6;
             // 
             // label9

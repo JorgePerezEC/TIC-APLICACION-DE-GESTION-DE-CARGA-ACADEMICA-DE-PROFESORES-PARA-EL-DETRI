@@ -243,7 +243,7 @@ namespace Directorio_Datos.DataBase
         //    }
         //}
         #endregion
-        private static string dbName = "dbCargaHorariaApril";
+        private static string dbName = "dbCargaHorariaMay";
         private static string pcName = "ASUS-GEORGE-AMA";
         public SqlConnection sqlConexion = new SqlConnection(@"Data Source="+ pcName + "\\SQLEXPRESS;Initial Catalog=" + dbName + ";Integrated Security=True;MultipleActiveResultSets=True");
 

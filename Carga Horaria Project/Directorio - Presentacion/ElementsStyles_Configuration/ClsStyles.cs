@@ -4,6 +4,7 @@ using System.Drawing.Text;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using Color = System.Drawing.Color;
 
 namespace Directorio___Presentacion.ElementsStyles_Configuration
@@ -40,6 +41,8 @@ namespace Directorio___Presentacion.ElementsStyles_Configuration
             dgTable.RowHeadersBorderStyle= DataGridViewHeaderBorderStyle.Single;
             dgTable.RowHeadersVisible= false;
             dgTable.RowHeadersWidth = 60;
+            
+
             //Table Color define
             dgTable.BackgroundColor = MyBlueColor;
             dgTable.RowsDefaultCellStyle.BackColor = MyBlueColor;
@@ -52,9 +55,10 @@ namespace Directorio___Presentacion.ElementsStyles_Configuration
             dgTable.ColumnHeadersDefaultCellStyle.SelectionBackColor = HeaderBk;
             dgTable.ColumnHeadersDefaultCellStyle.Font = new Font("Tahoma", 9.75F, FontStyle.Bold); ;
 
-
+            dgTable.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
         }
         #endregion
+
         #region TreeView Style
         public void treeViewStyle(TreeView treeView)
         {

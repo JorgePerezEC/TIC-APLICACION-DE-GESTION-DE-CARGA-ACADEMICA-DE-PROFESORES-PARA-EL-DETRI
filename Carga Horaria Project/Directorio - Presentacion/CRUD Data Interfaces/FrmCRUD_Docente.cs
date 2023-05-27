@@ -34,12 +34,15 @@ namespace Directorio___Presentacion.CRUD_Interfaces
         {
             MostrarDocentes();
             ListarDepartamentos();
-            clsStyles.tableStyle(dgLstRegistros);
+            
         }
         private void MostrarDocentes()
         {
             CN_Docente objetoCNegocio = new CN_Docente();
             dgLstRegistros.DataSource = objetoCNegocio.MostrarDocentes();
+            Console.WriteLine($"Filas: {dgLstRegistros.RowCount}, Columnas: {dgLstRegistros.ColumnCount}");
+            clsStyles.tableStyle(dgLstRegistros);
+            dgLstRegistros.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
         }
         private void ListarDepartamentos()
         {

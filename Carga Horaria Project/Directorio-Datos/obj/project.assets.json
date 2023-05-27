@@ -1026,11 +1026,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\jorge\\OneDrive - Escuela Politécnica Nacional\\TESIS LAPTOP SYNC\\Respaldo 27 may\\Carga Horaria Project\\Directorio-Datos\\Directorio-Datos.csproj",
+      "projectUniqueName": "C:\\Users\\jorge\\OneDrive - Escuela Politécnica Nacional\\TESIS LAPTOP SYNC\\resp\\Carga Horaria Project\\Directorio-Datos\\Directorio-Datos.csproj",
       "projectName": "Directorio-Datos",
-      "projectPath": "C:\\Users\\jorge\\OneDrive - Escuela Politécnica Nacional\\TESIS LAPTOP SYNC\\Respaldo 27 may\\Carga Horaria Project\\Directorio-Datos\\Directorio-Datos.csproj",
+      "projectPath": "C:\\Users\\jorge\\OneDrive - Escuela Politécnica Nacional\\TESIS LAPTOP SYNC\\resp\\Carga Horaria Project\\Directorio-Datos\\Directorio-Datos.csproj",
       "packagesPath": "C:\\Users\\jorge\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\jorge\\OneDrive - Escuela Politécnica Nacional\\TESIS LAPTOP SYNC\\Respaldo 27 may\\Carga Horaria Project\\Directorio-Datos\\obj\\",
+      "outputPath": "C:\\Users\\jorge\\OneDrive - Escuela Politécnica Nacional\\TESIS LAPTOP SYNC\\resp\\Carga Horaria Project\\Directorio-Datos\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\jorge\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -1047,8 +1047,8 @@
         "net6.0-windows7.0": {
           "targetAlias": "net6.0-windows",
           "projectReferences": {
-            "C:\\Users\\jorge\\OneDrive - Escuela Politécnica Nacional\\TESIS LAPTOP SYNC\\Respaldo 27 may\\Carga Horaria Project\\Directorio-Entidades\\Directorio-Entidades.csproj": {
-              "projectPath": "C:\\Users\\jorge\\OneDrive - Escuela Politécnica Nacional\\TESIS LAPTOP SYNC\\Respaldo 27 may\\Carga Horaria Project\\Directorio-Entidades\\Directorio-Entidades.csproj"
+            "C:\\Users\\jorge\\OneDrive - Escuela Politécnica Nacional\\TESIS LAPTOP SYNC\\resp\\Carga Horaria Project\\Directorio-Entidades\\Directorio-Entidades.csproj": {
+              "projectPath": "C:\\Users\\jorge\\OneDrive - Escuela Politécnica Nacional\\TESIS LAPTOP SYNC\\resp\\Carga Horaria Project\\Directorio-Entidades\\Directorio-Entidades.csproj"
             }
           }
         }

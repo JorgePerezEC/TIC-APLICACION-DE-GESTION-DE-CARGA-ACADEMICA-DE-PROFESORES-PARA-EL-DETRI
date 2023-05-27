@@ -1,15 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
+using Directorio___Presentacion.ElementsStyles_Configuration;
 using Directorio_Logica;
 using Directorio_LogicaNegocio;
-using Directorio_Entidades;
-using Directorio___Presentacion.ElementsStyles_Configuration;
-using iTextSharp.text.pdf;
-using iTextSharp.text;
-using Font = iTextSharp.text.Font;
-using System.Windows.Forms;
+using iText.IO.Font;
+using iText.IO.Font.Constants;
+using iText.Kernel.Colors;
+using iText.Kernel.Events;
+using iText.Kernel.Font;
+using iText.Kernel.Geom;
+using iText.Kernel.Pdf;
+using iText.Kernel.Pdf.Canvas;
+using iText.Layout;
+using iText.Layout.Element;
+using iText.Layout.Properties;
+using Rectangle = iText.Kernel.Geom.Rectangle;
 
 namespace Directorio___Presentacion.AcademicLoads_Interfaces
 {
@@ -47,13 +52,14 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
 
         private static string docenteName;
 
+        ClsStyles tableStyle = new ClsStyles();
+
         #region Constructor
         public FrmAcademicsLoads_Viewer()
         {
             InitializeComponent();
-            ClsStyles tableStyle = new ClsStyles();
-            tableStyle.tableStyle(dgvActividades);
-            tableStyle.tableStyle(dgvAsignaturas);
+
+
         }
         #endregion
 
@@ -131,7 +137,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
 
             if (e.Node == ultimoNodoSeleccionado)
             {
-                return; 
+                return;
             }
 
             dgvActividades.DataSource = null;
@@ -144,9 +150,10 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
             cmbValueSemestre = Convert.ToInt32(cmbSemestre.SelectedValue);
             if (int.TryParse(e.Node.Tag.ToString(), out id))
             {
-                if (e.Node.Text != "Departamentos")
+                if (e.Node.Text != "Departamentos" || e.Node.Text != "DETRI")
                 {
                     panelDocenteInfo.Visible = true;
+                    panelMain.Visible = true;
 
                     lblDocenteName.Text = string.Empty;
                     lblSemestre.Text = string.Empty;
@@ -167,6 +174,9 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
                     dgvAsignaturas.DataSource = null; // Eliminar el origen de datos actual
                     dgvAsignaturas.DataSource = objetoCarga_N_2.LoadAsignaturas_Negocio(idCH.ToString());
                     dgvAsignaturas.Columns[0].Visible = false;
+
+                    tableStyle.tableStyle(dgvActividades);
+                    tableStyle.tableStyle(dgvAsignaturas);
 
                     lblDocenteName.Text = docenteName;
                     lblSemestre.Text = cmbSemestre.Text;
@@ -220,7 +230,27 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
             lblTotalGestion.Text = (horasSemanalesGestion + horasTotalesGestion).ToString();
             lblTotalInv.Text = (horasSemanalesInvestigacion + horasTotalesInvestigacion).ToString();
             lblHorasTotales.Text = horasTotalesCargaHoraria.ToString();
-            
+
+        }
+
+        class CustomPageEventHandler : IEventHandler
+        {
+            public void HandleEvent(Event @event)
+            {
+                PdfDocumentEvent docEvent = (PdfDocumentEvent)@event;
+                PdfDocument pdfDoc = docEvent.GetDocument();
+                PdfPage page = docEvent.GetPage();
+                int pageNumber = pdfDoc.GetPageNumber(page);
+                Rectangle pageSize = page.GetPageSize();
+
+                PdfCanvas pdfCanvas = new PdfCanvas(page.NewContentStreamBefore(), page.GetResources(), pdfDoc);
+                Canvas canvas = new Canvas(pdfCanvas, pageSize);
+                canvas.SetFontColor(ColorConstants.GRAY)
+                    .SetFontSize(10)
+                    .ShowTextAligned(pageNumber.ToString(), pageSize.GetWidth() - 50, 30, TextAlignment.RIGHT);
+
+                canvas.Close();
+            }
         }
 
         private void btnPrint_Click(object sender, EventArgs e)
@@ -231,7 +261,185 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
             // Establecer opciones de diálogo
             saveFileDialog1.Filter = "Archivos PDF|*.pdf";
             saveFileDialog1.Title = "Guardar documento PDF";
+            saveFileDialog1.FileName = docenteName + "_CargaAcademica_" + cmbSemestre.Text;
+
+            // Mostrar el diálogo y guardar el archivo si el usuario hace clic en Guardar
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                string filePath = saveFileDialog1.FileName;
+
+                // Generar el documento y guardarlo en filePath
+
+                // Crea un objeto PdfWriter para escribir en el archivo PDF
+                //PdfWriter writer = new PdfWriter(filePath);
+
+                // Crea un objeto PdfDocument con el PdfWriter
+                PdfDocument pdf = new PdfDocument(new PdfWriter(filePath));
+
+                // Crea un objeto Document asociado al PdfDocument
+                Document doc = new Document(pdf, PageSize.A4);
+
+                // Establecer márgenes
+                doc.SetMargins(50, 50, 50, 50);
+
+                // Agrega un encabezado al documento
+                PdfFont timesNewRoman = PdfFontFactory.CreateFont(StandardFonts.TIMES_ROMAN);
+                PdfFont fontNegritaTitle = PdfFontFactory.CreateFont(StandardFonts.TIMES_BOLD);
+                PdfFont fontNegrita = PdfFontFactory.CreateFont(StandardFonts.TIMES_BOLD);
+
+                Style defaultStyle = new Style().SetFont(timesNewRoman);
+                
+
+                //PdfFont fontNegritaTitle = PdfFontFactory.CreateFont("c:/windows/fonts/verdana.ttf", PdfEncodings.IDENTITY_H);
+                //PdfFont fontNegrita = PdfFontFactory.CreateFont("c:/windows/fonts/verdana.ttf", PdfEncodings.IDENTITY_H);
+
+                //Font fontNegritaTitle = PdfFontFactory.CreateFont(StandardFonts.HELVETICA_BOLD);
+                //Font fontNegrita = PdfFontFactory.CreateFont(StandardFonts.HELVETICA_BOLD);
+
+                Paragraph header = new Paragraph("Carga Académica").SetFont(fontNegritaTitle).SetFontSize(20).SetTextAlignment(TextAlignment.CENTER);
+                header.SetMarginBottom(10);
+                doc.Add(header);
+
+                Paragraph docenteData = new Paragraph("Docente: " + docenteName).SetFont(fontNegrita).SetFontSize(14);
+                docenteData.SetMarginBottom(3);
+                doc.Add(docenteData);
+
+                Paragraph semestreData = new Paragraph("Semestre: " + cmbSemestre.Text).SetFont(fontNegrita).SetFontSize(14);
+                semestreData.SetMarginBottom(10);
+                doc.Add(semestreData);
+
+                #region Gestion Asignaturas TABLE
+                Paragraph AsignaturasTitle = new Paragraph("Gestión de Asignaturas").SetFont(fontNegrita).SetFontSize(14);
+                AsignaturasTitle.SetMarginBottom(10);
+                doc.Add(AsignaturasTitle);
+
+                // Carga los datos de la tabla desde la base de datos en un objeto DataTable
+                DataTable dt = objetoCarga_N.LoadAllActividades_Negocio(idCH.ToString());
+
+                DataTable dtAsignaturas = objetoCarga_N_2.LoadAsignaturas_Negocio(idCH.ToString());
+                // Crea una tabla con 4 columnas
+                Table tableAsignaturas = new Table(4);
+
+                foreach (DataColumn column in dtAsignaturas.Columns)
+                {
+                    if (column.Ordinal != 0)
+                    {
+                        Cell cell = new Cell().Add(new Paragraph(column.ColumnName));
+                        cell.SetTextAlignment(TextAlignment.CENTER);
+                        tableAsignaturas.AddHeaderCell(cell);
+                    }
+                }
+
+                // Agrega filas a la tabla
+                foreach (DataRow row in dtAsignaturas.Rows)
+                {
+                    for (int i = 1; i < dtAsignaturas.Columns.Count; i++)
+                    {
+                        Cell cell = new Cell().Add(new Paragraph(row[i].ToString()));
+                        cell.SetTextAlignment(TextAlignment.LEFT);
+                        cell.SetVerticalAlignment(VerticalAlignment.MIDDLE);
+                        tableAsignaturas.AddCell(cell);
+                    }
+                }
+
+                // Agrega espacio antes y después de la tabla
+                tableAsignaturas.SetMarginTop(10f);
+                tableAsignaturas.SetMarginBottom(10f);
+
+                // Agrega la tabla al documento
+                doc.Add(tableAsignaturas);
+                #endregion
+
+                Paragraph AcividadesTitle = new Paragraph("Gestión de Actividades").SetFont(fontNegrita).SetFontSize(14);
+                AcividadesTitle.SetMarginBottom(10);
+                doc.Add(AcividadesTitle);
+
+                // Crea una tabla con 4 columnas
+                Table table = new Table(4);
+
+                foreach (DataColumn column in dt.Columns)
+                {
+                    if (column.Ordinal != 0)
+                    {
+                        Cell cell = new Cell().Add(new Paragraph(column.ColumnName));
+                        cell.SetTextAlignment(TextAlignment.CENTER);
+                        cell.SetVerticalAlignment(VerticalAlignment.MIDDLE);
+                        table.AddHeaderCell(cell);
+                    }
+                }
+
+                // Agrega filas a la tabla
+                foreach (DataRow row in dt.Rows)
+                {
+                    for (int i = 1; i < dt.Columns.Count; i++)
+                    {
+                        Cell cell = new Cell().Add(new Paragraph(row[i].ToString()));
+                        cell.SetTextAlignment(TextAlignment.LEFT);
+                        cell.SetVerticalAlignment(VerticalAlignment.MIDDLE);
+                        table.AddCell(cell);
+                    }
+                }
+
+                // Agrega espacio antes y después de la tabla
+                table.SetMarginTop(10f);
+                table.SetMarginBottom(10f);
+
+                // Agrega la tabla al documento
+                doc.Add(table);
+
+                Paragraph HorasTotalesTitle = new Paragraph("HORAS TOTALES").SetFont(fontNegrita).SetFontSize(14);
+                HorasTotalesTitle.SetMarginBottom(10);
+                doc.Add(HorasTotalesTitle);
+
+                // Crear una tabla con 2 columnas y 4 filas
+                Table tableTotalHours = new Table(2);
+
+                // Agregar la primera fila a la tabla
+                tableTotalHours.AddCell("TOTAL DOCENCIA");
+                tableTotalHours.AddCell(horasTotalesDocenciaT.ToString());
+
+                // Agregar la segunda fila a la tabla
+                tableTotalHours.AddCell("TOTAL INVESTIGACION");
+                tableTotalHours.AddCell(horasTotalesInvestigacion.ToString());
+
+                // Agregar la tercera fila a la tabla
+                tableTotalHours.AddCell("TOTAL GESTION");
+                tableTotalHours.AddCell(horasTotalesGestion.ToString());
+
+                // Agregar la cuarta fila a la tabla
+                Cell totalCell = new Cell(1, 2).Add(new Paragraph("TOTAL").SetFont(fontNegrita));
+                tableTotalHours.AddCell(totalCell);
+                tableTotalHours.AddCell(horasTotalesCargaHoraria.ToString());
+
+                // Agrega espacio antes y después de la tabla
+                tableTotalHours.SetMarginTop(10f);
+                tableTotalHours.SetMarginBottom(10f);
+
+                // Agregar la tabla al documento
+                doc.Add(tableTotalHours);
+
+                // Agregar el evento del pie de página al documento
+                CustomPageEventHandler handler = new CustomPageEventHandler();
+                pdf.AddEventHandler(PdfDocumentEvent.END_PAGE, handler);
+
+                // Cierra el documento
+                doc.Close();
+            }
+        }
+
+
+
+        /*
+        private void btnPrint_Click(object sender, EventArgs e)
+        {
+            // Crear un objeto SaveFileDialog
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+
+            // Establecer opciones de diálogo
+            saveFileDialog1.Filter = "Archivos PDF|*.pdf";
+            saveFileDialog1.Title = "Guardar documento PDF";
             saveFileDialog1.FileName = docenteName +"_CargaAcademica_" + cmbSemestre.Text;
+
 
             // Mostrar el diálogo y guardar el archivo si el usuario hace clic en Guardar
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
@@ -240,7 +448,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
                 // Generar el documento y guardarlo en filePath
                 // Crea un objeto Document
                 Document doc = new Document(new iTextSharp.text.Rectangle(297, 210), 10, 10, 10, 10);
-                doc.AddTitle("The document title - PDF creation using iTextSharp");
+                doc.AddTitle("Carga académica");
                 // Establecer la orientación horizontal
                 doc.SetPageSize(PageSize.A4);
                 doc.SetMargins(50, 50, 50, 50);
@@ -250,11 +458,12 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
 
                 DataTable dtAsignaturas = objetoCarga_N_2.LoadAsignaturas_Negocio(idCH.ToString());
                 // Crea un objeto PdfWriter para escribir en el archivo PDF
-                PdfWriter.GetInstance(doc, new FileStream(filePath, FileMode.Create));
-                
+                //PdfWriter.GetInstance(doc, new FileStream(filePath, FileMode.Create));
+                PdfWriter writer = PdfWriter.GetInstance(doc, new FileStream(filePath, FileMode.Create));
+
+
                 // Abre el documento para escribir
                 doc.Open();
-                iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance(@"Images/EPNLogo.png");
                 // Agrega un encabezado al documento
 
                 // Crea un objeto Font con estilo "negrita"
@@ -389,5 +598,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
 
             
         }
+    }
+        */
     }
 }

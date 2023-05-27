@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\jorge\\OneDrive - Escuela Politécnica Nacional\\TESIS LAPTOP SYNC\\Respaldo 27 may\\Carga Horaria Project\\Directorio-Entidades\\Directorio-Entidades.csproj",
+      "projectUniqueName": "C:\\Users\\jorge\\OneDrive - Escuela Politécnica Nacional\\TESIS LAPTOP SYNC\\resp\\Carga Horaria Project\\Directorio-Entidades\\Directorio-Entidades.csproj",
       "projectName": "Directorio-Entidades",
-      "projectPath": "C:\\Users\\jorge\\OneDrive - Escuela Politécnica Nacional\\TESIS LAPTOP SYNC\\Respaldo 27 may\\Carga Horaria Project\\Directorio-Entidades\\Directorio-Entidades.csproj",
+      "projectPath": "C:\\Users\\jorge\\OneDrive - Escuela Politécnica Nacional\\TESIS LAPTOP SYNC\\resp\\Carga Horaria Project\\Directorio-Entidades\\Directorio-Entidades.csproj",
       "packagesPath": "C:\\Users\\jorge\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\jorge\\OneDrive - Escuela Politécnica Nacional\\TESIS LAPTOP SYNC\\Respaldo 27 may\\Carga Horaria Project\\Directorio-Entidades\\obj\\",
+      "outputPath": "C:\\Users\\jorge\\OneDrive - Escuela Politécnica Nacional\\TESIS LAPTOP SYNC\\resp\\Carga Horaria Project\\Directorio-Entidades\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\jorge\\AppData\\Roaming\\NuGet\\NuGet.Config",

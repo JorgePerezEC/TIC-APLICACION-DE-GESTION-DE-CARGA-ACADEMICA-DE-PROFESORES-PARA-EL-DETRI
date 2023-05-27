@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Z0YRojeiGelRVEQHlEe46dP4bXpp7ha5v3L2QhYUnBdEZw9OTmTEB9NwD2d7yNkyA6FI+8jCIRFR7sJpz1RwGg==",
+  "dgSpecHash": "j25IYJLEH5BxAsHrTGWLdHyuCHj7jgvgHl8J758o+9C83lZ6Z3klOzZ/zijD851Gcvtqs5s1HXAprrqYjvU4Fw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\jorge\\OneDrive - Escuela Politécnica Nacional\\TESIS LAPTOP SYNC\\Respaldo 27 may\\Carga Horaria Project\\Directorio-Logica\\Directorio-LogicaNegocio.csproj",
+  "projectFilePath": "C:\\Users\\jorge\\OneDrive - Escuela Politécnica Nacional\\TESIS LAPTOP SYNC\\resp\\Carga Horaria Project\\Directorio-Logica\\Directorio-LogicaNegocio.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\jorge\\.nuget\\packages\\microsoft.extensions.configuration\\6.0.0\\microsoft.extensions.configuration.6.0.0.nupkg.sha512",
     "C:\\Users\\jorge\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\6.0.0\\microsoft.extensions.configuration.abstractions.6.0.0.nupkg.sha512",

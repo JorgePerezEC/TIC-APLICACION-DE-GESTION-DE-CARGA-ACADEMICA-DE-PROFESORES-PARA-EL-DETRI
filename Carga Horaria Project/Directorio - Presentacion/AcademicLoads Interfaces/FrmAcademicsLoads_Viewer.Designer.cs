@@ -52,10 +52,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.panel8 = new System.Windows.Forms.Panel();
             this.label6 = new System.Windows.Forms.Label();
-            this.panel5 = new System.Windows.Forms.Panel();
-            this.dgvActividades = new System.Windows.Forms.DataGridView();
-            this.panel6 = new System.Windows.Forms.Panel();
-            this.label3 = new System.Windows.Forms.Label();
+            this.panelContenedor = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.txtHorasT_Semestre = new System.Windows.Forms.TextBox();
             this.txtHorasT_Semana = new System.Windows.Forms.TextBox();
@@ -63,27 +60,32 @@
             this.dgvAsignaturas = new System.Windows.Forms.DataGridView();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.dgvActividades = new System.Windows.Forms.DataGridView();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
             this.panelSuperior = new System.Windows.Forms.Panel();
             this.panelDocenteInfo = new System.Windows.Forms.Panel();
+            this.lblHorasExigibles = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
             this.lblSemestre = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.lblDocenteName = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.btnCloseWin = new System.Windows.Forms.Button();
-            this.lblHorasExigibles = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panelMain.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel7.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel8.SuspendLayout();
-            this.panel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvActividades)).BeginInit();
-            this.panel6.SuspendLayout();
+            this.panelContenedor.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAsignaturas)).BeginInit();
             this.panel3.SuspendLayout();
+            this.panel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvActividades)).BeginInit();
+            this.panel6.SuspendLayout();
             this.panelSuperior.SuspendLayout();
             this.panelDocenteInfo.SuspendLayout();
             this.SuspendLayout();
@@ -110,7 +112,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(455, 1155);
+            this.panel1.Size = new System.Drawing.Size(455, 896);
             this.panel1.TabIndex = 0;
             // 
             // label11
@@ -165,35 +167,35 @@
             this.panelMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelMain.Location = new System.Drawing.Point(455, 0);
             this.panelMain.Name = "panelMain";
-            this.panelMain.Size = new System.Drawing.Size(1143, 1155);
+            this.panelMain.Size = new System.Drawing.Size(1075, 896);
             this.panelMain.TabIndex = 1;
+            this.panelMain.Visible = false;
             // 
             // panel4
             // 
-            this.panel4.AutoScroll = true;
             this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(76)))), ((int)(((byte)(146)))));
             this.panel4.Controls.Add(this.panel7);
-            this.panel4.Controls.Add(this.panel5);
-            this.panel4.Controls.Add(this.panel2);
+            this.panel4.Controls.Add(this.panelContenedor);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel4.Location = new System.Drawing.Point(0, 88);
             this.panel4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(1143, 1067);
+            this.panel4.Size = new System.Drawing.Size(1075, 808);
             this.panel4.TabIndex = 1;
             // 
             // panel7
             // 
-            this.panel7.BackColor = System.Drawing.Color.BurlyWood;
+            this.panel7.BackColor = System.Drawing.Color.LightSteelBlue;
             this.panel7.Controls.Add(this.tableLayoutPanel1);
             this.panel7.Controls.Add(this.btnPrint);
             this.panel7.Controls.Add(this.textBox3);
             this.panel7.Controls.Add(this.textBox4);
             this.panel7.Controls.Add(this.label5);
             this.panel7.Controls.Add(this.panel8);
-            this.panel7.Location = new System.Drawing.Point(27, 764);
+            this.panel7.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel7.Location = new System.Drawing.Point(0, 586);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(972, 185);
+            this.panel7.Size = new System.Drawing.Size(1075, 222);
             this.panel7.TabIndex = 5;
             // 
             // tableLayoutPanel1
@@ -332,7 +334,7 @@
             this.btnPrint.BackColor = System.Drawing.Color.MediumSeaGreen;
             this.btnPrint.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnPrint.ForeColor = System.Drawing.Color.White;
-            this.btnPrint.Location = new System.Drawing.Point(518, 71);
+            this.btnPrint.Location = new System.Drawing.Point(392, 68);
             this.btnPrint.Name = "btnPrint";
             this.btnPrint.Size = new System.Drawing.Size(158, 50);
             this.btnPrint.TabIndex = 7;
@@ -368,7 +370,7 @@
             // 
             // panel8
             // 
-            this.panel8.BackColor = System.Drawing.Color.Peru;
+            this.panel8.BackColor = System.Drawing.Color.SteelBlue;
             this.panel8.Controls.Add(this.label6);
             this.panel8.Location = new System.Drawing.Point(15, 14);
             this.panel8.Name = "panel8";
@@ -385,54 +387,30 @@
             this.label6.TabIndex = 0;
             this.label6.Text = "Horas Totales";
             // 
-            // panel5
+            // panelContenedor
             // 
-            this.panel5.BackColor = System.Drawing.Color.Moccasin;
-            this.panel5.Controls.Add(this.dgvActividades);
-            this.panel5.Controls.Add(this.panel6);
-            this.panel5.Location = new System.Drawing.Point(27, 330);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(972, 419);
-            this.panel5.TabIndex = 4;
-            // 
-            // dgvActividades
-            // 
-            this.dgvActividades.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvActividades.Location = new System.Drawing.Point(15, 53);
-            this.dgvActividades.Name = "dgvActividades";
-            this.dgvActividades.RowHeadersWidth = 51;
-            this.dgvActividades.RowTemplate.Height = 29;
-            this.dgvActividades.Size = new System.Drawing.Size(920, 343);
-            this.dgvActividades.TabIndex = 3;
-            // 
-            // panel6
-            // 
-            this.panel6.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.panel6.Controls.Add(this.label3);
-            this.panel6.Location = new System.Drawing.Point(15, 14);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(361, 33);
-            this.panel6.TabIndex = 2;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label3.Location = new System.Drawing.Point(23, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(258, 31);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "Gestión de Actividades";
+            this.panelContenedor.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelContenedor.AutoScroll = true;
+            this.panelContenedor.AutoScrollMinSize = new System.Drawing.Size(600, 800);
+            this.panelContenedor.Controls.Add(this.panel2);
+            this.panelContenedor.Controls.Add(this.panel5);
+            this.panelContenedor.Location = new System.Drawing.Point(0, 0);
+            this.panelContenedor.Name = "panelContenedor";
+            this.panelContenedor.Size = new System.Drawing.Size(1075, 594);
+            this.panelContenedor.TabIndex = 6;
             // 
             // panel2
             // 
+            this.panel2.AutoScroll = true;
             this.panel2.BackColor = System.Drawing.Color.Moccasin;
             this.panel2.Controls.Add(this.txtHorasT_Semestre);
             this.panel2.Controls.Add(this.txtHorasT_Semana);
             this.panel2.Controls.Add(this.label4);
             this.panel2.Controls.Add(this.dgvAsignaturas);
             this.panel2.Controls.Add(this.panel3);
-            this.panel2.Location = new System.Drawing.Point(27, 17);
+            this.panel2.Location = new System.Drawing.Point(27, 15);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(972, 297);
             this.panel2.TabIndex = 3;
@@ -470,7 +448,7 @@
             this.dgvAsignaturas.Name = "dgvAsignaturas";
             this.dgvAsignaturas.RowHeadersWidth = 51;
             this.dgvAsignaturas.RowTemplate.Height = 29;
-            this.dgvAsignaturas.Size = new System.Drawing.Size(920, 192);
+            this.dgvAsignaturas.Size = new System.Drawing.Size(650, 192);
             this.dgvAsignaturas.TabIndex = 3;
             // 
             // panel3
@@ -492,16 +470,56 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "Gestión de Asignaturas";
             // 
+            // panel5
+            // 
+            this.panel5.AutoScroll = true;
+            this.panel5.BackColor = System.Drawing.Color.Moccasin;
+            this.panel5.Controls.Add(this.dgvActividades);
+            this.panel5.Controls.Add(this.panel6);
+            this.panel5.Location = new System.Drawing.Point(27, 338);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(972, 419);
+            this.panel5.TabIndex = 4;
+            // 
+            // dgvActividades
+            // 
+            this.dgvActividades.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvActividades.Location = new System.Drawing.Point(15, 53);
+            this.dgvActividades.Name = "dgvActividades";
+            this.dgvActividades.RowHeadersWidth = 51;
+            this.dgvActividades.RowTemplate.Height = 29;
+            this.dgvActividades.Size = new System.Drawing.Size(791, 343);
+            this.dgvActividades.TabIndex = 3;
+            // 
+            // panel6
+            // 
+            this.panel6.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.panel6.Controls.Add(this.label3);
+            this.panel6.Location = new System.Drawing.Point(15, 14);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(361, 33);
+            this.panel6.TabIndex = 2;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label3.Location = new System.Drawing.Point(23, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(258, 31);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "Gestión de Actividades";
+            // 
             // panelSuperior
             // 
-            this.panelSuperior.BackColor = System.Drawing.Color.Gold;
+            this.panelSuperior.BackColor = System.Drawing.Color.LightGray;
             this.panelSuperior.Controls.Add(this.panelDocenteInfo);
             this.panelSuperior.Controls.Add(this.btnCloseWin);
             this.panelSuperior.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelSuperior.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.panelSuperior.Location = new System.Drawing.Point(0, 0);
             this.panelSuperior.Name = "panelSuperior";
-            this.panelSuperior.Size = new System.Drawing.Size(1143, 88);
+            this.panelSuperior.Size = new System.Drawing.Size(1075, 88);
             this.panelSuperior.TabIndex = 0;
             // 
             // panelDocenteInfo
@@ -517,6 +535,28 @@
             this.panelDocenteInfo.Size = new System.Drawing.Size(1027, 72);
             this.panelDocenteInfo.TabIndex = 8;
             this.panelDocenteInfo.Visible = false;
+            // 
+            // lblHorasExigibles
+            // 
+            this.lblHorasExigibles.AutoSize = true;
+            this.lblHorasExigibles.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblHorasExigibles.ForeColor = System.Drawing.Color.Gray;
+            this.lblHorasExigibles.Location = new System.Drawing.Point(843, 0);
+            this.lblHorasExigibles.Name = "lblHorasExigibles";
+            this.lblHorasExigibles.Size = new System.Drawing.Size(90, 38);
+            this.lblHorasExigibles.TabIndex = 11;
+            this.lblHorasExigibles.Text = "name";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label16.ForeColor = System.Drawing.Color.Gray;
+            this.label16.Location = new System.Drawing.Point(618, 0);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(224, 38);
+            this.label16.TabIndex = 10;
+            this.label16.Text = "Horas Exigibles:";
             // 
             // lblSemestre
             // 
@@ -573,39 +613,18 @@
             this.btnCloseWin.Location = new System.Drawing.Point(1163, 23);
             this.btnCloseWin.MaximumSize = new System.Drawing.Size(125, 41);
             this.btnCloseWin.Name = "btnCloseWin";
-            this.btnCloseWin.Size = new System.Drawing.Size(125, 41);
+            this.btnCloseWin.Size = new System.Drawing.Size(57, 41);
             this.btnCloseWin.TabIndex = 6;
             this.btnCloseWin.Text = "Cerrar";
             this.btnCloseWin.UseVisualStyleBackColor = false;
             this.btnCloseWin.Click += new System.EventHandler(this.btnCloseWin_Click);
             // 
-            // lblHorasExigibles
-            // 
-            this.lblHorasExigibles.AutoSize = true;
-            this.lblHorasExigibles.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblHorasExigibles.ForeColor = System.Drawing.Color.Gray;
-            this.lblHorasExigibles.Location = new System.Drawing.Point(843, 0);
-            this.lblHorasExigibles.Name = "lblHorasExigibles";
-            this.lblHorasExigibles.Size = new System.Drawing.Size(90, 38);
-            this.lblHorasExigibles.TabIndex = 11;
-            this.lblHorasExigibles.Text = "name";
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label16.ForeColor = System.Drawing.Color.Gray;
-            this.label16.Location = new System.Drawing.Point(618, 0);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(224, 38);
-            this.label16.TabIndex = 10;
-            this.label16.Text = "Horas Exigibles:";
-            // 
             // FrmAcademicsLoads_Viewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1598, 1155);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(76)))), ((int)(((byte)(146)))));
+            this.ClientSize = new System.Drawing.Size(1530, 896);
             this.Controls.Add(this.panelMain);
             this.Controls.Add(this.panel1);
             this.Name = "FrmAcademicsLoads_Viewer";
@@ -621,15 +640,16 @@
             this.tableLayoutPanel1.PerformLayout();
             this.panel8.ResumeLayout(false);
             this.panel8.PerformLayout();
-            this.panel5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvActividades)).EndInit();
-            this.panel6.ResumeLayout(false);
-            this.panel6.PerformLayout();
+            this.panelContenedor.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAsignaturas)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            this.panel5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvActividades)).EndInit();
+            this.panel6.ResumeLayout(false);
+            this.panel6.PerformLayout();
             this.panelSuperior.ResumeLayout(false);
             this.panelDocenteInfo.ResumeLayout(false);
             this.panelDocenteInfo.PerformLayout();
@@ -682,5 +702,6 @@
         private Label label15;
         private Label lblHorasExigibles;
         private Label label16;
+        private Panel panelContenedor;
     }
 }

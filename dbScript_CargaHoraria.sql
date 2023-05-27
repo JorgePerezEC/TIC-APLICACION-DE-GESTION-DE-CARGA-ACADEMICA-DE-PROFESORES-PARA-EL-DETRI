@@ -8,15 +8,15 @@
 ------------------------------
 USE master
 GO
-IF EXISTS (SELECT name FROM sys.databases WHERE name = 'dbCargaHorariaApril')
+IF EXISTS (SELECT name FROM sys.databases WHERE name = 'dbCargaHorariaMay')
 BEGIN
-    DROP DATABASE dbCargaHorariaApril;
+    DROP DATABASE dbCargaHorariaMay;
 END
 GO
 PRINT 'Creating DB';
-CREATE DATABASE dbCargaHorariaApril;
+CREATE DATABASE dbCargaHorariaMay;
 GO
-USE dbCargaHorariaApril;
+USE dbCargaHorariaMay;
 
 -----------------------------------------
 -- Table Creation Section
