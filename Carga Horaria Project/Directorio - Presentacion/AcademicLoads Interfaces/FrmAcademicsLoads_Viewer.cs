@@ -11,10 +11,13 @@ using iText.Kernel.Font;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Canvas;
+using iText.Kernel.Pdf.Canvas.Draw;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Properties;
 using Rectangle = iText.Kernel.Geom.Rectangle;
+using iText.IO.Image;
+using Image = iText.Layout.Element.Image;
 
 namespace Directorio___Presentacion.AcademicLoads_Interfaces
 {
@@ -233,25 +236,6 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
 
         }
 
-        class CustomPageEventHandler : IEventHandler
-        {
-            public void HandleEvent(Event @event)
-            {
-                PdfDocumentEvent docEvent = (PdfDocumentEvent)@event;
-                PdfDocument pdfDoc = docEvent.GetDocument();
-                PdfPage page = docEvent.GetPage();
-                int pageNumber = pdfDoc.GetPageNumber(page);
-                Rectangle pageSize = page.GetPageSize();
-
-                PdfCanvas pdfCanvas = new PdfCanvas(page.NewContentStreamBefore(), page.GetResources(), pdfDoc);
-                Canvas canvas = new Canvas(pdfCanvas, pageSize);
-                canvas.SetFontColor(ColorConstants.GRAY)
-                    .SetFontSize(10)
-                    .ShowTextAligned(pageNumber.ToString(), pageSize.GetWidth() - 50, 30, TextAlignment.RIGHT);
-
-                canvas.Close();
-            }
-        }
 
         private void btnPrint_Click(object sender, EventArgs e)
         {
@@ -270,9 +254,6 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
 
                 // Generar el documento y guardarlo en filePath
 
-                // Crea un objeto PdfWriter para escribir en el archivo PDF
-                //PdfWriter writer = new PdfWriter(filePath);
-
                 // Crea un objeto PdfDocument con el PdfWriter
                 PdfDocument pdf = new PdfDocument(new PdfWriter(filePath));
 
@@ -288,29 +269,31 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
                 PdfFont fontNegrita = PdfFontFactory.CreateFont(StandardFonts.TIMES_BOLD);
 
                 Style defaultStyle = new Style().SetFont(timesNewRoman);
-                
 
-                //PdfFont fontNegritaTitle = PdfFontFactory.CreateFont("c:/windows/fonts/verdana.ttf", PdfEncodings.IDENTITY_H);
-                //PdfFont fontNegrita = PdfFontFactory.CreateFont("c:/windows/fonts/verdana.ttf", PdfEncodings.IDENTITY_H);
 
-                //Font fontNegritaTitle = PdfFontFactory.CreateFont(StandardFonts.HELVETICA_BOLD);
-                //Font fontNegrita = PdfFontFactory.CreateFont(StandardFonts.HELVETICA_BOLD);
-
-                Paragraph header = new Paragraph("Carga Académica").SetFont(fontNegritaTitle).SetFontSize(20).SetTextAlignment(TextAlignment.CENTER);
+                Paragraph header = new Paragraph("Detalle de Carga Académica").SetFont(fontNegritaTitle).SetFontSize(20).SetTextAlignment(TextAlignment.CENTER);
                 header.SetMarginBottom(10);
                 doc.Add(header);
 
-                Paragraph docenteData = new Paragraph("Docente: " + docenteName).SetFont(fontNegrita).SetFontSize(14);
-                docenteData.SetMarginBottom(3);
+                Paragraph docenteData = new Paragraph("Docente: " + docenteName).SetFont(timesNewRoman).SetFontSize(12);
+                docenteData.SetMarginBottom(-5);
                 doc.Add(docenteData);
 
-                Paragraph semestreData = new Paragraph("Semestre: " + cmbSemestre.Text).SetFont(fontNegrita).SetFontSize(14);
-                semestreData.SetMarginBottom(10);
+                Paragraph semestreData = new Paragraph("Semestre: " + cmbSemestre.Text).SetFont(timesNewRoman).SetFontSize(12);
+                semestreData.SetMarginBottom(-5);
                 doc.Add(semestreData);
+
+                Paragraph horasExigiblesData = new Paragraph("Horas exigibles: " + horasExigibles.ToString ()).SetFont(timesNewRoman).SetFontSize(12);
+                horasExigiblesData.SetMarginBottom(0);
+                doc.Add(horasExigiblesData);
+
+                Paragraph line = new Paragraph("__________________________________________________________________________________").SetFont(fontNegrita).SetFontSize(12);
+                line.SetMarginBottom(5).SetMarginTop (-5);
+                doc.Add(line);
 
                 #region Gestion Asignaturas TABLE
                 Paragraph AsignaturasTitle = new Paragraph("Gestión de Asignaturas").SetFont(fontNegrita).SetFontSize(14);
-                AsignaturasTitle.SetMarginBottom(10);
+                AsignaturasTitle.SetMarginBottom(2);
                 doc.Add(AsignaturasTitle);
 
                 // Carga los datos de la tabla desde la base de datos en un objeto DataTable
@@ -326,6 +309,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
                     {
                         Cell cell = new Cell().Add(new Paragraph(column.ColumnName));
                         cell.SetTextAlignment(TextAlignment.CENTER);
+                        cell.SetFont(fontNegrita).SetFontSize(10).SetBackgroundColor(new DeviceRgb(230, 230, 230)); ;
                         tableAsignaturas.AddHeaderCell(cell);
                     }
                 }
@@ -337,6 +321,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
                     {
                         Cell cell = new Cell().Add(new Paragraph(row[i].ToString()));
                         cell.SetTextAlignment(TextAlignment.LEFT);
+                        cell.SetFont(timesNewRoman).SetFontSize(10);
                         cell.SetVerticalAlignment(VerticalAlignment.MIDDLE);
                         tableAsignaturas.AddCell(cell);
                     }
@@ -351,7 +336,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
                 #endregion
 
                 Paragraph AcividadesTitle = new Paragraph("Gestión de Actividades").SetFont(fontNegrita).SetFontSize(14);
-                AcividadesTitle.SetMarginBottom(10);
+                AcividadesTitle.SetMarginBottom(2);
                 doc.Add(AcividadesTitle);
 
                 // Crea una tabla con 4 columnas
@@ -363,7 +348,8 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
                     {
                         Cell cell = new Cell().Add(new Paragraph(column.ColumnName));
                         cell.SetTextAlignment(TextAlignment.CENTER);
-                        cell.SetVerticalAlignment(VerticalAlignment.MIDDLE);
+                        cell.SetFont(fontNegrita).SetFontSize(10);
+                        cell.SetVerticalAlignment(VerticalAlignment.MIDDLE).SetBackgroundColor(new DeviceRgb(230, 230, 230)); ;
                         table.AddHeaderCell(cell);
                     }
                 }
@@ -375,6 +361,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
                     {
                         Cell cell = new Cell().Add(new Paragraph(row[i].ToString()));
                         cell.SetTextAlignment(TextAlignment.LEFT);
+                        cell.SetFont(timesNewRoman).SetFontSize(10);
                         cell.SetVerticalAlignment(VerticalAlignment.MIDDLE);
                         table.AddCell(cell);
                     }
@@ -388,28 +375,28 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
                 doc.Add(table);
 
                 Paragraph HorasTotalesTitle = new Paragraph("HORAS TOTALES").SetFont(fontNegrita).SetFontSize(14);
-                HorasTotalesTitle.SetMarginBottom(10);
+                HorasTotalesTitle.SetMarginBottom(2);
                 doc.Add(HorasTotalesTitle);
 
                 // Crear una tabla con 2 columnas y 4 filas
                 Table tableTotalHours = new Table(2);
 
                 // Agregar la primera fila a la tabla
-                tableTotalHours.AddCell("TOTAL DOCENCIA");
-                tableTotalHours.AddCell(horasTotalesDocenciaT.ToString());
+                tableTotalHours.AddCell("TOTAL DOCENCIA").SetFont(timesNewRoman).SetFontSize(10); 
+                tableTotalHours.AddCell(horasTotalesDocenciaT.ToString()).SetFont(timesNewRoman).SetFontSize(10);
 
                 // Agregar la segunda fila a la tabla
-                tableTotalHours.AddCell("TOTAL INVESTIGACION");
-                tableTotalHours.AddCell(horasTotalesInvestigacion.ToString());
+                tableTotalHours.AddCell("TOTAL INVESTIGACION").SetFont(timesNewRoman).SetFontSize(10);
+                tableTotalHours.AddCell((horasSemanalesInvestigacion + horasTotalesInvestigacion).ToString()).SetFont(timesNewRoman).SetFontSize(10);
 
                 // Agregar la tercera fila a la tabla
-                tableTotalHours.AddCell("TOTAL GESTION");
-                tableTotalHours.AddCell(horasTotalesGestion.ToString());
+                tableTotalHours.AddCell("TOTAL GESTION").SetFont(timesNewRoman).SetFontSize(10);
+                tableTotalHours.AddCell((horasSemanalesGestion + horasTotalesGestion).ToString()).SetFont(timesNewRoman).SetFontSize(10);
 
                 // Agregar la cuarta fila a la tabla
-                Cell totalCell = new Cell(1, 2).Add(new Paragraph("TOTAL").SetFont(fontNegrita));
-                tableTotalHours.AddCell(totalCell);
-                tableTotalHours.AddCell(horasTotalesCargaHoraria.ToString());
+                tableTotalHours.AddCell("TOTAL").SetFont(timesNewRoman).SetFontSize(10);
+                tableTotalHours.AddCell(horasTotalesCargaHoraria.ToString()).SetFont(timesNewRoman).SetFontSize(10);
+
 
                 // Agrega espacio antes y después de la tabla
                 tableTotalHours.SetMarginTop(10f);
@@ -418,7 +405,9 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
                 // Agregar la tabla al documento
                 doc.Add(tableTotalHours);
 
-                // Agregar el evento del pie de página al documento
+                
+
+                // Agregar el evento del pie de página y el encabezado al documento
                 CustomPageEventHandler handler = new CustomPageEventHandler();
                 pdf.AddEventHandler(PdfDocumentEvent.END_PAGE, handler);
 
@@ -427,178 +416,74 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
             }
         }
 
-
-
-        /*
-        private void btnPrint_Click(object sender, EventArgs e)
+        class CustomPageEventHandler : IEventHandler
         {
-            // Crear un objeto SaveFileDialog
-            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-
-            // Establecer opciones de diálogo
-            saveFileDialog1.Filter = "Archivos PDF|*.pdf";
-            saveFileDialog1.Title = "Guardar documento PDF";
-            saveFileDialog1.FileName = docenteName +"_CargaAcademica_" + cmbSemestre.Text;
-
-
-            // Mostrar el diálogo y guardar el archivo si el usuario hace clic en Guardar
-            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            private string logoImagePath = "C:\\Users\\jorge\\OneDrive - Escuela Politécnica Nacional\\TESIS LAPTOP SYNC\\resp\\Carga Horaria Project\\Directorio - Presentacion\\Images\\EPNLogo.png";
+            public void HandleEvent(Event @event)
             {
-                string filePath = saveFileDialog1.FileName;
-                // Generar el documento y guardarlo en filePath
-                // Crea un objeto Document
-                Document doc = new Document(new iTextSharp.text.Rectangle(297, 210), 10, 10, 10, 10);
-                doc.AddTitle("Carga académica");
-                // Establecer la orientación horizontal
-                doc.SetPageSize(PageSize.A4);
-                doc.SetMargins(50, 50, 50, 50);
+                Image logoImage = new Image(ImageDataFactory.Create(logoImagePath));
 
-                // Carga los datos de la tabla desde la base de datos en un objeto DataTable
-                DataTable dt = objetoCarga_N.LoadAllActividades_Negocio(idCH.ToString());
+                PdfDocumentEvent docEvent = (PdfDocumentEvent)@event;
+                PdfDocument pdfDoc = docEvent.GetDocument();
+                PdfPage page = docEvent.GetPage();
+                int pageNumber = pdfDoc.GetPageNumber(page);
+                Rectangle pageSize = page.GetPageSize();
 
-                DataTable dtAsignaturas = objetoCarga_N_2.LoadAsignaturas_Negocio(idCH.ToString());
-                // Crea un objeto PdfWriter para escribir en el archivo PDF
-                //PdfWriter.GetInstance(doc, new FileStream(filePath, FileMode.Create));
-                PdfWriter writer = PdfWriter.GetInstance(doc, new FileStream(filePath, FileMode.Create));
+                PdfCanvas pdfCanvas = new PdfCanvas(page.NewContentStreamBefore(), page.GetResources(), pdfDoc);
+                Canvas canvas = new Canvas(pdfCanvas, pageSize);
 
+                float pageWidth = pageSize.GetWidth();
+                float pageHeight = pageSize.GetHeight();
 
-                // Abre el documento para escribir
-                doc.Open();
-                // Agrega un encabezado al documento
+                // Insertar línea horizontal
+                LineSeparator line = new LineSeparator(new SolidLine());
+                line.SetWidth(500); // Establecer el ancho de la línea
+                //line.SetMarginTop(1); // Establecer el margen superior de la línea
+                //line.SetMarginBottom(1); // Establecer el margen inferior de la línea
+                line.SetFontColor(ColorConstants.BLACK); // Establecer el color de la línea
+                //doc.Add(line);
 
-                // Crea un objeto Font con estilo "negrita"
-                Font fontNegritaTitle = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 20);
-                Font fontNegrita = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 14);
+                // Agregar el encabezado "ESCUELA POLITÉCNICA NACIONAL"
+                canvas.SetFontColor(ColorConstants.DARK_GRAY)
+                    .SetFontSize(14)
+                    .SetFont(PdfFontFactory.CreateFont(StandardFonts.TIMES_BOLD))
+                    .ShowTextAligned("ESCUELA POLITÉCNICA NACIONAL", pageWidth / 2, pageHeight - 30, TextAlignment.CENTER);
 
-                Paragraph header = new Paragraph("Carga Académica", fontNegritaTitle);
-                header.Alignment = Element.ALIGN_CENTER;
-                header.SpacingAfter= 10;
-                doc.Add(header);
+                // Agregar el nombre de la facultad "Ingeniería Eléctrica y Electrónica"
+                canvas.SetFontColor(ColorConstants.DARK_GRAY)
+                    .SetFontSize(14)
+                    .SetFont(PdfFontFactory.CreateFont(StandardFonts.TIMES_BOLD))
+                    .ShowTextAligned("Facultad de Ingeniería Eléctrica y Electrónica", pageWidth / 2, pageHeight - 50, TextAlignment.CENTER);
 
-                Paragraph docenteData = new Paragraph("Docente: "+ docenteName, fontNegrita);
-                docenteData.Alignment = Element.ALIGN_LEFT;
-                docenteData.SpacingAfter = 3;
-                doc.Add(docenteData);
+                canvas.Add(line)
+                    .ShowTextAligned("________________________________________________________________", pageWidth / 2, pageHeight - 55, TextAlignment.CENTER); ;
 
-                Paragraph semestreData = new Paragraph("Semestre: " + cmbSemestre.Text, fontNegrita);
-                semestreData.Alignment = Element.ALIGN_LEFT;
-                semestreData.SpacingAfter = 10;
-                doc.Add(semestreData);
+                // Logo de la universidad
+                float logoWidth = 80f; // Ancho de la imagen del logo
+                float logoHeight = 40f; // Alto de la imagen del logo
+                float logoX = pageWidth - logoWidth + 10; // Posición X de la imagen del logo (ajusta según sea necesario)
+                float logoY = pageHeight - 50; // Posición Y de la imagen del logo (ajusta según sea necesario)
 
-                #region Gestion Asignaturas TABLE
-                Paragraph AsignaturasTitle = new Paragraph("Gestión de Asignaturas", fontNegrita);
-                AsignaturasTitle.Alignment = Element.ALIGN_LEFT;
-                AsignaturasTitle.SpacingAfter = 10;
-                doc.Add(AsignaturasTitle);
+                // Agregar la imagen del logo al lienzo
+                canvas.Add(logoImage.SetFixedPosition(logoX, logoY).ScaleToFit(logoWidth, logoHeight));
 
-                // Crea una tabla con 4 columnas
-                PdfPTable tableAsignaturas = new PdfPTable(4);
+                // Agregar el número de página en la parte inferior derecha
+                canvas.SetFontColor(ColorConstants.DARK_GRAY)
+                    .SetFontSize(10)
+                    .SetFont(PdfFontFactory.CreateFont(StandardFonts.TIMES_BOLD))
+                    .ShowTextAligned("_______________       ", pageWidth - 80, 41, TextAlignment.CENTER);
 
-                foreach (DataColumn column in dtAsignaturas.Columns)
-                {
-                    if (column.Ordinal != 0)
-                    {
-                        PdfPCell cell = new PdfPCell(new Phrase(column.ColumnName));
-                        cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                        cell.VerticalAlignment = Element.ALIGN_MIDDLE;
-                        tableAsignaturas.AddCell(new Phrase(column.ColumnName));
-                    }
-                }
+                canvas.SetFontColor(ColorConstants.DARK_GRAY)
+                    .SetFontSize(10)
+                    .SetFont(PdfFontFactory.CreateFont(StandardFonts.TIMES_BOLD))
+                    .ShowTextAligned("Página " + pageNumber.ToString(), pageWidth - 50, 30, TextAlignment.RIGHT);
 
-                // Agrega filas a la tabla
-                foreach (DataRow row in dtAsignaturas.Rows)
-                {
-                    for (int i = 1; i < dtAsignaturas.Columns.Count; i++)
-                    {
-                        PdfPCell cell = new PdfPCell(new Phrase(row[i].ToString()));
-                        cell.HorizontalAlignment = Element.ALIGN_LEFT;
-                        cell.VerticalAlignment = Element.ALIGN_MIDDLE;
-                        tableAsignaturas.AddCell(cell);
-                    }
-                }
-                // Agrega espacio antes de la tabla
-                tableAsignaturas.SpacingBefore = 10f; // 10 puntos de espacio antes de la tabla
-
-                // Agrega la tabla al documento
-                doc.Add(tableAsignaturas);
-                // Agrega espacio después de la tabla
-                tableAsignaturas.SpacingAfter = 10f; // 10 puntos de espacio después de la tabla
-                #endregion
-
-
-                Paragraph AcividadesTitle = new Paragraph("Gestión de Actividades", fontNegrita);
-                AcividadesTitle.Alignment = Element.ALIGN_LEFT;
-                AcividadesTitle.SpacingAfter = 10;
-                doc.Add(AcividadesTitle);
-
-                // Crea una tabla con 4 columnas
-                PdfPTable table = new PdfPTable(4);
-
-                foreach (DataColumn column in dt.Columns)
-                {
-                    if (column.Ordinal != 0)
-                    {
-                        PdfPCell cell = new PdfPCell(new Phrase(column.ColumnName));
-                        cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                        cell.VerticalAlignment = Element.ALIGN_MIDDLE;
-                        table.AddCell(new Phrase(column.ColumnName));
-                    }
-                }
-
-                // Agrega filas a la tabla
-                foreach (DataRow row in dt.Rows)
-                {
-                    for (int i = 1; i < dt.Columns.Count; i++)
-                    {
-                        PdfPCell cell = new PdfPCell(new Phrase(row[i].ToString()));
-                        cell.HorizontalAlignment = Element.ALIGN_LEFT;
-                        cell.VerticalAlignment = Element.ALIGN_MIDDLE;
-                        table.AddCell(cell);
-                    }
-                }
-                // Agrega espacio antes de la tabla
-                table.SpacingBefore = 10f; // 10 puntos de espacio antes de la tabla
-
-                // Agrega la tabla al documento
-                doc.Add(table);
-                // Agrega espacio después de la tabla
-                table.SpacingAfter = 10f; // 10 puntos de espacio después de la tabla
-
-                Paragraph HorasTotalesTitle = new Paragraph("HORAS TOTALES", fontNegrita);
-                HorasTotalesTitle.Alignment = Element.ALIGN_LEFT;
-                HorasTotalesTitle.SpacingAfter = 10;
-                doc.Add(HorasTotalesTitle);
-
-                // Crear una tabla con 2 columnas y 4 filas
-                PdfPTable tableTotalHours = new PdfPTable(2);
-
-                // Agregar la primera fila a la tabla
-                tableTotalHours.AddCell("TOTAL DOCENCIA");
-                tableTotalHours.AddCell(horasTotalesDocenciaT.ToString());
-
-                // Agregar la segunda fila a la tabla
-                tableTotalHours.AddCell("TOTAL INVESTIGACION");
-                tableTotalHours.AddCell(horasTotalesInvestigacion.ToString());
-
-                // Agregar la tercera fila a la tabla
-                tableTotalHours.AddCell("TOTAL GESTION");
-                tableTotalHours.AddCell(horasTotalesGestion.ToString());
-
-                // Agregar la cuarta fila a la tabla
-                PdfPCell totalCell = new PdfPCell(new Phrase("TOTAL", FontFactory.GetFont(FontFactory.HELVETICA_BOLD)));
-                tableTotalHours.AddCell(totalCell);
-                tableTotalHours.AddCell(horasTotalesCargaHoraria.ToString());
-
-                // Agregar la tabla al documento
-                doc.Add(tableTotalHours);
-
-                // Cierra el documento
-                doc.Close();
+                canvas.Close();
             }
-
-            
         }
-    }
-        */
+
+
+
+        
     }
 }
