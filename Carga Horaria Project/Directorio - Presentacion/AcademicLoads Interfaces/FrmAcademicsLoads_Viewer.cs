@@ -263,7 +263,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
                 // Establecer márgenes
                 doc.SetMargins(50, 50, 50, 50);
 
-                // Agrega un encabezado al documento
+                // Definimos fuentes del documento
                 PdfFont timesNewRoman = PdfFontFactory.CreateFont(StandardFonts.TIMES_ROMAN);
                 PdfFont fontNegritaTitle = PdfFontFactory.CreateFont(StandardFonts.TIMES_BOLD);
                 PdfFont fontNegrita = PdfFontFactory.CreateFont(StandardFonts.TIMES_BOLD);
@@ -282,6 +282,10 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
                 Paragraph semestreData = new Paragraph("Semestre: " + cmbSemestre.Text).SetFont(timesNewRoman).SetFontSize(12);
                 semestreData.SetMarginBottom(-5);
                 doc.Add(semestreData);
+
+                Paragraph docenteDepartamento = new Paragraph("Departamento: DETRI").SetFont(timesNewRoman).SetFontSize(12);
+                docenteDepartamento.SetMarginBottom(-5);
+                doc.Add(docenteDepartamento);
 
                 Paragraph horasExigiblesData = new Paragraph("Horas exigibles: " + horasExigibles.ToString ()).SetFont(timesNewRoman).SetFontSize(12);
                 horasExigiblesData.SetMarginBottom(0);

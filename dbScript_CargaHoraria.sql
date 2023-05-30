@@ -3,9 +3,9 @@
 -- Description: Script to create database for Academic Load in DETRI Department
 -- Database Name: dbCargaHorariaData
 --------------------------------------------
-------------------------------
+--------------------------------------------
 -- PRESS F5 to Execute entire script
-------------------------------
+--------------------------------------------
 USE master
 GO
 IF EXISTS (SELECT name FROM sys.databases WHERE name = 'dbCargaHorariaMay')

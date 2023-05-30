@@ -211,7 +211,7 @@
             this.tableLayoutPanel1.Controls.Add(this.label10, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.lblTotalDocencia, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.label8, 0, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(15, 53);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(42, 75);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 4;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 53.52113F));
@@ -331,14 +331,14 @@
             // 
             // btnPrint
             // 
-            this.btnPrint.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.btnPrint.BackColor = System.Drawing.Color.Orange;
             this.btnPrint.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnPrint.ForeColor = System.Drawing.Color.White;
-            this.btnPrint.Location = new System.Drawing.Point(392, 68);
+            this.btnPrint.Location = new System.Drawing.Point(419, 90);
             this.btnPrint.Name = "btnPrint";
             this.btnPrint.Size = new System.Drawing.Size(158, 50);
             this.btnPrint.TabIndex = 7;
-            this.btnPrint.Text = "Imprimir";
+            this.btnPrint.Text = "Exportar PDF";
             this.btnPrint.UseVisualStyleBackColor = false;
             this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
             // 
@@ -372,7 +372,7 @@
             // 
             this.panel8.BackColor = System.Drawing.Color.SteelBlue;
             this.panel8.Controls.Add(this.label6);
-            this.panel8.Location = new System.Drawing.Point(15, 14);
+            this.panel8.Location = new System.Drawing.Point(42, 36);
             this.panel8.Name = "panel8";
             this.panel8.Size = new System.Drawing.Size(344, 33);
             this.panel8.TabIndex = 2;
@@ -404,7 +404,7 @@
             // panel2
             // 
             this.panel2.AutoScroll = true;
-            this.panel2.BackColor = System.Drawing.Color.Moccasin;
+            this.panel2.BackColor = System.Drawing.Color.DarkSeaGreen;
             this.panel2.Controls.Add(this.txtHorasT_Semestre);
             this.panel2.Controls.Add(this.txtHorasT_Semana);
             this.panel2.Controls.Add(this.label4);
@@ -417,18 +417,24 @@
             // 
             // txtHorasT_Semestre
             // 
+            this.txtHorasT_Semestre.BackColor = System.Drawing.Color.WhiteSmoke;
             this.txtHorasT_Semestre.Enabled = false;
-            this.txtHorasT_Semestre.Location = new System.Drawing.Point(509, 255);
+            this.txtHorasT_Semestre.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.txtHorasT_Semestre.ForeColor = System.Drawing.Color.Black;
+            this.txtHorasT_Semestre.Location = new System.Drawing.Point(529, 255);
             this.txtHorasT_Semestre.Name = "txtHorasT_Semestre";
-            this.txtHorasT_Semestre.Size = new System.Drawing.Size(76, 27);
+            this.txtHorasT_Semestre.Size = new System.Drawing.Size(132, 27);
             this.txtHorasT_Semestre.TabIndex = 6;
             // 
             // txtHorasT_Semana
             // 
+            this.txtHorasT_Semana.BackColor = System.Drawing.Color.WhiteSmoke;
             this.txtHorasT_Semana.Enabled = false;
-            this.txtHorasT_Semana.Location = new System.Drawing.Point(415, 255);
+            this.txtHorasT_Semana.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.txtHorasT_Semana.ForeColor = System.Drawing.Color.Black;
+            this.txtHorasT_Semana.Location = new System.Drawing.Point(360, 255);
             this.txtHorasT_Semana.Name = "txtHorasT_Semana";
-            this.txtHorasT_Semana.Size = new System.Drawing.Size(76, 27);
+            this.txtHorasT_Semana.Size = new System.Drawing.Size(131, 27);
             this.txtHorasT_Semana.TabIndex = 5;
             // 
             // label4
@@ -473,7 +479,7 @@
             // panel5
             // 
             this.panel5.AutoScroll = true;
-            this.panel5.BackColor = System.Drawing.Color.Moccasin;
+            this.panel5.BackColor = System.Drawing.Color.DarkSeaGreen;
             this.panel5.Controls.Add(this.dgvActividades);
             this.panel5.Controls.Add(this.panel6);
             this.panel5.Location = new System.Drawing.Point(27, 338);
@@ -512,7 +518,7 @@
             // 
             // panelSuperior
             // 
-            this.panelSuperior.BackColor = System.Drawing.Color.LightGray;
+            this.panelSuperior.BackColor = System.Drawing.Color.LightSteelBlue;
             this.panelSuperior.Controls.Add(this.panelDocenteInfo);
             this.panelSuperior.Controls.Add(this.btnCloseWin);
             this.panelSuperior.Dock = System.Windows.Forms.DockStyle.Top;
@@ -551,7 +557,7 @@
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label16.ForeColor = System.Drawing.Color.Gray;
+            this.label16.ForeColor = System.Drawing.Color.DimGray;
             this.label16.Location = new System.Drawing.Point(618, 0);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(224, 38);
@@ -573,7 +579,7 @@
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label15.ForeColor = System.Drawing.Color.Gray;
+            this.label15.ForeColor = System.Drawing.Color.DimGray;
             this.label15.Location = new System.Drawing.Point(3, 33);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(146, 38);
@@ -595,7 +601,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label9.ForeColor = System.Drawing.Color.Gray;
+            this.label9.ForeColor = System.Drawing.Color.DimGray;
             this.label9.Location = new System.Drawing.Point(3, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(142, 38);

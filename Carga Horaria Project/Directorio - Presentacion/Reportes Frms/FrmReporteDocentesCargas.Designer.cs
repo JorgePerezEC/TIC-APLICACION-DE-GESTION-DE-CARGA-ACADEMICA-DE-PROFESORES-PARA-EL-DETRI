@@ -31,19 +31,19 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.panelInfoDocentes = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.cmbSemestre = new System.Windows.Forms.ComboBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.dgvReporteCargasDocentes = new System.Windows.Forms.DataGridView();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
+            this.cmbSemestre = new System.Windows.Forms.ComboBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.dgvReporteCargasDocentes = new System.Windows.Forms.DataGridView();
             this.panel1.SuspendLayout();
             this.panelInfoDocentes.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -70,6 +70,7 @@
             this.panelInfoDocentes.Name = "panelInfoDocentes";
             this.panelInfoDocentes.Size = new System.Drawing.Size(578, 218);
             this.panelInfoDocentes.TabIndex = 18;
+            this.panelInfoDocentes.Visible = false;
             // 
             // tableLayoutPanel1
             // 
@@ -96,48 +97,80 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(481, 190);
             this.tableLayoutPanel1.TabIndex = 17;
             // 
-            // cmbSemestre
+            // label11
             // 
-            this.cmbSemestre.BackColor = System.Drawing.Color.LemonChiffon;
-            this.cmbSemestre.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbSemestre.FormattingEnabled = true;
-            this.cmbSemestre.Location = new System.Drawing.Point(176, 71);
-            this.cmbSemestre.Name = "cmbSemestre";
-            this.cmbSemestre.Size = new System.Drawing.Size(167, 28);
-            this.cmbSemestre.TabIndex = 16;
-            this.cmbSemestre.SelectedIndexChanged += new System.EventHandler(this.cmbSemestre_SelectedIndexChanged);
+            this.label11.AutoSize = true;
+            this.label11.BackColor = System.Drawing.Color.AliceBlue;
+            this.label11.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label11.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label11.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label11.ForeColor = System.Drawing.Color.Black;
+            this.label11.Location = new System.Drawing.Point(328, 125);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(150, 65);
+            this.label11.TabIndex = 8;
+            this.label11.Text = "#";
+            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label7
+            // label10
             // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Arial Rounded MT Bold", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label7.ForeColor = System.Drawing.Color.White;
-            this.label7.Location = new System.Drawing.Point(51, 71);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(119, 27);
-            this.label7.TabIndex = 15;
-            this.label7.Text = "Semestre";
+            this.label10.AutoSize = true;
+            this.label10.BackColor = System.Drawing.Color.AliceBlue;
+            this.label10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label10.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label10.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label10.ForeColor = System.Drawing.Color.Black;
+            this.label10.Location = new System.Drawing.Point(216, 125);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(106, 65);
+            this.label10.TabIndex = 7;
+            this.label10.Text = "#";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label1
+            // label9
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI Black", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label1.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.label1.Location = new System.Drawing.Point(47, 21);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(705, 38);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "REPORTE DE CARGAS ACADÉMICAS DE DOCENTES";
+            this.label9.AutoSize = true;
+            this.label9.BackColor = System.Drawing.Color.AliceBlue;
+            this.label9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label9.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label9.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label9.ForeColor = System.Drawing.Color.Black;
+            this.label9.Location = new System.Drawing.Point(328, 65);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(150, 60);
+            this.label9.TabIndex = 6;
+            this.label9.Text = "#";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // dgvReporteCargasDocentes
+            // label8
             // 
-            this.dgvReporteCargasDocentes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvReporteCargasDocentes.Location = new System.Drawing.Point(51, 292);
-            this.dgvReporteCargasDocentes.Name = "dgvReporteCargasDocentes";
-            this.dgvReporteCargasDocentes.RowHeadersWidth = 51;
-            this.dgvReporteCargasDocentes.RowTemplate.Height = 29;
-            this.dgvReporteCargasDocentes.Size = new System.Drawing.Size(1296, 467);
-            this.dgvReporteCargasDocentes.TabIndex = 1;
+            this.label8.AutoSize = true;
+            this.label8.BackColor = System.Drawing.Color.AliceBlue;
+            this.label8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label8.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label8.ForeColor = System.Drawing.Color.Black;
+            this.label8.Location = new System.Drawing.Point(216, 65);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(106, 60);
+            this.label8.TabIndex = 5;
+            this.label8.Text = "#";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.BackColor = System.Drawing.Color.AliceBlue;
+            this.label6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label6.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label6.ForeColor = System.Drawing.Color.Black;
+            this.label6.Location = new System.Drawing.Point(328, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(150, 65);
+            this.label6.TabIndex = 4;
+            this.label6.Text = "#";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label2
             // 
@@ -196,80 +229,49 @@
             this.label5.Text = "#";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label6
+            // cmbSemestre
             // 
-            this.label6.AutoSize = true;
-            this.label6.BackColor = System.Drawing.Color.AliceBlue;
-            this.label6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label6.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label6.ForeColor = System.Drawing.Color.Black;
-            this.label6.Location = new System.Drawing.Point(328, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(150, 65);
-            this.label6.TabIndex = 4;
-            this.label6.Text = "#";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.cmbSemestre.BackColor = System.Drawing.Color.LemonChiffon;
+            this.cmbSemestre.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbSemestre.FormattingEnabled = true;
+            this.cmbSemestre.Location = new System.Drawing.Point(176, 71);
+            this.cmbSemestre.Name = "cmbSemestre";
+            this.cmbSemestre.Size = new System.Drawing.Size(167, 28);
+            this.cmbSemestre.TabIndex = 16;
+            this.cmbSemestre.SelectedIndexChanged += new System.EventHandler(this.cmbSemestre_SelectedIndexChanged);
             // 
-            // label8
+            // label7
             // 
-            this.label8.AutoSize = true;
-            this.label8.BackColor = System.Drawing.Color.AliceBlue;
-            this.label8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label8.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label8.ForeColor = System.Drawing.Color.Black;
-            this.label8.Location = new System.Drawing.Point(216, 65);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(106, 60);
-            this.label8.TabIndex = 5;
-            this.label8.Text = "#";
-            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Arial Rounded MT Bold", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label7.ForeColor = System.Drawing.Color.White;
+            this.label7.Location = new System.Drawing.Point(51, 71);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(119, 27);
+            this.label7.TabIndex = 15;
+            this.label7.Text = "Semestre";
             // 
-            // label9
+            // label1
             // 
-            this.label9.AutoSize = true;
-            this.label9.BackColor = System.Drawing.Color.AliceBlue;
-            this.label9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label9.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label9.ForeColor = System.Drawing.Color.Black;
-            this.label9.Location = new System.Drawing.Point(328, 65);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(150, 60);
-            this.label9.TabIndex = 6;
-            this.label9.Text = "#";
-            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI Black", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label1.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.label1.Location = new System.Drawing.Point(47, 21);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(705, 38);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "REPORTE DE CARGAS ACADÉMICAS DE DOCENTES";
             // 
-            // label10
+            // dgvReporteCargasDocentes
             // 
-            this.label10.AutoSize = true;
-            this.label10.BackColor = System.Drawing.Color.AliceBlue;
-            this.label10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label10.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label10.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label10.ForeColor = System.Drawing.Color.Black;
-            this.label10.Location = new System.Drawing.Point(216, 125);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(106, 65);
-            this.label10.TabIndex = 7;
-            this.label10.Text = "#";
-            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.BackColor = System.Drawing.Color.AliceBlue;
-            this.label11.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label11.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label11.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label11.ForeColor = System.Drawing.Color.Black;
-            this.label11.Location = new System.Drawing.Point(328, 125);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(150, 65);
-            this.label11.TabIndex = 8;
-            this.label11.Text = "#";
-            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.dgvReporteCargasDocentes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvReporteCargasDocentes.Location = new System.Drawing.Point(51, 292);
+            this.dgvReporteCargasDocentes.Name = "dgvReporteCargasDocentes";
+            this.dgvReporteCargasDocentes.RowHeadersWidth = 51;
+            this.dgvReporteCargasDocentes.RowTemplate.Height = 29;
+            this.dgvReporteCargasDocentes.Size = new System.Drawing.Size(1296, 467);
+            this.dgvReporteCargasDocentes.TabIndex = 1;
+            this.dgvReporteCargasDocentes.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvReporteCargasDocentes_CellFormatting);
             // 
             // FrmReporteDocentesCargas
             // 

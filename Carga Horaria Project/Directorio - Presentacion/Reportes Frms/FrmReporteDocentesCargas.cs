@@ -25,6 +25,10 @@ namespace Directorio___Presentacion.Reportes_Frms
             InitializeComponent();
             ClsStyles tableStyle = new ClsStyles();
             tableStyle.tableStyle(dgvReporteCargasDocentes);
+
+            dgvReporteCargasDocentes.CellFormatting += dgvReporteCargasDocentes_CellFormatting;
+            dgvReporteCargasDocentes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvReporteCargasDocentes.ReadOnly = true;
         }
 
         private void FrmReporteDocentesCargas_Load(object sender, EventArgs e)
@@ -51,6 +55,26 @@ namespace Directorio___Presentacion.Reportes_Frms
                 cmbValueSemestre = Convert.ToInt32(cmbSemestre.SelectedValue);
                 dgvReporteCargasDocentes.DataSource = objCarga_N.MostrarReporteDocentes_ByIdSemestre_Negocio(cmbValueSemestre.ToString());
                 dgvReporteCargasDocentes.Columns[3].Visible = false;
+                dgvReporteCargasDocentes.ClearSelection();
+            }
+        }
+
+        private void dgvReporteCargasDocentes_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.ColumnIndex == 7)
+            {
+                if (e.Value != null && e.Value.ToString() != "SI CUMPLE")
+                {
+                    // Pintar de rojo si es diferente de "SI CUMPLE"
+                    e.CellStyle.BackColor = Color.Red;
+                    e.CellStyle.ForeColor = Color.White;
+                }
+                else
+                {
+                    // Pintar de verde si es "SI CUMPLE"
+                    e.CellStyle.BackColor = Color.Green;
+                    e.CellStyle.ForeColor = Color.White;
+                }
             }
         }
     }
