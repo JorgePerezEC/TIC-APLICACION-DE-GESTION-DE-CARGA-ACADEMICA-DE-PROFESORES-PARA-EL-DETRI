@@ -209,7 +209,7 @@ namespace Directorio___Presentacion
             hideSubMenu();
             hideSubMenu2();
         }
-        private void btnAsignarHoras_Click(object sender, EventArgs e)
+        public void btnAsignarHoras_Click(object sender, EventArgs e)
         {
             openChildForm(new FrmCRUD_HorasExigibles());
             hideSubMenu();

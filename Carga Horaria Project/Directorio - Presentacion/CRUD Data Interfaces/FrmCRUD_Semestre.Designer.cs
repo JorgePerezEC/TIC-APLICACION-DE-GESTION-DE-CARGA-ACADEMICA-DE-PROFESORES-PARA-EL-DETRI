@@ -33,13 +33,13 @@
             this.btnCloseWin = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.panelNewSemestre = new System.Windows.Forms.Panel();
+            this.cmbYear = new System.Windows.Forms.ComboBox();
             this.btnGuardar = new System.Windows.Forms.Button();
             this.dtFechaInicio = new System.Windows.Forms.DateTimePicker();
             this.cboxSemanasClase = new System.Windows.Forms.ComboBox();
             this.cboxSemanasTotales = new System.Windows.Forms.ComboBox();
             this.dtFechaFin = new System.Windows.Forms.DateTimePicker();
             this.ckboxEstado = new System.Windows.Forms.CheckBox();
-            this.txtYear = new System.Windows.Forms.TextBox();
             this.txtCodigo = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -119,13 +119,13 @@
             // panelNewSemestre
             // 
             this.panelNewSemestre.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.panelNewSemestre.Controls.Add(this.cmbYear);
             this.panelNewSemestre.Controls.Add(this.btnGuardar);
             this.panelNewSemestre.Controls.Add(this.dtFechaInicio);
             this.panelNewSemestre.Controls.Add(this.cboxSemanasClase);
             this.panelNewSemestre.Controls.Add(this.cboxSemanasTotales);
             this.panelNewSemestre.Controls.Add(this.dtFechaFin);
             this.panelNewSemestre.Controls.Add(this.ckboxEstado);
-            this.panelNewSemestre.Controls.Add(this.txtYear);
             this.panelNewSemestre.Controls.Add(this.txtCodigo);
             this.panelNewSemestre.Controls.Add(this.label8);
             this.panelNewSemestre.Controls.Add(this.label5);
@@ -140,6 +140,16 @@
             this.panelNewSemestre.Size = new System.Drawing.Size(1394, 178);
             this.panelNewSemestre.TabIndex = 3;
             this.panelNewSemestre.Visible = false;
+            // 
+            // cmbYear
+            // 
+            this.cmbYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbYear.FormattingEnabled = true;
+            this.cmbYear.Location = new System.Drawing.Point(114, 21);
+            this.cmbYear.Name = "cmbYear";
+            this.cmbYear.Size = new System.Drawing.Size(126, 28);
+            this.cmbYear.TabIndex = 19;
+            this.cmbYear.SelectedIndexChanged += new System.EventHandler(this.cmbYear_SelectedIndexChanged);
             // 
             // btnGuardar
             // 
@@ -171,28 +181,9 @@
             // 
             // cboxSemanasClase
             // 
+            this.cboxSemanasClase.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboxSemanasClase.FormattingEnabled = true;
-            this.cboxSemanasClase.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10",
-            "11",
-            "12",
-            "13",
-            "14",
-            "15",
-            "16",
-            "17",
-            "18",
-            "19",
-            "20"});
+            this.cboxSemanasClase.ItemHeight = 20;
             this.cboxSemanasClase.Location = new System.Drawing.Point(1082, 29);
             this.cboxSemanasClase.Name = "cboxSemanasClase";
             this.cboxSemanasClase.Size = new System.Drawing.Size(86, 28);
@@ -200,28 +191,9 @@
             // 
             // cboxSemanasTotales
             // 
+            this.cboxSemanasTotales.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboxSemanasTotales.FormattingEnabled = true;
-            this.cboxSemanasTotales.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10",
-            "11",
-            "12",
-            "13",
-            "14",
-            "15",
-            "16",
-            "17",
-            "18",
-            "19",
-            "20"});
+            this.cboxSemanasTotales.ItemHeight = 20;
             this.cboxSemanasTotales.Location = new System.Drawing.Point(1082, 71);
             this.cboxSemanasTotales.Name = "cboxSemanasTotales";
             this.cboxSemanasTotales.Size = new System.Drawing.Size(86, 28);
@@ -248,19 +220,10 @@
             this.ckboxEstado.Text = "activo";
             this.ckboxEstado.UseVisualStyleBackColor = true;
             // 
-            // txtYear
-            // 
-            this.txtYear.AllowDrop = true;
-            this.txtYear.Location = new System.Drawing.Point(111, 70);
-            this.txtYear.Name = "txtYear";
-            this.txtYear.PlaceholderText = "Ingrese el año del semestre";
-            this.txtYear.Size = new System.Drawing.Size(226, 27);
-            this.txtYear.TabIndex = 10;
-            // 
             // txtCodigo
             // 
             this.txtCodigo.AllowDrop = true;
-            this.txtCodigo.Location = new System.Drawing.Point(111, 29);
+            this.txtCodigo.Location = new System.Drawing.Point(114, 66);
             this.txtCodigo.Name = "txtCodigo";
             this.txtCodigo.PlaceholderText = "Ingrese el código del semestre";
             this.txtCodigo.Size = new System.Drawing.Size(226, 27);
@@ -320,7 +283,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft YaHei", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label3.Location = new System.Drawing.Point(23, 70);
+            this.label3.Location = new System.Drawing.Point(23, 25);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(47, 23);
             this.label3.TabIndex = 3;
@@ -330,7 +293,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft YaHei", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label2.Location = new System.Drawing.Point(23, 29);
+            this.label2.Location = new System.Drawing.Point(23, 70);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(74, 23);
             this.label2.TabIndex = 2;
@@ -426,6 +389,7 @@
             this.Name = "FrmCRUD_Semestre";
             this.Text = "FrmCRUD_Semestre";
             this.Load += new System.EventHandler(this.FrmCRUD_Semestre_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmCRUD_Semestre_KeyDown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panelNewSemestre.ResumeLayout(false);
@@ -453,7 +417,6 @@
         private Label label1;
         private DateTimePicker dtFechaFin;
         private CheckBox ckboxEstado;
-        private TextBox txtYear;
         private ComboBox cboxSemanasTotales;
         private DateTimePicker dtFechaInicio;
         private ComboBox cboxSemanasClase;
@@ -464,5 +427,6 @@
         private Button btnNewSemestre;
         private Button btnCloseWin;
         private Button btnGuardar;
+        private ComboBox cmbYear;
     }
 }

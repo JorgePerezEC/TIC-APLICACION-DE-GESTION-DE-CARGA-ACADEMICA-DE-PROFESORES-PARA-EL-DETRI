@@ -32,6 +32,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panelGR = new System.Windows.Forms.Panel();
+            this.btnAddGR = new System.Windows.Forms.Button();
             this.cmbGR = new System.Windows.Forms.ComboBox();
             this.btnAgregar = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
@@ -54,7 +55,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(984, 83);
+            this.panel1.Size = new System.Drawing.Size(972, 83);
             this.panel1.TabIndex = 0;
             // 
             // label1
@@ -77,11 +78,12 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 83);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(984, 391);
+            this.panel2.Size = new System.Drawing.Size(972, 379);
             this.panel2.TabIndex = 1;
             // 
             // panelGR
             // 
+            this.panelGR.Controls.Add(this.btnAddGR);
             this.panelGR.Controls.Add(this.cmbGR);
             this.panelGR.Controls.Add(this.btnAgregar);
             this.panelGR.Controls.Add(this.label5);
@@ -94,6 +96,20 @@
             this.panelGR.Size = new System.Drawing.Size(781, 248);
             this.panelGR.TabIndex = 8;
             this.panelGR.Visible = false;
+            // 
+            // btnAddGR
+            // 
+            this.btnAddGR.BackColor = System.Drawing.Color.Beige;
+            this.btnAddGR.FlatAppearance.BorderSize = 0;
+            this.btnAddGR.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAddGR.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnAddGR.Location = new System.Drawing.Point(571, 131);
+            this.btnAddGR.Name = "btnAddGR";
+            this.btnAddGR.Size = new System.Drawing.Size(140, 37);
+            this.btnAddGR.TabIndex = 10;
+            this.btnAddGR.Text = "Agregar GR";
+            this.btnAddGR.UseVisualStyleBackColor = false;
+            this.btnAddGR.Click += new System.EventHandler(this.btnAddGR_Click);
             // 
             // cmbGR
             // 
@@ -202,7 +218,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(984, 474);
+            this.ClientSize = new System.Drawing.Size(972, 462);
             this.ControlBox = false;
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
@@ -211,9 +227,9 @@
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Agregar asignatura";
-            this.TopMost = true;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmCUAsignatura_AL_FormClosed);
             this.Load += new System.EventHandler(this.FrmCUAsignatura_AL_Load);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.FrmCUAsignatura_AL_KeyPress);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
@@ -240,5 +256,6 @@
         private Panel panelGR;
         private ComboBox cmbGR;
         private Label label5;
+        private Button btnAddGR;
     }
 }

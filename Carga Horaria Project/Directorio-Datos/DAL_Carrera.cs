@@ -30,7 +30,6 @@ namespace Directorio_Datos
                 sqlCommand.Parameters.AddWithValue("@nameCarreer", _carrera.NombreCarrera);
                 sqlCommand.Parameters.AddWithValue("@codCarrer", _carrera.CodigoCarrera);
                 sqlCommand.Parameters.AddWithValue("@pensum", _carrera.Pensum);
-                sqlCommand.Parameters.AddWithValue("@est", _carrera.EstadoCarrera);
 
                 ObjDataBase.AbrirConexion();
                 sqlCommand.ExecuteNonQuery();
@@ -65,7 +64,6 @@ namespace Directorio_Datos
                 sqlCommand.Parameters.AddWithValue("@nameCarreer", _carrera.NombreCarrera);
                 sqlCommand.Parameters.AddWithValue("@codCarrer", _carrera.CodigoCarrera);
                 sqlCommand.Parameters.AddWithValue("@pensum", _carrera.Pensum);
-                sqlCommand.Parameters.AddWithValue("@est", _carrera.EstadoCarrera);
 
                 ObjDataBase.AbrirConexion();
                 sqlCommand.ExecuteNonQuery();

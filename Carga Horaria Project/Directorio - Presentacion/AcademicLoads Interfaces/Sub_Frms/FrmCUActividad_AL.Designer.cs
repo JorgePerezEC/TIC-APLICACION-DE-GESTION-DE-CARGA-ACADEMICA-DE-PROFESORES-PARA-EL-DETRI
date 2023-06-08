@@ -46,6 +46,7 @@
             this.cmbActividad = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnCrearActividad = new System.Windows.Forms.Button();
             this.lblTitleActividad = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
             this.panelInfoActividad.SuspendLayout();
@@ -260,12 +261,27 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.panel1.Controls.Add(this.btnCrearActividad);
             this.panel1.Controls.Add(this.lblTitleActividad);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1175, 83);
             this.panel1.TabIndex = 2;
+            // 
+            // btnCrearActividad
+            // 
+            this.btnCrearActividad.BackColor = System.Drawing.Color.Beige;
+            this.btnCrearActividad.FlatAppearance.BorderSize = 0;
+            this.btnCrearActividad.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCrearActividad.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnCrearActividad.Location = new System.Drawing.Point(756, 26);
+            this.btnCrearActividad.Name = "btnCrearActividad";
+            this.btnCrearActividad.Size = new System.Drawing.Size(384, 41);
+            this.btnCrearActividad.TabIndex = 9;
+            this.btnCrearActividad.Text = "Crear actividad";
+            this.btnCrearActividad.UseVisualStyleBackColor = false;
+            this.btnCrearActividad.Click += new System.EventHandler(this.btnCrearActividad_Click);
             // 
             // lblTitleActividad
             // 
@@ -286,11 +302,14 @@
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "FrmCUActividad_AL";
             this.ShowIcon = false;
             this.Text = "Administrador de Actividades";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmCUActividad_AL_FormClosed);
             this.Load += new System.EventHandler(this.FrmCUActividad_AL_Load);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.FrmCUActividad_AL_KeyPress);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.panelInfoActividad.ResumeLayout(false);
@@ -326,5 +345,6 @@
         private Label label1;
         private TextBox txtHorasTotales;
         private Label label4;
+        public Button btnCrearActividad;
     }
 }

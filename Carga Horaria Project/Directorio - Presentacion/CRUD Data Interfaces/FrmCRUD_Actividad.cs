@@ -22,6 +22,10 @@ namespace Directorio___Presentacion
             MostrarActividades();
             ListarTiposActividades();
             clsStyles.tableStyle(dgLstRegistros);
+            txtHorasSemanales.Enabled= false;
+            txtHorasTotales.Enabled= false;
+            ckboxSemanal.Checked= false;
+            ckboxTotal.Checked= false;
         }
         private void MostrarActividades()
         {
@@ -34,6 +38,8 @@ namespace Directorio___Presentacion
             cmbTpActiv.DataSource = objetoCNegocio.MostrarTpActividadesNeg();
             cmbTpActiv.DisplayMember = "Tipo de Actividad";
             cmbTpActiv.ValueMember = "ID";
+            cmbTpActiv.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbTpActiv.SelectedIndex = -1;
         }
         #region Clicks Events
         private void btnGuardar_Click(object sender, EventArgs e)
@@ -44,8 +50,8 @@ namespace Directorio___Presentacion
                 {
                     int cmbValue = Convert.ToInt32(cmbTpActiv.SelectedValue);
                     
-                    objetoCNegocio.CreateActividadNeg(cmbValue.ToString(), txtNameActividad.Text, txtHorasSemanales.Text,txtHorasTotales.Text, ckboxEstado.Checked.ToString());
-                    MessageBox.Show("Actividad insertadada correctamente" + ckboxEstado.Checked.ToString());
+                    objetoCNegocio.CreateActividadNeg(cmbValue.ToString(), txtNameActividad.Text, txtHorasSemanales.Text,txtHorasTotales.Text);
+                    MessageBox.Show("Actividad insertadada correctamente");
                     MostrarActividades();
                     //ClearTxtBox();
                 }
@@ -60,7 +66,7 @@ namespace Directorio___Presentacion
                 try
                 {
                     int cmbValue = Convert.ToInt32(cmbTpActiv.SelectedValue);
-                    objetoCNegocio.UpdateActividadNeg(idActividad, cmbValue.ToString(), txtNameActividad.Text, txtHorasSemanales.Text, txtHorasTotales.Text, ckboxEstado.Checked.ToString());
+                    objetoCNegocio.UpdateActividadNeg(idActividad, cmbValue.ToString(), txtNameActividad.Text, txtHorasSemanales.Text, txtHorasTotales.Text);
                     MessageBox.Show("Actividad actualizada correctamente");
                     MostrarActividades();
                     Editar = false;
@@ -96,7 +102,6 @@ namespace Directorio___Presentacion
                     cmbTpActiv.Text = dgLstRegistros.CurrentRow.Cells[1].Value.ToString()!;
                     txtNameActividad.Text = dgLstRegistros.CurrentRow.Cells[2].Value.ToString();
                     txtHorasSemanales.Text = dgLstRegistros.CurrentRow.Cells[3].Value.ToString();
-                    ckboxEstado.Text = dgLstRegistros.CurrentRow.Cells[4].Value.ToString();
 
                 }
                 else
@@ -136,5 +141,28 @@ namespace Directorio___Presentacion
         }
         #endregion
 
+        private void ckboxSemanal_CheckedChanged(object sender, EventArgs e)
+        {
+            if (ckboxSemanal.Checked)
+            {
+                ckboxTotal.Checked = false;
+                txtHorasTotales.Text = "0";
+                txtHorasSemanales.Text = "";
+                txtHorasTotales.Enabled = false;
+                txtHorasSemanales.Enabled = true;
+            }
+        }
+
+        private void ckboxTotal_CheckedChanged(object sender, EventArgs e)
+        {
+            if (ckboxTotal.Checked)
+            {
+                txtHorasTotales.Text = "";
+                ckboxSemanal.Checked = false;
+                txtHorasSemanales.Text = "0";
+                txtHorasSemanales.Enabled = false;
+                txtHorasTotales.Enabled = true;
+            }
+        }
     }
 }

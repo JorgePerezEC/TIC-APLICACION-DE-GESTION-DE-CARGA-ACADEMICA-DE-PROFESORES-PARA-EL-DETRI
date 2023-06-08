@@ -37,6 +37,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
         public FrmCUActividad_AL(string TipoActividad, int idCargaHoraria, bool editar)
         {
             InitializeComponent();
+            this.KeyPreview = true;
             ActividadTipo = TipoActividad;
             idAcLoad = idCargaHoraria;
             EditarL = editar;
@@ -49,8 +50,10 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
             txtHorasTotales.Text = list.ElementAt(3);
             panelInfoActividad.Visible = true;
         }
+
         private void FrmCUActividad_AL_Load(object sender, EventArgs e)
         {
+            
             if (EditarL)
             {
                 btnAgregar.Text = "Actualizar";
@@ -61,6 +64,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
 
                 if (ActividadTipo == "Investigacion")
                 {
+                    btnCrearActividad.Text = "Crear Actividad de Investigación";
                     lblTitleActividad.Text = "Editar Actividad de Investigación";
                     ListarActividadesInvestigacion();
                     FrmCRUD_Investigacion_Ac_Load frmInv = new FrmCRUD_Investigacion_Ac_Load(idAcLoad);
@@ -90,6 +94,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
                 else if (ActividadTipo == "Gestion")
                 {
                     lblTitleActividad.Text = "Editar Actividad de Gestión";
+                    btnCrearActividad.Text = "Crear Actividad de Gestión";
                     ListarActividadesGestion();
                     FrmCRUD_Gestion_Ac_Load frmGestion = new FrmCRUD_Gestion_Ac_Load(idAcLoad);
                     DataEditLst = frmGestion.GetArgumentosToEdit();
@@ -119,6 +124,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
                     cboxHorasTotales.Enabled= false;
                     cboxHorasSemanales.Checked = true;
                     lblTitleActividad.Text = "Editar Actividad de Docencia dentro del 1:1";
+                    btnCrearActividad.Text = "Crear Actividad de Docencia 1:1";
                     ListarActividadesDocencia11();
                     CRUD_Docencia_Ac_Load frmDocencia = new CRUD_Docencia_Ac_Load(idAcLoad);
                     DataEditLst = frmDocencia.GetArgumentosToEdit();
@@ -146,6 +152,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
                     cboxHorasSemanales.Enabled= false;
                     cboxHorasTotales.Checked = true;
                     lblTitleActividad.Text = "Editar Actividad de Docencia fuera del 1:1";
+                    btnCrearActividad.Text = "Crear Actividad de Docencia";
                     ListarActividadesDocenciaF11();
                     CRUD_Docencia_Ac_Load frmDocencia = new CRUD_Docencia_Ac_Load(idAcLoad);
                     DataEditLst = frmDocencia.GetArgumentosToEdit();
@@ -173,6 +180,10 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
             }
             else
             {
+                if (ActividadTipo == "Investigacion") btnCrearActividad.Text = "Crear Actividad de Investigación";
+                else if(ActividadTipo == "Gestion") btnCrearActividad.Text = "Crear Actividad de Gestión";
+                else if (ActividadTipo == "D11") btnCrearActividad.Text = "Crear Actividad de Docencia 1:1";
+                else if (ActividadTipo == "F11") btnCrearActividad.Text = "Crear Actividad de Docencia";
                 ListarActividadesGral();
                 cmbActividad.SelectedIndex = -1;
 
@@ -285,6 +296,13 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
             cmbActividad.DisplayMember = "Actividad";
             cmbActividad.ValueMember = "ID";
         }
+        public void ListarAllActividadesCmb(string type)
+        {
+            if (type == "D11") ListarActividadesDocencia11();
+            else if (type == "D") ListarActividadesDocencia11();
+            else if (type == "G") ListarActividadesGestion();
+            else ListarActividadesInvestigacion();
+        }
         private void ListarActividadesGral()
         {
             //CN_Actividad objetoCNegocio = new CN_Actividad();
@@ -383,6 +401,21 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
         private void btnAddwHoraTotal_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnCrearActividad_Click(object sender, EventArgs e)
+        {
+            Frm_CreateNewActivity_Modal frmCreateAct = new Frm_CreateNewActivity_Modal(ActividadTipo);
+            frmCreateAct.ShowDialog();
+        }
+
+        private void FrmCUActividad_AL_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                btnAgregar.PerformClick();
+                e.Handled = true;
+            }
         }
     }
 }

@@ -29,7 +29,6 @@ namespace Directorio_Datos
                 sqlCommand.Parameters.AddWithValue("@nameAct", _actividad.NombreActividad);
                 sqlCommand.Parameters.AddWithValue("@horasAct", _actividad.HorasSemana);
                 sqlCommand.Parameters.AddWithValue("@horasTAct", _actividad.HorasTotalesAct);
-                sqlCommand.Parameters.AddWithValue("@state", _actividad.Estado);
 
                 ObjDataBase.AbrirConexion();
                 sqlCommand.ExecuteNonQuery();
@@ -64,7 +63,6 @@ namespace Directorio_Datos
                 sqlCommand.Parameters.AddWithValue("@nameAct", _actividad.NombreActividad);
                 sqlCommand.Parameters.AddWithValue("@horasAct", _actividad.HorasSemana);
                 sqlCommand.Parameters.AddWithValue("@horasTAct", _actividad.HorasTotalesAct);
-                sqlCommand.Parameters.AddWithValue("@state", _actividad.Estado);
 
                 ObjDataBase.AbrirConexion();
                 sqlCommand.ExecuteNonQuery();

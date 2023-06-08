@@ -111,7 +111,7 @@ namespace Directorio___Presentacion.CRUD_Data_Interfaces
             {
                 try
                 {
-                    idSemestre = Convert.ToInt32(cmbSemestreLst.SelectedValue);
+                    idSemestre = Convert.ToInt32(cmbSemestreAdd.SelectedValue);
                     idDocente = Convert.ToInt32(cmbDocente.SelectedValue);
                     idTpDocente = Convert.ToInt32(cmbTipoDocente.SelectedValue);
                     objTpDocente.CreateDocenteWHorasExigibles_Neg(idTpDocente.ToString(),idSemestre.ToString(),idDocente.ToString(), txtHorasExigibles.Text);

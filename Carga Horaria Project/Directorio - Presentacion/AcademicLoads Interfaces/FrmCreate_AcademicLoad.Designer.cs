@@ -531,6 +531,7 @@
             this.Name = "FrmCreate_AcademicLoad";
             this.Text = "Carga Académica";
             this.Load += new System.EventHandler(this.FrmCreate_AcademicLoad_Load);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.FrmCreate_AcademicLoad_KeyPress);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panelHorasExigibles.ResumeLayout(false);
@@ -561,9 +562,6 @@
         private Label label1;
         private LiveCharts.WinForms.PieChart pieChart;
         private Panel panelHijo;
-        private Button btnInvestigacion;
-        private Button btnGestion;
-        private Button btnDocencia;
         private Button btnNewCarga;
         private DataGridView dgvCargasHorarias;
         private Panel panelHoras;
@@ -580,5 +578,8 @@
         private Label label12;
         private Label label11;
         private Label lblSemanasSemestre;
+        public Button btnInvestigacion;
+        public Button btnGestion;
+        public Button btnDocencia;
     }
 }

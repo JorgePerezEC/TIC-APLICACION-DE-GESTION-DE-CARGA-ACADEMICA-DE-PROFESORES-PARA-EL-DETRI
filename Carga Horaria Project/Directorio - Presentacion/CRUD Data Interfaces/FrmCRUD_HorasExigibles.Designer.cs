@@ -117,6 +117,7 @@
             // 
             // cmbSemestreLst
             // 
+            this.cmbSemestreLst.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbSemestreLst.FormattingEnabled = true;
             this.cmbSemestreLst.Location = new System.Drawing.Point(677, 49);
             this.cmbSemestreLst.Name = "cmbSemestreLst";
@@ -220,6 +221,7 @@
             // 
             // cmbTipoDocente
             // 
+            this.cmbTipoDocente.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbTipoDocente.FormattingEnabled = true;
             this.cmbTipoDocente.Location = new System.Drawing.Point(209, 96);
             this.cmbTipoDocente.Name = "cmbTipoDocente";
@@ -239,6 +241,7 @@
             // 
             // cmbSemestreAdd
             // 
+            this.cmbSemestreAdd.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbSemestreAdd.FormattingEnabled = true;
             this.cmbSemestreAdd.Location = new System.Drawing.Point(209, 58);
             this.cmbSemestreAdd.Name = "cmbSemestreAdd";
@@ -248,6 +251,7 @@
             // 
             // cmbDocente
             // 
+            this.cmbDocente.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbDocente.FormattingEnabled = true;
             this.cmbDocente.Location = new System.Drawing.Point(209, 24);
             this.cmbDocente.Name = "cmbDocente";

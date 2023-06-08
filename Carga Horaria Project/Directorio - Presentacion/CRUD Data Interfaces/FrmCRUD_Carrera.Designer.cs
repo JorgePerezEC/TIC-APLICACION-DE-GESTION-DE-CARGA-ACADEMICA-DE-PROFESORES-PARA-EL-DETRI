@@ -38,11 +38,9 @@
             this.txtCodigo = new System.Windows.Forms.TextBox();
             this.cmbDepartamentos = new System.Windows.Forms.ComboBox();
             this.btnGuardar = new System.Windows.Forms.Button();
-            this.ckboxEstado = new System.Windows.Forms.CheckBox();
             this.txtNameCarreer = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -130,11 +128,9 @@
             this.panelCreate.Controls.Add(this.txtCodigo);
             this.panelCreate.Controls.Add(this.cmbDepartamentos);
             this.panelCreate.Controls.Add(this.btnGuardar);
-            this.panelCreate.Controls.Add(this.ckboxEstado);
             this.panelCreate.Controls.Add(this.txtNameCarreer);
             this.panelCreate.Controls.Add(this.label6);
             this.panelCreate.Controls.Add(this.label7);
-            this.panelCreate.Controls.Add(this.label4);
             this.panelCreate.Controls.Add(this.label3);
             this.panelCreate.Controls.Add(this.label2);
             this.panelCreate.Dock = System.Windows.Forms.DockStyle.Top;
@@ -147,7 +143,7 @@
             // txtPensum
             // 
             this.txtPensum.AllowDrop = true;
-            this.txtPensum.Location = new System.Drawing.Point(511, 70);
+            this.txtPensum.Location = new System.Drawing.Point(516, 94);
             this.txtPensum.Name = "txtPensum";
             this.txtPensum.PlaceholderText = "Ingrese el pensum de la carrera";
             this.txtPensum.Size = new System.Drawing.Size(293, 27);
@@ -156,7 +152,7 @@
             // txtCodigo
             // 
             this.txtCodigo.AllowDrop = true;
-            this.txtCodigo.Location = new System.Drawing.Point(511, 28);
+            this.txtCodigo.Location = new System.Drawing.Point(516, 52);
             this.txtCodigo.Name = "txtCodigo";
             this.txtCodigo.PlaceholderText = "Ingrese el código de la carrera";
             this.txtCodigo.Size = new System.Drawing.Size(293, 27);
@@ -186,7 +182,7 @@
             "18",
             "19",
             "20"});
-            this.cmbDepartamentos.Location = new System.Drawing.Point(154, 29);
+            this.cmbDepartamentos.Location = new System.Drawing.Point(159, 53);
             this.cmbDepartamentos.Name = "cmbDepartamentos";
             this.cmbDepartamentos.Size = new System.Drawing.Size(226, 28);
             this.cmbDepartamentos.TabIndex = 18;
@@ -200,7 +196,7 @@
             this.btnGuardar.FlatAppearance.BorderSize = 0;
             this.btnGuardar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGuardar.Font = new System.Drawing.Font("Roboto Black", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnGuardar.Location = new System.Drawing.Point(1235, 52);
+            this.btnGuardar.Location = new System.Drawing.Point(1235, 75);
             this.btnGuardar.MaximumSize = new System.Drawing.Size(125, 41);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(125, 41);
@@ -209,23 +205,10 @@
             this.btnGuardar.UseVisualStyleBackColor = false;
             this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
             // 
-            // ckboxEstado
-            // 
-            this.ckboxEstado.AutoSize = true;
-            this.ckboxEstado.Checked = true;
-            this.ckboxEstado.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.ckboxEstado.Font = new System.Drawing.Font("Microsoft YaHei", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.ckboxEstado.Location = new System.Drawing.Point(125, 119);
-            this.ckboxEstado.Name = "ckboxEstado";
-            this.ckboxEstado.Size = new System.Drawing.Size(81, 27);
-            this.ckboxEstado.TabIndex = 11;
-            this.ckboxEstado.Text = "activo";
-            this.ckboxEstado.UseVisualStyleBackColor = true;
-            // 
             // txtNameCarreer
             // 
             this.txtNameCarreer.AllowDrop = true;
-            this.txtNameCarreer.Location = new System.Drawing.Point(154, 70);
+            this.txtNameCarreer.Location = new System.Drawing.Point(159, 94);
             this.txtNameCarreer.Name = "txtNameCarreer";
             this.txtNameCarreer.PlaceholderText = "Ingrese el nombre de la carrera";
             this.txtNameCarreer.Size = new System.Drawing.Size(226, 27);
@@ -235,7 +218,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft YaHei", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label6.Location = new System.Drawing.Point(403, 69);
+            this.label6.Location = new System.Drawing.Point(408, 93);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(78, 23);
             this.label6.TabIndex = 6;
@@ -245,27 +228,17 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft YaHei", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label7.Location = new System.Drawing.Point(403, 28);
+            this.label7.Location = new System.Drawing.Point(408, 52);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(74, 23);
             this.label7.TabIndex = 5;
             this.label7.Text = "Código:";
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft YaHei", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label4.Location = new System.Drawing.Point(23, 119);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(68, 23);
-            this.label4.TabIndex = 4;
-            this.label4.Text = "Estado:";
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft YaHei", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label3.Location = new System.Drawing.Point(23, 70);
+            this.label3.Location = new System.Drawing.Point(28, 94);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(82, 23);
             this.label3.TabIndex = 3;
@@ -275,7 +248,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft YaHei", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label2.Location = new System.Drawing.Point(23, 29);
+            this.label2.Location = new System.Drawing.Point(28, 53);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(136, 23);
             this.label2.TabIndex = 2;
@@ -350,6 +323,7 @@
             this.Name = "FrmCRUD_Carrera";
             this.Text = "FrmCRUD_Carrera";
             this.Load += new System.EventHandler(this.FrmCRUD_Carrera_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmCRUD_Carrera_KeyDown);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgLstRegistros)).EndInit();
@@ -370,11 +344,9 @@
         private Label label9;
         private Panel panelCreate;
         private Button btnGuardar;
-        private CheckBox ckboxEstado;
         private TextBox txtNameCarreer;
         private Label label6;
         private Label label7;
-        private Label label4;
         private Label label3;
         private Label label2;
         private Panel panel1;

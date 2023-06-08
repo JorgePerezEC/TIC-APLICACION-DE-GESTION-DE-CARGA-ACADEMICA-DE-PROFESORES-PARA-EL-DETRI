@@ -1,6 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <Compile Update="AcademicLoads Interfaces\Error_Frms\Frm_Err_HorasExigibles.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="AcademicLoads Interfaces\FrmAcademicsLoads_Viewer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -23,6 +26,12 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="AcademicLoads Interfaces\Sub_Frms\FrmCUAsignatura_AL.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="AcademicLoads Interfaces\Sub_Frms\Frm_CreateNewActivity_Modal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="AcademicLoads Interfaces\Sub_Frms\Frm_CreateNewAsignatura_Modal.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="CRUD Data Interfaces\FrmCRUD_Actividad.cs">

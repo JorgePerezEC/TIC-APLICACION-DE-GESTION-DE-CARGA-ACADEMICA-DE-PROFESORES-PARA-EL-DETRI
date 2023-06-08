@@ -28,6 +28,7 @@ namespace Directorio___Presentacion.CRUD_Interfaces
         public FrmCRUD_Carrera()
         {
             InitializeComponent();
+            this.KeyPreview = true;
         }
 
         private void FrmCRUD_Carrera_Load(object sender, EventArgs e)
@@ -57,7 +58,7 @@ namespace Directorio___Presentacion.CRUD_Interfaces
                 try
                 {
                     int cmbValue = Convert.ToInt32(cmbDepartamentos.SelectedValue);
-                    objetoCNegocio.CreateCarreraNeg(cmbValue.ToString(), txtNameCarreer.Text, txtCodigo.Text, txtPensum.Text, ckboxEstado.Checked.ToString());
+                    objetoCNegocio.CreateCarreraNeg(cmbValue.ToString(), txtNameCarreer.Text, txtCodigo.Text, txtPensum.Text);
                     MessageBox.Show("Carrera insertadada correctamente");
                     MostrarCarreras();
                     //ClearTxtBox();
@@ -73,7 +74,7 @@ namespace Directorio___Presentacion.CRUD_Interfaces
                 try
                 {
                     int cmbValue = Convert.ToInt32(cmbDepartamentos.SelectedValue);
-                    objetoCNegocio.UpdateCarreraNeg(idCarrera, cmbValue.ToString(), txtNameCarreer.Text, txtCodigo.Text, txtPensum.Text, ckboxEstado.Checked.ToString());
+                    objetoCNegocio.UpdateCarreraNeg(idCarrera, cmbValue.ToString(), txtNameCarreer.Text, txtCodigo.Text, txtPensum.Text);
                     MessageBox.Show("Carrera actualizada correctamente");
                     MostrarCarreras();
                     Editar = false;
@@ -89,6 +90,7 @@ namespace Directorio___Presentacion.CRUD_Interfaces
         private void btnNew_Click(object sender, EventArgs e)
         {
             panelCreate.Visible = true;
+            btnGuardar.Text = "Guardar";
         }
 
         private void btnActualizar_Click(object sender, EventArgs e)
@@ -97,6 +99,7 @@ namespace Directorio___Presentacion.CRUD_Interfaces
             {
                 if (dgLstRegistros.Rows.Count > 0)
                 {
+                    btnGuardar.Text = "Actualizar";
                     panelCreate.Visible = true;
                     Editar = true;
                     idCarrera = dgLstRegistros.CurrentRow.Cells[0].Value.ToString()!;
@@ -104,8 +107,6 @@ namespace Directorio___Presentacion.CRUD_Interfaces
                     txtNameCarreer.Text = dgLstRegistros.CurrentRow.Cells[2].Value.ToString();
                     txtCodigo.Text = dgLstRegistros.CurrentRow.Cells[3].Value.ToString();
                     txtPensum.Text = dgLstRegistros.CurrentRow.Cells[4].Value.ToString();
-                    ckboxEstado.Text = dgLstRegistros.CurrentRow.Cells[5].Value.ToString();
-                    //cmbValue = dgLstRegistros.CurrentRow.Cells[5].Value.ToString() ;
                     
                 }
                 else
@@ -150,5 +151,14 @@ namespace Directorio___Presentacion.CRUD_Interfaces
             this.Close();
         }
         #endregion
+
+        private void FrmCRUD_Carrera_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control && e.KeyCode == Keys.G)
+            {
+                btnGuardar.PerformClick();
+                e.Handled = true;
+            }
+        }
     }
 }

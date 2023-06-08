@@ -87,21 +87,17 @@ namespace Directorio_Logica
         #endregion
 
         #region CRUD Methods
-        public bool CreateActividadNeg(string idTpAct, string nameActividad, string horasSemanal, string horasTotales, string estado)
+        public bool CreateActividadNeg(string idTpAct, string nameActividad, string horasSemanal, string horasTotales)
         {
             try
             {
-                if (estado == "True")
-                {
-                    state = true;
-                }
+             
                 ClsActividad ObjActividad = new ClsActividad()
                 {
                     IdTpActividad = Convert.ToInt32(idTpAct),
                     NombreActividad = nameActividad,
                     HorasSemana = Convert.ToInt32(horasSemanal),
-                    HorasTotalesAct = Convert.ToInt32(horasTotales),
-                    Estado = state
+                    HorasTotalesAct = Convert.ToInt32(horasTotales)
                 };
                 objetoCData.CreateActividad(ObjActividad);
 
@@ -117,22 +113,17 @@ namespace Directorio_Logica
 
         }
 
-        public bool UpdateActividadNeg(string idActividad, string idTpAct, string nameActividad, string horasSemanal, string horasTotales, string estado)
+        public bool UpdateActividadNeg(string idActividad, string idTpAct, string nameActividad, string horasSemanal, string horasTotales)
         {
             try
             {
-                if (estado == "True")
-                {
-                    state = true;
-                }
                 ClsActividad ObjActividad = new ClsActividad()
                 {
                     IdActividad = Convert.ToInt32(idActividad),
                     IdTpActividad = Convert.ToInt32(idTpAct),
                     NombreActividad = nameActividad,
                     HorasSemana = Convert.ToInt32(horasSemanal),
-                    HorasTotalesAct = Convert.ToInt32(horasTotales),
-                    Estado = state
+                    HorasTotalesAct = Convert.ToInt32(horasTotales)
                 };
                 objetoCData.UpdateActividad(ObjActividad);
 

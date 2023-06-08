@@ -1,4 +1,5 @@
-﻿using Directorio___Presentacion.CRUD_Interfaces;
+﻿using Directorio___Presentacion.AcademicLoads_Interfaces.Error_Frms;
+using Directorio___Presentacion.CRUD_Interfaces;
 using Directorio___Presentacion.ElementsStyles_Configuration;
 using Directorio_Datos;
 using Directorio_Entidades;
@@ -89,6 +90,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
             cmbDocente.SelectedIndex = -1;
             cmbSemestre.SelectedValue = -1;
             cmbSemestre.SelectedIndex = -1;
+            this.KeyPreview = true;
 
         }
         #region Functions to load Data
@@ -223,7 +225,9 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
                 }
                 else
                 {
-                    MessageBox.Show("El docente seleccionado no posee registradas Horas Exigibles en el semestre "+ cmbValueSemestre.ToString() +". Por favor dirijase a  '' Gestionar Datos > Gestión de Docentes > Asignar Horas Exigibles'' para agregar horas exigibles.");
+                    var frmError = new Frm_Err_HorasExigibles(cmbDocente.Text, cmbSemestre.Text);
+                    frmError.ShowDialog();
+                    //MessageBox.Show("El docente seleccionado no posee registradas Horas Exigibles en el semestre "+ cmbValueSemestre.ToString() +". Por favor dirijase a  '' Gestionar Datos > Gestión de Docentes > Asignar Horas Exigibles'' para agregar horas exigibles.");
                 }
                 
             }
@@ -232,6 +236,8 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
                 MessageBox.Show("Excepción: No se pudo registrar la carga Academica. Motivo: " + ex.Message);
             }
         }
+
+        
         #region Comboboxes Actions
         private void cmbSemestre_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -315,7 +321,10 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
             lblHorasFaltantes.Text = horasExigiblesFaltantes.ToString();
             lblSemanasClases.Text = numSemanasClase.ToString();
             lblSemanasSemestre.Text = numSemanasSemestre.ToString();
-            
+
+            if (horasExigiblesFaltantes <= 0) lblHorasFaltantes.BackColor = System.Drawing.Color.Tomato;
+            else lblHorasFaltantes.BackColor = System.Drawing.Color.LemonChiffon;
+
 
             SeriesCollection series = new SeriesCollection
             {
@@ -357,7 +366,6 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
                 idCargaHoraria_FrmPrincipal = Convert.ToInt32(dgvCargasHorarias.Rows[e.RowIndex].Cells["ID"].Value);
                 cmbDocente.Text = dgvCargasHorarias.Rows[e.RowIndex].Cells["Docente"].Value.ToString();
 
-                MessageBox.Show(idCargaHoraria_FrmPrincipal.ToString());
 
                 CalcularHoras(idCargaHoraria_FrmPrincipal);
                 //Show Btns
@@ -425,7 +433,8 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
             btnInvestigacion.BackColor = System.Drawing.Color.LightSalmon;
             btnAsignaturas.ForeColor = System.Drawing.Color.White;
             CloseForms(formNames);
-
+            panelHoras.Visible= false;
+            panelHorasExigibles.Visible= false;
             this.Refresh();
         }
         public void CloseForms(List<string> formNames)
@@ -442,12 +451,6 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
             }
         }
 
-        private void btnRefresh_Click(object sender, EventArgs e)
-        {
-            int cmbValueDocente = Convert.ToInt32(cmbDocente.SelectedValue);
-            idCH = objetoCNegocio.GetIDCargaHorariaNegocio(cmbValueSemestre.ToString(), cmbValueDocente.ToString());
-            CalcularHoras(idCH);
-        }
         public void UpdateContent()
         {
             int cmbValueDocente = Convert.ToInt32(cmbDocente.SelectedValue);
@@ -459,5 +462,43 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
         {
 
         }
+
+        private void FrmCreate_AcademicLoad_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char tecla = char.ToLower(e.KeyChar);
+
+            if (tecla == (char)Keys.Enter && btnCrearCargaAcademica.Visible)
+            {
+                btnCrearCargaAcademica.PerformClick();
+                e.Handled = true;
+            }
+            if (tecla == 'a' && !btnCrearCargaAcademica.Visible)
+            {
+                btnAsignaturas.PerformClick();
+                e.Handled = true;
+            }
+            if (tecla == 'd' && !btnCrearCargaAcademica.Visible)
+            {
+                btnDocencia.PerformClick();
+                e.Handled = true;
+            }
+            if (tecla == 'g' && !btnCrearCargaAcademica.Visible)
+            {
+                btnGestion.PerformClick();
+                e.Handled = true;
+            }
+            if (tecla == 'i' && !btnCrearCargaAcademica.Visible)
+            {
+                btnInvestigacion.PerformClick();
+                e.Handled = true;
+            }
+            if (tecla == 'n' && !btnCrearCargaAcademica.Visible)
+            {
+                btnNewCarga.PerformClick();
+                e.Handled = true;
+            }
+        }
     }
+
+
 }

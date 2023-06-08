@@ -17,7 +17,6 @@
     <PackageReference Include="itext7.bouncy-castle-fips-adapter" Version="8.0.0" />
     <PackageReference Include="LiveCharts.WinForms.NetCore3" Version="0.9.7" />
     <PackageReference Include="MaterialSkin.2" Version="2.3.1" />
-    <PackageReference Include="Microsoft.ReportingServices.ReportViewerControl.Winforms" Version="150.1576.0" />
     <PackageReference Include="OxyPlot.WindowsForms" Version="2.1.2" />
     <PackageReference Include="ScottPlot" Version="4.1.60" />
   </ItemGroup>
@@ -62,6 +61,9 @@
       <LastGenOutput>dbCargaHorariaAprilDataSet_DocentesNames.Designer.cs</LastGenOutput>
     </None>
     <None Update="Images\EPNLogo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Images\warning.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

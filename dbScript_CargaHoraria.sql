@@ -227,16 +227,15 @@ AS
 	END
 GO
 -- Stored Procedure to create one row from  "tblCarrera"
-CREATE PROCEDURE [dbo].[spAddCarrera]
+CREATE OR ALTER PROCEDURE [dbo].[spAddCarrera]
 	@idDepa int,
 	@nameCarreer varchar(255),
 	@codCarrer varchar(50),
-	@pensum varchar(255),
-	@est bit
+	@pensum varchar(255)
 AS
 	BEGIN 
 		INSERT INTO tblCarrera(idDep,nombreCarrera,codigoCarrera, pensum,estadoCarrera)
-		VALUES( @idDepa, @nameCarreer, @codCarrer,@pensum,@est)
+		VALUES( @idDepa, @nameCarreer, @codCarrer,@pensum,1)
 	END
 GO
 -- Stored Procedure to create one row from  "tblTipoDocente"
@@ -362,16 +361,15 @@ GO
 --	END
 GO
 -- Stored Procedure to create one row from  "tblActividad"
-CREATE PROCEDURE [dbo].[spAddActividad]
+CREATE OR ALTER PROCEDURE [dbo].[spAddActividad]
 	@idTpAct int,
 	@nameAct varchar(255),
 	@horasAct int,
-	@horasTAct int,
-	@state bit
+	@horasTAct int
 AS
 	BEGIN 
 		INSERT INTO tblActividad(idTpAct_f,nombreActividad,cantHoraSemana,cantHoraTotal, estadoActividad)
-		VALUES(@idTpAct, @nameAct, @horasAct,@horasTAct, @state)
+		VALUES(@idTpAct, @nameAct, @horasAct,@horasTAct,1)
 	END
 GO
 -- Stored Procedure to create one row from  "tblCargaHoraria"
@@ -452,6 +450,7 @@ BEGIN
     INNER JOIN tblGrAsignatura g ON a.idAsignatura = g.idAsignatura
     LEFT JOIN tblAsigCrgHoraria c ON g.idGrAsig = c.idGrAsig
     WHERE c.idAsigCrgHoraria IS NULL AND g.grupoAsignatura IS NOT NULL
+	ORDER BY a.nombreAsignatura ASC
 END
 GO
 -- Stored Procedure to Read All Rows from  "tblAsignaturas" where had Groups
@@ -465,6 +464,7 @@ AS
 BEGIN 
     SELECT DISTINCT a.idAsignatura AS ID, a.nombreAsignatura AS Asignatura
     FROM tblAsignatura a
+	ORDER BY a.nombreAsignatura ASC
 END
 GO
 -- Stored Procedure to Read All Rows from  "tblGrAsignatura"
@@ -689,7 +689,7 @@ CREATE OR ALTER PROCEDURE [dbo].[spReadAllCarreras]
 AS 
 BEGIN 
     SELECT idCarrera AS ID,dep.nombreDepartamento AS 'Departamento', nombreCarrera AS 'Carrera', codigoCarrera AS 'Código',
-			pensum AS 'Pensum', estadoCarrera AS 'Estado'
+			pensum AS 'Pensum'
     FROM   tblCarrera car
 	INNER JOIN tblDepartamento dep  on car.idDep = dep.idDepartamento
 END
@@ -738,7 +738,7 @@ AS
 BEGIN 
     SELECT idSemestre AS ID,codigoSemestre AS 'Código',añoSemestre AS 'Año',
 		diaInicio AS 'Fecha Inicio', diaFin AS 'Fecha Fin', numSemanasClase AS 'Semanas de Clase',
-		numSemanasSemestre AS 'Semanas Totales del Semestre', estadoSemestre AS Estado
+		numSemanasSemestre AS 'Semanas Totales del Semestre'
     FROM   tblSemestre
 END
 GO
@@ -788,18 +788,17 @@ AS
 	END
 GO
 -- Stored Procedure to Update specific row from  "tblCarrera"
-CREATE PROCEDURE [dbo].[spUpdateCarrera]
+CREATE OR ALTER PROCEDURE [dbo].[spUpdateCarrera]
 	@id int,
 	@idDepa	int,
 	@nameCarreer varchar(255),
 	@codCarrer varchar(50),
-	@pensum varchar(255),
-	@est bit
+	@pensum varchar(255)
 AS
 	BEGIN
 		UPDATE tblCarrera
 		SET idDep = @idDepa, nombreCarrera= @nameCarreer, codigoCarrera =@codCarrer,
-			pensum = @pensum, estadoCarrera = @est
+			pensum = @pensum, estadoCarrera = 1
 		WHERE idCarrera = @id;
 	END
 GO
@@ -926,18 +925,17 @@ AS
 	END
 GO
 -- Stored Procedure to Update specific one row from  "tblActividad"
-CREATE PROCEDURE [dbo].[spUpdateActividad]
+CREATE OR ALTER PROCEDURE [dbo].[spUpdateActividad]
 	@id int,
 	@idTpAct int,
 	@nameAct varchar(255),
 	@horasAct int,
-	@horasTAct int,
-	@state bit
+	@horasTAct int
 AS
 	BEGIN
 		UPDATE tblActividad
 		SET idTpAct_f = @idTpAct, nombreActividad = @nameAct, cantHoraSemana = @horasAct,
-			cantHoraTotal = @horasTAct ,estadoActividad = @state
+			cantHoraTotal = @horasTAct ,estadoActividad = 1
 		WHERE idActividad = @id;
 	END
 GO
@@ -1192,18 +1190,22 @@ AS
 	END
 GO
 --Tree View Buscar docentes por Id Departamento y que contengan horas exigibles de un determinado semestre
-CREATE PROCEDURE [dbo].[spDocentesByIdDepaWHorasExigiblesTV]
+CREATE OR ALTER PROCEDURE [dbo].[spDocentesByIdDepaWHorasExigiblesTV]
 	@idDepa int,
 	@idSemestre int
 AS
 	BEGIN 
-		SELECT doc.idDocente AS ID, CONCAT(apellido1Docente,' ',apellido2Docente,' ',nombre1Docente,' ',nombre2Docente) AS Docente
-		FROM   tblSemestreTpDocente std
-		INNER JOIN tblDocente doc ON std.idDocente = doc.idDocente
-		INNER JOIN tblTipoDocente tp ON std.idTipoDoc = tp.idTipoDocente
-		INNER JOIN tblSemestre sm ON std.idSemestre = sm.idSemestre
-		INNER JOIN tblCargaHoraria ch ON doc.idDocente = ch.idDocente
-		WHERE std.idSemestre = @idSemestre AND doc.idDepa = @idDepa
+		SELECT ID, Docente, codigoSemestre
+		FROM (
+			SELECT doc.idDocente AS ID, CONCAT(apellido1Docente, ' ', apellido2Docente, ' ', nombre1Docente, ' ', nombre2Docente) AS Docente, sm.codigoSemestre
+			FROM tblSemestreTpDocente std
+			INNER JOIN tblDocente doc ON std.idDocente = doc.idDocente
+			INNER JOIN tblTipoDocente tp ON std.idTipoDoc = tp.idTipoDocente
+			INNER JOIN tblSemestre sm ON std.idSemestre = sm.idSemestre
+			INNER JOIN tblCargaHoraria ch ON std.idDocente = ch.idDocente
+			WHERE std.idSemestre = @idSemestre AND doc.idDepa = @idDepa
+		) AS subquery
+		GROUP BY ID, Docente, codigoSemestre
 		ORDER BY Docente ASC
 	END
 GO
@@ -1634,6 +1636,46 @@ BEGIN
     WHERE idSemestre = @idSemestreActual
 END
 GO
+--test--
+--exec CopiarAllCargasAcademicasConNuevoSemestre 2, 4
+---
+-- Stored Procedure to copy ALL data from other semester to another semester
+CREATE OR ALTER PROCEDURE CopiarAllCargasAcademicasConNuevoSemestre
+    @idSemestreExistente int,
+    @idSemestreNuevo int
+AS
+BEGIN
+    -- Insertar las nuevas cargas académicas con el semestre especificado
+    INSERT INTO tblCargaHoraria (idDocente, idSemestre)
+    SELECT idDocente, @idSemestreNuevo
+    FROM tblCargaHoraria
+    WHERE idSemestre = @idSemestreExistente;
+
+    -- Obtener los ID de las nuevas cargas académicas insertadas
+    DECLARE @idCargaAcademicaExistente int;
+    DECLARE @idCargaAcademicaNueva int;
+    SET @idCargaAcademicaExistente = (SELECT MIN(idCargaHoraria) FROM tblCargaHoraria WHERE idSemestre = @idSemestreExistente);
+    SET @idCargaAcademicaNueva = (SELECT MAX(idCargaHoraria) FROM tblCargaHoraria WHERE idSemestre = @idSemestreNuevo);
+
+    -- Copiar las asignaturas de las cargas académicas existentes a las nuevas cargas académicas
+    INSERT INTO tblAsigCrgHoraria (idCrgHoraria, idGrAsig, estadoAsigCrgDocencia)
+    SELECT @idCargaAcademicaNueva, idGrAsig, estadoAsigCrgDocencia
+    FROM tblAsigCrgHoraria
+    WHERE idCrgHoraria = @idCargaAcademicaExistente;
+
+    -- Copiar las actividades de las cargas académicas existentes a las nuevas cargas académicas
+    INSERT INTO tblActividadCargas (idCrgHoraria, idActividad, horasSemana, horaTotal, estadoActivCrgDocencia)
+    SELECT @idCargaAcademicaNueva, idActividad, horasSemana, horaTotal, estadoActivCrgDocencia
+    FROM tblActividadCargas
+    WHERE idCrgHoraria = @idCargaAcademicaExistente;
+
+    -- Copiar las horas exigibles de los docentes al nuevo semestre
+    INSERT INTO tblSemestreTpDocente (idTipoDoc, idSemestre, idDocente, numHorasSemestrales, estadoSemestreDoc)
+    SELECT idTipoDoc, @idSemestreNuevo, idDocente, numHorasSemestrales, estadoSemestreDoc
+    FROM tblSemestreTpDocente
+    WHERE idSemestre = @idSemestreExistente;
+END
+GO
 --TEST
 --select * from tblTipoDocente
 --select * from tblSemestre
@@ -1976,7 +2018,8 @@ GO
 --Malla TICs
 INSERT INTO tblAsignatura(nombreAsignatura,tipoAsignatura,codigoAsignatura,horasAsignaturaTotales,horasAsignaturaSemanales,
 						nivelAsignatura,estadoAsignatura)
-VALUES
+VALUES -- id=1  ==> 26
+--('TEORÍA DE INFORMACIÓN Y CODIFICACIÓN','Semestral','TELD522',96,3,'Tercer Nivel',1),
 ('TEORÍA DE INFORMACIÓN Y CODIFICACIÓN','Semestral','TELD522',96,3,'Tercer Nivel',1),
 ('DISEÑO Y PROGRAMACIÓN DE SOFTWARE','Semestral','ITID543',144,5,'TercerNivel',1),
 ('SISTEMAS EMBEBIDOS','Semestral','ITID553',144,5,'TercerNivel',1),
@@ -2008,7 +2051,7 @@ GO
 --Malla Telecomunicaciones
 INSERT INTO tblAsignatura(nombreAsignatura,tipoAsignatura,codigoAsignatura,horasAsignaturaTotales,horasAsignaturaSemanales,
 						nivelAsignatura,estadoAsignatura)
-VALUES
+VALUES -- id=27  ==> 49
 ('CIRCUITOS ELECTRÓNICOS','Semestral','IEED433',144,5,'TercerNivel',1),
 ('SISTEMA OPERATIVO LINUX','Semestral','TELD452',96,3,'TercerNivel',1),
 ('FUNDAMENTOS DE COMUNICACIONES','Semestral','TELD513',144,5,'TercerNivel',1),
@@ -2032,6 +2075,30 @@ VALUES
 ('DISEÑO DE PROYECTOS DE TELECOMUNICACIONES','Semestral','TELD871',48,2,'TercerNivel',1),
 ('ITINERARIO AVANZADO','Semestral','TELD900',96,3,'TercerNivel',1),
 ('MARCO REGULATORIO DE LOS SERVICIOS DE TELECOMUNICACIONES','Semestral','TELD941',48,2,'TercerNivel',1)
+GO
+--Asignaturas Básicas FIEE
+INSERT INTO tblAsignatura(nombreAsignatura,tipoAsignatura,codigoAsignatura,horasAsignaturaTotales,horasAsignaturaSemanales,
+						nivelAsignatura,estadoAsignatura)
+VALUES -- id=50  ==> 66
+('ÁLGEBRA LINEAL','Semestral','MATD113',144,5,'Tercer Nivel',1),
+('CÁLCULO EN UNA VARIABLE','Semestral','MATD123',144,5,'TercerNivel',1),
+('MECÁNICA NEWTONIANA','Semestral','FISD134',192,6,'TercerNivel',1),
+('QUÍMICA GENERAL','Semestral','QUID143',144,5,'TercerNivel',1),
+('COMUNICACIÓN ORAL Y ESCRITA','Semestral','CSHD111',48,2,'TercerNivel',1),
+('HERRAMIENTAS INFORMÁTICAS','Semestral','ICOD111',48,2,'TercerNivel',1),
+('ECUACIONES DIFERENCIALES ORDINARIAS','Semestral','MATD213',144,5,'TercerNivel',1),
+('PROBABILIDAD Y ESTADÍSTICA BÁSICAS','Semestral','MATD223',144,5,'TercerNivel',1),
+('CÁLCULO VECTORIAL','Semestral','IEED232',96,3,'TercerNivel',1),
+('FUNDAMENTOS DE ELECTROMAGNETISMO','Semestral','IEED242',96,2,'TercerNivel',1),
+('PROGRAMACIÓN','Semestral','IEED252',96,3,'TercerNivel',1),
+('ANÁLISIS SOCIOECONÓMICO Y POLÍTICO DEL ECUADOR','Semestral','CSHD211',48,2,'TercerNivel',1),
+('ELECTROTECNIA','Semestral','IEED272',96,3,'TercerNivel',1),
+('PROGRAMACIÓN AVANZADA','Semestral','ITID433',144,5,'TercerNivel',1),
+--CPs de ASIGNATURAS
+--Asignaturas Básicas FIEE
+
+('CP-ÁLGEBRA LINEAL','Semestral','MATD113-CP',48,2,'Tercer Nivel',1),
+('CP-CÁLCULO EN UNA VARIABLE','Semestral','MATD123-CP',48,2,'TercerNivel',1)
 GO
 --AGREGAR GRUPOS A ASIGNATURAS
 INSERT INTO tblGrAsignatura(idAsignatura,grupoAsignatura)
@@ -2069,7 +2136,129 @@ VALUES
 (22, 'GR1'),--SISTEMAS IoT
 --(23, 'GR1'),--REDES DE ÁREA LOCAL INALÁMBRICAS
 --(24, 'GR1'),--ADMINISTRACIÓN DE REDES
-(25, 'GR1')--REGULACIÓN DE LAS TECNOLOGÍAS DE LA INFORMACIÓN Y LA COMUNICACIÓN
-
-
+(25, 'GR1'),--REGULACIÓN DE LAS TECNOLOGÍAS DE LA INFORMACIÓN Y LA COMUNICACIÓN
+--GRS DE ASIGNATURAS BASICAS
+(50, 'GR1'),--ALGEBRA LINEAL{...
+(50, 'GR2'),--
+(50, 'GR3'),--
+(50, 'GR4'),--
+(50, 'GR5'),--
+(50, 'GR6'),--
+(50, 'GR7'),--
+(50, 'GR8'),--..}
+(51, 'GR1'),--CÁLCULO EN UNA VARIABLE{...
+(51, 'GR2'),--
+(51, 'GR3'),--
+(51, 'GR4'),--
+(51, 'GR5'),--
+(51, 'GR6'),--
+(51, 'GR7'),--
+(51, 'GR8'),--..}
+(52, 'GR1'),--MECÁNICA NEWTONIANA{...
+(52, 'GR2'),--
+(52, 'GR3'),--
+(52, 'GR4'),--
+(52, 'GR5'),--
+(52, 'GR6'),--
+(52, 'GR7'),--
+(52, 'GR8'),--..}
+(53, 'GR1'),--QUÍMICA GENERAL{...
+(53, 'GR2'),--
+(53, 'GR3'),--
+(53, 'GR4'),--
+(53, 'GR5'),--
+(53, 'GR6'),--
+(53, 'GR7'),--
+(53, 'GR8'),--..}
+(54, 'GR1'),--COMUNICACIÓN ORAL Y ESCRITA{...
+(54, 'GR2'),--
+(54, 'GR3'),--
+(54, 'GR4'),--
+(54, 'GR5'),--
+(54, 'GR6'),--
+(54, 'GR7'),--
+(54, 'GR8'),--..}
+(55, 'GR1'),--HERRAMIENTAS INFORMÁTICAS{...
+(55, 'GR2'),--
+(55, 'GR3'),--
+(55, 'GR4'),--
+(55, 'GR5'),--
+(55, 'GR6'),--
+(55, 'GR7'),--
+(55, 'GR8'),--..}
+(56, 'GR1'),--ECUACIONES DIFERENCIALES ORDINARIAS{...
+(56, 'GR2'),--
+(56, 'GR3'),--
+(56, 'GR4'),--
+(56, 'GR5'),--
+(56, 'GR6'),--
+(56, 'GR7'),--
+(56, 'GR8'),--..}
+(57, 'GR1'),--PROBABILIDAD Y ESTADÍSTICA BÁSICAS{...
+(57, 'GR2'),--
+(57, 'GR3'),--
+(57, 'GR4'),--
+(57, 'GR5'),--
+(57, 'GR6'),--
+(57, 'GR7'),--
+(57, 'GR8'),--..}
+(58, 'GR1'),--CÁLCULO VECTORIAL{...
+(58, 'GR2'),--
+(58, 'GR3'),--
+(58, 'GR4'),--
+(58, 'GR5'),--
+(58, 'GR6'),--
+(58, 'GR7'),--
+(58, 'GR8'),--..}
+(59, 'GR1'),--FUNDAMENTOS DE ELECTROMAGNETISMO{...
+(59, 'GR2'),--
+(59, 'GR3'),--
+(59, 'GR4'),--
+(59, 'GR5'),--
+(59, 'GR6'),--
+(59, 'GR7'),--
+(59, 'GR8'),--..}
+(60, 'GR1'),--PROGRAMACIÓN{...
+(60, 'GR2'),--
+(60, 'GR3'),--
+(60, 'GR4'),--
+(60, 'GR5'),--
+(60, 'GR6'),--
+(60, 'GR7'),--
+(60, 'GR8'),--..}
+(61, 'GR1'),--ANÁLISIS SOCIOECONÓMICO Y POLÍTICO DEL ECUADOR{...
+(61, 'GR2'),--
+(61, 'GR3'),--
+(61, 'GR4'),--
+(61, 'GR5'),--..}
+(62, 'GR1'),--ELECTROTECNIA{...
+(62, 'GR2'),--
+(62, 'GR3'),--
+(62, 'GR4'),--
+(62, 'GR5'),--..}
+(63, 'GR1'),--PROGRAMACIÓN AVANZADA{...
+(63, 'GR2'),--
+(63, 'GR3'),--
+(63, 'GR4'),--
+(63, 'GR5'),--
+(63, 'GR6'),--
+(63, 'GR7'),--
+(63, 'GR8'),--..}
+--CPS
+(64, 'GR1-CP'),--CP-ÁLGEBRA LINEAL{...
+(64, 'GR2-CP'),--
+(64, 'GR3-CP'),--
+(64, 'GR4-CP'),--
+(64, 'GR5-CP'),--
+(64, 'GR6-CP'),--
+(64, 'GR7-CP'),--
+(64, 'GR8-CP'),--..}
+(65, 'GR1-CP'),--CP-CALCULO DE UNA VARIABLE{...
+(65, 'GR2-CP'),--
+(65, 'GR3-CP'),--
+(65, 'GR4-CP'),--
+(65, 'GR5-CP'),--
+(65, 'GR6-CP'),--
+(65, 'GR7-CP'),--
+(65, 'GR8-CP')--..}
 -- END SCRIPT

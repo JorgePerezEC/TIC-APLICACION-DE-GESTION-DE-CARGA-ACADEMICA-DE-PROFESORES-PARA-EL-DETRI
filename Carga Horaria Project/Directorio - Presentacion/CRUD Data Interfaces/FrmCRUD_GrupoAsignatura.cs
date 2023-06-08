@@ -146,5 +146,10 @@ namespace Directorio___Presentacion.CRUD_Interfaces
         }
 
         #endregion
+
+        private void cmbAsignaturas_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

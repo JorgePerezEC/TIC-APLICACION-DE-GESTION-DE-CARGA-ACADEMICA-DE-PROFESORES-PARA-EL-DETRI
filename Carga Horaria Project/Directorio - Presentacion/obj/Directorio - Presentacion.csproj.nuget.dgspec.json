@@ -55,10 +55,6 @@
               "target": "Package",
               "version": "[2.3.1, )"
             },
-            "Microsoft.ReportingServices.ReportViewerControl.Winforms": {
-              "target": "Package",
-              "version": "[150.1576.0, )"
-            },
             "OxyPlot.WindowsForms": {
               "target": "Package",
               "version": "[2.1.2, )"

@@ -158,6 +158,7 @@ namespace Directorio_Datos
         public DataTable MostrarRegistrosById(ClsDepartamento _depa, ClsSemestre _semestre)
         {
             //comando.Connection = manejador.AbrirConexion();
+            SqlCommand comando = new SqlCommand();
             comando.Connection = ObjDataBase.sqlConexion;
             comando.CommandText = "spDocentesByIdDepaWHorasExigiblesTV";
             comando.CommandType = CommandType.StoredProcedure;

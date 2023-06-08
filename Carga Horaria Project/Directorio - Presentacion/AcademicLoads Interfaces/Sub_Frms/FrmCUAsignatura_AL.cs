@@ -1,4 +1,5 @@
-﻿using Directorio_Entidades;
+﻿using Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms;
+using Directorio_Entidades;
 using Directorio_Logica;
 using System;
 using System.Collections.Generic;
@@ -29,6 +30,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
         public FrmCUAsignatura_AL(int idCargaHoraria, bool Editar)
         {
             InitializeComponent();
+            this.KeyPreview = true;
             idAcLoad = idCargaHoraria;
             EditarL = Editar;
             btnAgregar.Enabled = Editar;
@@ -142,7 +144,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
             cmbAsignatura.DisplayMember = "Asignatura";
             cmbAsignatura.ValueMember = "ID";
         }
-        private void ListarGruposAsignatura()
+        public void ListarGruposAsignatura()
         {
             if (cmbAsignatura.SelectedIndex > -1)
             {
@@ -185,6 +187,26 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
             {
                 frmCRUD.UpdateContent();
             }
+        }
+
+        private void FrmCUAsignatura_AL_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                btnAgregar.PerformClick();
+                e.Handled = true;
+            }
+            if (e.KeyChar == (char)Keys.Escape)
+            {
+                this.Close();
+                e.Handled = true;
+            }
+        }
+
+        private void btnAddGR_Click(object sender, EventArgs e)
+        {
+            Frm_CreateNewAsignatura_Modal frmCreateAsig = new Frm_CreateNewAsignatura_Modal(cmbAsignatura.Text);
+            frmCreateAsig.ShowDialog();
         }
     }
 }

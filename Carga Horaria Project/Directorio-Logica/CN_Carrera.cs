@@ -29,21 +29,16 @@ namespace Directorio_Logica
         }
 
         #region CRUD Methods
-        public bool CreateCarreraNeg(string idDep, string nameCarrera, string codCarrera, string pensum, string estado)
+        public bool CreateCarreraNeg(string idDep, string nameCarrera, string codCarrera, string pensum)
         {
             try
             {
-                if (estado == "True")
-                {
-                    state = true;
-                }
                 ClsCarrera ObjCarrera = new ClsCarrera()
                 {
                     IdDepartamento = Convert.ToInt32(idDep),
                     NombreCarrera = nameCarrera,
                     CodigoCarrera = codCarrera,
-                    Pensum = pensum,
-                    EstadoCarrera = state
+                    Pensum = pensum
                 };
                 objetoCData.CreateCarrera(ObjCarrera);
 
@@ -58,14 +53,10 @@ namespace Directorio_Logica
             }
 
         }
-        public bool UpdateCarreraNeg(string idCarrera, string idDep, string nameCarrera, string codCarrera, string pensum, string estado)
+        public bool UpdateCarreraNeg(string idCarrera, string idDep, string nameCarrera, string codCarrera, string pensum)
         {
             try
             {
-                if (estado == "True")
-                {
-                    state = true;
-                }
                 ClsCarrera ObjCarrera = new ClsCarrera()
                 {
                     IdCarrera = Convert.ToInt32(idCarrera),
@@ -73,10 +64,8 @@ namespace Directorio_Logica
                     NombreCarrera = nameCarrera,
                     CodigoCarrera = codCarrera,
                     Pensum = pensum,
-                    EstadoCarrera = state
                 };
                 objetoCData.UpdateCarrera(ObjCarrera);
-
 
                 return true;
 

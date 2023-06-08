@@ -134,6 +134,7 @@
             // 
             // cmbGR
             // 
+            this.cmbGR.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbGR.FormattingEnabled = true;
             this.cmbGR.Items.AddRange(new object[] {
             "GR1",
@@ -163,6 +164,7 @@
             // 
             // cmbAsignaturas
             // 
+            this.cmbAsignaturas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbAsignaturas.FormattingEnabled = true;
             this.cmbAsignaturas.Items.AddRange(new object[] {
             "1",
@@ -189,6 +191,7 @@
             this.cmbAsignaturas.Name = "cmbAsignaturas";
             this.cmbAsignaturas.Size = new System.Drawing.Size(465, 28);
             this.cmbAsignaturas.TabIndex = 18;
+            this.cmbAsignaturas.SelectedIndexChanged += new System.EventHandler(this.cmbAsignaturas_SelectedIndexChanged);
             // 
             // btnGuardar
             // 

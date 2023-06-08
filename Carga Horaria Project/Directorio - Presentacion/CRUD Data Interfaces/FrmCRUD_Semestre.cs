@@ -21,21 +21,41 @@ namespace Directorio___Presentacion.CRUD_Interfaces
 
         private string? idSemestre = null;
         private bool Editar = false;
+        private int selectedYearCmb;
         //private string? nameDepartamento = null;
         //private string? emailDepartamento = null;
         public FrmCRUD_Semestre()
         {
             InitializeComponent();
             clsStyles.tableStyle(dgLstSemestres);
+            this.KeyPreview = true;
         }
         private void FrmCRUD_Semestre_Load(object sender, EventArgs e)
         {
             MostrarSemestres();
+            GetDataCmbs();
         }
         private void MostrarSemestres()
         {
             DAL_Semestre objetoCNegocio = new DAL_Semestre();
             dgLstSemestres.DataSource = objetoCNegocio.MostrarRegistros();
+        }
+        private void GetDataCmbs()
+        {
+            int currentYear = DateTime.Now.Year;
+
+            for (int year = 2000; year <= currentYear+20; year++)
+            {
+                cmbYear.Items.Add(year);
+            }
+            for (int weeks = 10; weeks <= 40; weeks++)
+            {
+                cboxSemanasTotales.Items.Add(weeks);
+                cboxSemanasClase.Items.Add(weeks);
+            }
+            cmbYear.SelectedIndex = -1;
+            cboxSemanasClase.SelectedIndex = -1;
+            cboxSemanasTotales.SelectedIndex = -1;
         }
 
         #region Clicks Events
@@ -58,16 +78,49 @@ namespace Directorio___Presentacion.CRUD_Interfaces
         }
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            
+
+            if (cmbYear.SelectedIndex == -1)
+            {
+                MessageBox.Show("Debe seleccionar un año para completar el registro.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (cboxSemanasClase.SelectedIndex == -1)
+            {
+                MessageBox.Show("Debe seleccionar un número de semanas de clase para completar el registro.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (cboxSemanasTotales.SelectedIndex == -1)
+            {
+                MessageBox.Show("Debe seleccionar un número de semanas totales del semestre para completar el registro.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (!txtCodigo.Text.Contains(selectedYearCmb.ToString()))
+            {
+                MessageBox.Show("El código del semestre debe contener el año del semestre en su contenido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if ((int)cboxSemanasClase.SelectedItem >= (int)cboxSemanasTotales.SelectedItem)
+            {
+                MessageBox.Show("Debe seleccionar un número de semanas totales del semestre mayor a las semanas de clase para completar el registro.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             if (Editar == false)
             {
                 try
                 {
-                    objetoCNegocio.CreateSemestreNegocio(txtCodigo.Text, txtYear.Text, dtFechaInicio.Value.ToString("yyyy-MM-dd"),
+                    //if (!txtCodigo.Text.Contains(selectedYearCmb.ToString()))
+                    //{
+                    //    MessageBox.Show("El código del semestre debe contener el año del semestre en su contenido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //    return;
+                    //}
+
+                    objetoCNegocio.CreateSemestreNegocio(txtCodigo.Text, selectedYearCmb.ToString(), dtFechaInicio.Value.ToString("yyyy-MM-dd"),
                     dtFechaFin.Value.ToString("yyyy-MM-dd"), cboxSemanasClase.Text, cboxSemanasTotales.Text, ckboxEstado.Checked.ToString());
                     MessageBox.Show("Semestre insertado correctamente");
                     MostrarSemestres();
                     ClearTxtBox();
+
                 }
                 catch (Exception ex)
                 {
@@ -79,7 +132,7 @@ namespace Directorio___Presentacion.CRUD_Interfaces
             {
                 try
                 {
-                    objetoCNegocio.UpdateSemestreNegocio(idSemestre, txtCodigo.Text, txtYear.Text, dtFechaInicio.Value.ToString("yyyy-MM-dd"),
+                    objetoCNegocio.UpdateSemestreNegocio(idSemestre, txtCodigo.Text,selectedYearCmb.ToString(), dtFechaInicio.Value.ToString("yyyy-MM-dd"),
                     dtFechaFin.Value.ToString("yyyy-MM-dd"), cboxSemanasClase.Text, cboxSemanasTotales.Text, ckboxEstado.Checked.ToString());
                     MessageBox.Show("Semestre actualizado correctamente");
                     panelNewSemestre.Visible = false;
@@ -103,7 +156,7 @@ namespace Directorio___Presentacion.CRUD_Interfaces
                     Editar = true;
                     idSemestre = dgLstSemestres.CurrentRow.Cells[0].Value.ToString()!;
                     txtCodigo.Text = dgLstSemestres.CurrentRow.Cells[1].Value.ToString()!;
-                    txtYear.Text = dgLstSemestres.CurrentRow.Cells[2].Value.ToString()!;
+                    cmbYear.Text = dgLstSemestres.CurrentRow.Cells[2].Value.ToString()!;
                     dtFechaInicio.Text = dgLstSemestres.CurrentRow.Cells[3].Value.ToString()!;
                     dtFechaFin.Text = dgLstSemestres.CurrentRow.Cells[4].Value.ToString()!;
                     cboxSemanasClase.Text = dgLstSemestres.CurrentRow.Cells[5].Value.ToString()!;
@@ -151,7 +204,6 @@ namespace Directorio___Presentacion.CRUD_Interfaces
         private void ClearTxtBox()
         {
             txtCodigo.Text = string.Empty;
-            txtYear.Text = string.Empty;
             ckboxEstado.Checked = false;
             cboxSemanasClase.Text = string.Empty;
             cboxSemanasTotales.Text = string.Empty;
@@ -160,5 +212,19 @@ namespace Directorio___Presentacion.CRUD_Interfaces
         }
         #endregion
 
+        private void cmbYear_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            selectedYearCmb = (int)cmbYear.SelectedItem;
+            txtCodigo.Text = selectedYearCmb.ToString();
+        }
+
+        private void FrmCRUD_Semestre_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control && e.KeyCode == Keys.G)
+            {
+                btnGuardar.PerformClick();
+                e.Handled = true;
+            }
+        }
     }
 }

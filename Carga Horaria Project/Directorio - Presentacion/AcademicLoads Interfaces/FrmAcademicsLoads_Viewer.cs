@@ -18,6 +18,8 @@ using iText.Layout.Properties;
 using Rectangle = iText.Kernel.Geom.Rectangle;
 using iText.IO.Image;
 using Image = iText.Layout.Element.Image;
+using ScottPlot.Drawing.Colormaps;
+using iText.Layout.Borders;
 
 namespace Directorio___Presentacion.AcademicLoads_Interfaces
 {
@@ -34,6 +36,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
         private int idDocente;
         private int idCH;
         private int count;
+        private TreeNode rootNode;
 
         private static int numSemanasClase;
         private static int numSemanasSemestre;
@@ -86,11 +89,13 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
         private void FillTreeView(int idSemestre)
         {
             // Obtener los datos de los departamentos
+            CN_Departamento objetoNDepartamento = new CN_Departamento();
             DataTable dtDepartamentos = objetoNDepartamento.MostrarDepartamentosTV();
 
             // Crear el nodo padre del treeview
             TreeNode parentNode = new TreeNode("Departamentos");
             parentNode.Tag = "0";
+            parentNode.Nodes.Clear();
 
             // Recorrer la tabla y crear los nodos hijos
             foreach (DataRow row in dtDepartamentos.Rows)
@@ -103,7 +108,9 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
                 parentNode.Nodes.Add(childNode);
 
                 // Obtener los datos de los docentes y crear los nodos nietos
+                CN_Docente objetoNDocente = new CN_Docente();
                 DataTable dtDocentes = objetoNDocente.MostrarDocentesByDepId(Convert.ToString(row["ID"]), idSemestre.ToString());
+                childNode.Nodes.Clear();
 
                 foreach (DataRow childRow in dtDocentes.Rows)
                 {
@@ -151,9 +158,11 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
 
             int id;
             cmbValueSemestre = Convert.ToInt32(cmbSemestre.SelectedValue);
+
             if (int.TryParse(e.Node.Tag.ToString(), out id))
             {
-                if (e.Node.Text != "Departamentos" || e.Node.Text != "DETRI")
+                if (e.Node.Text == "Departamentos" || e.Node.Text == "DETRI") return;
+                else
                 {
                     panelDocenteInfo.Visible = true;
                     panelMain.Visible = true;
@@ -196,9 +205,16 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
 
         private void cmbSemestre_SelectedIndexChanged(object sender, EventArgs e)
         {
+            panelDocenteInfo.Visible = false;
+            panelMain.Visible = false;
+            tvDocentesLst.Nodes.Clear();
             count++;
             if (cmbSemestre.SelectedIndex > -1 && count > 2)
             {
+                if (rootNode != null)
+                {
+                    rootNode.Nodes.Clear();
+                }
                 tvDocentesLst.Visible = true;
                 cmbValueSemestre = Convert.ToInt32(cmbSemestre.SelectedValue);
                 numSemanasClase = objetoCarga_N.GetSemanasClase_Negocio(cmbValueSemestre.ToString());
@@ -242,10 +258,14 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
             // Crear un objeto SaveFileDialog
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
 
+            // Se obtine la fecha para hacer nombre unico al documento
+            DateTime now = DateTime.Now;
+            string formattedDateTime = now.ToString("yyyyMMdd_HHmmss");
+
             // Establecer opciones de diálogo
             saveFileDialog1.Filter = "Archivos PDF|*.pdf";
             saveFileDialog1.Title = "Guardar documento PDF";
-            saveFileDialog1.FileName = docenteName + "_CargaAcademica_" + cmbSemestre.Text;
+            saveFileDialog1.FileName = docenteName + "_CA_" + cmbSemestre.Text + "_" + formattedDateTime;
 
             // Mostrar el diálogo y guardar el archivo si el usuario hace clic en Guardar
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
@@ -404,12 +424,34 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
 
                 // Agrega espacio antes y después de la tabla
                 tableTotalHours.SetMarginTop(10f);
-                tableTotalHours.SetMarginBottom(10f);
+                tableTotalHours.SetMarginBottom(20f);
 
                 // Agregar la tabla al documento
                 doc.Add(tableTotalHours);
 
-                
+                //  AGREGAR FIRMAS
+                Table firmasTable = new Table(2);
+                firmasTable.SetHorizontalAlignment(iText.Layout.Properties.HorizontalAlignment.CENTER).UseAllAvailableWidth().SetMarginTop(70);
+
+                Border border = Border.NO_BORDER;
+                Cell lineaCell = new Cell().Add(new Paragraph("______________________________"));
+                lineaCell.SetBorder(border);
+                lineaCell.SetFontSize(8).SetTextAlignment(TextAlignment.CENTER);
+                firmasTable.AddCell(lineaCell);
+                Cell linea2Cell = new Cell().Add(new Paragraph("______________________________"));
+                linea2Cell.SetBorder(border);
+                linea2Cell.SetFontSize(8).SetMarginRight(20).SetTextAlignment(TextAlignment.CENTER);
+                firmasTable.AddCell(linea2Cell);
+
+                Cell nombre1Cell = new Cell().Add(new Paragraph(docenteName));
+                nombre1Cell.SetBorder(border);
+                nombre1Cell.SetFontSize(9).SetTextAlignment(TextAlignment.CENTER);
+                firmasTable.AddCell(nombre1Cell);
+                Cell nombre2Cell = new Cell().Add(new Paragraph("Jefe del DETRI"));
+                nombre2Cell.SetBorder(border).SetFontSize(9).SetMarginLeft(20).SetTextAlignment(TextAlignment.CENTER);
+                firmasTable.AddCell(nombre2Cell);
+
+                doc.Add(firmasTable);
 
                 // Agregar el evento del pie de página y el encabezado al documento
                 CustomPageEventHandler handler = new CustomPageEventHandler();
