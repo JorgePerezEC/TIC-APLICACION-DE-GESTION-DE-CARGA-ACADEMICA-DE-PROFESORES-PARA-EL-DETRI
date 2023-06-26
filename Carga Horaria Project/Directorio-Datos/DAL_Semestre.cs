@@ -35,7 +35,6 @@ namespace Directorio_Datos
                 sqlCommand.Parameters.AddWithValue("@dFin", _semestre.DiaFin.ToString("yyyy-MM-dd"));
                 sqlCommand.Parameters.AddWithValue("@nSemanaClase", _semestre.NumeroSemanasClase);
                 sqlCommand.Parameters.AddWithValue("@nSemanaSemestre", _semestre.NumeroSemanasSemestre);
-                sqlCommand.Parameters.AddWithValue("@state", _semestre.Estado);
 
                 ObjDataBase.AbrirConexion();
                 sqlCommand.ExecuteNonQuery();
@@ -72,7 +71,6 @@ namespace Directorio_Datos
                 sqlCommand.Parameters.AddWithValue("@dFin", _semestre.DiaFin.ToString("yyyy-MM-dd"));
                 sqlCommand.Parameters.AddWithValue("@nSemanaClase", _semestre.NumeroSemanasClase);
                 sqlCommand.Parameters.AddWithValue("@nSemanaSemestre", _semestre.NumeroSemanasSemestre);
-                sqlCommand.Parameters.AddWithValue("@state", _semestre.Estado);
 
                 ObjDataBase.AbrirConexion();
                 sqlCommand.ExecuteNonQuery();
@@ -133,5 +131,42 @@ namespace Directorio_Datos
             ObjDataBase.CerrarConexion();
             return tabla;
         }
+
+        #region Methods for tblSemestreDocente
+        // CREATE OR UPDATE SEMESTRE DOCENTE
+        public bool CreateSemestreDocente(ClsSemestre _semestre, ClsDocente _docente, ClsTipoDocente _tpDocente)
+        {
+            try
+            {
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.Connection = ObjDataBase.sqlConexion;
+                sqlCommand.CommandText = "spAddOrUpdateSemestreTpDocente";
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+
+                sqlCommand.Parameters.AddWithValue("@idSemestre", _semestre.IdSemestre);
+                sqlCommand.Parameters.AddWithValue("@idDocente", _docente.IdDocente);
+                sqlCommand.Parameters.AddWithValue("@idTpDocente", _tpDocente.IdTipoDocente);
+                sqlCommand.Parameters.AddWithValue("@numHoras", _tpDocente.HorasExigibles);
+                sqlCommand.Parameters.AddWithValue("@state", _semestre.Estado);
+
+                ObjDataBase.AbrirConexion();
+                sqlCommand.ExecuteNonQuery();
+
+                return true;
+
+            }
+            catch (System.Data.SqlClient.SqlException sqlException)
+            {
+                System.Windows.Forms.MessageBox.Show(sqlException.Message); ;
+                return false;
+
+            }
+            finally
+            {
+                ObjDataBase.CerrarConexion();
+            }
+
+        }
+        #endregion
     }
 }

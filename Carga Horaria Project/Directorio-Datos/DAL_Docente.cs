@@ -172,5 +172,21 @@ namespace Directorio_Datos
             ObjDataBase.CerrarConexion();
             return tabla;
         }
+        public DataTable MostrarRegistrosByIdSemestre(ClsSemestre _semestre)
+        {
+            //comando.Connection = manejador.AbrirConexion();
+            SqlCommand comando = new SqlCommand();
+            comando.Connection = ObjDataBase.sqlConexion;
+            comando.CommandText = "spReadAllSmstreTpDocenteBySemestre";
+            comando.CommandType = CommandType.StoredProcedure;
+
+            comando.Parameters.AddWithValue("@idSemestre", _semestre.IdSemestre);
+
+            ObjDataBase.AbrirConexion();
+            leer = comando.ExecuteReader();
+            tabla.Load(leer);
+            ObjDataBase.CerrarConexion();
+            return tabla;
+        }
     }
 }

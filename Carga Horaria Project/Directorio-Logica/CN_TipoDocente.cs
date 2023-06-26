@@ -21,6 +21,12 @@ namespace Directorio_Logica
             tabla = objetoCData.MostrarRegistros();
             return tabla;
         }
+        public DataTable MostrarTiposDocentesCmbLn()
+        {
+            DataTable tabla = new DataTable();
+            tabla = objetoCData.MostrarRegistrosCmb();
+            return tabla;
+        }
         public DataTable MostrarDocentesHExBySemestre_Negocio(string idDocente)
         {
             DataTable tabla = new DataTable();

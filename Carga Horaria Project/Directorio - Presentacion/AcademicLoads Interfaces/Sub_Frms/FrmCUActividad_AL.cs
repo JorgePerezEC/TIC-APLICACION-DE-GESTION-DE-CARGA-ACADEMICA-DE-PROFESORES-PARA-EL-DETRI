@@ -53,7 +53,6 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
 
         private void FrmCUActividad_AL_Load(object sender, EventArgs e)
         {
-            
             if (EditarL)
             {
                 btnAgregar.Text = "Actualizar";

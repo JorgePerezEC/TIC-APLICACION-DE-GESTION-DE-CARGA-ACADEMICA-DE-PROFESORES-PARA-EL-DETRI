@@ -47,6 +47,17 @@ namespace Directorio_Logica
             return tabla;
         }
 
+        public DataTable MostrarRegistrosByIdSemestre_Negocio(string idSemestre)
+        {
+            DataTable tabla = new DataTable();
+            ClsSemestre objSemestre = new ClsSemestre()
+            {
+                IdSemestre = Convert.ToInt32(idSemestre)
+            };
+            tabla = objetoCData.MostrarRegistrosByIdSemestre( objSemestre);
+            return tabla;
+        }
+
         #region CRUD Methods
         public bool CreateDocenteNeg(string idDep, string name1, string name2, string apellido1,string apellido2,string titulo)
         {

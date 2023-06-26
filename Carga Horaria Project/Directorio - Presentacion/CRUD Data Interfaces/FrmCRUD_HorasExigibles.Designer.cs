@@ -221,7 +221,8 @@
             // 
             // cmbTipoDocente
             // 
-            this.cmbTipoDocente.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbTipoDocente.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cmbTipoDocente.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cmbTipoDocente.FormattingEnabled = true;
             this.cmbTipoDocente.Location = new System.Drawing.Point(209, 96);
             this.cmbTipoDocente.Name = "cmbTipoDocente";
@@ -241,7 +242,8 @@
             // 
             // cmbSemestreAdd
             // 
-            this.cmbSemestreAdd.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbSemestreAdd.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cmbSemestreAdd.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cmbSemestreAdd.FormattingEnabled = true;
             this.cmbSemestreAdd.Location = new System.Drawing.Point(209, 58);
             this.cmbSemestreAdd.Name = "cmbSemestreAdd";
@@ -251,7 +253,8 @@
             // 
             // cmbDocente
             // 
-            this.cmbDocente.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbDocente.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cmbDocente.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cmbDocente.FormattingEnabled = true;
             this.cmbDocente.Location = new System.Drawing.Point(209, 24);
             this.cmbDocente.Name = "cmbDocente";

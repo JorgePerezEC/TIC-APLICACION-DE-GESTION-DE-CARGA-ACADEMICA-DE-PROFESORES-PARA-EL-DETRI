@@ -10,13 +10,13 @@ USE master
 GO
 IF EXISTS (SELECT name FROM sys.databases WHERE name = 'dbCargaHorariaMay')
 BEGIN
-    DROP DATABASE dbCargaHorariaMay;
+    DROP DATABASE dbCargaHorariaJune;
 END
 GO
 PRINT 'Creating DB';
-CREATE DATABASE dbCargaHorariaMay;
+CREATE DATABASE dbCargaHorariaJune;
 GO
-USE dbCargaHorariaMay;
+USE dbCargaHorariaJune;
 
 -----------------------------------------
 -- Table Creation Section
@@ -102,11 +102,11 @@ CREATE TABLE tblSemestreTpDocente(
 GO
 ----------------------------------------------------------
 -- Table: Tipo Asignatura
-CREATE TABLE tblTipoAsignatura (
-	idTpAsig int  NOT NULL IDENTITY(1, 1) PRIMARY KEY,
-	nombreTpAct varchar(20) NOT NULL,
-	descripcionTpAct varchar(255) NOT NULL
-);
+--CREATE TABLE tblTipoAsignatura (
+--	idTpAsig int  NOT NULL IDENTITY(1, 1) PRIMARY KEY,
+--	nombreTpAct varchar(20) NOT NULL,
+--	descripcionTpAct varchar(255) NOT NULL
+--);
 GO
 -- Table: Asignatura
 CREATE TABLE tblAsignatura (
@@ -126,7 +126,7 @@ CREATE TABLE tblAsigCarrera(
 	idAsigCarrera int  NOT NULL IDENTITY(1, 1),
 	idCarrera int NOT NULL,
 	idAsignatura int NOT NULL,--FK 
-	estadoSemestreDoc bit NOT NULL,
+	estadoAsigCarrera bit NOT NULL,
 	PRIMARY KEY (idAsigCarrera),
 	FOREIGN KEY (idCarrera) REFERENCES tblCarrera(idCarrera) ON UPDATE  NO ACTION  ON DELETE  NO ACTION,
 	FOREIGN KEY (idAsignatura) REFERENCES tblAsignatura(idAsignatura) ON UPDATE  NO ACTION  ON DELETE  NO ACTION
@@ -153,6 +153,26 @@ CREATE TABLE tblHorarioGrAsig(
 	FOREIGN KEY (idGrAsig) REFERENCES tblGrAsignatura(idGrAsig) ON UPDATE  NO ACTION  ON DELETE  NO ACTION
 );
 GO
+-- Table: SemestreGrupoAsignatura intermedia
+CREATE TABLE tblSemestreGrAsignatura (
+    idSemestreGrAsignatura int NOT NULL IDENTITY(1, 1) PRIMARY KEY,
+    idSemestre int NOT NULL,
+    idGrAsig int NOT NULL,
+	isActive bit NOT NULL,
+    CONSTRAINT FK_SemestreGrAsignatura_Semestre FOREIGN KEY (idSemestre) REFERENCES tblSemestre(idSemestre) ON UPDATE NO ACTION ON DELETE NO ACTION,
+    CONSTRAINT FK_SemestreGrAsignatura_GrAsignatura FOREIGN KEY (idGrAsig) REFERENCES tblGrAsignatura(idGrAsig) ON UPDATE NO ACTION ON DELETE NO ACTION
+);
+GO
+-- Table: SemestreDocente intermedia
+--CREATE TABLE tblSemestreDocente (
+--    idSemestreDocente int NOT NULL IDENTITY(1, 1) PRIMARY KEY,
+--    idSemestre int NOT NULL,
+--    idDocente int NOT NULL,
+--    estadoSemestreDoc bit NOT NULL,
+--    CONSTRAINT FK_SemestreDocente_Semestre FOREIGN KEY (idSemestre) REFERENCES tblSemestre(idSemestre) ON UPDATE NO ACTION ON DELETE NO ACTION,
+--    CONSTRAINT FK_SemestreDocente_Docente FOREIGN KEY (idDocente) REFERENCES tblDocente(idDocente) ON UPDATE NO ACTION ON DELETE NO ACTION
+--);
+--GO
 -- Table: Actividad
 CREATE TABLE tblActividad(
 	idActividad int  NOT NULL IDENTITY(1, 1) PRIMARY KEY,--PK
@@ -266,19 +286,18 @@ GO
 --exec spAddSemestre '2023A',2023,'lunes,30 de enero 2023','2023-05-02',16,20,1
 --exec spReadAllSemestres
 -- Stored Procedure to create one row from  "tblSemestre"
-CREATE PROCEDURE [dbo].[spAddSemestre]
+CREATE OR ALTER PROCEDURE [dbo].[spAddSemestre]
 	@codSmstr	varchar(50),
 	@yrSmstr int,
 	@dIni date,
 	@dFin date,
 	@nSemanaClase int,
-	@nSemanaSemestre int,
-	@state bit
+	@nSemanaSemestre int
 AS
 	BEGIN 
 		INSERT INTO tblSemestre(codigoSemestre,añoSemestre,diaInicio, diaFin,
 		numSemanasClase,numSemanasSemestre,estadoSemestre)
-		VALUES(@codSmstr, @yrSmstr, @dIni, @dFin, @nSemanaClase, @nSemanaSemestre, @state)
+		VALUES(@codSmstr, @yrSmstr, @dIni, @dFin, @nSemanaClase, @nSemanaSemestre, 1)
 	END
 GO
 -- Stored Procedure to create one row from  "tblSemestreTpDocente"
@@ -316,8 +335,31 @@ CREATE PROCEDURE [dbo].[spAddAsigCarrera]
 	@state bit
 AS
 	BEGIN 
-		INSERT INTO tblAsigCarrera(idCarrera,idAsignatura,estadoSemestreDoc)
+		INSERT INTO tblAsigCarrera(idCarrera,idAsignatura,estadoAsigCarrera)
 		VALUES(@idCarrera,@idAsig,@state)
+	END
+GO
+---- Stored Procedure to create one row into  "tblSemestreDocente"
+CREATE OR ALTER PROCEDURE [dbo].[spAddOrUpdateSemestreTpDocente]
+	@idSemestre int,
+	@idDocente int,
+	@idTpDocente int,
+	@numHoras int,
+	@state bit
+AS
+	BEGIN 
+		IF EXISTS(SELECT idSemestreTpDoc FROM tblSemestreTpDocente WHERE idSemestre = @idSemestre AND idDocente = @idDocente)
+		BEGIN
+			UPDATE tblSemestreTpDocente
+			SET estadoSemestreDoc = @state,
+				idTipoDoc = @idTpDocente, numHorasSemestrales = @numHoras
+			WHERE idSemestre = @idSemestre AND idDocente = @idDocente
+		END
+		ELSE
+		BEGIN
+			INSERT INTO tblSemestreTpDocente (idTipoDoc,idSemestre, idDocente, numHorasSemestrales,estadoSemestreDoc)
+			VALUES (@idTpDocente,@idSemestre, @idDocente, @numHoras, @state)
+		END
 	END
 GO
 -- Stored Procedure to create one row from  "tblGrAsignatura"
@@ -702,6 +744,14 @@ BEGIN
     FROM   tblTipoDocente
 END
 GO
+-- Stored Procedure to Read All rows from  "tblTipoDocente"
+CREATE OR ALTER PROCEDURE [dbo].[spReadTipoDocentesCmb]
+AS 
+BEGIN 
+    SELECT idTipoDocente AS ID,nombreTipoDocente AS 'TipoDocente'
+    FROM   tblTipoDocente
+END
+GO
 -- Stored Procedure to Read All rows from  "tblDocente"
 CREATE OR ALTER PROCEDURE [dbo].[spReadAllDocentes]
 AS 
@@ -729,6 +779,20 @@ AS
 BEGIN 
     SELECT idDocente AS ID, CONCAT(apellido1Docente, ' ', apellido2Docente,' ', nombre1Docente, ' ', nombre2Docente) NombreDocente
     FROM   tblDocente
+	ORDER BY NombreDocente ASC
+END
+GO
+-- Stored Procedure to Read All rows from  "tblSemestreTpDocente"
+CREATE OR ALTER PROCEDURE [dbo].[spReadAllSmstreTpDocenteBySemestre]
+	@idSemestre int
+AS 
+BEGIN 
+    SELECT STP.idSemestreTpDoc AS ID, CONCAT(D.apellido1Docente, ' ', D.apellido2Docente,' ', D.nombre1Docente, ' ', D.nombre2Docente) NombreDocente,
+		STP.estadoSemestreDoc, STP.idTipoDoc
+    FROM   tblSemestreTpDocente STP
+	INNER JOIN tblDocente D ON STP.idDocente = D.idDocente
+	INNER JOIN tblTipoDocente TD ON STP.idTipoDoc = TD.idTipoDocente
+	WHERE STP.idSemestre = @idSemestre
 	ORDER BY NombreDocente ASC
 END
 GO
@@ -832,21 +896,20 @@ AS
 	END
 GO
 -- Stored Procedure to Update specific row from  "tblSemestre"
-CREATE PROCEDURE [dbo].[spUpdateSemestre]
+CREATE OR ALTER PROCEDURE [dbo].[spUpdateSemestre]
 	@id int,
 	@codSmstr	varchar(50),
 	@yrSmstr int,
 	@dIni date,
 	@dFin date,
 	@nSemanaClase int,
-	@nSemanaSemestre int,
-	@state bit
+	@nSemanaSemestre int
 AS
 	BEGIN
 		UPDATE tblSemestre
 		SET codigoSemestre = @codSmstr, añoSemestre= @yrSmstr, diaInicio =@dIni,
 			diaFin = @dFin, numSemanasClase = @nSemanaClase, numSemanasSemestre = @nSemanaSemestre,
-			estadoSemestre = @state
+			estadoSemestre = 1
 		WHERE idSemestre = @id;
 	END
 GO
@@ -893,7 +956,7 @@ CREATE PROCEDURE [dbo].[spUpdateAsigCarrera]
 AS
 	BEGIN 
 		UPDATE tblAsigCarrera
-		SET idCarrera = @idCarrera, idAsignatura= @idAsig, estadoSemestreDoc = @state
+		SET idCarrera = @idCarrera, idAsignatura= @idAsig, estadoAsigCarrera = @state
 		WHERE  (idAsigCarrera = @id)
 	END
 GO
@@ -1070,10 +1133,10 @@ CREATE PROCEDURE [dbo].[spDeleteAsigCarrera]
 	@state bit
 AS
 	BEGIN 
-		INSERT INTO tblAsigCarrera(idCarrera,idAsignatura,estadoSemestreDoc)
+		INSERT INTO tblAsigCarrera(idCarrera,idAsignatura,estadoAsigCarrera)
 		VALUES(@idCarrera,@idAsig,@state)
 		DELETE FROM tblAsigCarrera 
-		WHERE (idCarrera = @idCarrera AND idAsignatura = @idAsig AND estadoSemestreDoc = @state)
+		WHERE (idCarrera = @idCarrera AND idAsignatura = @idAsig AND estadoAsigCarrera = @state)
 	END
 GO
 -- Stored Procedure to delete one row from  "tblGrAsignatura" using idAsingnatura
@@ -1855,6 +1918,51 @@ BEGIN
 	WHERE idCrgHoraria = @id_CargaH AND idActividad = 4
 END;
 --tblAsigCrgHoraria
+GO
+-- TRIGGER PARA AGREGAR LOS DOCENTES AL NUEVO SEMESTRE CREADO
+CREATE TRIGGER tr_AddDocentesSemestreTpDocente
+ON tblSemestre
+AFTER INSERT
+AS
+BEGIN
+	SET NOCOUNT ON
+    -- Insertar los docentes existentes en la tabla tblDocente
+    -- con el idTipoDoc = 7 y estadoSemestreDoc en falso para el nuevo semestre insertado
+    
+    -- Obtener el id del semestre insertado
+    DECLARE @idSemestre INT
+    SELECT @idSemestre = idSemestre FROM inserted
+    
+    -- Insertar los docentes en tblSemestreTpDocente solo si no existen previamente para el semestre
+    INSERT INTO tblSemestreTpDocente (idTipoDoc, idSemestre, idDocente, numHorasSemestrales, estadoSemestreDoc)
+    SELECT 7, @idSemestre, d.idDocente, 0, 0
+    FROM tblDocente d
+    WHERE NOT EXISTS (
+        SELECT 1
+        FROM tblSemestreTpDocente std
+        WHERE std.idSemestre = @idSemestre
+        AND std.idDocente = d.idDocente
+    )
+END
+GO
+CREATE TRIGGER tr_AddDocenteToSemestreTpDocente
+ON tblDocente
+AFTER INSERT
+AS
+BEGIN
+    SET NOCOUNT ON
+    
+    -- Obtener el id del docente insertado
+    DECLARE @idDocente INT
+    SELECT @idDocente = idDocente FROM inserted
+    
+    -- Insertar el docente en tblSemestreTpDocente para cada semestre existente
+    INSERT INTO tblSemestreTpDocente (idTipoDoc, idSemestre, idDocente, numHorasSemestrales, estadoSemestreDoc)
+    SELECT 7, idSemestre, @idDocente, 0, 0
+    FROM tblSemestre
+ 
+END
+
 -----------------------------------------
 -- Default Data Insert into DataBase Section
 -----------------------------------------
@@ -1878,12 +1986,13 @@ GO
 -- Table: Tipo Docente
 -- DATA INSERT
 --  TABLA: TipoDocente   DATOS    ('Nombre del TipoDocente','Estado')
-INSERT INTO tblTipoDocente VALUES('Profesor Titular a Tiempo Completo',928,1);--Id=1
-INSERT INTO tblTipoDocente VALUES('Profesor Titular a Tiempo Parcial',928,1); --Id=2
-INSERT INTO tblTipoDocente VALUES('Profesor Ocasional a Tiempo Completo',928,1); --Id=3
+INSERT INTO tblTipoDocente VALUES('Profesor Titular a Tiempo Completo',928,1);	--Id=1
+INSERT INTO tblTipoDocente VALUES('Profesor Titular a Tiempo Parcial',928,1);	--Id=2
+INSERT INTO tblTipoDocente VALUES('Profesor Ocasional a Tiempo Completo',928,1);--Id=3
 INSERT INTO tblTipoDocente VALUES('Profesor Ocasional a Tiempo Parcial',928,1); --Id=4
-INSERT INTO tblTipoDocente VALUES('Tecnico Docente a Tiempo Completo',928,1); --Id=5
-INSERT INTO tblTipoDocente VALUES('Tecnico Docente a Tiempo Parcial',928,1); --Id=6
+INSERT INTO tblTipoDocente VALUES('Tecnico Docente a Tiempo Completo',928,1);	--Id=5
+INSERT INTO tblTipoDocente VALUES('Tecnico Docente a Tiempo Parcial',928,1);	--Id=6
+INSERT INTO tblTipoDocente VALUES('No asignado',0,1);	--Id=7
 GO
 -- Table: Docente
 -- DATA INSERT
@@ -1942,9 +2051,6 @@ GO
 -- DATA INSERT
 --  TABLA: Semestre   DATOS    ('Codigo Semestre',AñoSemestre,diaInicio,diaFin,numSemanasClase,numSemanasSemestre,'Estado')
 INSERT INTO tblSemestre VALUES('2022B',2022,'2022-10-03','2023-03-31',18,26,1);
-GO
-INSERT INTO tblSemestreTpDocente(idTipoDoc, idSemestre, idDocente, numHorasSemestrales, estadoSemestreDoc)
-VALUES(1,1,1,950,1)
 GO
 -- Table: Actividad
 -- DATA INSERT
@@ -2015,250 +2121,507 @@ INSERT INTO tblActividad VALUES(4,'Otras actividades.', 5,0,1);--Id=63
 GO
 --  TABLA: Asignaturas   DATOS    (nombreAsignatura,'tipoAsignatura','codigoAsignatura',horasAsignaturaTotales,horasAsignaturaSemanales,nivelAsignatura, estadoAsignatura)
 --INSERTAR DATOS EN MATERIA---
---Malla TICs
 INSERT INTO tblAsignatura(nombreAsignatura,tipoAsignatura,codigoAsignatura,horasAsignaturaTotales,horasAsignaturaSemanales,
 						nivelAsignatura,estadoAsignatura)
-VALUES -- id=1  ==> 26
+VALUES -- id=1  ==> 44
+
 --('TEORÍA DE INFORMACIÓN Y CODIFICACIÓN','Semestral','TELD522',96,3,'Tercer Nivel',1),
-('TEORÍA DE INFORMACIÓN Y CODIFICACIÓN','Semestral','TELD522',96,3,'Tercer Nivel',1),
-('DISEÑO Y PROGRAMACIÓN DE SOFTWARE','Semestral','ITID543',144,5,'TercerNivel',1),
-('SISTEMAS EMBEBIDOS','Semestral','ITID553',144,5,'TercerNivel',1),
-('GESTIÓN ORGANIZACIONAL','Semestral','ADMD511',48,2,'TercerNivel',1),
-('CABLEADO ESTRUCTURADO AVANZADO','Semestral','ITID612',96,3,'TercerNivel',1),
-('REDES DE ÁREA LOCAL','Semestral','ITID623',144,5,'TercerNivel',1),
-('ENRUTAMIENTO','Semestral','ITID633',144,5,'TercerNivel',1),
-('SISTEMAS INALÁMBRICOS','Semestral','ITID643',144,5,'TercerNivel',1),
-('ALMACENAMIENTO Y PROCESAMIENTO DE DATOS','Semestral','ITID653',144,5,'TercerNivel',1),
-('GESTIÓN DE PROCESOS Y CALIDAD','Semestral','ADMD611',48,2,'TercerNivel',1),
-('APLICACIONES DISTRIBUIDAS','Semestral','ITID713',144,5,'TercerNivel',1),
-('REDES DE ÁREA EXTENDIDA','Semestral','ITID723',144,5,'TercerNivel',1),
-('SEGURIDAD EN REDES','Semestral','ITID733',144,5,'TercerNivel',1),
-('REDES E INTRANETS','Semestral','ITID742',96,3,'TercerNivel',1),
-('APLICACIONES WEB Y MÓVILES','Semestral','ITID753',144,5,'TercerNivel',1),
-('INGENIERÍA FINANCIERA','Semestral','ADMD711',48,2,'TercerNivel',1),
-('ASIGNATURA BÁSICA DE ITINERARIO','Semestral','ITID800',96,3,'TercerNivel',1),
-('EVALUACIÓN DE REDES','Semestral','ITID822',96,3,'TercerNivel',1),
-('REDES DE ÁREA LOCAL INALÁMBRICAS','Semestral','ITID832',96,3,'TercerNivel',1),
-('ADMINISTRACIÓN DE REDES','Semestral','ITID843',144,5,'TercerNivel',1),
-('MINERÍA DE DATOS','Semestral','ITID853',96,3,'TercerNivel',1),
-('SISTEMAS IoT','Semestral','ITID862',96,3,'TercerNivel',1),
-('DISEÑO DE TRABAJO DE INTEGRACIÓN CURRICULAR/PREPARACIÓN EXAMEN DE CARÁCTER COMPLEXIVO','Semestral','ITID871',48,2,'TercerNivel',1),
-('ASIGNATURA AVANZADA DE ITINERARIO','','ITID900',96,3,'TercerNivel',1),
-('REGULACIÓN DE LAS TECNOLOGÍAS DE LA INFORMACIÓN Y LA COMUNICACIÓN','Semestral','ITID941',48,2,'TercerNivel',1),
-('TRABAJO DE INTEGRACIÓN CURRICULAR/ EXAMEN DE CARÁCTER COMPLEXIVO','Semestral','TITD201',240,15,'TercerNivel',1)
+--('TEORÍA DE INFORMACIÓN Y CODIFICACIÓN','Semestral','TELD522',96,3,'Tercer Nivel',1),
+--('DISEÑO Y PROGRAMACIÓN DE SOFTWARE','Semestral','ITID543',144,5,'TercerNivel',1),
+--('SISTEMAS EMBEBIDOS','Semestral','ITID553',144,5,'TercerNivel',1),
+--('GESTIÓN ORGANIZACIONAL','Semestral','ADMD511',48,2,'TercerNivel',1),
+--('CABLEADO ESTRUCTURADO AVANZADO','Semestral','ITID612',96,3,'TercerNivel',1),
+--('REDES DE ÁREA LOCAL','Semestral','ITID623',144,5,'TercerNivel',1),
+--('ENRUTAMIENTO','Semestral','ITID633',144,5,'TercerNivel',1),
+--('SISTEMAS INALÁMBRICOS','Semestral','ITID643',144,5,'TercerNivel',1),
+--('ALMACENAMIENTO Y PROCESAMIENTO DE DATOS','Semestral','ITID653',144,5,'TercerNivel',1),
+--('GESTIÓN DE PROCESOS Y CALIDAD','Semestral','ADMD611',48,2,'TercerNivel',1),
+--('APLICACIONES DISTRIBUIDAS','Semestral','ITID713',144,5,'TercerNivel',1),
+--('REDES DE ÁREA EXTENDIDA','Semestral','ITID723',144,5,'TercerNivel',1),
+--('SEGURIDAD EN REDES','Semestral','ITID733',144,5,'TercerNivel',1),
+--('REDES E INTRANETS','Semestral','ITID742',96,3,'TercerNivel',1),
+--('APLICACIONES WEB Y MÓVILES','Semestral','ITID753',144,5,'TercerNivel',1),
+--('INGENIERÍA FINANCIERA','Semestral','ADMD711',48,2,'TercerNivel',1),
+--('ASIGNATURA BÁSICA DE ITINERARIO','Semestral','ITID800',96,3,'TercerNivel',1),
+--('EVALUACIÓN DE REDES','Semestral','ITID822',96,3,'TercerNivel',1),
+--('REDES DE ÁREA LOCAL INALÁMBRICAS','Semestral','ITID832',96,3,'TercerNivel',1),
+--('ADMINISTRACIÓN DE REDES','Semestral','ITID843',144,5,'TercerNivel',1),
+--('MINERÍA DE DATOS','Semestral','ITID853',96,3,'TercerNivel',1),
+--('SISTEMAS IoT','Semestral','ITID862',96,3,'TercerNivel',1),
+--('DISEÑO DE TRABAJO DE INTEGRACIÓN CURRICULAR/PREPARACIÓN EXAMEN DE CARÁCTER COMPLEXIVO','Semestral','ITID871',48,2,'TercerNivel',1),
+--('ASIGNATURA AVANZADA DE ITINERARIO','','ITID900',96,3,'TercerNivel',1),
+--('REGULACIÓN DE LAS TECNOLOGÍAS DE LA INFORMACIÓN Y LA COMUNICACIÓN','Semestral','ITID941',48,2,'TercerNivel',1),
+--('TRABAJO DE INTEGRACIÓN CURRICULAR/ EXAMEN DE CARÁCTER COMPLEXIVO','Semestral','TITD201',240,15,'TercerNivel',1)
+--Malla TICs
+('HERRAMIENTAS INFORMÁTICAS', 'Semestral', 'ICOD111', 48, 2, 'Primer Nivel',1),
+('CÁLCULO VECTORIAL', 'Semestral', 'IEED232', 96, 3, 'Segundo Nivel',1),
+('PROGRAMACIÓN', 'Semestral', 'IEED252', 96, 3, 'Segundo Nivel',1),
+('SISTEMAS DIGITALES', 'Semestral', 'IEED323', 96, 3, 'Tercer Nivel',1),
+('DISPOSITIVOS ELECTRÓNICOS', 'Semestral', 'IEED333', 96, 3, 'Tercer Nivel',1),
+('TEORÍA ELECTROMAGNÉTICA', 'Semestral', 'IEED333', 96, 4, 'Tercer Nivel',1),
+('FUNDAMENTOS DE CIRCUITOS ELÉCTRICOS', 'Semestral', 'IEED342', 96, 3, 'Tercer Nivel',1),
+('ASIGNATURA DE ARTES Y HUMANIDADES', 'Semestral', 'CSHD300', 48, 2, 'Tercer Nivel',1),
+('MATEMÁTICA DISCRETA', 'Semestral', 'IEED371', 48, 2, 'Tercer Nivel',1),
+('INSTALACIONES ELÉCTRICAS Y COMUNICACIONES', 'Semestral', 'IEED413', 144, 4, 'Cuarto Nivel',1),
+('ANÁLISIS DE SEÑALES DISCRETAS PARA COMUNICACIONES', 'Semestral', 'TELD423', 144, 3, 'Cuarto Nivel',1),
+('PROGRAMACIÓN AVANZADA', 'Semestral', 'ITID433', 144, 4, 'Cuarto Nivel',1),
+('BASES DE DATOS', 'Semestral', 'ITID443', 144, 4, 'Cuarto Nivel',1),
+('SISTEMAS OPERATIVOS', 'Semestral', 'ITID452', 96, 5, 'Cuarto Nivel',1),
+('ASIGNATURA DE ECONOMÍA Y SOCIEDAD', 'Semestral', 'CSHD400', 48, 2, 'Cuarto Nivel',1),
+('SISTEMAS DE CABLEADO ESTRUCTURADO', 'Semestral', 'ITID512', 96, 3, 'Quinto Nivel',1),
+('TRANSMISIÓN DIGITAL', 'Semestral', 'ITID524', 144, 5, 'Quinto Nivel',1),
+('TEORÍA DE INFORMACIÓN Y CODIFICACIÓN', 'Semestral', 'TELD522', 96, 3, 'Quinto Nivel',1),
+('DISEÑO Y PROGRAMACIÓN DE SOFTWARE', 'Semestral', 'ITID543', 144, 4, 'Quinto Nivel',1),
+('SISTEMAS EMBEBIDOS', 'Semestral', 'ITID553', 96, 3, 'Quinto Nivel',1),
+('GESTIÓN ORGANIZACIONAL', 'Semestral', 'ADMD511', 48, 2, 'Quinto Nivel',1),
+('CABLEADO ESTRUCTURADO AVANZADO', 'Semestral', 'ITID612', 96, 3, 'Sexto Nivel',1),
+('REDES DE ÁREA LOCAL', 'Semestral', 'ITID623', 96, 3, 'Sexto Nivel',1),
+('ENRUTAMIENTO', 'Semestral', 'ITID633', 96, 2, 'Sexto Nivel',1),
+('SISTEMAS INALÁMBRICOS', 'Semestral', 'ITID643', 144, 4, 'Sexto Nivel',1),
+('ALMACENAMIENTO Y PROCESAMIENTO DE DATOS', 'Semestral', 'ITID653', 144, 4, 'Sexto Nivel',1),
+('GESTIÓN DE PROCESOS Y CALIDAD', 'Semestral', 'ADMD611', 48, 2, 'Sexto Nivel',1),
+('APLICACIONES DISTRIBUIDAS', 'Semestral', 'ITID713', 144, 4, 'Séptimo Nivel',1),
+('REDES DE ÁREA EXTENDIDA', 'Semestral', 'ITID723', 96, 3, 'Séptimo Nivel',1),
+('SEGURIDAD EN REDES', 'Semestral', 'ITID733', 144, 4, 'Séptimo Nivel',1),
+('REDES E INTRANETS', 'Semestral', 'ITID742', 96, 3, 'Séptimo Nivel',1),
+('APLICACIONES WEB Y MÓVILES', 'Semestral', 'ITID753', 144, 5, 'Séptimo Nivel',1),
+('INGENIERÍA FINANCIERA', 'Semestral', 'ADMD711', 48, 2, 'Séptimo Nivel',1),
+('ASIGNATURA BÁSICA DE ITINERARIO', 'Semestral', 'ITID800', 96, 3, 'Octavo Nivel',1),
+('EVALUACIÓN DE REDES', 'Semestral', 'ITID822', 96, 4, 'Octavo Nivel',1),
+('REDES DE ÁREA LOCAL INALÁMBRICAS', 'Semestral', 'ITID832', 96, 3, 'Octavo Nivel',1),
+('ADMINISTRACIÓN DE REDES', 'Semestral', 'ITID843', 144, 4, 'Octavo Nivel',1),
+('MINERIA DE DATOS', 'Semestral', 'ITID853', 144, 5, 'Octavo Nivel',1),
+('SISTEMAS IOT', 'Semestral', 'ITID862', 96, 4, 'Octavo Nivel',1),
+('ASIGNATURA AVANZADA DE ITINERARIO', 'Semestral', 'ITID900', 96, 3, 'Noveno Nivel',1),
+('PRÁCTICAS LABORALES', 'Semestral', 'PRLD105', 240, 15, 'Noveno Nivel',1),
+('PRÁCTICAS DE SERVICIO COMUNITARIO', 'Semestral', 'PSCD202', 96, 6, 'Noveno Nivel',1),
+('REGULACIÓN DE LAS TECNOLOGÍAS DE IA INFORMACIÓN Y LA COMUNICACIÓN', 'Semestral', 'ITID941', 48, 2, 'Noveno Nivel',1),
+('TRABAJO DE INTEGRACIÓN CURRICULAR/EXAMEN DE CARÁCTER COMPLEXIVO', 'Semestral', 'TITD201', 240, 15, 'Noveno Nivel',1),
+--LABOS TICs
+-- id=45  ==> 52
+('LABORATORIO DE SISTEMAS DIGITALES', 'Semestral', 'IEED323', 48, 2, 'Tercer Nivel',1),
+('LABORATORIO DE DISPOSITIVOS ELECTRÓNICOS', 'Semestral', 'IEED333', 48, 2, 'Tercer Nivel',1),
+('LABORATORIO DE FUNDAMENTOS DE CIRCUITOS ELÉCTRICOS', 'Semestral', 'IEED342', 48, 2, 'Tercer Nivel',1),
+('LABORATORIO DE TRANSMISIÓN DIGITAL', 'Semestral', 'ITID524', 48, 2, 'Quinto Nivel',1),
+('LABORATORIO DE SISTEMAS EMBEBIDOS', 'Semestral', 'ITID553', 48, 2, 'Quinto Nivel',1),
+('LABORATORIO DE REDES DE ÁREA LOCAL', 'Semestral', 'ITID623', 48, 2, 'Sexto Nivel',1),
+('LABORATORIO DE ENRUTAMIENTO', 'Semestral', 'ITID633', 48, 2, 'Sexto Nivel',1),
+('LABORATORIO DE REDES DE ÁREA EXTENDIDA', 'Semestral', 'ITID723', 48, 2, 'Séptimo Nivel',1),
 
-GO
 --Malla Telecomunicaciones
-INSERT INTO tblAsignatura(nombreAsignatura,tipoAsignatura,codigoAsignatura,horasAsignaturaTotales,horasAsignaturaSemanales,
-						nivelAsignatura,estadoAsignatura)
-VALUES -- id=27  ==> 49
-('CIRCUITOS ELECTRÓNICOS','Semestral','IEED433',144,5,'TercerNivel',1),
-('SISTEMA OPERATIVO LINUX','Semestral','TELD452',96,3,'TercerNivel',1),
-('FUNDAMENTOS DE COMUNICACIONES','Semestral','TELD513',144,5,'TercerNivel',1),
-('PROCESAMIENTO DIGITAL DE SEÑALES','Semestral','TELD532',96,3,'TercerNivel',1),
-('SISTEMAS DE TRANSMISIÓN','Semestral','TELD553',144,5,'TercerNivel',1),
-('COMUNICACIÓN DIGITAL','Semestral','TELD613',144,5,'TercerNivel',1),
-('TELEMÁTICA BÁSICA','Semestral','TELD623',144,5,'TercerNivel',1),
-('ELECTRÓNICA DE RADIOFRECUENCIA','Semestral','TELD633',144,5,'TercerNivel',1),
-('APLICACIONES CON SISTEMAS EMBEBIDOS','Semestral','TELD642',96,3,'TercerNivel',1),
-('PROPAGACIÓN Y ANTENAS','Semestral','TELD654',144,5,'TercerNivel',1),
-('COMUNICACIONES ÓPTICAS','Semestral','TELD713',144,5,'TercerNivel',1),
-('TELEMÁTICA AVANZADA','Semestral','TELD723',144,5,'TercerNivel',1),
-('COMUNICACIONES INALÁMBRICAS','Semestral','TELD733',144,5,'TercerNivel',1),
-('TELEFONÍA IP','Semestral','TELD743',144,5,'TercerNivel',1),
-('INGENIERÍA DE MICROONDAS','Semestral','TELD752',96,3,'TercerNivel',1),
-('ITINERARIO BÁSICO','Semestral','TELD800',96,3,'TercerNivel',1),
-('REDES ÓPTICAS','Semestral','TELD823',144,5,'TercerNivel',1),
-('INTRODUCCIÓN A DISEÑO DE REDES','Semestral','TELD833',144,5,'TercerNivel',1),
-('SISTEMAS CELULARES','Semestral','TELD843',144,5,'TercerNivel',1),
-('FUNDAMENTOS DE SEGURIDAD','Semestral','TELD852',96,3,'TercerNivel',1),
-('DISEÑO DE PROYECTOS DE TELECOMUNICACIONES','Semestral','TELD871',48,2,'TercerNivel',1),
-('ITINERARIO AVANZADO','Semestral','TELD900',96,3,'TercerNivel',1),
-('MARCO REGULATORIO DE LOS SERVICIOS DE TELECOMUNICACIONES','Semestral','TELD941',48,2,'TercerNivel',1)
-GO
---Asignaturas Básicas FIEE
-INSERT INTO tblAsignatura(nombreAsignatura,tipoAsignatura,codigoAsignatura,horasAsignaturaTotales,horasAsignaturaSemanales,
-						nivelAsignatura,estadoAsignatura)
-VALUES -- id=50  ==> 66
-('ÁLGEBRA LINEAL','Semestral','MATD113',144,5,'Tercer Nivel',1),
-('CÁLCULO EN UNA VARIABLE','Semestral','MATD123',144,5,'TercerNivel',1),
-('MECÁNICA NEWTONIANA','Semestral','FISD134',192,6,'TercerNivel',1),
-('QUÍMICA GENERAL','Semestral','QUID143',144,5,'TercerNivel',1),
-('COMUNICACIÓN ORAL Y ESCRITA','Semestral','CSHD111',48,2,'TercerNivel',1),
-('HERRAMIENTAS INFORMÁTICAS','Semestral','ICOD111',48,2,'TercerNivel',1),
-('ECUACIONES DIFERENCIALES ORDINARIAS','Semestral','MATD213',144,5,'TercerNivel',1),
-('PROBABILIDAD Y ESTADÍSTICA BÁSICAS','Semestral','MATD223',144,5,'TercerNivel',1),
-('CÁLCULO VECTORIAL','Semestral','IEED232',96,3,'TercerNivel',1),
-('FUNDAMENTOS DE ELECTROMAGNETISMO','Semestral','IEED242',96,2,'TercerNivel',1),
-('PROGRAMACIÓN','Semestral','IEED252',96,3,'TercerNivel',1),
-('ANÁLISIS SOCIOECONÓMICO Y POLÍTICO DEL ECUADOR','Semestral','CSHD211',48,2,'TercerNivel',1),
-('ELECTROTECNIA','Semestral','IEED272',96,3,'TercerNivel',1),
-('PROGRAMACIÓN AVANZADA','Semestral','ITID433',144,5,'TercerNivel',1),
---CPs de ASIGNATURAS
---Asignaturas Básicas FIEE
+-- id=53  ==> 97
+('HERRAMIENTAS INFORMÁTICAS', 'Semestral', 'ICOD111', 48, 2, 'Primer Nivel',1),
+('CÁLCULO VECTORIAL ', 'Semestral', 'IEED232', 96, 3, 'Segundo Nivel',1),
+('PROGRAMACIÓN ', 'Semestral', 'IEED252', 96, 3, 'Segundo Nivel',1),
+('SISTEMAS DIGITALES ', 'Semestral', 'IEED323', 144, 3, 'Tercer Nivel',1),
+('DISPOSITIVOS ELECTRÓNICOS ', 'Semestral', 'IEED333', 144, 5, 'Tercer Nivel',1),
+('TEORÍA ELECTROMAGNÉTICA ', 'Semestral', 'IEED333', 96, 4, 'Tercer Nivel',1),
+('FUNDAMENTOS DE CIRCUITOS ELÉCTRICOS ', 'Semestral', 'IEED342', 144, 5, 'Tercer Nivel',1),
+('ASIGNATURA DE ARTES Y HUMANIDADES', 'Semestral', 'CSHD300', 48, 2, 'Tercer Nivel',1),
+('MATEMÁTICA DISCRETA ', 'Semestral', 'IEED371', 48, 2, 'Tercer Nivel',1),
+('INSTALACIONES ELÉCTRICAS Y DE COMUNICACIONES', 'Semestral', 'IEED413', 144, 4, 'Cuarto Nivel',1),
+('ANÁLISIS DE SEÑALES DISCRETAS PARA COMUNICACIONES ', 'Semestral', 'TELD423', 144, 3, 'Cuarto Nivel',1),
+('CIRCUITOS ELECTRÓNICOS ', 'Semestral', 'IEED433', 144, 5, 'Cuarto Nivel',1),
+('PROGRAMACIÓN AVANZADA ', 'Semestral', 'ITID433', 144, 4, 'Cuarto Nivel',1),
+('SISTENA OPERATIVO LINUX', 'Semestral', 'TELD452', 96, 3, 'Cuarto Nivel',1),
+('ASIGNATURA DE ECONOMÍA Y SOCIEDAD', 'Semestral', 'CSHD400', 48, 2, 'Cuarto Nivel',1),
+('FUNDAMENTOS DE COMUNICACIONES ', 'Semestral', 'TELD513', 144, 5, 'Quinto Nivel',1),
+('TEORÍA DE LA INFORMACIÓN Y CODIFICACIÓN', 'Semestral', 'TELD522', 96, 3, 'Quinto Nivel',1),
+('PROCESAMIENTO DIGITAL DE SEÑALES ', 'Semestral', 'TELD532', 96, 3, 'Quinto Nivel',1),
+('SISTEMAS EMBEBIDOS ', 'Semestral', 'ITID553', 144, 5, 'Quinto Nivel',1),
+('SISTEMAS DE TRANSMISIÓN ', 'Semestral', 'TELD553', 144, 5, 'Quinto Nivel',1),
+('SISTEMAS DE CABLEADO ESTRUCTURADO', 'Semestral', 'ITID512', 96, 3, 'Quinto Nivel',1),
+('COMUNICACIÓN DIGITAL ', 'Semestral', 'TELD613', 144, 4, 'Sexto Nivel',1),
+('TELEMÁTICA BÁSICA', 'Semestral', 'TELD623', 144, 5, 'Sexto Nivel',1),
+('ELECTRÓNICA DE RADIOFRECUENCIA ', 'Semestral', 'TELD633', 144, 5, 'Sexto Nivel',1),
+('APLICACIONES CON SISTEMAS EMBEBIDOS ', 'Semestral', 'TELD642', 96, 3, 'Sexto Nivel',1),
+('PROPAGACIÓN Y ANTENAS ', 'Semestral', 'TELD654', 144, 5, 'Sexto Nivel',1),
+('GESTIÓN ORGANIZACIONAL ', 'Semestral', 'ADMD511 ', 48, 2, 'Sexto Nivel',1),
+('COMUNICACIONES ÓPTICAS', 'Semestral', 'TELD713', 144, 5, 'Séptimo Nivel',1),
+('TELEMÁTICA AVANZADA', 'Semestral', 'TELD723', 144, 5, 'Séptimo Nivel',1),
+('COMUNICACIONES INALÁMBRICAS', 'Semestral', 'TELD733', 144, 5, 'Séptimo Nivel',1),
+('TELEFONÍA IP', 'Semestral', 'TELD743', 144, 3, 'Séptimo Nivel',1),
+('INGENIERÍA DE MICROONDAS ', 'Semestral', 'TELD752', 96, 5, 'Séptimo Nivel',1),
+('GESTIÓN DE PROCESOS Y CALIDAD ', 'Semestral', ' ADMD611', 48, 2, 'Séptimo Nivel',1),
+('ITINERARIO BÁSICO', 'Semestral', 'TELD800', 96, 2, 'Octavo Nivel',1),
+('REDES ÓPTICAS', 'Semestral', 'TELD823', 144, 4, 'Octavo Nivel',1),
+('INTRODUCCIÓN A DISEÑO DE REDES ', 'Semestral', 'TELD833', 144, 3, 'Octavo Nivel',1),
+('SISTEMAS CELULARES', 'Semestral', 'TELD843', 144, 3, 'Octavo Nivel',1),
+('FUNDAMENTOS DE SEGURIDAD', 'Semestral', 'TELD852', 96, 4, 'Octavo Nivel',1),
+('INGENIERÍA FINANCIERA', 'Semestral', 'ADMD711', 48, 2, 'Octavo Nivel',1),
+('DISEÑO DE PROYECTOS DE TELECOMUNICACIONES ', 'Semestral', 'TITD101', 48, 1, 'Octavo Nivel',1),
+('ITINERARIO AVANZADO', 'Semestral', 'TELD900', 96, 2, 'Noveno Nivel',1),
+('PRÁCTICAS LABORALES', 'Semestral', 'PRLD105', 240, 15, 'Noveno Nivel',1),
+('PRÁCTICAS DE SERVICIO COMUNITARIO', 'Semestral', 'PSCD202', 96, 6, 'Noveno Nivel',1),
+('MARCO REGULATORIO DE LOS SERVICIOS DE TELECOMUNICACIONES', 'Semestral', 'TELD941', 48, 2, 'Noveno Nivel',1),
+('TRABAJO DE INTEGRACIÓN CURRICULAR/EXAMEN DE CARÁCTER COMPLEXIVO', 'Semestral', 'TITD201', 240, 15, 'Noveno Nivel',1),
+--TICs Maestria I
+('FUNDAMENTOS DE SEGURIDAD', 'Modular', 'MPTI113', 48, 6, 'Primer Nivel',1),
+('FUNDAMENTOS DE INTERNET DE LAS COSAS', 'Modular', 'MPTI133', 64, 8, 'Primer Nivel',1),
+('SEGURIDAD DE REDES I', 'Modular', 'MPTI133S', 64, 6, 'Primer Nivel',1),
+('FUNDAMENTOS DE COMPUTACIÓN EN LA NUBE', 'Modular', 'MPTI124', 64, 8, 'Primer Nivel',1),
+('PROGRAMACIÓN PARA MANIPULACIÓN DE DATOS', 'Modular', 'MPTI143', 48, 6, 'Primer Nivel',1),
+('SEGURIDAD DE REDES II', 'Modular', 'MPTI143S', 64, 8, 'Primer Nivel',1),
+('SEMINARIO DE GRADUACIÓN', 'Semestral', 'MPTI152', 32, 2, 'Primer Nivel',1),
+('MODELOS DE NEGOCIOS EN LOS ECOSISTEMAS IOT', 'Modular', 'MPTI222', 32, 4, 'Segundo Nivel',1),
+('APRENDIZAJE AUTOMÁTICO APLICADO', 'Modular', 'MPTI243', 64, 8, 'Segundo Nivel',1),
+('SEGURIDAD EN ENDPOINTS', 'Modular', 'MPTI224S', 64, 8, 'Segundo Nivel',1),
+('MONITOREO Y DETECCIÓN DE INTRUSIÓN DE REDES', 'Modular', 'MPTI242S', 64, 8, 'Segundo Nivel',1),
+('APLICACIONES PARA INTERNET DE LAS COSAS', 'Modular', 'MPTI234', 64, 8, 'Segundo Nivel',1),
+('TÓPICOS DE PLANIFICACIÓN Y REGULACIÓN EN TI', 'Modular', 'MPTI213', 48, 6, 'Segundo Nivel',1),
+('TÉCNICAS DE HACKING', 'Modular', 'MPTI233S', 32, 4, 'Segundo Nivel',1),
+('TRABAJO DE TITULACIÓN /EXAMEN COMPLEXIVO', 'Semestral', 'MPTI253', 0, 0, 'Segundo Nivel',1),
+--TICs Maestria II
+('MODELOS DE NEGOCIOS EN LOS ECOSISTEMAS IOT', 'Modular', 'MPTI222', 32, 4, 'Segundo Nivel',1),
+('APRENDIZAJE AUTOMÁTICO APLICADO', 'Modular', 'MPTI243', 64, 8, 'Segundo Nivel',1),
+('SEGURIDAD EN ENDPOINTS', 'Modular', 'MPTI224S', 64, 8, 'Segundo Nivel',1),
+('MONITOREO Y DETECCIÓN DE INTRUSIÓN DE REDES', 'Modular', 'MPTI242S', 64, 8, 'Segundo Nivel',1),
+('APLICACIONES PARA INTERNET DE LAS COSAS', 'Modular', 'MPTI234', 64, 8, 'Segundo Nivel',1),
+('TÓPICOS DE PLANIFICACIÓN Y REGULACIÓN EN TI', 'Modular', 'MPTI213', 48, 6, 'Segundo Nivel',1),
+('TÉCNICAS DE HACKING', 'Modular', 'MPTI233S', 32, 4, 'Segundo Nivel',1),
+('TRABAJO DE TITULACIÓN /EXAMEN COMPLEXIVO', 'Semestral', 'MPTI253', 0, 0, 'Segundo Nivel',1),
+--TELE Maestria I
+('PROBABILIDAD Y ESTADÍSTICA', 'Semestral', 'MITR-113', 144, 3, 'Primer Nivel',1),
+('PROCESAMIENTO DE SEÑALES', 'Semestral', 'MITR-123', 144, 3, 'Primer Nivel',1),
+('RADIO FRECUENCIA', 'Semestral', 'MITR-133', 144, 3, 'Primer Nivel',1),
+('HERRAMIENTAS DE SIMULACIÓN E IMPLEMENTACIÓN EN HARDWARE', 'Semestral', 'MITR-143', 144, 3, 'Primer Nivel',1),
+('METODOLOGÍA Y DOCUMENTACIÓN CIENTÍFICA', 'Semestral', 'MITR-153', 144, 3, 'Primer Nivel',1),
+('PROCESAMIENTO AVANZADO DE SEÑALES', 'Semestral', 'MITR-213', 144, 3, 'Segundo Nivel',1),
+('TÉCNICAS AVANZADAS DE COMUNICACIONES', 'Semestral', 'MITR-224', 192, 4, 'Segundo Nivel',1),
+('ESTUDIO DEL CANAL INALÁMBRICO Y TÉCNICAS DE MITIGACIÓN', 'Semestral', 'MITR-233', 144, 3, 'Segundo Nivel',1),
+('COMUNICACIONES MÓVILES DE BANDA ANCHA', 'Semestral', 'MITR-243', 144, 3, 'Segundo Nivel',1),
+('SEMINARIO', 'Semestral', 'MITR-252', 96, 2, 'Segundo Nivel',1),
+('TESIS', 'Semestral', 'MITR-3115', 720, 15, 'Tercer Nivel',1)
 
-('CP-ÁLGEBRA LINEAL','Semestral','MATD113-CP',48,2,'Tercer Nivel',1),
-('CP-CÁLCULO EN UNA VARIABLE','Semestral','MATD123-CP',48,2,'TercerNivel',1)
+
+---OLD *****************************************
+--('CIRCUITOS ELECTRÓNICOS','Semestral','IEED433',144,5,'TercerNivel',1),
+--('SISTEMA OPERATIVO LINUX','Semestral','TELD452',96,3,'TercerNivel',1),
+--('FUNDAMENTOS DE COMUNICACIONES','Semestral','TELD513',144,5,'TercerNivel',1),
+--('PROCESAMIENTO DIGITAL DE SEÑALES','Semestral','TELD532',96,3,'TercerNivel',1),
+--('SISTEMAS DE TRANSMISIÓN','Semestral','TELD553',144,5,'TercerNivel',1),
+--('COMUNICACIÓN DIGITAL','Semestral','TELD613',144,5,'TercerNivel',1),
+--('TELEMÁTICA BÁSICA','Semestral','TELD623',144,5,'TercerNivel',1),
+--('ELECTRÓNICA DE RADIOFRECUENCIA','Semestral','TELD633',144,5,'TercerNivel',1),
+--('APLICACIONES CON SISTEMAS EMBEBIDOS','Semestral','TELD642',96,3,'TercerNivel',1),
+--('PROPAGACIÓN Y ANTENAS','Semestral','TELD654',144,5,'TercerNivel',1),
+--('COMUNICACIONES ÓPTICAS','Semestral','TELD713',144,5,'TercerNivel',1),
+--('TELEMÁTICA AVANZADA','Semestral','TELD723',144,5,'TercerNivel',1),
+--('COMUNICACIONES INALÁMBRICAS','Semestral','TELD733',144,5,'TercerNivel',1),
+--('TELEFONÍA IP','Semestral','TELD743',144,5,'TercerNivel',1),
+--('INGENIERÍA DE MICROONDAS','Semestral','TELD752',96,3,'TercerNivel',1),
+--('ITINERARIO BÁSICO','Semestral','TELD800',96,3,'TercerNivel',1),
+--('REDES ÓPTICAS','Semestral','TELD823',144,5,'TercerNivel',1),
+--('INTRODUCCIÓN A DISEÑO DE REDES','Semestral','TELD833',144,5,'TercerNivel',1),
+--('SISTEMAS CELULARES','Semestral','TELD843',144,5,'TercerNivel',1),
+--('FUNDAMENTOS DE SEGURIDAD','Semestral','TELD852',96,3,'TercerNivel',1),
+--('DISEÑO DE PROYECTOS DE TELECOMUNICACIONES','Semestral','TELD871',48,2,'TercerNivel',1),
+--('ITINERARIO AVANZADO','Semestral','TELD900',96,3,'TercerNivel',1),
+--('MARCO REGULATORIO DE LOS SERVICIOS DE TELECOMUNICACIONES','Semestral','TELD941',48,2,'TercerNivel',1)
+--GO
+----Asignaturas Básicas FIEE
+--INSERT INTO tblAsignatura(nombreAsignatura,tipoAsignatura,codigoAsignatura,horasAsignaturaTotales,horasAsignaturaSemanales,
+--						nivelAsignatura,estadoAsignatura)
+--VALUES -- id=50  ==> 66
+--('ÁLGEBRA LINEAL','Semestral','MATD113',144,5,'Tercer Nivel',1),
+--('CÁLCULO EN UNA VARIABLE','Semestral','MATD123',144,5,'TercerNivel',1),
+--('MECÁNICA NEWTONIANA','Semestral','FISD134',192,6,'TercerNivel',1),
+--('QUÍMICA GENERAL','Semestral','QUID143',144,5,'TercerNivel',1),
+--('COMUNICACIÓN ORAL Y ESCRITA','Semestral','CSHD111',48,2,'TercerNivel',1),
+--('HERRAMIENTAS INFORMÁTICAS','Semestral','ICOD111',48,2,'TercerNivel',1),
+--('ECUACIONES DIFERENCIALES ORDINARIAS','Semestral','MATD213',144,5,'TercerNivel',1),
+--('PROBABILIDAD Y ESTADÍSTICA BÁSICAS','Semestral','MATD223',144,5,'TercerNivel',1),
+--('CÁLCULO VECTORIAL','Semestral','IEED232',96,3,'TercerNivel',1),
+--('FUNDAMENTOS DE ELECTROMAGNETISMO','Semestral','IEED242',96,2,'TercerNivel',1),
+--('PROGRAMACIÓN','Semestral','IEED252',96,3,'TercerNivel',1),
+--('ANÁLISIS SOCIOECONÓMICO Y POLÍTICO DEL ECUADOR','Semestral','CSHD211',48,2,'TercerNivel',1),
+--('ELECTROTECNIA','Semestral','IEED272',96,3,'TercerNivel',1),
+--('PROGRAMACIÓN AVANZADA','Semestral','ITID433',144,5,'TercerNivel',1),
+----CPs de ASIGNATURAS
+----Asignaturas Básicas FIEE
+--('CP-ÁLGEBRA LINEAL','Semestral','MATD113-CP',48,2,'Tercer Nivel',1),
+--('CP-CÁLCULO EN UNA VARIABLE','Semestral','MATD123-CP',48,2,'TercerNivel',1)
+--***************************************************
 GO
 --AGREGAR GRUPOS A ASIGNATURAS
 INSERT INTO tblGrAsignatura(idAsignatura,grupoAsignatura)
 VALUES
 --TI Carreer
-(1, 'GR1'),--TEORÍA DE INFORMACIÓN Y CODIFICACIÓN
-(2, 'GR1'),--DISEÑO Y PROGRAMACIÓN DE SOFTWARE
-(3, 'GR1'),--SISTEMAS EMBEBIDOS{..
-(3, 'GR2'),--.. }
-(4, 'GR1'),--GESTIÓN ORGANIZACIONAL{..
-(4, 'GR2'),--
-(4, 'GR3'),--
-(4, 'GR4'),--..}
-(5, 'GR1'),--CABLEADO ESTRUCTURADO AVANZADO
-(6, 'GR1'),--REDES DE ÁREA LOCAL
-(7, 'GR1'),--ENRUTAMIENTO
-(8, 'GR1'),--SISTEMAS INALÁMBRICOS
-(9, 'GR1'),--ALMACENAMIENTO Y PROCESAMIENTO DE DATOS
-(10, 'GR1'),--GESTIÓN DE PROCESOS Y CALIDAD{...
-(10, 'GR2'),--
-(10, 'GR3'),--..}
-(11, 'GR1'),--APLICACIONES DISTRIBUIDAS
-(12, 'GR1'),--REDES DE ÁREA EXTENDIDA
-(13, 'GR1'),--SEGURIDAD EN REDES
-(14, 'GR1'),--REDES E INTRANETS
-(15, 'GR1'),--APLICACIONES WEB Y MÓVILES
-(16, 'GR1'),--INGENIERÍA FINANCIERA{...
-(16, 'GR2'),--
-(16, 'GR3'),--..}
---(17, 'GR1'),--ASIGNATURA BÁSICA DE ITINERARIO  ???????
-(18, 'GR1'),--EVALUACIÓN DE REDES
-(19, 'GR1'),--REDES DE ÁREA LOCAL INALÁMBRICAS
-(20, 'GR1'),--ADMINISTRACIÓN DE REDES
-(21, 'GR1'),--MINERÍA DE DATOS
-(22, 'GR1'),--SISTEMAS IoT
---(23, 'GR1'),--REDES DE ÁREA LOCAL INALÁMBRICAS
---(24, 'GR1'),--ADMINISTRACIÓN DE REDES
-(25, 'GR1'),--REGULACIÓN DE LAS TECNOLOGÍAS DE LA INFORMACIÓN Y LA COMUNICACIÓN
---GRS DE ASIGNATURAS BASICAS
-(50, 'GR1'),--ALGEBRA LINEAL{...
-(50, 'GR2'),--
-(50, 'GR3'),--
-(50, 'GR4'),--
-(50, 'GR5'),--
-(50, 'GR6'),--
-(50, 'GR7'),--
-(50, 'GR8'),--..}
-(51, 'GR1'),--CÁLCULO EN UNA VARIABLE{...
-(51, 'GR2'),--
-(51, 'GR3'),--
-(51, 'GR4'),--
-(51, 'GR5'),--
-(51, 'GR6'),--
-(51, 'GR7'),--
-(51, 'GR8'),--..}
-(52, 'GR1'),--MECÁNICA NEWTONIANA{...
-(52, 'GR2'),--
-(52, 'GR3'),--
-(52, 'GR4'),--
-(52, 'GR5'),--
-(52, 'GR6'),--
-(52, 'GR7'),--
-(52, 'GR8'),--..}
-(53, 'GR1'),--QUÍMICA GENERAL{...
-(53, 'GR2'),--
-(53, 'GR3'),--
-(53, 'GR4'),--
-(53, 'GR5'),--
-(53, 'GR6'),--
-(53, 'GR7'),--
-(53, 'GR8'),--..}
-(54, 'GR1'),--COMUNICACIÓN ORAL Y ESCRITA{...
-(54, 'GR2'),--
-(54, 'GR3'),--
-(54, 'GR4'),--
-(54, 'GR5'),--
-(54, 'GR6'),--
-(54, 'GR7'),--
-(54, 'GR8'),--..}
-(55, 'GR1'),--HERRAMIENTAS INFORMÁTICAS{...
-(55, 'GR2'),--
-(55, 'GR3'),--
-(55, 'GR4'),--
-(55, 'GR5'),--
-(55, 'GR6'),--
-(55, 'GR7'),--
-(55, 'GR8'),--..}
-(56, 'GR1'),--ECUACIONES DIFERENCIALES ORDINARIAS{...
-(56, 'GR2'),--
-(56, 'GR3'),--
-(56, 'GR4'),--
-(56, 'GR5'),--
-(56, 'GR6'),--
-(56, 'GR7'),--
-(56, 'GR8'),--..}
-(57, 'GR1'),--PROBABILIDAD Y ESTADÍSTICA BÁSICAS{...
-(57, 'GR2'),--
-(57, 'GR3'),--
-(57, 'GR4'),--
-(57, 'GR5'),--
-(57, 'GR6'),--
-(57, 'GR7'),--
-(57, 'GR8'),--..}
-(58, 'GR1'),--CÁLCULO VECTORIAL{...
-(58, 'GR2'),--
-(58, 'GR3'),--
-(58, 'GR4'),--
-(58, 'GR5'),--
-(58, 'GR6'),--
-(58, 'GR7'),--
-(58, 'GR8'),--..}
-(59, 'GR1'),--FUNDAMENTOS DE ELECTROMAGNETISMO{...
-(59, 'GR2'),--
-(59, 'GR3'),--
-(59, 'GR4'),--
-(59, 'GR5'),--
-(59, 'GR6'),--
-(59, 'GR7'),--
-(59, 'GR8'),--..}
-(60, 'GR1'),--PROGRAMACIÓN{...
-(60, 'GR2'),--
-(60, 'GR3'),--
-(60, 'GR4'),--
-(60, 'GR5'),--
-(60, 'GR6'),--
-(60, 'GR7'),--
-(60, 'GR8'),--..}
-(61, 'GR1'),--ANÁLISIS SOCIOECONÓMICO Y POLÍTICO DEL ECUADOR{...
-(61, 'GR2'),--
-(61, 'GR3'),--
-(61, 'GR4'),--
-(61, 'GR5'),--..}
-(62, 'GR1'),--ELECTROTECNIA{...
-(62, 'GR2'),--
-(62, 'GR3'),--
-(62, 'GR4'),--
-(62, 'GR5'),--..}
-(63, 'GR1'),--PROGRAMACIÓN AVANZADA{...
-(63, 'GR2'),--
-(63, 'GR3'),--
-(63, 'GR4'),--
-(63, 'GR5'),--
-(63, 'GR6'),--
-(63, 'GR7'),--
-(63, 'GR8'),--..}
---CPS
-(64, 'GR1-CP'),--CP-ÁLGEBRA LINEAL{...
-(64, 'GR2-CP'),--
-(64, 'GR3-CP'),--
-(64, 'GR4-CP'),--
-(64, 'GR5-CP'),--
-(64, 'GR6-CP'),--
-(64, 'GR7-CP'),--
-(64, 'GR8-CP'),--..}
-(65, 'GR1-CP'),--CP-CALCULO DE UNA VARIABLE{...
-(65, 'GR2-CP'),--
-(65, 'GR3-CP'),--
-(65, 'GR4-CP'),--
-(65, 'GR5-CP'),--
-(65, 'GR6-CP'),--
-(65, 'GR7-CP'),--
-(65, 'GR8-CP')--..}
+--INGE HELPER
+(1, 'GR1'), (1, 'GR2'), -- HERRAMIENTAS INFORMÁTICAS
+(2, 'GR1'), (2, 'GR2'), -- CÁLCULO VECTORIAL
+(3, 'GR1'), (3, 'GR2'), -- PROGRAMACIÓN
+(4, 'GR1'), (4, 'GR2'), -- SISTEMAS DIGITALES
+(5, 'GR1'), (5, 'GR2'), -- DISPOSITIVOS ELECTRÓNICOS
+(6, 'GR1'), (6, 'GR2'), -- TEORÍA ELECTROMAGNÉTICA
+(7, 'GR1'), (7, 'GR2'), -- FUNDAMENTOS DE CIRCUITOS ELÉCTRICOS
+(8, 'GR1'), (8, 'GR2'), -- ASIGNATURA DE ARTES Y HUMANIDADES
+(9, 'GR1'), (9, 'GR2'), -- MATEMÁTICA DISCRETA
+(10, 'GR1'), (10, 'GR2'), -- INSTALACIONES ELÉCTRICAS Y COMUNICACIONES
+(11, 'GR1'), (11, 'GR2'), -- ANÁLISIS DE SEÑALES DISCRETAS PARA COMUNICACIONES
+(12, 'GR1'), (12, 'GR2'), -- PROGRAMACIÓN AVANZADA
+(13, 'GR1'), (13, 'GR2'), -- BASES DE DATOS
+(14, 'GR1'), (14, 'GR2'), -- SISTEMAS OPERATIVOS
+(15, 'GR1'), (15, 'GR2'), -- ASIGNATURA DE ECONOMÍA Y SOCIEDAD
+(16, 'GR1'), (16, 'GR2'), -- SISTEMAS DE CABLEADO ESTRUCTURADO
+(17, 'GR1'), (17, 'GR2'), -- TRANSMISIÓN DIGITAL
+(18, 'GR1'), (18, 'GR2'), -- TEORÍA DE INFORMACIÓN Y CODIFICACIÓN
+(19, 'GR1'), (19, 'GR2'), -- DISEÑO Y PROGRAMACIÓN DE SOFTWARE
+(20, 'GR1'), (20, 'GR2'), -- SISTEMAS EMBEBIDOS
+(21, 'GR1'), (21, 'GR2'), -- GESTIÓN ORGANIZACIONAL
+(22, 'GR1'), (22, 'GR2'), -- CABLEADO ESTRUCTURADO AVANZADO
+(23, 'GR1'), (23, 'GR2'), -- REDES DE ÁREA LOCAL
+(24, 'GR1'), (24, 'GR2'), -- ENRUTAMIENTO
+(25, 'GR1'), (25, 'GR2'), -- SISTEMAS INALÁMBRICOS
+(26, 'GR1'), (26, 'GR2'), -- ALMACENAMIENTO Y PROCESAMIENTO DE DATOS
+(27, 'GR1'), (27, 'GR2'), -- GESTIÓN DE PROCESOS Y CALIDAD
+(28, 'GR1'), (28, 'GR2'), -- APLICACIONES DISTRIBUIDAS
+(29, 'GR1'), (29, 'GR2'), -- REDES DE ÁREA EXTENDIDA
+(30, 'GR1'), (30, 'GR2'), -- SEGURIDAD EN REDES
+(31, 'GR1'), (31, 'GR2'), -- REDES E INTRANETS
+(32, 'GR1'), (32, 'GR2'), -- APLICACIONES WEB Y MÓVILES
+(33, 'GR1'), (33, 'GR2'), -- INGENIERÍA FINANCIERA
+(34, 'GR1'), (34, 'GR2'), -- ASIGNATURA BÁSICA DE ITINERARIO
+(35, 'GR1'), (35, 'GR2'), -- EVALUACIÓN DE REDES
+(36, 'GR1'), (36, 'GR2'), -- REDES DE ÁREA LOCAL INALÁMBRICAS
+(37, 'GR1'), (37, 'GR2'), -- ADMINISTRACIÓN DE REDES
+(38, 'GR1'), (38, 'GR2'), -- MINERIA DE DATOS
+(39, 'GR1'), (39, 'GR2'), -- SISTEMAS IOT
+(40, 'GR1'), (40, 'GR2'), -- ASIGNATURA AVANZADA DE ITINERARIO
+(41, 'GR1'), (41, 'GR2'), -- PRÁCTICAS LABORALES
+(42, 'GR1'), (42, 'GR2'), -- PRÁCTICAS DE SERVICIO COMUNITARIO
+(43, 'GR1'), (43, 'GR2'), -- REGULACIÓN DE LAS TECNOLOGÍAS DE IA INFORMACIÓN Y LA COMUNICACIÓN
+(44, 'GR1'), (44, 'GR2'), -- TRABAJO DE INTEGRACIÓN CURRICULAR/EXAMEN DE CARÁCTER COMPLEXIVO
+(45, 'GR1'), (45, 'GR2'), (45, 'GR3'), (45, 'GR4'), -- LABORATORIO DE SISTEMAS DIGITALES		
+(46, 'GR1'), (46, 'GR2'), (46, 'GR3'), (46, 'GR4'), -- LABORATORIO DE DISPOSITIVOS ELECTRÓNICOS		
+(47, 'GR1'), (47, 'GR2'), (47, 'GR3'), (47, 'GR4'), -- LABORATORIO DE FUNDAMENTOS DE CIRCUITOS ELÉCTRICOS		
+(48, 'GR1'), (48, 'GR2'), (48, 'GR3'), (48, 'GR4'), -- LABORATORIO DE TRANSMISIÓN DIGITAL		
+(49, 'GR1'), (49, 'GR2'), (49, 'GR3'), (49, 'GR4'), -- LABORATORIO DE SISTEMAS EMBEBIDOS		
+(50, 'GR1'), (50, 'GR2'), (50, 'GR3'), (50, 'GR4'), -- LABORATORIO DE REDES DE ÁREA LOCAL		
+(51, 'GR1'), (51, 'GR2'), (51, 'GR3'), (51, 'GR4'), -- LABORATORIO DE ENRUTAMIENTO		
+(52, 'GR1'), (52, 'GR2'), (52, 'GR3'), (52, 'GR4'), -- LABORATORIO DE REDES DE ÁREA EXTENDIDA		
+-- TELECOMUNICACIONES
+(53, 'GR1'), (53, 'GR2'), -- HERRAMIENTAS INFORMÁTICAS
+(54, 'GR1'), (54, 'GR2'), -- CÁLCULO VECTORIAL 
+(55, 'GR1'), (55, 'GR2'), -- PROGRAMACIÓN 
+(56, 'GR1'), (56, 'GR2'), -- SISTEMAS DIGITALES 
+(57, 'GR1'), (57, 'GR2'), -- DISPOSITIVOS ELECTRÓNICOS 
+(58, 'GR1'), (58, 'GR2'), -- TEORÍA ELECTROMAGNÉTICA 
+(59, 'GR1'), (59, 'GR2'), -- FUNDAMENTOS DE CIRCUITOS ELÉCTRICOS 
+(60, 'GR1'), (60, 'GR2'), -- ASIGNATURA DE ARTES Y HUMANIDADES
+(61, 'GR1'), (61, 'GR2'), -- MATEMÁTICA DISCRETA 
+(62, 'GR1'), (62, 'GR2'), -- INSTALACIONES ELÉCTRICAS Y DE COMUNICACIONES
+(63, 'GR1'), (63, 'GR2'), -- ANÁLISIS DE SEÑALES DISCRETAS PARA COMUNICACIONES 
+(64, 'GR1'), (64, 'GR2'), -- CIRCUITOS ELECTRÓNICOS 
+(65, 'GR1'), (65, 'GR2'), -- PROGRAMACIÓN AVANZADA 
+(66, 'GR1'), (66, 'GR2'), -- SISTENA OPERATIVO LINUX
+(67, 'GR1'), (67, 'GR2'), -- ASIGNATURA DE ECONOMÍA Y SOCIEDAD
+(68, 'GR1'), (68, 'GR2'), -- FUNDAMENTOS DE COMUNICACIONES 
+(69, 'GR1'), (69, 'GR2'), -- TEORÍA DE LA INFORMACIÓN Y CODIFICACIÓN
+(70, 'GR1'), (70, 'GR2'), -- PROCESAMIENTO DIGITAL DE SEÑALES 
+(71, 'GR1'), (71, 'GR2'), -- SISTEMAS EMBEBIDOS 
+(72, 'GR1'), (72, 'GR2'), -- SISTEMAS DE TRANSMISIÓN 
+(73, 'GR1'), (73, 'GR2'), -- SISTEMAS DE CABLEADO ESTRUCTURADO
+(74, 'GR1'), (74, 'GR2'), -- COMUNICACIÓN DIGITAL 
+(75, 'GR1'), (75, 'GR2'), -- TELEMÁTICA BÁSICA
+(76, 'GR1'), (76, 'GR2'), -- ELECTRÓNICA DE RADIOFRECUENCIA 
+(77, 'GR1'), (77, 'GR2'), -- APLICACIONES CON SISTEMAS EMBEBIDOS 
+(78, 'GR1'), (78, 'GR2'), -- PROPAGACIÓN Y ANTENAS 
+(79, 'GR1'), (79, 'GR2'), -- GESTIÓN ORGANIZACIONAL 
+(80, 'GR1'), (80, 'GR2'), -- COMUNICACIONES ÓPTICAS
+(81, 'GR1'), (81, 'GR2'), -- TELEMÁTICA AVANZADA
+(82, 'GR1'), (82, 'GR2'), -- COMUNICACIONES INALÁMBRICAS
+(83, 'GR1'), (83, 'GR2'), -- TELEFONÍA IP
+(84, 'GR1'), (84, 'GR2'), -- INGENIERÍA DE MICROONDAS 
+(85, 'GR1'), (85, 'GR2'), -- GESTIÓN DE PROCESOS Y CALIDAD 
+(86, 'GR1'), (86, 'GR2'), -- ITINERARIO BÁSICO
+(87, 'GR1'), (87, 'GR2'), -- REDES ÓPTICAS
+(88, 'GR1'), (88, 'GR2'), -- INTRODUCCIÓN A DISEÑO DE REDES 
+(89, 'GR1'), (89, 'GR2'), -- SISTEMAS CELULARES
+(90, 'GR1'), (90, 'GR2'), -- FUNDAMENTOS DE SEGURIDAD
+(91, 'GR1'), (91, 'GR2'), -- INGENIERÍA FINANCIERA
+(92, 'GR1'), (92, 'GR2'), -- DISEÑO DE PROYECTOS DE TELECOMUNICACIONES 
+(93, 'GR1'), (93, 'GR2'), -- ITINERARIO AVANZADO
+(94, 'GR1'), (94, 'GR2'), -- PRÁCTICAS LABORALES
+(95, 'GR1'), (95, 'GR2'), -- PRÁCTICAS DE SERVICIO COMUNITARIO
+(96, 'GR1'), (96, 'GR2'), -- MARCO REGULATORIO DE LOS SERVICIOS DE TELECOMUNICACIONES
+(97, 'GR1'), (97, 'GR2'), -- TRABAJO DE INTEGRACIÓN CURRICULAR/EXAMEN DE CARÁCTER COMPLEXIVO
+-- TIC MAESTRIA MATERIAS
+(98, 'GR1'), (98, 'GR2'), -- FUNDAMENTOS DE SEGURIDAD
+(99, 'GR1'), (99, 'GR2'), -- FUNDAMENTOS DE INTERNET DE LAS COSAS
+(100, 'GR1'), (100, 'GR2'), -- SEGURIDAD DE REDES I
+(101, 'GR1'), (101, 'GR2'), -- FUNDAMENTOS DE COMPUTACIÓN EN LA NUBE
+(102, 'GR1'), (102, 'GR2'), -- PROGRAMACIÓN PARA MANIPULACIÓN DE DATOS
+(103, 'GR1'), (103, 'GR2'), -- SEGURIDAD DE REDES II
+(104, 'GR1'), (104, 'GR2'), -- SEMINARIO DE GRADUACIÓN
+(105, 'GR1'), (105, 'GR2'), -- MODELOS DE NEGOCIOS EN LOS ECOSISTEMAS IOT
+(106, 'GR1'), (106, 'GR2'), -- APRENDIZAJE AUTOMÁTICO APLICADO
+(107, 'GR1'), (107, 'GR2'), -- SEGURIDAD EN ENDPOINTS
+(108, 'GR1'), (108, 'GR2'), -- MONITOREO Y DETECCIÓN DE INTRUSIÓN DE REDES
+(109, 'GR1'), (109, 'GR2'), -- APLICACIONES PARA INTERNET DE LAS COSAS
+(110, 'GR1'), (110, 'GR2'), -- TÓPICOS DE PLANIFICACIÓN Y REGULACIÓN EN TI
+(111, 'GR1'), (111, 'GR2'), -- TÉCNICAS DE HACKING
+(112, 'GR1'), (112, 'GR2') -- TRABAJO DE TITULACIÓN /EXAMEN COMPLEXIVO
+--PARTE 2 TIC MAESTRIAS
+
+
+
+--**************************************************
+--(1, 'GR1'),--TEORÍA DE INFORMACIÓN Y CODIFICACIÓN
+--(2, 'GR1'),--DISEÑO Y PROGRAMACIÓN DE SOFTWARE
+--(3, 'GR1'),--SISTEMAS EMBEBIDOS{..
+--(3, 'GR2'),--.. }
+--(4, 'GR1'),--GESTIÓN ORGANIZACIONAL{..
+--(4, 'GR2'),--
+--(4, 'GR3'),--
+--(4, 'GR4'),--..}
+--(5, 'GR1'),--CABLEADO ESTRUCTURADO AVANZADO
+--(6, 'GR1'),--REDES DE ÁREA LOCAL
+--(7, 'GR1'),--ENRUTAMIENTO
+--(8, 'GR1'),--SISTEMAS INALÁMBRICOS
+--(9, 'GR1'),--ALMACENAMIENTO Y PROCESAMIENTO DE DATOS
+--(10, 'GR1'),--GESTIÓN DE PROCESOS Y CALIDAD{...
+--(10, 'GR2'),--
+--(10, 'GR3'),--..}
+--(11, 'GR1'),--APLICACIONES DISTRIBUIDAS
+--(12, 'GR1'),--REDES DE ÁREA EXTENDIDA
+--(13, 'GR1'),--SEGURIDAD EN REDES
+--(14, 'GR1'),--REDES E INTRANETS
+--(15, 'GR1'),--APLICACIONES WEB Y MÓVILES
+--(16, 'GR1'),--INGENIERÍA FINANCIERA{...
+--(16, 'GR2'),--
+--(16, 'GR3'),--..}
+----(17, 'GR1'),--ASIGNATURA BÁSICA DE ITINERARIO  ???????
+--(18, 'GR1'),--EVALUACIÓN DE REDES
+--(19, 'GR1'),--REDES DE ÁREA LOCAL INALÁMBRICAS
+--(20, 'GR1'),--ADMINISTRACIÓN DE REDES
+--(21, 'GR1'),--MINERÍA DE DATOS
+--(22, 'GR1'),--SISTEMAS IoT
+----(23, 'GR1'),--REDES DE ÁREA LOCAL INALÁMBRICAS
+----(24, 'GR1'),--ADMINISTRACIÓN DE REDES
+--(25, 'GR1'),--REGULACIÓN DE LAS TECNOLOGÍAS DE LA INFORMACIÓN Y LA COMUNICACIÓN
+----GRS DE ASIGNATURAS BASICAS
+--(50, 'GR1'),--ALGEBRA LINEAL{...
+--(50, 'GR2'),--
+--(50, 'GR3'),--
+--(50, 'GR4'),--
+--(50, 'GR5'),--
+--(50, 'GR6'),--
+--(50, 'GR7'),--
+--(50, 'GR8'),--..}
+--(51, 'GR1'),--CÁLCULO EN UNA VARIABLE{...
+--(51, 'GR2'),--
+--(51, 'GR3'),--
+--(51, 'GR4'),--
+--(51, 'GR5'),--
+--(51, 'GR6'),--
+--(51, 'GR7'),--
+--(51, 'GR8'),--..}
+--(52, 'GR1'),--MECÁNICA NEWTONIANA{...
+--(52, 'GR2'),--
+--(52, 'GR3'),--
+--(52, 'GR4'),--
+--(52, 'GR5'),--
+--(52, 'GR6'),--
+--(52, 'GR7'),--
+--(52, 'GR8'),--..}
+--(53, 'GR1'),--QUÍMICA GENERAL{...
+--(53, 'GR2'),--
+--(53, 'GR3'),--
+--(53, 'GR4'),--
+--(53, 'GR5'),--
+--(53, 'GR6'),--
+--(53, 'GR7'),--
+--(53, 'GR8'),--..}
+--(54, 'GR1'),--COMUNICACIÓN ORAL Y ESCRITA{...
+--(54, 'GR2'),--
+--(54, 'GR3'),--
+--(54, 'GR4'),--
+--(54, 'GR5'),--
+--(54, 'GR6'),--
+--(54, 'GR7'),--
+--(54, 'GR8'),--..}
+--(55, 'GR1'),--HERRAMIENTAS INFORMÁTICAS{...
+--(55, 'GR2'),--
+--(55, 'GR3'),--
+--(55, 'GR4'),--
+--(55, 'GR5'),--
+--(55, 'GR6'),--
+--(55, 'GR7'),--
+--(55, 'GR8'),--..}
+--(56, 'GR1'),--ECUACIONES DIFERENCIALES ORDINARIAS{...
+--(56, 'GR2'),--
+--(56, 'GR3'),--
+--(56, 'GR4'),--
+--(56, 'GR5'),--
+--(56, 'GR6'),--
+--(56, 'GR7'),--
+--(56, 'GR8'),--..}
+--(57, 'GR1'),--PROBABILIDAD Y ESTADÍSTICA BÁSICAS{...
+--(57, 'GR2'),--
+--(57, 'GR3'),--
+--(57, 'GR4'),--
+--(57, 'GR5'),--
+--(57, 'GR6'),--
+--(57, 'GR7'),--
+--(57, 'GR8'),--..}
+--(58, 'GR1'),--CÁLCULO VECTORIAL{...
+--(58, 'GR2'),--
+--(58, 'GR3'),--
+--(58, 'GR4'),--
+--(58, 'GR5'),--
+--(58, 'GR6'),--
+--(58, 'GR7'),--
+--(58, 'GR8'),--..}
+--(59, 'GR1'),--FUNDAMENTOS DE ELECTROMAGNETISMO{...
+--(59, 'GR2'),--
+--(59, 'GR3'),--
+--(59, 'GR4'),--
+--(59, 'GR5'),--
+--(59, 'GR6'),--
+--(59, 'GR7'),--
+--(59, 'GR8'),--..}
+--(60, 'GR1'),--PROGRAMACIÓN{...
+--(60, 'GR2'),--
+--(60, 'GR3'),--
+--(60, 'GR4'),--
+--(60, 'GR5'),--
+--(60, 'GR6'),--
+--(60, 'GR7'),--
+--(60, 'GR8'),--..}
+--(61, 'GR1'),--ANÁLISIS SOCIOECONÓMICO Y POLÍTICO DEL ECUADOR{...
+--(61, 'GR2'),--
+--(61, 'GR3'),--
+--(61, 'GR4'),--
+--(61, 'GR5'),--..}
+--(62, 'GR1'),--ELECTROTECNIA{...
+--(62, 'GR2'),--
+--(62, 'GR3'),--
+--(62, 'GR4'),--
+--(62, 'GR5'),--..}
+--(63, 'GR1'),--PROGRAMACIÓN AVANZADA{...
+--(63, 'GR2'),--
+--(63, 'GR3'),--
+--(63, 'GR4'),--
+--(63, 'GR5'),--
+--(63, 'GR6'),--
+--(63, 'GR7'),--
+--(63, 'GR8'),--..}
+----CPS
+--(64, 'GR1-CP'),--CP-ÁLGEBRA LINEAL{...
+--(64, 'GR2-CP'),--
+--(64, 'GR3-CP'),--
+--(64, 'GR4-CP'),--
+--(64, 'GR5-CP'),--
+--(64, 'GR6-CP'),--
+--(64, 'GR7-CP'),--
+--(64, 'GR8-CP'),--..}
+--(65, 'GR1-CP'),--CP-CALCULO DE UNA VARIABLE{...
+--(65, 'GR2-CP'),--
+--(65, 'GR3-CP'),--
+--(65, 'GR4-CP'),--
+--(65, 'GR5-CP'),--
+--(65, 'GR6-CP'),--
+--(65, 'GR7-CP'),--
+--(65, 'GR8-CP')--..}
 -- END SCRIPT

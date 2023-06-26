@@ -22,13 +22,8 @@ namespace Directorio_Logica
             return tabla;
         }
         #region CRUD Methods
-        public bool CreateSemestreNegocio(string code, string year, string dateIni, string dateEnd, string numWeekC, string numWeekSem, string state)
+        public bool CreateSemestreNegocio(string code, string year, string dateIni, string dateEnd, string numWeekC, string numWeekSem)
         {
-            bool estado = false;
-            if (state == "True")
-            {
-                estado = true;
-            }
             try
             {
                 var dateI = DateTime.Parse(dateIni);
@@ -41,8 +36,7 @@ namespace Directorio_Logica
                     DiaInicio = DateOnly.FromDateTime(dateI),
                     DiaFin = DateOnly.FromDateTime(dateF),
                     NumeroSemanasClase = Convert.ToInt32(numWeekC),
-                    NumeroSemanasSemestre = Convert.ToInt32(numWeekSem),
-                    Estado = estado
+                    NumeroSemanasSemestre = Convert.ToInt32(numWeekSem)
                 };
                 //objetoCData.CreateDepartamento(nameDepartament, email);
                 objetoCData.CreateSemestre(ObjSemestre);
@@ -58,7 +52,7 @@ namespace Directorio_Logica
             }
 
         }
-        public bool UpdateSemestreNegocio(string id, string code, string year, string dateIni, string dateEnd, string numWeekC, string numWeekSem, string state)
+        public bool UpdateSemestreNegocio(string id, string code, string year, string dateIni, string dateEnd, string numWeekC, string numWeekSem)
         {
             try
             {
@@ -73,8 +67,7 @@ namespace Directorio_Logica
                     DiaInicio = DateOnly.FromDateTime(dateI),
                     DiaFin = DateOnly.FromDateTime(dateF),
                     NumeroSemanasClase = Convert.ToInt32(numWeekC),
-                    NumeroSemanasSemestre = Convert.ToInt32(numWeekSem),
-                    Estado = Convert.ToBoolean(state)
+                    NumeroSemanasSemestre = Convert.ToInt32(numWeekSem)
                 };
                 
                 objetoCData.UpdateSemestre(ObjSemestre);
@@ -100,6 +93,41 @@ namespace Directorio_Logica
                     IdSemestre = Convert.ToInt32(id)
                 };
                 objetoCData.DeleteSemestre(ObjSemestre);
+
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error" + ex.Message);
+                return false;
+
+            }
+
+        }
+        #endregion
+
+        #region SemestreDocente Section
+        public bool CreateOrUpdateSemestreDocente_Negocio(string idSemestre, string idDocente,string idTpDocente,string numHorasTpDoc,string state)
+        {
+            try
+            {
+
+                ClsSemestre ObjSemestre = new ClsSemestre()
+                {
+                    IdSemestre = Convert.ToInt32(idSemestre),
+                    Estado = Convert.ToBoolean(state)
+                };
+                ClsDocente ObjDocente = new ClsDocente()
+                {
+                    IdDocente = Convert.ToInt32(idDocente)
+                };
+                ClsTipoDocente ObjTpDocente = new ClsTipoDocente()
+                {
+                    IdTipoDocente = Convert.ToInt32(idTpDocente),
+                    HorasExigibles = Convert.ToInt32(numHorasTpDoc),
+                };
+                objetoCData.CreateSemestreDocente(ObjSemestre, ObjDocente, ObjTpDocente);
 
                 return true;
 

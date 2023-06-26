@@ -89,6 +89,7 @@
             this.dgLstRegistrosF11.RowTemplate.Height = 29;
             this.dgLstRegistrosF11.Size = new System.Drawing.Size(736, 330);
             this.dgLstRegistrosF11.TabIndex = 1;
+            this.dgLstRegistrosF11.TabStop = false;
             this.dgLstRegistrosF11.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgLstRegistrosF11_CellContentClick);
             // 
             // dgLstRegistrosD11
@@ -100,6 +101,7 @@
             this.dgLstRegistrosD11.RowTemplate.Height = 29;
             this.dgLstRegistrosD11.Size = new System.Drawing.Size(725, 330);
             this.dgLstRegistrosD11.TabIndex = 0;
+            this.dgLstRegistrosD11.TabStop = false;
             this.dgLstRegistrosD11.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgLstRegistrosD11_CellContentClick);
             // 
             // panel1

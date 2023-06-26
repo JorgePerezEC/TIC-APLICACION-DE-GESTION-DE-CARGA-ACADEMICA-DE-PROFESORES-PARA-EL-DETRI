@@ -55,6 +55,8 @@
             // 
             // cmbGR
             // 
+            this.cmbGR.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.cmbGR.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cmbGR.FormattingEnabled = true;
             this.cmbGR.Items.AddRange(new object[] {
             "GR1",
@@ -109,7 +111,8 @@
             // 
             // cmbAsignaturas
             // 
-            this.cmbAsignaturas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbAsignaturas.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cmbAsignaturas.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cmbAsignaturas.FormattingEnabled = true;
             this.cmbAsignaturas.Items.AddRange(new object[] {
             "1",

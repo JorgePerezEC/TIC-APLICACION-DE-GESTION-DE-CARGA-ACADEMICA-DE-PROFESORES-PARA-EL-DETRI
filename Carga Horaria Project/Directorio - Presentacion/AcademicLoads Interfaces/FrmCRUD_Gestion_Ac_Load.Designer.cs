@@ -72,6 +72,7 @@
             this.dgLstRegistros.RowTemplate.Height = 29;
             this.dgLstRegistros.Size = new System.Drawing.Size(1320, 404);
             this.dgLstRegistros.TabIndex = 0;
+            this.dgLstRegistros.TabStop = false;
             this.dgLstRegistros.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgLstRegistros_CellContentClick);
             // 
             // panel1

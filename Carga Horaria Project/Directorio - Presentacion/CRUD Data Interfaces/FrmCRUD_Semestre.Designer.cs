@@ -39,13 +39,11 @@
             this.cboxSemanasClase = new System.Windows.Forms.ComboBox();
             this.cboxSemanasTotales = new System.Windows.Forms.ComboBox();
             this.dtFechaFin = new System.Windows.Forms.DateTimePicker();
-            this.ckboxEstado = new System.Windows.Forms.CheckBox();
             this.txtCodigo = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -125,13 +123,11 @@
             this.panelNewSemestre.Controls.Add(this.cboxSemanasClase);
             this.panelNewSemestre.Controls.Add(this.cboxSemanasTotales);
             this.panelNewSemestre.Controls.Add(this.dtFechaFin);
-            this.panelNewSemestre.Controls.Add(this.ckboxEstado);
             this.panelNewSemestre.Controls.Add(this.txtCodigo);
             this.panelNewSemestre.Controls.Add(this.label8);
             this.panelNewSemestre.Controls.Add(this.label5);
             this.panelNewSemestre.Controls.Add(this.label6);
             this.panelNewSemestre.Controls.Add(this.label7);
-            this.panelNewSemestre.Controls.Add(this.label4);
             this.panelNewSemestre.Controls.Add(this.label3);
             this.panelNewSemestre.Controls.Add(this.label2);
             this.panelNewSemestre.Dock = System.Windows.Forms.DockStyle.Top;
@@ -207,19 +203,6 @@
             this.dtFechaFin.Size = new System.Drawing.Size(279, 27);
             this.dtFechaFin.TabIndex = 13;
             // 
-            // ckboxEstado
-            // 
-            this.ckboxEstado.AutoSize = true;
-            this.ckboxEstado.Checked = true;
-            this.ckboxEstado.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.ckboxEstado.Font = new System.Drawing.Font("Roboto", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.ckboxEstado.Location = new System.Drawing.Point(125, 119);
-            this.ckboxEstado.Name = "ckboxEstado";
-            this.ckboxEstado.Size = new System.Drawing.Size(71, 22);
-            this.ckboxEstado.TabIndex = 11;
-            this.ckboxEstado.Text = "activo";
-            this.ckboxEstado.UseVisualStyleBackColor = true;
-            // 
             // txtCodigo
             // 
             this.txtCodigo.AllowDrop = true;
@@ -268,16 +251,6 @@
             this.label7.Size = new System.Drawing.Size(137, 23);
             this.label7.TabIndex = 5;
             this.label7.Text = "Fecha de Inicio:";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft YaHei", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label4.Location = new System.Drawing.Point(23, 119);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(68, 23);
-            this.label4.TabIndex = 4;
-            this.label4.Text = "Estado:";
             // 
             // label3
             // 
@@ -411,12 +384,10 @@
         private Label label5;
         private Label label6;
         private Label label7;
-        private Label label4;
         private Label label3;
         private Label label2;
         private Label label1;
         private DateTimePicker dtFechaFin;
-        private CheckBox ckboxEstado;
         private ComboBox cboxSemanasTotales;
         private DateTimePicker dtFechaInicio;
         private ComboBox cboxSemanasClase;

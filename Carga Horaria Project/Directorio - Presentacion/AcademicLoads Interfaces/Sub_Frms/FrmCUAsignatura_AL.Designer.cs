@@ -55,7 +55,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(972, 83);
+            this.panel1.Size = new System.Drawing.Size(968, 83);
             this.panel1.TabIndex = 0;
             // 
             // label1
@@ -78,7 +78,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 83);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(972, 379);
+            this.panel2.Size = new System.Drawing.Size(968, 375);
             this.panel2.TabIndex = 1;
             // 
             // panelGR
@@ -113,7 +113,8 @@
             // 
             // cmbGR
             // 
-            this.cmbGR.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbGR.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cmbGR.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cmbGR.FormattingEnabled = true;
             this.cmbGR.Location = new System.Drawing.Point(284, 135);
             this.cmbGR.Name = "cmbGR";
@@ -196,7 +197,8 @@
             // 
             // cmbAsignatura
             // 
-            this.cmbAsignatura.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbAsignatura.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cmbAsignatura.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cmbAsignatura.FormattingEnabled = true;
             this.cmbAsignatura.Location = new System.Drawing.Point(304, 30);
             this.cmbAsignatura.Name = "cmbAsignatura";
@@ -218,7 +220,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(972, 462);
+            this.ClientSize = new System.Drawing.Size(968, 458);
             this.ControlBox = false;
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);

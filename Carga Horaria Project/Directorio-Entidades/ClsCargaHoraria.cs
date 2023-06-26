@@ -48,7 +48,5 @@ namespace Directorio_Entidades
         public int HoraTotalActividad { get => _horaTotalActividad; set => _horaTotalActividad = value; }
         //
         #endregion
-
-
     }
 }

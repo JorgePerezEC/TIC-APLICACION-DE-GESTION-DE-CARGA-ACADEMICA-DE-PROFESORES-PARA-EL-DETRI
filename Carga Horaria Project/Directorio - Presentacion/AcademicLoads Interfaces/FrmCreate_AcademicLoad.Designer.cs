@@ -249,6 +249,7 @@
             this.txtClases.Name = "txtClases";
             this.txtClases.Size = new System.Drawing.Size(143, 23);
             this.txtClases.TabIndex = 13;
+            this.txtClases.TabStop = false;
             // 
             // label8
             // 
@@ -270,6 +271,7 @@
             this.txtHorasTotales.Name = "txtHorasTotales";
             this.txtHorasTotales.Size = new System.Drawing.Size(143, 23);
             this.txtHorasTotales.TabIndex = 11;
+            this.txtHorasTotales.TabStop = false;
             // 
             // txtHorasInvestigacionMain
             // 
@@ -281,6 +283,7 @@
             this.txtHorasInvestigacionMain.Name = "txtHorasInvestigacionMain";
             this.txtHorasInvestigacionMain.Size = new System.Drawing.Size(143, 23);
             this.txtHorasInvestigacionMain.TabIndex = 10;
+            this.txtHorasInvestigacionMain.TabStop = false;
             // 
             // txtHorasGestionMain
             // 
@@ -292,6 +295,7 @@
             this.txtHorasGestionMain.Name = "txtHorasGestionMain";
             this.txtHorasGestionMain.Size = new System.Drawing.Size(143, 23);
             this.txtHorasGestionMain.TabIndex = 9;
+            this.txtHorasGestionMain.TabStop = false;
             // 
             // txtHorasDocenteMain
             // 
@@ -303,6 +307,7 @@
             this.txtHorasDocenteMain.Name = "txtHorasDocenteMain";
             this.txtHorasDocenteMain.Size = new System.Drawing.Size(143, 23);
             this.txtHorasDocenteMain.TabIndex = 8;
+            this.txtHorasDocenteMain.TabStop = false;
             // 
             // label7
             // 
@@ -387,6 +392,7 @@
             this.btnInvestigacion.Name = "btnInvestigacion";
             this.btnInvestigacion.Size = new System.Drawing.Size(145, 35);
             this.btnInvestigacion.TabIndex = 19;
+            this.btnInvestigacion.TabStop = false;
             this.btnInvestigacion.Text = "Investigación";
             this.btnInvestigacion.UseVisualStyleBackColor = false;
             this.btnInvestigacion.Visible = false;
@@ -404,6 +410,7 @@
             this.btnGestion.Name = "btnGestion";
             this.btnGestion.Size = new System.Drawing.Size(145, 35);
             this.btnGestion.TabIndex = 18;
+            this.btnGestion.TabStop = false;
             this.btnGestion.Text = "Gestión";
             this.btnGestion.UseVisualStyleBackColor = false;
             this.btnGestion.Visible = false;
@@ -421,6 +428,7 @@
             this.btnDocencia.Name = "btnDocencia";
             this.btnDocencia.Size = new System.Drawing.Size(145, 35);
             this.btnDocencia.TabIndex = 17;
+            this.btnDocencia.TabStop = false;
             this.btnDocencia.Text = "Docencia";
             this.btnDocencia.UseVisualStyleBackColor = false;
             this.btnDocencia.Visible = false;
@@ -437,6 +445,7 @@
             this.btnAsignaturas.Name = "btnAsignaturas";
             this.btnAsignaturas.Size = new System.Drawing.Size(145, 35);
             this.btnAsignaturas.TabIndex = 16;
+            this.btnAsignaturas.TabStop = false;
             this.btnAsignaturas.Text = "Asignaturas";
             this.btnAsignaturas.UseVisualStyleBackColor = false;
             this.btnAsignaturas.Visible = false;
@@ -459,8 +468,9 @@
             // 
             // cmbDocente
             // 
+            this.cmbDocente.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cmbDocente.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cmbDocente.BackColor = System.Drawing.Color.LemonChiffon;
-            this.cmbDocente.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbDocente.FormattingEnabled = true;
             this.cmbDocente.Location = new System.Drawing.Point(148, 88);
             this.cmbDocente.Name = "cmbDocente";

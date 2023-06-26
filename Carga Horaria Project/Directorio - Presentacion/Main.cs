@@ -1,4 +1,5 @@
 ﻿using Directorio___Presentacion.AcademicLoads_Interfaces;
+using Directorio___Presentacion.AcademicLoads_Interfaces.Activate_Data_Frms;
 using Directorio___Presentacion.CRUD_Data_Interfaces;
 using Directorio___Presentacion.CRUD_Interfaces;
 using Directorio___Presentacion.Reportes_Frms;
@@ -241,6 +242,13 @@ namespace Directorio___Presentacion
         private void btnReporteDocentesCargas_Click(object sender, EventArgs e)
         {
             openChildForm(new FrmReporteDocentesCargas());
+            hideSubMenu();
+            hideSubMenu2();
+        }
+
+        private void btnHabilitarDocentes_Click(object sender, EventArgs e)
+        {
+            openChildForm(new FrmManageSmstData());
             hideSubMenu();
             hideSubMenu2();
         }

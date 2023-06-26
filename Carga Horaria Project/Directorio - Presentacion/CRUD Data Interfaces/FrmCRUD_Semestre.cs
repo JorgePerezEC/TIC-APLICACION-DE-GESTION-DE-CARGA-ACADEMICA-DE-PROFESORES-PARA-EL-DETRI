@@ -116,7 +116,7 @@ namespace Directorio___Presentacion.CRUD_Interfaces
                     //}
 
                     objetoCNegocio.CreateSemestreNegocio(txtCodigo.Text, selectedYearCmb.ToString(), dtFechaInicio.Value.ToString("yyyy-MM-dd"),
-                    dtFechaFin.Value.ToString("yyyy-MM-dd"), cboxSemanasClase.Text, cboxSemanasTotales.Text, ckboxEstado.Checked.ToString());
+                    dtFechaFin.Value.ToString("yyyy-MM-dd"), cboxSemanasClase.Text, cboxSemanasTotales.Text);
                     MessageBox.Show("Semestre insertado correctamente");
                     MostrarSemestres();
                     ClearTxtBox();
@@ -133,7 +133,7 @@ namespace Directorio___Presentacion.CRUD_Interfaces
                 try
                 {
                     objetoCNegocio.UpdateSemestreNegocio(idSemestre, txtCodigo.Text,selectedYearCmb.ToString(), dtFechaInicio.Value.ToString("yyyy-MM-dd"),
-                    dtFechaFin.Value.ToString("yyyy-MM-dd"), cboxSemanasClase.Text, cboxSemanasTotales.Text, ckboxEstado.Checked.ToString());
+                    dtFechaFin.Value.ToString("yyyy-MM-dd"), cboxSemanasClase.Text, cboxSemanasTotales.Text);
                     MessageBox.Show("Semestre actualizado correctamente");
                     panelNewSemestre.Visible = false;
                     MostrarSemestres();
@@ -161,7 +161,6 @@ namespace Directorio___Presentacion.CRUD_Interfaces
                     dtFechaFin.Text = dgLstSemestres.CurrentRow.Cells[4].Value.ToString()!;
                     cboxSemanasClase.Text = dgLstSemestres.CurrentRow.Cells[5].Value.ToString()!;
                     cboxSemanasTotales.Text = dgLstSemestres.CurrentRow.Cells[6].Value.ToString()!;
-                    ckboxEstado.Text = dgLstSemestres.CurrentRow.Cells[7].Value.ToString()!;
                 }
                 else 
                 {
@@ -204,7 +203,6 @@ namespace Directorio___Presentacion.CRUD_Interfaces
         private void ClearTxtBox()
         {
             txtCodigo.Text = string.Empty;
-            ckboxEstado.Checked = false;
             cboxSemanasClase.Text = string.Empty;
             cboxSemanasTotales.Text = string.Empty;
             dtFechaFin.Text = string.Empty;

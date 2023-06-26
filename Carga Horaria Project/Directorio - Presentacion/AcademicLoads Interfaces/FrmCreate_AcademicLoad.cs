@@ -190,9 +190,15 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
                         btnNewCarga.Visible = true;
                         panelHoras.Visible = true;
                         btnCrearCargaAcademica.Visible = false;
+                        idCH = objetoCNegocio.GetIDCargaHorariaNegocio(cmbValueSemestre.ToString(), cmbValueDocente.ToString());
                         MessageBox.Show("Carga Horaria creada correctamente");
-                        frmAsigSon = new FrmCRUD_Asignaturas_Ac_Load(idCargaHoraria_FrmPrincipal);
+                        frmAsigSon = new FrmCRUD_Asignaturas_Ac_Load(idCH);
                         openChildForm(frmAsigSon);
+                        FrmCRUD_Asignaturas_Ac_Load frmCRUD = Application.OpenForms["FrmCRUD_Asignaturas_Ac_Load"] as FrmCRUD_Asignaturas_Ac_Load;
+                        if (frmCRUD != null)
+                        {
+                            frmCRUD.UpdateContent();
+                        }
                         btnAsignaturas.BackColor = System.Drawing.Color.LightSeaGreen;
                     }
                     else
@@ -201,8 +207,9 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
                         panelHoras.Visible = true;
                         btnCrearCargaAcademica.Visible = false;
                         btnAsignaturas.BackColor = System.Drawing.Color.LightSeaGreen;
+                        idCH = objetoCNegocio.GetIDCargaHorariaNegocio(cmbValueSemestre.ToString(), cmbValueDocente.ToString());
                         MessageBox.Show("Carga Horaria creada previamente. Accediendo al modo edicion");
-                        frmAsigSon = new FrmCRUD_Asignaturas_Ac_Load(idCargaHoraria_FrmPrincipal);
+                        frmAsigSon = new FrmCRUD_Asignaturas_Ac_Load(idCH);
                         openChildForm(frmAsigSon);
                     }
                     idCH = objetoCNegocio.GetIDCargaHorariaNegocio(cmbValueSemestre.ToString(), cmbValueDocente.ToString());

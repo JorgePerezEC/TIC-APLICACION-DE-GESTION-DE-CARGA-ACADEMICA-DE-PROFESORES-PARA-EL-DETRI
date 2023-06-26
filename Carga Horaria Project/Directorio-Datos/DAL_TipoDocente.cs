@@ -222,6 +222,17 @@ namespace Directorio_Datos
             ObjDataBase.CerrarConexion();
             return tabla;
         }
+        public DataTable MostrarRegistrosCmb()
+        {
+            comando.Connection = ObjDataBase.sqlConexion;
+            comando.CommandText = "spReadTipoDocentesCmb";
+            comando.CommandType = CommandType.StoredProcedure;
+            ObjDataBase.AbrirConexion();
+            leer = comando.ExecuteReader();
+            tabla.Load(leer);
+            ObjDataBase.CerrarConexion();
+            return tabla;
+        }
         public DataTable MostrarRegistrosHorasExBySemestre(ClsSemestre _semestre)
         {
             try

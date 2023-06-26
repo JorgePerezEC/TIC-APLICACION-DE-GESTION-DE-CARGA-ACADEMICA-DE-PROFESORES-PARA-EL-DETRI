@@ -236,9 +236,10 @@
             // 
             // cmbActividad
             // 
+            this.cmbActividad.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cmbActividad.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cmbActividad.BackColor = System.Drawing.Color.Khaki;
             this.cmbActividad.DropDownHeight = 200;
-            this.cmbActividad.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbActividad.DropDownWidth = 800;
             this.cmbActividad.FormattingEnabled = true;
             this.cmbActividad.IntegralHeight = false;

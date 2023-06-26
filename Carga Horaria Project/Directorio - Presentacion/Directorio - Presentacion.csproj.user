@@ -1,6 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <Compile Update="AcademicLoads Interfaces\Activate_Data_Frms\Frm_Activate_Docente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="AcademicLoads Interfaces\Activate_Data_Frms\FrmManageSmstData.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="AcademicLoads Interfaces\Error_Frms\Frm_Err_HorasExigibles.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -71,9 +77,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Reportes Frms\FrmReporteDocentesCargas.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="Reportes\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>

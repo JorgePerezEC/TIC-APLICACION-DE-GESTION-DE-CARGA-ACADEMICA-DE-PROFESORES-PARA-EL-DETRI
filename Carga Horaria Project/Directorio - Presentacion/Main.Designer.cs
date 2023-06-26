@@ -55,7 +55,7 @@
             this.btnGestionActividades = new System.Windows.Forms.Button();
             this.btnGestion = new System.Windows.Forms.Button();
             this.panelSubmenuAdminCargas = new System.Windows.Forms.Panel();
-            this.btnRep = new System.Windows.Forms.Button();
+            this.btnHabilitarDocentes = new System.Windows.Forms.Button();
             this.btnGestionarCargas = new System.Windows.Forms.Button();
             this.btnCrearCargaAcademica = new System.Windows.Forms.Button();
             this.btnAdminCargas = new System.Windows.Forms.Button();
@@ -490,7 +490,7 @@
             // panelSubmenuAdminCargas
             // 
             this.panelSubmenuAdminCargas.BackColor = System.Drawing.Color.PaleTurquoise;
-            this.panelSubmenuAdminCargas.Controls.Add(this.btnRep);
+            this.panelSubmenuAdminCargas.Controls.Add(this.btnHabilitarDocentes);
             this.panelSubmenuAdminCargas.Controls.Add(this.btnGestionarCargas);
             this.panelSubmenuAdminCargas.Controls.Add(this.btnCrearCargaAcademica);
             this.panelSubmenuAdminCargas.Dock = System.Windows.Forms.DockStyle.Top;
@@ -500,22 +500,23 @@
             this.panelSubmenuAdminCargas.Size = new System.Drawing.Size(283, 156);
             this.panelSubmenuAdminCargas.TabIndex = 2;
             // 
-            // btnRep
+            // btnHabilitarDocentes
             // 
-            this.btnRep.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(130)))), ((int)(((byte)(173)))));
-            this.btnRep.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnRep.FlatAppearance.BorderSize = 0;
-            this.btnRep.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRep.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnRep.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnRep.Location = new System.Drawing.Point(0, 106);
-            this.btnRep.Name = "btnRep";
-            this.btnRep.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.btnRep.Size = new System.Drawing.Size(283, 53);
-            this.btnRep.TabIndex = 2;
-            this.btnRep.Text = "Default";
-            this.btnRep.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnRep.UseVisualStyleBackColor = false;
+            this.btnHabilitarDocentes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(130)))), ((int)(((byte)(173)))));
+            this.btnHabilitarDocentes.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnHabilitarDocentes.FlatAppearance.BorderSize = 0;
+            this.btnHabilitarDocentes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnHabilitarDocentes.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnHabilitarDocentes.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btnHabilitarDocentes.Location = new System.Drawing.Point(0, 106);
+            this.btnHabilitarDocentes.Name = "btnHabilitarDocentes";
+            this.btnHabilitarDocentes.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
+            this.btnHabilitarDocentes.Size = new System.Drawing.Size(283, 53);
+            this.btnHabilitarDocentes.TabIndex = 2;
+            this.btnHabilitarDocentes.Text = "Habilitar Docentes";
+            this.btnHabilitarDocentes.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnHabilitarDocentes.UseVisualStyleBackColor = false;
+            this.btnHabilitarDocentes.Click += new System.EventHandler(this.btnHabilitarDocentes_Click);
             // 
             // btnGestionarCargas
             // 
@@ -659,7 +660,7 @@
         private Button btnAdminCargas;
         private Panel panel1;
         private Panel panelSubmenuAdminCargas;
-        private Button btnRep;
+        private Button btnHabilitarDocentes;
         private Button btnGestionarCargas;
         private Button btnCrearCargaAcademica;
         private Panel panel2;
