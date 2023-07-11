@@ -300,6 +300,81 @@ namespace Directorio_Datos
                 ObjDataBaseL.CerrarConexion();
             }
         }
+
+        public int GetTipoDocenteHoras_DAL(ClsSemestre _semestre, ClsTipoDocente _tpDocente)
+        {
+            try
+            {
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.Connection = ObjDataBase.sqlConexion;
+                sqlCommand.CommandText = "spGetHorasSemestrales";
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                sqlCommand.Parameters.AddWithValue("@idTipoDocente", _tpDocente.IdTipoDocente);
+                sqlCommand.Parameters.AddWithValue("@idSemestre", _semestre.IdSemestre);
+
+                ObjDataBase.AbrirConexion();
+                int numHoras = (int)sqlCommand.ExecuteScalar();
+
+                return numHoras;
+
+            }
+            catch (SqlException ex)
+            {
+                SqlError err = ex.Errors[0];
+                string mensaje = string.Empty;
+                switch (err.Number)
+                {
+                    case 109:
+                        mensaje = "Problemas con insert"; break;
+                    case 110:
+                        mensaje = "Más problemas con insert"; break;
+                    case 113:
+                        mensaje = "Problemas con comentarios"; break;
+                    case 156:
+                        mensaje = "Error de sintaxis"; break;
+                    default:
+                        mensaje = err.ToString(); break;
+
+                }
+                return -1;
+            }
+            finally
+            {
+                ObjDataBase.CerrarConexion();
+            }
+        }
+        public bool AddOrUpdateTipoDocente_Semstre_DAL(ClsTipoDocente _tipoDocente, ClsSemestre _semestre)
+        {
+            try
+            {
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.Connection = ObjDataBase.sqlConexion;
+                sqlCommand.CommandText = "spAddTipoDocenteSemestre";
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+
+                sqlCommand.Parameters.AddWithValue("@idTipoDocente", _tipoDocente.IdTipoDocente);
+                sqlCommand.Parameters.AddWithValue("@idSemestre", _semestre.IdSemestre);
+                sqlCommand.Parameters.AddWithValue("@numHorasSemestrales", _tipoDocente.HorasExigibles);
+
+
+                ObjDataBase.AbrirConexion();
+                sqlCommand.ExecuteNonQuery();
+
+                return true;
+
+            }
+            catch (System.Data.SqlClient.SqlException sqlException)
+            {
+                System.Windows.Forms.MessageBox.Show(sqlException.Message); ;
+                return false;
+
+            }
+            finally
+            {
+                ObjDataBase.CerrarConexion();
+            }
+
+        }
         #endregion
     }
 }

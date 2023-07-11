@@ -298,9 +298,9 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
         public void ListarAllActividadesCmb(string type)
         {
             if (type == "D11") ListarActividadesDocencia11();
-            else if (type == "D") ListarActividadesDocencia11();
+            else if (type == "D") ListarActividadesDocenciaF11();
             else if (type == "G") ListarActividadesGestion();
-            else ListarActividadesInvestigacion();
+            else if (type == "I") ListarActividadesInvestigacion();
         }
         private void ListarActividadesGral()
         {
@@ -413,6 +413,14 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
             if (e.KeyChar == (char)Keys.Enter)
             {
                 btnAgregar.PerformClick();
+                e.Handled = true;
+            }
+        }
+
+        private void txtHorasTotales_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != '\b')
+            {
                 e.Handled = true;
             }
         }

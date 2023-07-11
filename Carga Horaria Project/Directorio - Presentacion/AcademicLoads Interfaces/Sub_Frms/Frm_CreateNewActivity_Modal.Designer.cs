@@ -170,6 +170,7 @@
             this.txtHorasTotales.PlaceholderText = "Ingrese la duración total de la actvidad";
             this.txtHorasTotales.Size = new System.Drawing.Size(271, 27);
             this.txtHorasTotales.TabIndex = 21;
+            this.txtHorasTotales.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtHorasSemanales_KeyPress);
             // 
             // label5
             // 
@@ -189,6 +190,7 @@
             this.txtHorasSemanales.PlaceholderText = "Ingrese la duración de la actvidad";
             this.txtHorasSemanales.Size = new System.Drawing.Size(271, 27);
             this.txtHorasSemanales.TabIndex = 19;
+            this.txtHorasSemanales.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtHorasSemanales_KeyPress);
             // 
             // cmbTpActiv
             // 

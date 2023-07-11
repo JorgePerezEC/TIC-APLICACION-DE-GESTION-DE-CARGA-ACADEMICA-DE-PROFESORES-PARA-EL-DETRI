@@ -192,6 +192,7 @@ namespace Directorio_Datos
         {
             //comando.Connection = manejador.AbrirConexion();
             //SqlCommand comando = new SqlCommand();
+            SqlCommand comando = new SqlCommand();
             comando.Connection = ObjDataBase.sqlConexion;
             comando.CommandText = "spReadAllInvestigationActividades";
             comando.CommandType = CommandType.StoredProcedure;

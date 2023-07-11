@@ -252,5 +252,12 @@ namespace Directorio___Presentacion
             hideSubMenu();
             hideSubMenu2();
         }
+
+        private void btnHabilitarAsignaturas_Click(object sender, EventArgs e)
+        {
+            openChildForm(new FrmManageAsigSmst());
+            hideSubMenu();
+            hideSubMenu2();
+        }
     }
 }

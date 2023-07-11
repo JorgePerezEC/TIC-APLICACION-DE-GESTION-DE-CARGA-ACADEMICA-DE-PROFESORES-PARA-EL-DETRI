@@ -124,6 +124,15 @@ namespace Directorio_Logica
             string typeAsignatura = objetoCData.GetTypeAsigByAsig_DAL(ObjAsignatura);
             return typeAsignatura;
         }
+        public string GetCodeAsigByAsig_Negocio(string nameAsignatura)
+        {
+            ClsAsignatura ObjAsignatura = new ClsAsignatura()
+            {
+                NombreAsignatura = nameAsignatura
+            };
+            string typeAsignatura = objetoCData.GetCodeAsigByAsig_DAL(ObjAsignatura);
+            return typeAsignatura;
+        }
 
     }
 }

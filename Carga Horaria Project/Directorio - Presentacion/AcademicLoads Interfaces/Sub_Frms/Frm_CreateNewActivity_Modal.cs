@@ -89,13 +89,13 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
 
                 objetoCNegocio.CreateActividadNeg(cmbValue.ToString(), txtNameActividad.Text, txtHorasSemanales.Text, txtHorasTotales.Text);
                 MessageBox.Show("Actividad insertadada correctamente");
-                this.Close();
 
                 FrmCUActividad_AL frmCuActividad = Application.OpenForms["FrmCUActividad_AL"] as FrmCUActividad_AL;
                 if (frmCuActividad != null)
                 {
                     frmCuActividad.ListarAllActividadesCmb(cmbTpActiv.Text);
                 }
+                this.Close();
             }
             catch (Exception ex)
             {
@@ -110,7 +110,12 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
 
         private void Frm_CreateNewActivity_Modal_FormClosed(object sender, FormClosedEventArgs e)
         {
-            
+            //FrmCUActividad_AL frmCuActividad = Application.OpenForms["FrmCUActividad_AL"] as FrmCUActividad_AL;
+            //if (frmCuActividad != null)
+            //{
+            //    MessageBox.Show("Listar nuevamente " + cmbTpActiv.Text);
+            //    frmCuActividad.ListarAllActividadesCmb(cmbTpActiv.Text);
+            //}
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -132,6 +137,14 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
             if (e.Control && e.KeyCode == Keys.G)
             {
                 btnGuardar.PerformClick();
+                e.Handled = true;
+            }
+        }
+
+        private void txtHorasSemanales_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != '\b')
+            {
                 e.Handled = true;
             }
         }

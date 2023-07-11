@@ -44,7 +44,7 @@ namespace Directorio___Presentacion.CRUD_Interfaces
         {
             int currentYear = DateTime.Now.Year;
 
-            for (int year = 2000; year <= currentYear+20; year++)
+            for (int year = 2020; year <= currentYear+20; year++)
             {
                 cmbYear.Items.Add(year);
             }

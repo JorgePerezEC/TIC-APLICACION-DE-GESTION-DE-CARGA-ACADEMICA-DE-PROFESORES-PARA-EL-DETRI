@@ -73,7 +73,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
                         {
                             idGrAsignatura = objNegocioGrAsig.GetIDGrAsignaturaNegocio(cmbValueAsig.ToString(), cmbGR.Text);
                             objetoNegocioCargaHoraria.Create_AsignaturaCargaHoraria_Negocio(idAcLoad.ToString(), idGrAsignatura.ToString());
-                            MessageBox.Show("Asignatura agregada correctamente a la carga académica. ");
+                            //MessageBox.Show("Asignatura agregada correctamente a la carga académica. ");
                             this.Close();
                         }
                         else
@@ -97,8 +97,8 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
                         {
                             idGrAsignatura = objNegocioGrAsig.GetIDGrAsignaturaNegocio(cmbValueAsig.ToString(), cmbGR.Text);
                             objetoNegocioCargaHoraria.UpdateAsignaturaCargaHNeg(idAsigCarga.ToString(), idAcLoad.ToString(), idGrAsignatura.ToString());
-                            MessageBox.Show(idAcLoad.ToString() + " " + idGrAsignatura.ToString());
-                            MessageBox.Show("Asignatura actualizada correctamente a la carga académica. ");
+                            //MessageBox.Show(idAcLoad.ToString() + " " + idGrAsignatura.ToString());
+                            //MessageBox.Show("Asignatura actualizada correctamente a la carga académica. ");
                             this.Close();
                         }
                         else
@@ -156,7 +156,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
                 cmbGR.ValueMember = "ID";
                 txtNivel.Text = objetoGrNegocio.GetLvlAsignatura_Negocio(cmbAsignatura.Text);
                 txtType.Text = objetoGrNegocio.GetTypeAsigByAsig_Negocio(cmbAsignatura.Text);
-
+                txtCode.Text = objetoGrNegocio.GetCodeAsigByAsig_Negocio(cmbAsignatura.Text);
             }
         }
         #endregion

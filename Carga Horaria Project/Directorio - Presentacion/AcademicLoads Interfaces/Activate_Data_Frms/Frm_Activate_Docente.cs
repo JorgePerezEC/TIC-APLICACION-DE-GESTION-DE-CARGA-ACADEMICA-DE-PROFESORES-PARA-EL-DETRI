@@ -106,7 +106,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Activate_Data_Frms
 
                     objSemestre_Neg = new CN_Semestre();
                     MessageBox.Show(cmbSemestre.SelectedValue.ToString()+" "+ dgvDocenteSemestre.Rows[e.RowIndex].Cells[0].Value.ToString() + " " + (!habilitado).ToString());
-                    objSemestre_Neg.CreateOrUpdateSemestreDocente_Negocio(cmbSemestre.SelectedValue.ToString(), dgvDocenteSemestre.Rows[e.RowIndex].Cells[0].Value.ToString(), (!habilitado).ToString());
+                    //objSemestre_Neg.CreateOrUpdateSemestreDocente_Negocio(cmbSemestre.SelectedValue.ToString(), dgvDocenteSemestre.Rows[e.RowIndex].Cells[0].Value.ToString(), (!habilitado).ToString(),txt);
                     if ((bool)checkBoxCell.EditedFormattedValue)
                     {
                         MessageBox.Show("Se ha habilitado el docente: " + nombreDocente);

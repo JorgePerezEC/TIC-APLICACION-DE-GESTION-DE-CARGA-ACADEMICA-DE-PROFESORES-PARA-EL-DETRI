@@ -197,5 +197,43 @@ namespace Directorio_Logica
             int horasEx = objetoCData.GetHorasExigiblesByTpDocente_DAL(ObjTipoDocente);
             return horasEx;
         }
+        public int GetTipoDocenteHoras_Negocio(string idSemestre, string idTipoDocente)
+        {
+            ClsTipoDocente ObjTipoDocente = new ClsTipoDocente()
+            {
+                IdTipoDocente = Convert.ToInt32(idTipoDocente)
+            };
+            ClsSemestre ObjSemestre = new ClsSemestre()
+            {
+                IdSemestre = Convert.ToInt32(idSemestre)
+            };
+            int horasEx = objetoCData.GetTipoDocenteHoras_DAL(ObjSemestre,ObjTipoDocente);
+            return horasEx;
+        }
+        public bool AddOrUpdateTipoDocente_Semstre_Negocio(string idTpDocente, string idSemestre, string numHorasEx)
+        {
+            try
+            {
+                ClsTipoDocente ObjTpDoc = new ClsTipoDocente()
+                {
+                    IdTipoDocente = Convert.ToInt32(idTpDocente),
+                    HorasExigibles = Convert.ToInt32(numHorasEx),
+                };
+                ClsSemestre ObjSemestre = new ClsSemestre()
+                {
+                    IdSemestre = Convert.ToInt32(idSemestre)
+                };
+                objetoCData.AddOrUpdateTipoDocente_Semstre_DAL(ObjTpDoc, ObjSemestre);
+
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+                return false;
+
+            }
+
+        }
     }
 }

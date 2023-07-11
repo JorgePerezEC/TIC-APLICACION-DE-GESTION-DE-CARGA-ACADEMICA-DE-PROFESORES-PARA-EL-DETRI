@@ -46,6 +46,17 @@ namespace Directorio_Logica
             tabla = objetoCData.MostrarRegistrosById(objDepa, objSemestre);
             return tabla;
         }
+        public DataTable MostrarDocentesLstWithHorasEx_Negocio(string idSemestre)
+        {
+            DataTable tabla = new DataTable();
+
+            ClsSemestre objSemestre = new ClsSemestre()
+            {
+                IdSemestre = Convert.ToInt32(idSemestre)
+            };
+            tabla = objetoCData.MostrarDocentesLstWithHorasEx_DAL(objSemestre);
+            return tabla;
+        }
 
         public DataTable MostrarRegistrosByIdSemestre_Negocio(string idSemestre)
         {

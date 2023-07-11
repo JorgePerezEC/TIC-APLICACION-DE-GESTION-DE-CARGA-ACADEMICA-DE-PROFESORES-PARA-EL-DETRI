@@ -64,6 +64,7 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.panelChildForm = new System.Windows.Forms.Panel();
             this.pixtbxLogo = new System.Windows.Forms.PictureBox();
+            this.btnHabilitarAsignaturas = new System.Windows.Forms.Button();
             this.panelMenuLateral.SuspendLayout();
             this.panelSubmenuReportes.SuspendLayout();
             this.panelSubmenuGestionData.SuspendLayout();
@@ -91,7 +92,7 @@
             this.panelMenuLateral.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelMenuLateral.Location = new System.Drawing.Point(0, 0);
             this.panelMenuLateral.Name = "panelMenuLateral";
-            this.panelMenuLateral.Size = new System.Drawing.Size(285, 1325);
+            this.panelMenuLateral.Size = new System.Drawing.Size(285, 1055);
             this.panelMenuLateral.TabIndex = 0;
             // 
             // panelSubmenuReportes
@@ -102,9 +103,9 @@
             this.panelSubmenuReportes.Controls.Add(this.btnReporteDocentesCargas);
             this.panelSubmenuReportes.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelSubmenuReportes.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.panelSubmenuReportes.Location = new System.Drawing.Point(0, 1140);
+            this.panelSubmenuReportes.Location = new System.Drawing.Point(0, 1194);
             this.panelSubmenuReportes.Name = "panelSubmenuReportes";
-            this.panelSubmenuReportes.Size = new System.Drawing.Size(283, 156);
+            this.panelSubmenuReportes.Size = new System.Drawing.Size(262, 156);
             this.panelSubmenuReportes.TabIndex = 6;
             this.panelSubmenuReportes.Visible = false;
             // 
@@ -119,7 +120,7 @@
             this.button1.Location = new System.Drawing.Point(0, 106);
             this.button1.Name = "button1";
             this.button1.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.button1.Size = new System.Drawing.Size(283, 53);
+            this.button1.Size = new System.Drawing.Size(262, 53);
             this.button1.TabIndex = 2;
             this.button1.Text = "Generar Reportes";
             this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -136,7 +137,7 @@
             this.button2.Location = new System.Drawing.Point(0, 53);
             this.button2.Name = "button2";
             this.button2.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.button2.Size = new System.Drawing.Size(283, 53);
+            this.button2.Size = new System.Drawing.Size(262, 53);
             this.button2.TabIndex = 1;
             this.button2.Text = "Reporte de Cargas por Tipo de Docente";
             this.button2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -153,7 +154,7 @@
             this.btnReporteDocentesCargas.Location = new System.Drawing.Point(0, 0);
             this.btnReporteDocentesCargas.Name = "btnReporteDocentesCargas";
             this.btnReporteDocentesCargas.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.btnReporteDocentesCargas.Size = new System.Drawing.Size(283, 53);
+            this.btnReporteDocentesCargas.Size = new System.Drawing.Size(262, 53);
             this.btnReporteDocentesCargas.TabIndex = 0;
             this.btnReporteDocentesCargas.Text = "Reporte de Cargas Académicas de Docentes";
             this.btnReporteDocentesCargas.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -168,10 +169,10 @@
             this.btnReportesMain.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnReportesMain.Font = new System.Drawing.Font("Roboto", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnReportesMain.ForeColor = System.Drawing.Color.Transparent;
-            this.btnReportesMain.Location = new System.Drawing.Point(0, 1080);
+            this.btnReportesMain.Location = new System.Drawing.Point(0, 1134);
             this.btnReportesMain.Name = "btnReportesMain";
             this.btnReportesMain.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.btnReportesMain.Size = new System.Drawing.Size(283, 60);
+            this.btnReportesMain.Size = new System.Drawing.Size(262, 60);
             this.btnReportesMain.TabIndex = 5;
             this.btnReportesMain.Text = "Reportes";
             this.btnReportesMain.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -193,9 +194,9 @@
             this.panelSubmenuGestionData.Controls.Add(this.btnGestionActividades);
             this.panelSubmenuGestionData.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelSubmenuGestionData.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.panelSubmenuGestionData.Location = new System.Drawing.Point(0, 393);
+            this.panelSubmenuGestionData.Location = new System.Drawing.Point(0, 447);
             this.panelSubmenuGestionData.Name = "panelSubmenuGestionData";
-            this.panelSubmenuGestionData.Size = new System.Drawing.Size(283, 687);
+            this.panelSubmenuGestionData.Size = new System.Drawing.Size(262, 687);
             this.panelSubmenuGestionData.TabIndex = 4;
             // 
             // btnGestionSemestres
@@ -209,7 +210,7 @@
             this.btnGestionSemestres.Location = new System.Drawing.Point(0, 634);
             this.btnGestionSemestres.Name = "btnGestionSemestres";
             this.btnGestionSemestres.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.btnGestionSemestres.Size = new System.Drawing.Size(283, 53);
+            this.btnGestionSemestres.Size = new System.Drawing.Size(262, 53);
             this.btnGestionSemestres.TabIndex = 8;
             this.btnGestionSemestres.Text = "Gestión de Semestres";
             this.btnGestionSemestres.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -225,7 +226,7 @@
             this.panelGestionDocentes.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelGestionDocentes.Location = new System.Drawing.Point(0, 494);
             this.panelGestionDocentes.Name = "panelGestionDocentes";
-            this.panelGestionDocentes.Size = new System.Drawing.Size(283, 140);
+            this.panelGestionDocentes.Size = new System.Drawing.Size(262, 140);
             this.panelGestionDocentes.TabIndex = 7;
             // 
             // btnAsignarHoras
@@ -237,7 +238,7 @@
             this.btnAsignarHoras.Location = new System.Drawing.Point(0, 94);
             this.btnAsignarHoras.Name = "btnAsignarHoras";
             this.btnAsignarHoras.Padding = new System.Windows.Forms.Padding(45, 0, 0, 0);
-            this.btnAsignarHoras.Size = new System.Drawing.Size(283, 47);
+            this.btnAsignarHoras.Size = new System.Drawing.Size(262, 47);
             this.btnAsignarHoras.TabIndex = 3;
             this.btnAsignarHoras.Text = "Asignar horas exigibles";
             this.btnAsignarHoras.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -253,7 +254,7 @@
             this.btnTpDocentes.Location = new System.Drawing.Point(0, 47);
             this.btnTpDocentes.Name = "btnTpDocentes";
             this.btnTpDocentes.Padding = new System.Windows.Forms.Padding(45, 0, 0, 0);
-            this.btnTpDocentes.Size = new System.Drawing.Size(283, 47);
+            this.btnTpDocentes.Size = new System.Drawing.Size(262, 47);
             this.btnTpDocentes.TabIndex = 2;
             this.btnTpDocentes.Text = "Tipo de Docentes";
             this.btnTpDocentes.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -269,7 +270,7 @@
             this.btnDocentes.Location = new System.Drawing.Point(0, 0);
             this.btnDocentes.Name = "btnDocentes";
             this.btnDocentes.Padding = new System.Windows.Forms.Padding(45, 0, 0, 0);
-            this.btnDocentes.Size = new System.Drawing.Size(283, 47);
+            this.btnDocentes.Size = new System.Drawing.Size(262, 47);
             this.btnDocentes.TabIndex = 1;
             this.btnDocentes.Text = "Docentes";
             this.btnDocentes.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -287,7 +288,7 @@
             this.btnGestionDocentes.Location = new System.Drawing.Point(0, 441);
             this.btnGestionDocentes.Name = "btnGestionDocentes";
             this.btnGestionDocentes.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.btnGestionDocentes.Size = new System.Drawing.Size(283, 53);
+            this.btnGestionDocentes.Size = new System.Drawing.Size(262, 53);
             this.btnGestionDocentes.TabIndex = 6;
             this.btnGestionDocentes.Text = "Gestión de Docentes";
             this.btnGestionDocentes.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -305,7 +306,7 @@
             this.btnGestionDepartamentos.Location = new System.Drawing.Point(0, 388);
             this.btnGestionDepartamentos.Name = "btnGestionDepartamentos";
             this.btnGestionDepartamentos.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.btnGestionDepartamentos.Size = new System.Drawing.Size(283, 53);
+            this.btnGestionDepartamentos.Size = new System.Drawing.Size(262, 53);
             this.btnGestionDepartamentos.TabIndex = 5;
             this.btnGestionDepartamentos.Text = "Gestión de Departamentos";
             this.btnGestionDepartamentos.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -323,7 +324,7 @@
             this.btnGestionCarreras.Location = new System.Drawing.Point(0, 335);
             this.btnGestionCarreras.Name = "btnGestionCarreras";
             this.btnGestionCarreras.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.btnGestionCarreras.Size = new System.Drawing.Size(283, 53);
+            this.btnGestionCarreras.Size = new System.Drawing.Size(262, 53);
             this.btnGestionCarreras.TabIndex = 4;
             this.btnGestionCarreras.Text = "Gestión de Carreras";
             this.btnGestionCarreras.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -339,7 +340,7 @@
             this.panelGestionAsig.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelGestionAsig.Location = new System.Drawing.Point(0, 198);
             this.panelGestionAsig.Name = "panelGestionAsig";
-            this.panelGestionAsig.Size = new System.Drawing.Size(283, 137);
+            this.panelGestionAsig.Size = new System.Drawing.Size(262, 137);
             this.panelGestionAsig.TabIndex = 3;
             // 
             // btnHorarios
@@ -351,7 +352,7 @@
             this.btnHorarios.Location = new System.Drawing.Point(0, 94);
             this.btnHorarios.Name = "btnHorarios";
             this.btnHorarios.Padding = new System.Windows.Forms.Padding(45, 0, 0, 0);
-            this.btnHorarios.Size = new System.Drawing.Size(283, 47);
+            this.btnHorarios.Size = new System.Drawing.Size(262, 47);
             this.btnHorarios.TabIndex = 3;
             this.btnHorarios.Text = "Horarios";
             this.btnHorarios.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -367,7 +368,7 @@
             this.btnGrupoAsig.Location = new System.Drawing.Point(0, 47);
             this.btnGrupoAsig.Name = "btnGrupoAsig";
             this.btnGrupoAsig.Padding = new System.Windows.Forms.Padding(45, 0, 0, 0);
-            this.btnGrupoAsig.Size = new System.Drawing.Size(283, 47);
+            this.btnGrupoAsig.Size = new System.Drawing.Size(262, 47);
             this.btnGrupoAsig.TabIndex = 2;
             this.btnGrupoAsig.Text = "GRs";
             this.btnGrupoAsig.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -383,7 +384,7 @@
             this.btnAsignaturas.Location = new System.Drawing.Point(0, 0);
             this.btnAsignaturas.Name = "btnAsignaturas";
             this.btnAsignaturas.Padding = new System.Windows.Forms.Padding(45, 0, 0, 0);
-            this.btnAsignaturas.Size = new System.Drawing.Size(283, 47);
+            this.btnAsignaturas.Size = new System.Drawing.Size(262, 47);
             this.btnAsignaturas.TabIndex = 1;
             this.btnAsignaturas.Text = "Asignaturas";
             this.btnAsignaturas.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -401,7 +402,7 @@
             this.btnGestionAsignaturas.Location = new System.Drawing.Point(0, 145);
             this.btnGestionAsignaturas.Name = "btnGestionAsignaturas";
             this.btnGestionAsignaturas.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.btnGestionAsignaturas.Size = new System.Drawing.Size(283, 53);
+            this.btnGestionAsignaturas.Size = new System.Drawing.Size(262, 53);
             this.btnGestionAsignaturas.TabIndex = 2;
             this.btnGestionAsignaturas.Text = "Gestión de Asignaturas";
             this.btnGestionAsignaturas.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -416,7 +417,7 @@
             this.panelGestActividades.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelGestActividades.Location = new System.Drawing.Point(0, 53);
             this.panelGestActividades.Name = "panelGestActividades";
-            this.panelGestActividades.Size = new System.Drawing.Size(283, 92);
+            this.panelGestActividades.Size = new System.Drawing.Size(262, 92);
             this.panelGestActividades.TabIndex = 1;
             // 
             // btnTpActividades
@@ -428,7 +429,7 @@
             this.btnTpActividades.Location = new System.Drawing.Point(0, 47);
             this.btnTpActividades.Name = "btnTpActividades";
             this.btnTpActividades.Padding = new System.Windows.Forms.Padding(45, 0, 0, 0);
-            this.btnTpActividades.Size = new System.Drawing.Size(283, 47);
+            this.btnTpActividades.Size = new System.Drawing.Size(262, 47);
             this.btnTpActividades.TabIndex = 2;
             this.btnTpActividades.Text = "Tipo de Actividades";
             this.btnTpActividades.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -444,7 +445,7 @@
             this.btnActividades.Location = new System.Drawing.Point(0, 0);
             this.btnActividades.Name = "btnActividades";
             this.btnActividades.Padding = new System.Windows.Forms.Padding(45, 0, 0, 0);
-            this.btnActividades.Size = new System.Drawing.Size(283, 47);
+            this.btnActividades.Size = new System.Drawing.Size(262, 47);
             this.btnActividades.TabIndex = 1;
             this.btnActividades.Text = "Actividades";
             this.btnActividades.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -462,7 +463,7 @@
             this.btnGestionActividades.Location = new System.Drawing.Point(0, 0);
             this.btnGestionActividades.Name = "btnGestionActividades";
             this.btnGestionActividades.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.btnGestionActividades.Size = new System.Drawing.Size(283, 53);
+            this.btnGestionActividades.Size = new System.Drawing.Size(262, 53);
             this.btnGestionActividades.TabIndex = 0;
             this.btnGestionActividades.Text = "Gestión de Actividades";
             this.btnGestionActividades.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -477,10 +478,10 @@
             this.btnGestion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGestion.Font = new System.Drawing.Font("Roboto", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnGestion.ForeColor = System.Drawing.Color.Transparent;
-            this.btnGestion.Location = new System.Drawing.Point(0, 333);
+            this.btnGestion.Location = new System.Drawing.Point(0, 387);
             this.btnGestion.Name = "btnGestion";
             this.btnGestion.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.btnGestion.Size = new System.Drawing.Size(283, 60);
+            this.btnGestion.Size = new System.Drawing.Size(262, 60);
             this.btnGestion.TabIndex = 3;
             this.btnGestion.Text = "Gestionar Datos";
             this.btnGestion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -490,6 +491,7 @@
             // panelSubmenuAdminCargas
             // 
             this.panelSubmenuAdminCargas.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.panelSubmenuAdminCargas.Controls.Add(this.btnHabilitarAsignaturas);
             this.panelSubmenuAdminCargas.Controls.Add(this.btnHabilitarDocentes);
             this.panelSubmenuAdminCargas.Controls.Add(this.btnGestionarCargas);
             this.panelSubmenuAdminCargas.Controls.Add(this.btnCrearCargaAcademica);
@@ -497,7 +499,7 @@
             this.panelSubmenuAdminCargas.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.panelSubmenuAdminCargas.Location = new System.Drawing.Point(0, 177);
             this.panelSubmenuAdminCargas.Name = "panelSubmenuAdminCargas";
-            this.panelSubmenuAdminCargas.Size = new System.Drawing.Size(283, 156);
+            this.panelSubmenuAdminCargas.Size = new System.Drawing.Size(262, 210);
             this.panelSubmenuAdminCargas.TabIndex = 2;
             // 
             // btnHabilitarDocentes
@@ -511,7 +513,7 @@
             this.btnHabilitarDocentes.Location = new System.Drawing.Point(0, 106);
             this.btnHabilitarDocentes.Name = "btnHabilitarDocentes";
             this.btnHabilitarDocentes.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.btnHabilitarDocentes.Size = new System.Drawing.Size(283, 53);
+            this.btnHabilitarDocentes.Size = new System.Drawing.Size(262, 53);
             this.btnHabilitarDocentes.TabIndex = 2;
             this.btnHabilitarDocentes.Text = "Habilitar Docentes";
             this.btnHabilitarDocentes.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -529,7 +531,7 @@
             this.btnGestionarCargas.Location = new System.Drawing.Point(0, 53);
             this.btnGestionarCargas.Name = "btnGestionarCargas";
             this.btnGestionarCargas.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.btnGestionarCargas.Size = new System.Drawing.Size(283, 53);
+            this.btnGestionarCargas.Size = new System.Drawing.Size(262, 53);
             this.btnGestionarCargas.TabIndex = 1;
             this.btnGestionarCargas.Text = "Visualizar Cargas Académicas";
             this.btnGestionarCargas.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -547,7 +549,7 @@
             this.btnCrearCargaAcademica.Location = new System.Drawing.Point(0, 0);
             this.btnCrearCargaAcademica.Name = "btnCrearCargaAcademica";
             this.btnCrearCargaAcademica.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.btnCrearCargaAcademica.Size = new System.Drawing.Size(283, 53);
+            this.btnCrearCargaAcademica.Size = new System.Drawing.Size(262, 53);
             this.btnCrearCargaAcademica.TabIndex = 0;
             this.btnCrearCargaAcademica.Text = "Crear Carga Académica";
             this.btnCrearCargaAcademica.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -565,7 +567,7 @@
             this.btnAdminCargas.Location = new System.Drawing.Point(0, 117);
             this.btnAdminCargas.Name = "btnAdminCargas";
             this.btnAdminCargas.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.btnAdminCargas.Size = new System.Drawing.Size(283, 60);
+            this.btnAdminCargas.Size = new System.Drawing.Size(262, 60);
             this.btnAdminCargas.TabIndex = 1;
             this.btnAdminCargas.Text = "Administrar Cargas";
             this.btnAdminCargas.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -579,7 +581,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(283, 117);
+            this.panel1.Size = new System.Drawing.Size(262, 117);
             this.panel1.TabIndex = 0;
             // 
             // label1
@@ -610,7 +612,7 @@
             this.panelChildForm.ForeColor = System.Drawing.Color.Black;
             this.panelChildForm.Location = new System.Drawing.Point(285, 80);
             this.panelChildForm.Name = "panelChildForm";
-            this.panelChildForm.Size = new System.Drawing.Size(1358, 1245);
+            this.panelChildForm.Size = new System.Drawing.Size(1358, 975);
             this.panelChildForm.TabIndex = 2;
             // 
             // pixtbxLogo
@@ -620,16 +622,34 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pixtbxLogo.Location = new System.Drawing.Point(329, 98);
             this.pixtbxLogo.Name = "pixtbxLogo";
-            this.pixtbxLogo.Size = new System.Drawing.Size(794, 1126);
+            this.pixtbxLogo.Size = new System.Drawing.Size(794, 856);
             this.pixtbxLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pixtbxLogo.TabIndex = 0;
             this.pixtbxLogo.TabStop = false;
+            // 
+            // btnHabilitarAsignaturas
+            // 
+            this.btnHabilitarAsignaturas.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(130)))), ((int)(((byte)(173)))));
+            this.btnHabilitarAsignaturas.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnHabilitarAsignaturas.FlatAppearance.BorderSize = 0;
+            this.btnHabilitarAsignaturas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnHabilitarAsignaturas.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnHabilitarAsignaturas.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btnHabilitarAsignaturas.Location = new System.Drawing.Point(0, 159);
+            this.btnHabilitarAsignaturas.Name = "btnHabilitarAsignaturas";
+            this.btnHabilitarAsignaturas.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
+            this.btnHabilitarAsignaturas.Size = new System.Drawing.Size(262, 53);
+            this.btnHabilitarAsignaturas.TabIndex = 3;
+            this.btnHabilitarAsignaturas.Text = "Habilitar Asignaturas";
+            this.btnHabilitarAsignaturas.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnHabilitarAsignaturas.UseVisualStyleBackColor = false;
+            this.btnHabilitarAsignaturas.Click += new System.EventHandler(this.btnHabilitarAsignaturas_Click);
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1643, 1325);
+            this.ClientSize = new System.Drawing.Size(1643, 1055);
             this.Controls.Add(this.panelChildForm);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panelMenuLateral);
@@ -691,5 +711,6 @@
         private Button button2;
         private Button btnReporteDocentesCargas;
         private Button btnReportesMain;
+        private Button btnHabilitarAsignaturas;
     }
 }

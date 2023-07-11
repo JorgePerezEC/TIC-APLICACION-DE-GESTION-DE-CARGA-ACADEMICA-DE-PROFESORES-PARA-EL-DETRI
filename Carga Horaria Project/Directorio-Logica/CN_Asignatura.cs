@@ -32,6 +32,17 @@ namespace Directorio_Logica
             tabla = objetoCData.MostrarRegistrosToCmbDAL();
             return tabla;
         }
+        public DataTable MostrarRegistrosByIdSemestre_Negocio(string idSemestre)
+        {
+            DataTable tabla = new DataTable();
+            ClsSemestre objSemestre = new ClsSemestre()
+            {
+                IdSemestre = Convert.ToInt32(idSemestre)
+            };
+            tabla = objetoCData.MostrarRegistrosByIdSemestre(objSemestre);
+            return tabla;
+        }
+
         #region CRUD Methods
         public bool CreateAsignaturaNeg(string nameAsig, string tpAsig, string cod, string hTot, string hSem, string lvlAsig, string estado)
         {

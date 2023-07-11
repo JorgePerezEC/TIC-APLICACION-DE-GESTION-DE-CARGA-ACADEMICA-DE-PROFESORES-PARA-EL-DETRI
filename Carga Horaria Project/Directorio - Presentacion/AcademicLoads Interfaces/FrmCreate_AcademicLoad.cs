@@ -81,7 +81,6 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
         {
             clsStyles.tableStyle(dgvCargasHorarias);
             ListarSemestres();
-            ListarDocentes();
             cmbDocente.Enabled = false;
             btnCrearCargaAcademica.Enabled= false;
             btnNewCarga.Visible = false;
@@ -100,9 +99,9 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
             cmbSemestre.DisplayMember = "Código";
             cmbSemestre.ValueMember = "ID";
         }
-        private void ListarDocentes()
+        private void MostrarDocentes(string idSemestre)
         {
-            cmbDocente.DataSource = objDocente_N.MostrarDocentesAllNames();
+            cmbDocente.DataSource = objDocente_N.MostrarDocentesLstWithHorasEx_Negocio(idSemestre);
             cmbDocente.DisplayMember = "NombreDocente";
             cmbDocente.ValueMember = "ID";
         }
@@ -191,7 +190,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
                         panelHoras.Visible = true;
                         btnCrearCargaAcademica.Visible = false;
                         idCH = objetoCNegocio.GetIDCargaHorariaNegocio(cmbValueSemestre.ToString(), cmbValueDocente.ToString());
-                        MessageBox.Show("Carga Horaria creada correctamente");
+                        //MessageBox.Show("Carga Horaria creada correctamente");
                         frmAsigSon = new FrmCRUD_Asignaturas_Ac_Load(idCH);
                         openChildForm(frmAsigSon);
                         FrmCRUD_Asignaturas_Ac_Load frmCRUD = Application.OpenForms["FrmCRUD_Asignaturas_Ac_Load"] as FrmCRUD_Asignaturas_Ac_Load;
@@ -253,6 +252,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
             {
                 cmbValueSemestre = Convert.ToInt32(cmbSemestre.SelectedValue);
                 dgvCargasHorarias.Visible = true;
+                MostrarDocentes(cmbValueSemestre.ToString());
                 MostrarRegistros(cmbValueSemestre.ToString());
                 cmbDocente.Enabled = true;
             }
@@ -329,9 +329,15 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
             lblSemanasClases.Text = numSemanasClase.ToString();
             lblSemanasSemestre.Text = numSemanasSemestre.ToString();
 
-            if (horasExigiblesFaltantes <= 0) lblHorasFaltantes.BackColor = System.Drawing.Color.Tomato;
-            else lblHorasFaltantes.BackColor = System.Drawing.Color.LemonChiffon;
-
+            if (horasExigiblesFaltantes <= 0)
+            {
+                lblHorasFaltantes.BackColor = System.Drawing.Color.Red;
+                lblHorasFaltantes.ForeColor = System.Drawing.Color.Yellow;
+            }
+            else { 
+                lblHorasFaltantes.BackColor = System.Drawing.Color.LemonChiffon;
+                lblHorasFaltantes.ForeColor = System.Drawing.Color.Black;
+            }
 
             SeriesCollection series = new SeriesCollection
             {

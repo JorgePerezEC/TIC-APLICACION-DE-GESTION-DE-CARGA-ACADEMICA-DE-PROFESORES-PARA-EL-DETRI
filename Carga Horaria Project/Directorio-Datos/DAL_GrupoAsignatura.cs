@@ -267,6 +267,48 @@ namespace Directorio_Datos
                 ObjDataBaseL.CerrarConexion();
             }
         }
+        public string GetCodeAsigByAsig_DAL(ClsAsignatura _asignatura)
+        {
+            ManejadorDB ObjDataBaseL = new ManejadorDB();
+            try
+            {
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.Connection = ObjDataBaseL.sqlConexion;
+                sqlCommand.CommandText = "spGetCodeAsignatura";
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                sqlCommand.Parameters.AddWithValue("@nameAsignatura", _asignatura.NombreAsignatura);
+
+                ObjDataBaseL.AbrirConexion();
+                string code = sqlCommand.ExecuteScalar().ToString();
+
+                return code;
+
+            }
+            catch (SqlException ex)
+            {
+                SqlError err = ex.Errors[0];
+                string mensaje = string.Empty;
+                switch (err.Number)
+                {
+                    case 109:
+                        mensaje = "Problemas con insert"; break;
+                    case 110:
+                        mensaje = "Más problemas con insert"; break;
+                    case 113:
+                        mensaje = "Problemas con comentarios"; break;
+                    case 156:
+                        mensaje = "Error de sintaxis"; break;
+                    default:
+                        mensaje = err.ToString(); break;
+
+                }
+                return "";
+            }
+            finally
+            {
+                ObjDataBaseL.CerrarConexion();
+            }
+        }
 
         #endregion
     }

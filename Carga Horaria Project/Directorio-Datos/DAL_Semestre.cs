@@ -131,9 +131,10 @@ namespace Directorio_Datos
             ObjDataBase.CerrarConexion();
             return tabla;
         }
+        
 
         #region Methods for tblSemestreDocente
-        // CREATE OR UPDATE SEMESTRE DOCENTE
+        // CREATE OR UPDATE SEMESTRE TIPO DOCENTE
         public bool CreateSemestreDocente(ClsSemestre _semestre, ClsDocente _docente, ClsTipoDocente _tpDocente)
         {
             try
@@ -147,6 +148,37 @@ namespace Directorio_Datos
                 sqlCommand.Parameters.AddWithValue("@idDocente", _docente.IdDocente);
                 sqlCommand.Parameters.AddWithValue("@idTpDocente", _tpDocente.IdTipoDocente);
                 sqlCommand.Parameters.AddWithValue("@numHoras", _tpDocente.HorasExigibles);
+                sqlCommand.Parameters.AddWithValue("@state", _semestre.Estado);
+
+                ObjDataBase.AbrirConexion();
+                sqlCommand.ExecuteNonQuery();
+
+                return true;
+
+            }
+            catch (System.Data.SqlClient.SqlException sqlException)
+            {
+                System.Windows.Forms.MessageBox.Show(sqlException.Message); ;
+                return false;
+
+            }
+            finally
+            {
+                ObjDataBase.CerrarConexion();
+            }
+
+        }
+        public bool CreateSemestreAsignatura(ClsSemestre _semestre, ClsAsignatura _asignatura)
+        {
+            try
+            {
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.Connection = ObjDataBase.sqlConexion;
+                sqlCommand.CommandText = "spAddOrUpdateSemestreAsignatura";
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+
+                sqlCommand.Parameters.AddWithValue("@idSemestre", _semestre.IdSemestre);
+                sqlCommand.Parameters.AddWithValue("@idAsignatura", _asignatura.IdAsignatura);
                 sqlCommand.Parameters.AddWithValue("@state", _semestre.Estado);
 
                 ObjDataBase.AbrirConexion();

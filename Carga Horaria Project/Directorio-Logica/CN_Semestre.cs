@@ -21,6 +21,7 @@ namespace Directorio_Logica
             tabla = objetoCData.MostrarRegistros();
             return tabla;
         }
+        
         #region CRUD Methods
         public bool CreateSemestreNegocio(string code, string year, string dateIni, string dateEnd, string numWeekC, string numWeekSem)
         {
@@ -128,6 +129,33 @@ namespace Directorio_Logica
                     HorasExigibles = Convert.ToInt32(numHorasTpDoc),
                 };
                 objetoCData.CreateSemestreDocente(ObjSemestre, ObjDocente, ObjTpDocente);
+
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error" + ex.Message);
+                return false;
+
+            }
+
+        }
+        public bool CreateOrUpdateSemestreAsignatura_Negocio(string idSemestre, string idAsignatura, string state)
+        {
+            try
+            {
+
+                ClsSemestre ObjSemestre = new ClsSemestre()
+                {
+                    IdSemestre = Convert.ToInt32(idSemestre),
+                    Estado = Convert.ToBoolean(state)
+                };
+                ClsAsignatura ObjAsignatura = new ClsAsignatura()
+                {
+                    IdAsignatura = Convert.ToInt32(idAsignatura)
+                };
+                objetoCData.CreateSemestreAsignatura(ObjSemestre, ObjAsignatura);
 
                 return true;
 

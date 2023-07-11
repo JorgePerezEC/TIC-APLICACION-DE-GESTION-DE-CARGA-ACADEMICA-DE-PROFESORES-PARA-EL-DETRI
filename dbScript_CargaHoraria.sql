@@ -8,7 +8,7 @@
 --------------------------------------------
 USE master
 GO
-IF EXISTS (SELECT name FROM sys.databases WHERE name = 'dbCargaHorariaMay')
+IF EXISTS (SELECT name FROM sys.databases WHERE name = 'dbCargaHorariaJune')
 BEGIN
     DROP DATABASE dbCargaHorariaJune;
 END
@@ -163,15 +163,25 @@ CREATE TABLE tblSemestreGrAsignatura (
     CONSTRAINT FK_SemestreGrAsignatura_GrAsignatura FOREIGN KEY (idGrAsig) REFERENCES tblGrAsignatura(idGrAsig) ON UPDATE NO ACTION ON DELETE NO ACTION
 );
 GO
--- Table: SemestreDocente intermedia
---CREATE TABLE tblSemestreDocente (
---    idSemestreDocente int NOT NULL IDENTITY(1, 1) PRIMARY KEY,
---    idSemestre int NOT NULL,
---    idDocente int NOT NULL,
---    estadoSemestreDoc bit NOT NULL,
---    CONSTRAINT FK_SemestreDocente_Semestre FOREIGN KEY (idSemestre) REFERENCES tblSemestre(idSemestre) ON UPDATE NO ACTION ON DELETE NO ACTION,
---    CONSTRAINT FK_SemestreDocente_Docente FOREIGN KEY (idDocente) REFERENCES tblDocente(idDocente) ON UPDATE NO ACTION ON DELETE NO ACTION
---);
+-- Table: SemestreAsignatura intermedia
+CREATE TABLE tblSemestreAsignatura (
+    idSemestreAsignatura int NOT NULL IDENTITY(1, 1) PRIMARY KEY,
+    idSemestre int NOT NULL,
+    idAsignatura int NOT NULL,
+	isActive bit NOT NULL,
+    CONSTRAINT FK_SemestreAsignatura_Semestre FOREIGN KEY (idSemestre) REFERENCES tblSemestre(idSemestre) ON UPDATE NO ACTION ON DELETE NO ACTION,
+    CONSTRAINT FK_SemestreAsignatura_Asignatura FOREIGN KEY (idAsignatura) REFERENCES tblAsignatura(idAsignatura) ON UPDATE NO ACTION ON DELETE NO ACTION
+);
+GO
+-- Tabla: TipoDocenteSemestre intermedia
+CREATE TABLE tblTipoDocenteSemestre (
+    idTipoDocenteSemestre int NOT NULL IDENTITY(1, 1) PRIMARY KEY,
+    idTipoDocente int NOT NULL,
+    idSemestre int NOT NULL,
+    numHorasSemestrales int NOT NULL,
+    CONSTRAINT FK_TipoDocenteSemestre_TipoDocente FOREIGN KEY (idTipoDocente) REFERENCES tblTipoDocente(idTipoDocente) ON UPDATE NO ACTION ON DELETE NO ACTION,
+    CONSTRAINT FK_TipoDocenteSemestre_Semestre FOREIGN KEY (idSemestre) REFERENCES tblSemestre(idSemestre) ON UPDATE NO ACTION ON DELETE NO ACTION
+);
 --GO
 -- Table: Actividad
 CREATE TABLE tblActividad(
@@ -268,6 +278,49 @@ AS
 		VALUES(@nameTP,@numHorasSem, 1)
 	END
 GO
+-- Stored Procedure to create one row in "tblTipoDocenteSemestre"
+-- Stored Procedure to insert or update a row in "tblTipoDocenteSemestre"
+CREATE PROCEDURE [dbo].[spAddTipoDocenteSemestre]
+--test
+--EXEC spAddTipoDocenteSemestre 1, 1, 440; -- Ejemplo: Tipo de docente 1, Semestre 1, 40 horas
+	@idTipoDocente int,
+	@idSemestre int,
+	@numHorasSemestrales int
+AS
+BEGIN 
+	MERGE tblTipoDocenteSemestre AS target
+	USING (SELECT @idTipoDocente AS idTipoDocente, @idSemestre AS idSemestre) AS source
+	ON (target.idTipoDocente = source.idTipoDocente AND target.idSemestre = source.idSemestre)
+	WHEN MATCHED THEN
+		UPDATE SET numHorasSemestrales = @numHorasSemestrales
+	WHEN NOT MATCHED THEN
+		INSERT (idTipoDocente, idSemestre, numHorasSemestrales)
+		VALUES (@idTipoDocente, @idSemestre, @numHorasSemestrales);
+END
+GO
+-- Stored Procedure to get the number of semester hours based on idTipoDocente and idSemestre
+CREATE PROCEDURE [dbo].[spGetHorasSemestrales]
+--EXEC spGetHorasSemestrales 1, 1; -- Ejemplo: Tipo de docente 1, Semestre 1
+	@idTipoDocente int,
+	@idSemestre int
+AS
+BEGIN 
+	DECLARE @numHorasSemestrales int
+
+	SELECT @numHorasSemestrales = numHorasSemestrales
+	FROM tblTipoDocenteSemestre
+	WHERE idTipoDocente = @idTipoDocente AND idSemestre = @idSemestre
+
+	IF @numHorasSemestrales IS NULL
+	BEGIN
+		SELECT @numHorasSemestrales = numHorasSemestrales
+		FROM tblTipoDocente
+		WHERE idTipoDocente = @idTipoDocente
+	END
+
+	SELECT @numHorasSemestrales AS numHorasSemestrales
+END
+GO
 -- Stored Procedure to create one row from  "tblDocente"
 CREATE PROCEDURE [dbo].[spAddDocente]
 	@idDepa	int,
@@ -359,6 +412,26 @@ AS
 		BEGIN
 			INSERT INTO tblSemestreTpDocente (idTipoDoc,idSemestre, idDocente, numHorasSemestrales,estadoSemestreDoc)
 			VALUES (@idTpDocente,@idSemestre, @idDocente, @numHoras, @state)
+		END
+	END
+GO
+---- Stored Procedure to create or update one row into  "tblSemestreAsignatura"
+CREATE OR ALTER PROCEDURE [dbo].[spAddOrUpdateSemestreAsignatura]
+	@idSemestre int,
+	@idAsignatura int,
+	@state bit
+AS
+	BEGIN 
+		IF EXISTS(SELECT idSemestreAsignatura FROM tblSemestreAsignatura WHERE idSemestre = @idSemestre AND idAsignatura = @idAsignatura)
+		BEGIN
+			UPDATE tblSemestreAsignatura
+			SET isActive = @state
+			WHERE idSemestre = @idSemestre AND idAsignatura = @idAsignatura
+		END
+		ELSE
+		BEGIN
+			INSERT INTO tblSemestreAsignatura (idSemestre, idAsignatura,isActive)
+			VALUES (@idSemestre, @idAsignatura, @state)
 		END
 	END
 GO
@@ -491,7 +564,8 @@ BEGIN
     FROM tblAsignatura a
     INNER JOIN tblGrAsignatura g ON a.idAsignatura = g.idAsignatura
     LEFT JOIN tblAsigCrgHoraria c ON g.idGrAsig = c.idGrAsig
-    WHERE c.idAsigCrgHoraria IS NULL AND g.grupoAsignatura IS NOT NULL
+	LEFT JOIN tblSemestreAsignatura sa ON a.idAsignatura = sa.idAsignatura
+    WHERE c.idAsigCrgHoraria IS NULL AND g.grupoAsignatura IS NOT NULL AND sa.isActive = 1
 	ORDER BY a.nombreAsignatura ASC
 END
 GO
@@ -782,18 +856,42 @@ BEGIN
 	ORDER BY NombreDocente ASC
 END
 GO
+-- Stored Procedure to Read All rows from  "tblDocente"
+CREATE OR ALTER PROCEDURE [dbo].[spReadDocentesNamesWHorasExigibles]
+@idSemestre int
+AS 
+BEGIN 
+    SELECT D.idDocente AS ID, CONCAT(D.apellido1Docente, ' ', D.apellido2Docente,' ', D.nombre1Docente, ' ', D.nombre2Docente) NombreDocente
+    FROM   tblSemestreTpDocente STP
+	INNER JOIN tblDocente D ON STP.idDocente = D.idDocente
+	WHERE STP.estadoSemestreDoc = 1 AND STP.idSemestre = @idSemestre AND STP.numHorasSemestrales > 0
+	ORDER BY NombreDocente ASC
+END
+GO
 -- Stored Procedure to Read All rows from  "tblSemestreTpDocente"
 CREATE OR ALTER PROCEDURE [dbo].[spReadAllSmstreTpDocenteBySemestre]
 	@idSemestre int
 AS 
 BEGIN 
-    SELECT STP.idSemestreTpDoc AS ID, CONCAT(D.apellido1Docente, ' ', D.apellido2Docente,' ', D.nombre1Docente, ' ', D.nombre2Docente) NombreDocente,
+    SELECT STP.idDocente AS ID, CONCAT(D.apellido1Docente, ' ', D.apellido2Docente,' ', D.nombre1Docente, ' ', D.nombre2Docente) NombreDocente,
 		STP.estadoSemestreDoc, STP.idTipoDoc
     FROM   tblSemestreTpDocente STP
 	INNER JOIN tblDocente D ON STP.idDocente = D.idDocente
 	INNER JOIN tblTipoDocente TD ON STP.idTipoDoc = TD.idTipoDocente
 	WHERE STP.idSemestre = @idSemestre
 	ORDER BY NombreDocente ASC
+END
+GO
+-- Stored Procedure to Read All rows from  "tblSemestreTpDocente"
+CREATE OR ALTER PROCEDURE [dbo].[spReadAllSmstreAsignaturaBySemestre]
+	@idSemestre int
+AS 
+BEGIN 
+    SELECT sa.idSemestreAsignatura AS ID, a.idAsignatura ,a.codigoAsignatura ,a.nombreAsignatura AS Asignatura, sa.isActive
+	FROM tblSemestreAsignatura sa
+	INNER JOIN tblAsignatura a ON sa.idAsignatura = a.idAsignatura
+	WHERE sa.idSemestre = @idSemestre
+	ORDER BY Asignatura ASC
 END
 GO
 -- Stored Procedure to Read All rows from  "tblSemestre"
@@ -804,6 +902,7 @@ BEGIN
 		diaInicio AS 'Fecha Inicio', diaFin AS 'Fecha Fin', numSemanasClase AS 'Semanas de Clase',
 		numSemanasSemestre AS 'Semanas Totales del Semestre'
     FROM   tblSemestre
+	WHERE estadoSemestre = 1
 END
 GO
 -- Stored Procedure to Read All rows from  "tblSemestreTpDocente" by Semestre ID
@@ -1095,17 +1194,14 @@ GO
 -- Stored Procedure to delete one row from  "tblSemestre"
 CREATE PROCEDURE [dbo].[spDeleteSemestre]
 	@id int
-	--@codSmstr	varchar(50),
-	--@yrSmstr int,
-	--@dIni date,
-	--@dFin date,
-	--@nSemanaClase varchar(255),
-	--@nSemanaSemestre varchar(255),
-	--@state bit
 AS
 	BEGIN
-		DELETE FROM tblSemestre 
-		WHERE idSemestre = @id
+		--DELETE FROM tblSemestre 
+		--WHERE idSemestre = @id
+		UPDATE tblSemestre
+		SET 
+			estadoSemestre = 0
+		WHERE idSemestre = @id;
 	END
 GO
 -- Stored Procedure to delete one row from  "tblSemestreTpDocente"
@@ -1286,17 +1382,19 @@ GO
 -- SPs TO MANAGE ACADEMIC LOADS
 ------------------------------------------------
 -- Stored Procedure to Read all Carga Academica from a Specifica Semester from tblAsigCrgHoraria
-CREATE PROCEDURE [dbo].[spReadAllCargas]
+CREATE OR ALTER PROCEDURE [dbo].[spReadAllCargas]
 @idSemestre int
 AS
 BEGIN 
-	SELECT ch.idCargaHoraria AS ID,
-		CONCAT(doce.apellido1Docente , ' ' , doce.apellido2Docente, ' ' ,doce.nombre1Docente, ' ' ,doce.nombre2Docente) AS 'Docente'
-	FROM   tblCargaHoraria ch
-	INNER JOIN tblDocente doce  on ch.idDocente = doce.idDocente
-	INNER JOIN tblSemestre sem on ch.idSemestre = sem.idSemestre
-	WHERE sem.idSemestre = @idSemestre
-	ORDER BY ch.idCargaHoraria
+	SET NOCOUNT ON;
+
+	SELECT DISTINCT ch.idCargaHoraria AS ID,CONCAT(d.apellido1Docente, ' ', d.apellido2Docente, ' ', d.nombre1Docente, ' ', d.nombre2Docente) AS Docente
+	FROM tblCargaHoraria ch
+	INNER JOIN tblDocente d ON ch.idDocente = d.idDocente
+	INNER JOIN tblSemestreTpDocente std ON std.idDocente = d.idDocente
+	WHERE ch.idSemestre = @idSemestre
+		AND std.estadoSemestreDoc = 1 AND std.numHorasSemestrales > 0
+	ORDER BY ch.idCargaHoraria;
 END
 GO
 -- Stored Procedure to Read all Asignaturas from a Specifica Academic Load from tblAsigCrgHoraria
@@ -1626,6 +1724,15 @@ BEGIN
 	WHERE nombreAsignatura = @nameAsignatura
 END
 GO
+-- Stored Procedure to get Asignature Code from tblAsignatura based on Asignature Name
+CREATE PROCEDURE [dbo].[spGetCodeAsignatura]
+@nameAsignatura varchar(250)
+AS
+BEGIN 
+	SELECT codigoAsignatura FROM tblAsignatura
+	WHERE nombreAsignatura = @nameAsignatura
+END
+GO
 -- Stored Procedure to get IdActividad from tblActividad based on Activity Name
 CREATE PROCEDURE [dbo].[spGetIdActividad]
 @ActividadName varchar(250)
@@ -1926,16 +2033,40 @@ AFTER INSERT
 AS
 BEGIN
 	SET NOCOUNT ON
+
     -- Insertar los docentes existentes en la tabla tblDocente
-    -- con el idTipoDoc = 7 y estadoSemestreDoc en falso para el nuevo semestre insertado
+    -- con el idTipoDoc = 1 y estadoSemestreDoc en true para el nuevo semestre insertado
     
     -- Obtener el id del semestre insertado
     DECLARE @idSemestre INT
     SELECT @idSemestre = idSemestre FROM inserted
+
+	--Obtener valor de horas tipo docente = 1
+	DECLARE @numHorasSemestrales int
+
+	SELECT @numHorasSemestrales = numHorasSemestrales
+	FROM tblTipoDocenteSemestre
+	WHERE idTipoDocente = 1 AND idSemestre = @idSemestre
+
+	IF @numHorasSemestrales IS NULL
+	BEGIN
+		SELECT @numHorasSemestrales = numHorasSemestrales
+		FROM tblTipoDocente
+		WHERE idTipoDocente = 1
+	END
+	ELSE
+	BEGIN
+	SELECT @numHorasSemestrales = 0
+	END
     
     -- Insertar los docentes en tblSemestreTpDocente solo si no existen previamente para el semestre
     INSERT INTO tblSemestreTpDocente (idTipoDoc, idSemestre, idDocente, numHorasSemestrales, estadoSemestreDoc)
-    SELECT 7, @idSemestre, d.idDocente, 0, 0
+    SELECT 
+        1,
+        @idSemestre,
+        d.idDocente,
+        @numHorasSemestrales,
+        1
     FROM tblDocente d
     WHERE NOT EXISTS (
         SELECT 1
@@ -1945,6 +2076,7 @@ BEGIN
     )
 END
 GO
+
 CREATE TRIGGER tr_AddDocenteToSemestreTpDocente
 ON tblDocente
 AFTER INSERT
@@ -1955,14 +2087,79 @@ BEGIN
     -- Obtener el id del docente insertado
     DECLARE @idDocente INT
     SELECT @idDocente = idDocente FROM inserted
-    
-    -- Insertar el docente en tblSemestreTpDocente para cada semestre existente
-    INSERT INTO tblSemestreTpDocente (idTipoDoc, idSemestre, idDocente, numHorasSemestrales, estadoSemestreDoc)
-    SELECT 7, idSemestre, @idDocente, 0, 0
-    FROM tblSemestre
- 
-END
 
+	--Obtener valor de horas tipo docente = 1
+	DECLARE @numHorasSemestrales int
+
+	SELECT @numHorasSemestrales = numHorasSemestrales
+	FROM tblTipoDocente
+	WHERE idTipoDocente = 1
+
+	IF @numHorasSemestrales IS NULL
+	BEGIN
+		SELECT @numHorasSemestrales = 0
+	END
+    
+    -- Insertar el docente en tblSemestreTpDocente solo si no existe previamente
+    INSERT INTO tblSemestreTpDocente (idTipoDoc, idSemestre, idDocente, numHorasSemestrales, estadoSemestreDoc)
+    SELECT 1, s.idSemestre, @idDocente, 0, 0
+    FROM tblSemestre s
+    WHERE NOT EXISTS (
+        SELECT 1
+        FROM tblSemestreTpDocente std
+        WHERE std.idSemestre = s.idSemestre
+        AND std.idDocente = @idDocente
+    )
+END
+GO
+-- TRIGGER PARA AGREGAR ASIGNATURAS DE LA BASE AL NUEVO SEMESTRE CREADO COMO ACTIVAS O COPIANDO DEL SEMESTRE PREVIO
+CREATE TRIGGER trgAgregarAsignaturas
+ON tblSemestre
+AFTER INSERT
+AS
+BEGIN
+    DECLARE @idSemestre INT;
+    DECLARE @idSemestreAnterior INT;
+    
+    SELECT @idSemestre = idSemestre FROM inserted;
+    SELECT @idSemestreAnterior = MAX(idSemestre) FROM tblSemestre WHERE idSemestre < @idSemestre;
+    
+    -- Verificar si el semestre es activo
+    IF EXISTS (SELECT 1 FROM inserted WHERE estadoSemestre = 1)
+    BEGIN
+        IF @idSemestreAnterior IS NOT NULL
+        BEGIN
+            -- Copiar registros del semestre anterior al recién creado
+            INSERT INTO tblSemestreAsignatura (idSemestre, idAsignatura, isActive)
+            SELECT @idSemestre, idAsignatura, isActive
+            FROM tblSemestreAsignatura
+            WHERE idSemestre = @idSemestreAnterior;
+        END
+        ELSE
+        BEGIN
+            -- Crear todos los registros en true
+            INSERT INTO tblSemestreAsignatura (idSemestre, idAsignatura, isActive)
+            SELECT @idSemestre, idAsignatura, 1
+            FROM tblAsignatura;
+        END
+    END
+END;
+GO
+-- TRIGGER PARA AGREGAR ASIGNATURA CREADA AL SEMESTRES DE LA DB
+CREATE TRIGGER trgAgregarAsignaturaSemestre
+ON tblAsignatura
+AFTER INSERT
+AS
+BEGIN
+    DECLARE @idAsignatura INT;
+    
+    SELECT @idAsignatura = idAsignatura FROM inserted;
+    
+    -- Agregar la asignatura a todos los semestres existentes
+    INSERT INTO tblSemestreAsignatura (idSemestre, idAsignatura, isActive)
+    SELECT idSemestre, @idAsignatura, 0
+    FROM tblSemestre;
+END;
 -----------------------------------------
 -- Default Data Insert into DataBase Section
 -----------------------------------------
@@ -2046,11 +2243,7 @@ INSERT INTO tblDocente VALUES(1,'Jose','David','Vega','Sanchez','PhD');
 INSERT INTO tblDocente VALUES(1,'Monica','De Lourdes','Vinueza','Rhor','MSc');
 INSERT INTO tblDocente VALUES(1,'Francisco','Javier','Vizuete','Bassante','Ingeniería');
 INSERT INTO tblDocente VALUES(1,'Jose','Adrian','Zambrano','Miranda','MSc');
-GO
--- Table: Semestre 
--- DATA INSERT
---  TABLA: Semestre   DATOS    ('Codigo Semestre',AñoSemestre,diaInicio,diaFin,numSemanasClase,numSemanasSemestre,'Estado')
-INSERT INTO tblSemestre VALUES('2022B',2022,'2022-10-03','2023-03-31',18,26,1);
+-- CREATE SEMESTRE PREV
 GO
 -- Table: Actividad
 -- DATA INSERT
@@ -2343,6 +2536,11 @@ VALUES -- id=1  ==> 44
 --('CP-CÁLCULO EN UNA VARIABLE','Semestral','MATD123-CP',48,2,'TercerNivel',1)
 --***************************************************
 GO
+GO
+-- Table: Semestre 
+-- DATA INSERT
+--  TABLA: Semestre   DATOS    ('Codigo Semestre',AñoSemestre,diaInicio,diaFin,numSemanasClase,numSemanasSemestre,'Estado')
+INSERT INTO tblSemestre VALUES('2022B',2022,'2022-10-03','2023-03-31',18,26,1);
 --AGREGAR GRUPOS A ASIGNATURAS
 INSERT INTO tblGrAsignatura(idAsignatura,grupoAsignatura)
 VALUES

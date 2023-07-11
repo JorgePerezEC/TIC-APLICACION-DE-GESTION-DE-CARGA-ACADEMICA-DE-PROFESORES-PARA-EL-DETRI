@@ -184,6 +184,7 @@
             this.txtHorasTotales.Name = "txtHorasTotales";
             this.txtHorasTotales.Size = new System.Drawing.Size(248, 34);
             this.txtHorasTotales.TabIndex = 5;
+            this.txtHorasTotales.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtHorasTotales_KeyPress);
             // 
             // lblHorasAct
             // 
