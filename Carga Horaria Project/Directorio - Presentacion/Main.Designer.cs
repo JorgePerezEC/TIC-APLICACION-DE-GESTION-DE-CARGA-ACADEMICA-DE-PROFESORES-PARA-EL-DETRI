@@ -31,8 +31,9 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.panelMenuLateral = new System.Windows.Forms.Panel();
             this.panelSubmenuReportes = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnReporteActividades = new System.Windows.Forms.Button();
+            this.btnReporteAsignaturas = new System.Windows.Forms.Button();
+            this.btnReporteComisiones = new System.Windows.Forms.Button();
             this.btnReporteDocentesCargas = new System.Windows.Forms.Button();
             this.btnReportesMain = new System.Windows.Forms.Button();
             this.panelSubmenuGestionData = new System.Windows.Forms.Panel();
@@ -55,6 +56,7 @@
             this.btnGestionActividades = new System.Windows.Forms.Button();
             this.btnGestion = new System.Windows.Forms.Button();
             this.panelSubmenuAdminCargas = new System.Windows.Forms.Panel();
+            this.btnHabilitarAsignaturas = new System.Windows.Forms.Button();
             this.btnHabilitarDocentes = new System.Windows.Forms.Button();
             this.btnGestionarCargas = new System.Windows.Forms.Button();
             this.btnCrearCargaAcademica = new System.Windows.Forms.Button();
@@ -64,7 +66,6 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.panelChildForm = new System.Windows.Forms.Panel();
             this.pixtbxLogo = new System.Windows.Forms.PictureBox();
-            this.btnHabilitarAsignaturas = new System.Windows.Forms.Button();
             this.panelMenuLateral.SuspendLayout();
             this.panelSubmenuReportes.SuspendLayout();
             this.panelSubmenuGestionData.SuspendLayout();
@@ -92,56 +93,77 @@
             this.panelMenuLateral.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelMenuLateral.Location = new System.Drawing.Point(0, 0);
             this.panelMenuLateral.Name = "panelMenuLateral";
-            this.panelMenuLateral.Size = new System.Drawing.Size(285, 1055);
+            this.panelMenuLateral.Size = new System.Drawing.Size(285, 963);
             this.panelMenuLateral.TabIndex = 0;
             // 
             // panelSubmenuReportes
             // 
             this.panelSubmenuReportes.BackColor = System.Drawing.Color.PaleTurquoise;
-            this.panelSubmenuReportes.Controls.Add(this.button1);
-            this.panelSubmenuReportes.Controls.Add(this.button2);
+            this.panelSubmenuReportes.Controls.Add(this.btnReporteActividades);
+            this.panelSubmenuReportes.Controls.Add(this.btnReporteAsignaturas);
+            this.panelSubmenuReportes.Controls.Add(this.btnReporteComisiones);
             this.panelSubmenuReportes.Controls.Add(this.btnReporteDocentesCargas);
             this.panelSubmenuReportes.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelSubmenuReportes.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.panelSubmenuReportes.Location = new System.Drawing.Point(0, 1194);
             this.panelSubmenuReportes.Name = "panelSubmenuReportes";
-            this.panelSubmenuReportes.Size = new System.Drawing.Size(262, 156);
+            this.panelSubmenuReportes.Size = new System.Drawing.Size(262, 213);
             this.panelSubmenuReportes.TabIndex = 6;
             this.panelSubmenuReportes.Visible = false;
             // 
-            // button1
+            // btnReporteActividades
             // 
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(130)))), ((int)(((byte)(173)))));
-            this.button1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.button1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.button1.Location = new System.Drawing.Point(0, 106);
-            this.button1.Name = "button1";
-            this.button1.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.button1.Size = new System.Drawing.Size(262, 53);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Generar Reportes";
-            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.UseVisualStyleBackColor = false;
+            this.btnReporteActividades.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(130)))), ((int)(((byte)(173)))));
+            this.btnReporteActividades.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnReporteActividades.FlatAppearance.BorderSize = 0;
+            this.btnReporteActividades.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnReporteActividades.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnReporteActividades.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btnReporteActividades.Location = new System.Drawing.Point(0, 159);
+            this.btnReporteActividades.Name = "btnReporteActividades";
+            this.btnReporteActividades.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
+            this.btnReporteActividades.Size = new System.Drawing.Size(262, 53);
+            this.btnReporteActividades.TabIndex = 3;
+            this.btnReporteActividades.Text = "Reporte de Actividades asignadas a Cargas Académicas";
+            this.btnReporteActividades.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnReporteActividades.UseVisualStyleBackColor = false;
+            this.btnReporteActividades.Click += new System.EventHandler(this.btnReporteActividades_Click);
             // 
-            // button2
+            // btnReporteAsignaturas
             // 
-            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(130)))), ((int)(((byte)(173)))));
-            this.button2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.button2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.button2.Location = new System.Drawing.Point(0, 53);
-            this.button2.Name = "button2";
-            this.button2.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.button2.Size = new System.Drawing.Size(262, 53);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "Reporte de Cargas por Tipo de Docente";
-            this.button2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button2.UseVisualStyleBackColor = false;
+            this.btnReporteAsignaturas.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(130)))), ((int)(((byte)(173)))));
+            this.btnReporteAsignaturas.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnReporteAsignaturas.FlatAppearance.BorderSize = 0;
+            this.btnReporteAsignaturas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnReporteAsignaturas.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnReporteAsignaturas.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btnReporteAsignaturas.Location = new System.Drawing.Point(0, 106);
+            this.btnReporteAsignaturas.Name = "btnReporteAsignaturas";
+            this.btnReporteAsignaturas.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
+            this.btnReporteAsignaturas.Size = new System.Drawing.Size(262, 53);
+            this.btnReporteAsignaturas.TabIndex = 2;
+            this.btnReporteAsignaturas.Text = "Reporte de Asignaturas asignadas a Cargas Académicas";
+            this.btnReporteAsignaturas.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnReporteAsignaturas.UseVisualStyleBackColor = false;
+            this.btnReporteAsignaturas.Click += new System.EventHandler(this.btnReporteAsignaturas_Click);
+            // 
+            // btnReporteComisiones
+            // 
+            this.btnReporteComisiones.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(130)))), ((int)(((byte)(173)))));
+            this.btnReporteComisiones.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnReporteComisiones.FlatAppearance.BorderSize = 0;
+            this.btnReporteComisiones.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnReporteComisiones.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnReporteComisiones.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btnReporteComisiones.Location = new System.Drawing.Point(0, 53);
+            this.btnReporteComisiones.Name = "btnReporteComisiones";
+            this.btnReporteComisiones.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
+            this.btnReporteComisiones.Size = new System.Drawing.Size(262, 53);
+            this.btnReporteComisiones.TabIndex = 1;
+            this.btnReporteComisiones.Text = "Reporte de Cargas por Comisiones";
+            this.btnReporteComisiones.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnReporteComisiones.UseVisualStyleBackColor = false;
+            this.btnReporteComisiones.Click += new System.EventHandler(this.btnReporteComisiones_Click);
             // 
             // btnReporteDocentesCargas
             // 
@@ -502,6 +524,24 @@
             this.panelSubmenuAdminCargas.Size = new System.Drawing.Size(262, 210);
             this.panelSubmenuAdminCargas.TabIndex = 2;
             // 
+            // btnHabilitarAsignaturas
+            // 
+            this.btnHabilitarAsignaturas.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(130)))), ((int)(((byte)(173)))));
+            this.btnHabilitarAsignaturas.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnHabilitarAsignaturas.FlatAppearance.BorderSize = 0;
+            this.btnHabilitarAsignaturas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnHabilitarAsignaturas.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnHabilitarAsignaturas.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btnHabilitarAsignaturas.Location = new System.Drawing.Point(0, 159);
+            this.btnHabilitarAsignaturas.Name = "btnHabilitarAsignaturas";
+            this.btnHabilitarAsignaturas.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
+            this.btnHabilitarAsignaturas.Size = new System.Drawing.Size(262, 53);
+            this.btnHabilitarAsignaturas.TabIndex = 3;
+            this.btnHabilitarAsignaturas.Text = "Habilitar Asignaturas";
+            this.btnHabilitarAsignaturas.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnHabilitarAsignaturas.UseVisualStyleBackColor = false;
+            this.btnHabilitarAsignaturas.Click += new System.EventHandler(this.btnHabilitarAsignaturas_Click);
+            // 
             // btnHabilitarDocentes
             // 
             this.btnHabilitarDocentes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(130)))), ((int)(((byte)(173)))));
@@ -612,7 +652,7 @@
             this.panelChildForm.ForeColor = System.Drawing.Color.Black;
             this.panelChildForm.Location = new System.Drawing.Point(285, 80);
             this.panelChildForm.Name = "panelChildForm";
-            this.panelChildForm.Size = new System.Drawing.Size(1358, 975);
+            this.panelChildForm.Size = new System.Drawing.Size(1358, 883);
             this.panelChildForm.TabIndex = 2;
             // 
             // pixtbxLogo
@@ -622,34 +662,16 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pixtbxLogo.Location = new System.Drawing.Point(329, 98);
             this.pixtbxLogo.Name = "pixtbxLogo";
-            this.pixtbxLogo.Size = new System.Drawing.Size(794, 856);
+            this.pixtbxLogo.Size = new System.Drawing.Size(794, 706);
             this.pixtbxLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pixtbxLogo.TabIndex = 0;
             this.pixtbxLogo.TabStop = false;
-            // 
-            // btnHabilitarAsignaturas
-            // 
-            this.btnHabilitarAsignaturas.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(130)))), ((int)(((byte)(173)))));
-            this.btnHabilitarAsignaturas.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnHabilitarAsignaturas.FlatAppearance.BorderSize = 0;
-            this.btnHabilitarAsignaturas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnHabilitarAsignaturas.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnHabilitarAsignaturas.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnHabilitarAsignaturas.Location = new System.Drawing.Point(0, 159);
-            this.btnHabilitarAsignaturas.Name = "btnHabilitarAsignaturas";
-            this.btnHabilitarAsignaturas.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.btnHabilitarAsignaturas.Size = new System.Drawing.Size(262, 53);
-            this.btnHabilitarAsignaturas.TabIndex = 3;
-            this.btnHabilitarAsignaturas.Text = "Habilitar Asignaturas";
-            this.btnHabilitarAsignaturas.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnHabilitarAsignaturas.UseVisualStyleBackColor = false;
-            this.btnHabilitarAsignaturas.Click += new System.EventHandler(this.btnHabilitarAsignaturas_Click);
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1643, 1055);
+            this.ClientSize = new System.Drawing.Size(1643, 963);
             this.Controls.Add(this.panelChildForm);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panelMenuLateral);
@@ -707,10 +729,11 @@
         private PictureBox pixtbxLogo;
         private Button btnAsignarHoras;
         private Panel panelSubmenuReportes;
-        private Button button1;
-        private Button button2;
+        private Button btnReporteAsignaturas;
+        private Button btnReporteComisiones;
         private Button btnReporteDocentesCargas;
         private Button btnReportesMain;
         private Button btnHabilitarAsignaturas;
+        private Button btnReporteActividades;
     }
 }

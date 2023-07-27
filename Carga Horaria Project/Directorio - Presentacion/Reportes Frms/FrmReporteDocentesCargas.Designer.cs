@@ -29,6 +29,15 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.panelFilters = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.rbNoFilter = new System.Windows.Forms.RadioButton();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.rbSiCumple = new System.Windows.Forms.RadioButton();
+            this.rbNoCumple = new System.Windows.Forms.RadioButton();
+            this.label15 = new System.Windows.Forms.Label();
             this.panelInfoDocentes = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label11 = new System.Windows.Forms.Label();
@@ -44,7 +53,10 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.dgvReporteCargasDocentes = new System.Windows.Forms.DataGridView();
+            this.btnExportAll = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
+            this.panelFilters.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
             this.panelInfoDocentes.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReporteCargasDocentes)).BeginInit();
@@ -53,6 +65,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.SteelBlue;
+            this.panel1.Controls.Add(this.panelFilters);
             this.panel1.Controls.Add(this.panelInfoDocentes);
             this.panel1.Controls.Add(this.cmbSemestre);
             this.panel1.Controls.Add(this.label7);
@@ -60,8 +73,126 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1423, 246);
+            this.panel1.Size = new System.Drawing.Size(1528, 246);
             this.panel1.TabIndex = 0;
+            // 
+            // panelFilters
+            // 
+            this.panelFilters.Controls.Add(this.tableLayoutPanel2);
+            this.panelFilters.Controls.Add(this.label15);
+            this.panelFilters.Location = new System.Drawing.Point(51, 105);
+            this.panelFilters.Name = "panelFilters";
+            this.panelFilters.Size = new System.Drawing.Size(310, 125);
+            this.panelFilters.TabIndex = 21;
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.BackColor = System.Drawing.Color.SlateGray;
+            this.tableLayoutPanel2.ColumnCount = 2;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 74.86339F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.13661F));
+            this.tableLayoutPanel2.Controls.Add(this.rbNoFilter, 1, 2);
+            this.tableLayoutPanel2.Controls.Add(this.label14, 0, 2);
+            this.tableLayoutPanel2.Controls.Add(this.label13, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.label12, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.rbSiCumple, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.rbNoCumple, 1, 1);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(124, 28);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 3;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(183, 97);
+            this.tableLayoutPanel2.TabIndex = 19;
+            // 
+            // rbNoFilter
+            // 
+            this.rbNoFilter.AutoSize = true;
+            this.rbNoFilter.Checked = true;
+            this.rbNoFilter.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rbNoFilter.Location = new System.Drawing.Point(140, 67);
+            this.rbNoFilter.Name = "rbNoFilter";
+            this.rbNoFilter.Size = new System.Drawing.Size(40, 27);
+            this.rbNoFilter.TabIndex = 23;
+            this.rbNoFilter.TabStop = true;
+            this.rbNoFilter.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.rbNoFilter.UseVisualStyleBackColor = true;
+            this.rbNoFilter.CheckedChanged += new System.EventHandler(this.rbNoFilter_CheckedChanged);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label14.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label14.ForeColor = System.Drawing.Color.White;
+            this.label14.Location = new System.Drawing.Point(3, 64);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(131, 33);
+            this.label14.TabIndex = 21;
+            this.label14.Text = "TODOS";
+            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label13.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label13.ForeColor = System.Drawing.Color.White;
+            this.label13.Location = new System.Drawing.Point(3, 32);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(131, 32);
+            this.label13.TabIndex = 20;
+            this.label13.Text = "NO CUMPLE";
+            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label12.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label12.ForeColor = System.Drawing.Color.White;
+            this.label12.Location = new System.Drawing.Point(3, 0);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(131, 32);
+            this.label12.TabIndex = 0;
+            this.label12.Text = "SÍ CUMPLE";
+            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // rbSiCumple
+            // 
+            this.rbSiCumple.AutoSize = true;
+            this.rbSiCumple.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rbSiCumple.Location = new System.Drawing.Point(140, 3);
+            this.rbSiCumple.Name = "rbSiCumple";
+            this.rbSiCumple.Size = new System.Drawing.Size(40, 26);
+            this.rbSiCumple.TabIndex = 21;
+            this.rbSiCumple.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.rbSiCumple.UseVisualStyleBackColor = true;
+            this.rbSiCumple.CheckedChanged += new System.EventHandler(this.rbSiCumple_CheckedChanged);
+            // 
+            // rbNoCumple
+            // 
+            this.rbNoCumple.AutoSize = true;
+            this.rbNoCumple.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rbNoCumple.Location = new System.Drawing.Point(140, 35);
+            this.rbNoCumple.Name = "rbNoCumple";
+            this.rbNoCumple.Size = new System.Drawing.Size(40, 26);
+            this.rbNoCumple.TabIndex = 22;
+            this.rbNoCumple.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.rbNoCumple.UseVisualStyleBackColor = true;
+            this.rbNoCumple.CheckedChanged += new System.EventHandler(this.rbNoCumple_CheckedChanged);
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Arial Rounded MT Bold", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label15.ForeColor = System.Drawing.Color.White;
+            this.label15.Location = new System.Drawing.Point(3, 29);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(70, 27);
+            this.label15.TabIndex = 20;
+            this.label15.Text = "Filtro";
             // 
             // panelInfoDocentes
             // 
@@ -160,7 +291,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.BackColor = System.Drawing.Color.AliceBlue;
+            this.label6.BackColor = System.Drawing.Color.IndianRed;
             this.label6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label6.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
@@ -217,7 +348,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.BackColor = System.Drawing.Color.AliceBlue;
+            this.label5.BackColor = System.Drawing.Color.PaleGreen;
             this.label5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label5.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
@@ -269,9 +400,23 @@
             this.dgvReporteCargasDocentes.Name = "dgvReporteCargasDocentes";
             this.dgvReporteCargasDocentes.RowHeadersWidth = 51;
             this.dgvReporteCargasDocentes.RowTemplate.Height = 29;
-            this.dgvReporteCargasDocentes.Size = new System.Drawing.Size(1296, 467);
+            this.dgvReporteCargasDocentes.Size = new System.Drawing.Size(1296, 597);
             this.dgvReporteCargasDocentes.TabIndex = 1;
+            this.dgvReporteCargasDocentes.TabStop = false;
             this.dgvReporteCargasDocentes.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvReporteCargasDocentes_CellFormatting);
+            // 
+            // btnExportAll
+            // 
+            this.btnExportAll.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.btnExportAll.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnExportAll.Location = new System.Drawing.Point(1365, 292);
+            this.btnExportAll.Name = "btnExportAll";
+            this.btnExportAll.Size = new System.Drawing.Size(140, 70);
+            this.btnExportAll.TabIndex = 2;
+            this.btnExportAll.Text = "EXPORTAR TODOS EN PDF";
+            this.btnExportAll.UseVisualStyleBackColor = false;
+            this.btnExportAll.Visible = false;
+            this.btnExportAll.Click += new System.EventHandler(this.btnExportAll_Click);
             // 
             // FrmReporteDocentesCargas
             // 
@@ -279,7 +424,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(76)))), ((int)(((byte)(146)))));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(1423, 809);
+            this.ClientSize = new System.Drawing.Size(1528, 958);
+            this.Controls.Add(this.btnExportAll);
             this.Controls.Add(this.dgvReporteCargasDocentes);
             this.Controls.Add(this.panel1);
             this.Name = "FrmReporteDocentesCargas";
@@ -287,6 +433,10 @@
             this.Load += new System.EventHandler(this.FrmReporteDocentesCargas_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.panelFilters.ResumeLayout(false);
+            this.panelFilters.PerformLayout();
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel2.PerformLayout();
             this.panelInfoDocentes.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
@@ -313,5 +463,15 @@
         private Label label3;
         private Label label4;
         private Label label5;
+        private TableLayoutPanel tableLayoutPanel2;
+        private Label label13;
+        private Label label12;
+        private RadioButton rbSiCumple;
+        private RadioButton rbNoCumple;
+        private RadioButton rbNoFilter;
+        private Label label14;
+        private Label label15;
+        private Panel panelFilters;
+        private Button btnExportAll;
     }
 }

@@ -53,7 +53,7 @@ namespace Directorio___Presentacion.CRUD_Interfaces
         private void ListarAsignaturas()
         {
             CN_Asignatura objetoCNegocioAsignatura = new CN_Asignatura();
-            cmbAsignaturas.DataSource = objetoCNegocioAsignatura.MostrarAsignaturasWithGroups_CNegocio();
+            cmbAsignaturas.DataSource = objetoCNegocioAsignatura.MostrarAsignaturasWithGroups_CNegocio("1");
             cmbAsignaturas.DisplayMember = "Asignatura";
             cmbAsignaturas.ValueMember = "ID";
         }

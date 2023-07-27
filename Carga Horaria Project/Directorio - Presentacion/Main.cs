@@ -229,7 +229,7 @@ namespace Directorio___Presentacion
 
         private void btnGestionarCargas_Click(object sender, EventArgs e)
         {
-            openChildForm(new FrmAcademicsLoads_Viewer());
+            openChildForm(new FrmViewer_AcademicsLoad());
             hideSubMenu();
             hideSubMenu2();
         }
@@ -256,6 +256,27 @@ namespace Directorio___Presentacion
         private void btnHabilitarAsignaturas_Click(object sender, EventArgs e)
         {
             openChildForm(new FrmManageAsigSmst());
+            hideSubMenu();
+            hideSubMenu2();
+        }
+
+        private void btnReporteComisiones_Click(object sender, EventArgs e)
+        {
+            openChildForm(new FrmReporteComisiones());
+            hideSubMenu();
+            hideSubMenu2();
+        }
+
+        private void btnReporteAsignaturas_Click(object sender, EventArgs e)
+        {
+            openChildForm(new FrmReporteAsignaturas());
+            hideSubMenu();
+            hideSubMenu2();
+        }
+
+        private void btnReporteActividades_Click(object sender, EventArgs e)
+        {
+            openChildForm(new FrmReporteActividades());
             hideSubMenu();
             hideSubMenu2();
         }

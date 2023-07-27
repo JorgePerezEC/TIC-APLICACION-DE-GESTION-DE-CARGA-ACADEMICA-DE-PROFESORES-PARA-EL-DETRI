@@ -93,7 +93,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
                 FrmCUActividad_AL frmCuActividad = Application.OpenForms["FrmCUActividad_AL"] as FrmCUActividad_AL;
                 if (frmCuActividad != null)
                 {
-                    frmCuActividad.ListarAllActividadesCmb(cmbTpActiv.Text);
+                    frmCuActividad.ListarAllActividadesCmb(cmbTpActiv.Text, true);
                 }
                 this.Close();
             }

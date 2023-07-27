@@ -34,6 +34,8 @@
             this.dgLstRegistros = new System.Windows.Forms.DataGridView();
             this.label9 = new System.Windows.Forms.Label();
             this.panelCreate = new System.Windows.Forms.Panel();
+            this.cmbCarrera = new System.Windows.Forms.ComboBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.txtNivel = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.txtHSemanales = new System.Windows.Forms.TextBox();
@@ -42,11 +44,9 @@
             this.txtNombreAsignatura = new System.Windows.Forms.TextBox();
             this.txtHTotales = new System.Windows.Forms.TextBox();
             this.txtCodigo = new System.Windows.Forms.TextBox();
-            this.ckboxEstado = new System.Windows.Forms.CheckBox();
             this.txtTipoAsignatura = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -67,9 +67,9 @@
             this.panel2.Controls.Add(this.dgLstRegistros);
             this.panel2.Controls.Add(this.label9);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(0, 364);
+            this.panel2.Location = new System.Drawing.Point(0, 347);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1398, 574);
+            this.panel2.Size = new System.Drawing.Size(1398, 591);
             this.panel2.TabIndex = 8;
             // 
             // btnEliminar
@@ -114,8 +114,9 @@
             this.dgLstRegistros.RowHeadersWidth = 51;
             this.dgLstRegistros.RowTemplate.Height = 29;
             this.dgLstRegistros.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgLstRegistros.Size = new System.Drawing.Size(1161, 393);
+            this.dgLstRegistros.Size = new System.Drawing.Size(1273, 393);
             this.dgLstRegistros.TabIndex = 6;
+            this.dgLstRegistros.TabStop = false;
             // 
             // label9
             // 
@@ -131,6 +132,8 @@
             // panelCreate
             // 
             this.panelCreate.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.panelCreate.Controls.Add(this.cmbCarrera);
+            this.panelCreate.Controls.Add(this.label10);
             this.panelCreate.Controls.Add(this.txtNivel);
             this.panelCreate.Controls.Add(this.label8);
             this.panelCreate.Controls.Add(this.txtHSemanales);
@@ -139,34 +142,71 @@
             this.panelCreate.Controls.Add(this.txtNombreAsignatura);
             this.panelCreate.Controls.Add(this.txtHTotales);
             this.panelCreate.Controls.Add(this.txtCodigo);
-            this.panelCreate.Controls.Add(this.ckboxEstado);
             this.panelCreate.Controls.Add(this.txtTipoAsignatura);
             this.panelCreate.Controls.Add(this.label6);
             this.panelCreate.Controls.Add(this.label7);
-            this.panelCreate.Controls.Add(this.label4);
             this.panelCreate.Controls.Add(this.label3);
             this.panelCreate.Controls.Add(this.label2);
             this.panelCreate.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelCreate.Location = new System.Drawing.Point(0, 127);
             this.panelCreate.Name = "panelCreate";
-            this.panelCreate.Size = new System.Drawing.Size(1398, 237);
+            this.panelCreate.Size = new System.Drawing.Size(1398, 220);
             this.panelCreate.TabIndex = 9;
             this.panelCreate.Visible = false;
+            // 
+            // cmbCarrera
+            // 
+            this.cmbCarrera.FormattingEnabled = true;
+            this.cmbCarrera.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16",
+            "17",
+            "18",
+            "19",
+            "20"});
+            this.cmbCarrera.Location = new System.Drawing.Point(227, 25);
+            this.cmbCarrera.Name = "cmbCarrera";
+            this.cmbCarrera.Size = new System.Drawing.Size(420, 28);
+            this.cmbCarrera.TabIndex = 2;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft YaHei", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label10.Location = new System.Drawing.Point(45, 25);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(76, 23);
+            this.label10.TabIndex = 26;
+            this.label10.Text = "Carrera: ";
             // 
             // txtNivel
             // 
             this.txtNivel.AllowDrop = true;
-            this.txtNivel.Location = new System.Drawing.Point(864, 177);
+            this.txtNivel.Location = new System.Drawing.Point(880, 181);
             this.txtNivel.Name = "txtNivel";
             this.txtNivel.PlaceholderText = "Ingrese el nivel de la asignatura";
             this.txtNivel.Size = new System.Drawing.Size(366, 27);
-            this.txtNivel.TabIndex = 25;
+            this.txtNivel.TabIndex = 8;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft YaHei", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label8.Location = new System.Drawing.Point(706, 180);
+            this.label8.Location = new System.Drawing.Point(722, 184);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(57, 23);
             this.label8.TabIndex = 24;
@@ -175,11 +215,11 @@
             // txtHSemanales
             // 
             this.txtHSemanales.AllowDrop = true;
-            this.txtHSemanales.Location = new System.Drawing.Point(864, 124);
+            this.txtHSemanales.Location = new System.Drawing.Point(880, 128);
             this.txtHSemanales.Name = "txtHSemanales";
             this.txtHSemanales.PlaceholderText = "Ingrese las horas semanales de la asignatura";
             this.txtHSemanales.Size = new System.Drawing.Size(366, 27);
-            this.txtHSemanales.TabIndex = 23;
+            this.txtHSemanales.TabIndex = 7;
             // 
             // btnGuardar
             // 
@@ -190,11 +230,11 @@
             this.btnGuardar.FlatAppearance.BorderSize = 0;
             this.btnGuardar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGuardar.Font = new System.Drawing.Font("Roboto Black", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnGuardar.Location = new System.Drawing.Point(1252, 100);
+            this.btnGuardar.Location = new System.Drawing.Point(1268, 43);
             this.btnGuardar.MaximumSize = new System.Drawing.Size(125, 41);
             this.btnGuardar.Name = "btnGuardar";
-            this.btnGuardar.Size = new System.Drawing.Size(118, 41);
-            this.btnGuardar.TabIndex = 5;
+            this.btnGuardar.Size = new System.Drawing.Size(118, 36);
+            this.btnGuardar.TabIndex = 9;
             this.btnGuardar.Text = "Guardar";
             this.btnGuardar.UseVisualStyleBackColor = false;
             this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
@@ -203,7 +243,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft YaHei", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label5.Location = new System.Drawing.Point(706, 127);
+            this.label5.Location = new System.Drawing.Point(722, 131);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(153, 23);
             this.label5.TabIndex = 22;
@@ -212,57 +252,44 @@
             // txtNombreAsignatura
             // 
             this.txtNombreAsignatura.AllowDrop = true;
-            this.txtNombreAsignatura.Location = new System.Drawing.Point(261, 37);
+            this.txtNombreAsignatura.Location = new System.Drawing.Point(227, 79);
             this.txtNombreAsignatura.Name = "txtNombreAsignatura";
             this.txtNombreAsignatura.PlaceholderText = "Ingrese el nombrede la asignatura";
             this.txtNombreAsignatura.Size = new System.Drawing.Size(420, 27);
-            this.txtNombreAsignatura.TabIndex = 21;
+            this.txtNombreAsignatura.TabIndex = 3;
             // 
             // txtHTotales
             // 
             this.txtHTotales.AllowDrop = true;
-            this.txtHTotales.Location = new System.Drawing.Point(864, 68);
+            this.txtHTotales.Location = new System.Drawing.Point(880, 72);
             this.txtHTotales.Name = "txtHTotales";
             this.txtHTotales.PlaceholderText = "Ingrese el pensum de la carrera";
             this.txtHTotales.Size = new System.Drawing.Size(366, 27);
-            this.txtHTotales.TabIndex = 20;
+            this.txtHTotales.TabIndex = 6;
             // 
             // txtCodigo
             // 
             this.txtCodigo.AllowDrop = true;
-            this.txtCodigo.Location = new System.Drawing.Point(864, 17);
+            this.txtCodigo.Location = new System.Drawing.Point(880, 21);
             this.txtCodigo.Name = "txtCodigo";
             this.txtCodigo.PlaceholderText = "Ingrese el código de la asignatura";
             this.txtCodigo.Size = new System.Drawing.Size(366, 27);
-            this.txtCodigo.TabIndex = 19;
-            // 
-            // ckboxEstado
-            // 
-            this.ckboxEstado.AutoSize = true;
-            this.ckboxEstado.Checked = true;
-            this.ckboxEstado.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.ckboxEstado.Font = new System.Drawing.Font("Microsoft YaHei", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.ckboxEstado.Location = new System.Drawing.Point(155, 148);
-            this.ckboxEstado.Name = "ckboxEstado";
-            this.ckboxEstado.Size = new System.Drawing.Size(81, 27);
-            this.ckboxEstado.TabIndex = 11;
-            this.ckboxEstado.Text = "activo";
-            this.ckboxEstado.UseVisualStyleBackColor = true;
+            this.txtCodigo.TabIndex = 5;
             // 
             // txtTipoAsignatura
             // 
             this.txtTipoAsignatura.AllowDrop = true;
-            this.txtTipoAsignatura.Location = new System.Drawing.Point(261, 87);
+            this.txtTipoAsignatura.Location = new System.Drawing.Point(227, 129);
             this.txtTipoAsignatura.Name = "txtTipoAsignatura";
             this.txtTipoAsignatura.PlaceholderText = "Ingrese el tipo de asignatura";
             this.txtTipoAsignatura.Size = new System.Drawing.Size(420, 27);
-            this.txtTipoAsignatura.TabIndex = 10;
+            this.txtTipoAsignatura.TabIndex = 4;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft YaHei", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label6.Location = new System.Drawing.Point(706, 73);
+            this.label6.Location = new System.Drawing.Point(722, 77);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(125, 23);
             this.label6.TabIndex = 6;
@@ -272,27 +299,17 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft YaHei", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label7.Location = new System.Drawing.Point(706, 21);
+            this.label7.Location = new System.Drawing.Point(722, 25);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(74, 23);
             this.label7.TabIndex = 5;
             this.label7.Text = "Código:";
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft YaHei", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label4.Location = new System.Drawing.Point(29, 148);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(68, 23);
-            this.label4.TabIndex = 4;
-            this.label4.Text = "Estado:";
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft YaHei", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label3.Location = new System.Drawing.Point(29, 87);
+            this.label3.Location = new System.Drawing.Point(45, 128);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(168, 23);
             this.label3.TabIndex = 3;
@@ -302,7 +319,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft YaHei", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label2.Location = new System.Drawing.Point(29, 37);
+            this.label2.Location = new System.Drawing.Point(45, 78);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(82, 23);
             this.label2.TabIndex = 2;
@@ -334,7 +351,7 @@
             this.ntmNew.MaximumSize = new System.Drawing.Size(125, 41);
             this.ntmNew.Name = "ntmNew";
             this.ntmNew.Size = new System.Drawing.Size(125, 36);
-            this.ntmNew.TabIndex = 7;
+            this.ntmNew.TabIndex = 1;
             this.ntmNew.Text = "Nuevo";
             this.ntmNew.UseVisualStyleBackColor = false;
             this.ntmNew.Click += new System.EventHandler(this.ntmNew_Click);
@@ -422,11 +439,9 @@
         private TextBox txtHTotales;
         private TextBox txtCodigo;
         private Button btnGuardar;
-        private CheckBox ckboxEstado;
         private TextBox txtTipoAsignatura;
         private Label label6;
         private Label label7;
-        private Label label4;
         private Label label3;
         private Label label2;
         private Panel panel1;
@@ -435,5 +450,7 @@
         private Label label1;
         private DataGridView dgLstRegistros;
         private Button ntmNew;
+        private ComboBox cmbCarrera;
+        private Label label10;
     }
 }

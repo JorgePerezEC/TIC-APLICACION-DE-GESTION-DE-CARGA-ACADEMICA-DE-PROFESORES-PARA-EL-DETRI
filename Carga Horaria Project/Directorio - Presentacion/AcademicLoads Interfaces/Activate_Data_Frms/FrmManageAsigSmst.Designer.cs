@@ -32,6 +32,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.cmbSemestre = new System.Windows.Forms.ComboBox();
             this.lblSemestre = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtFiltro = new System.Windows.Forms.TextBox();
             this.panelContent = new System.Windows.Forms.Panel();
             this.dgvAsignaturasSemestre = new System.Windows.Forms.DataGridView();
             this.panelSelector.SuspendLayout();
@@ -86,13 +88,42 @@
             this.lblSemestre.TabIndex = 2;
             this.lblSemestre.Text = "Seleccione el Semestre:";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label2.ForeColor = System.Drawing.Color.White;
+            this.label2.Location = new System.Drawing.Point(39, 26);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(183, 28);
+            this.label2.TabIndex = 12;
+            this.label2.Text = "Filtrar Asignatura:";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
+            // 
+            // txtFiltro
+            // 
+            this.txtFiltro.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtFiltro.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.txtFiltro.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.txtFiltro.Location = new System.Drawing.Point(245, 28);
+            this.txtFiltro.Name = "txtFiltro";
+            this.txtFiltro.PlaceholderText = "Asignatura o Código...";
+            this.txtFiltro.Size = new System.Drawing.Size(293, 30);
+            this.txtFiltro.TabIndex = 11;
+            this.txtFiltro.TextChanged += new System.EventHandler(this.txtFiltro_TextChanged);
+            this.txtFiltro.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFiltro_KeyPress);
+            // 
             // panelContent
             // 
+            this.panelContent.Controls.Add(this.label2);
+            this.panelContent.Controls.Add(this.txtFiltro);
             this.panelContent.Controls.Add(this.dgvAsignaturasSemestre);
             this.panelContent.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelContent.Location = new System.Drawing.Point(0, 158);
             this.panelContent.Name = "panelContent";
-            this.panelContent.Size = new System.Drawing.Size(1412, 587);
+            this.panelContent.Size = new System.Drawing.Size(1412, 750);
             this.panelContent.TabIndex = 1;
             // 
             // dgvAsignaturasSemestre
@@ -100,12 +131,12 @@
             this.dgvAsignaturasSemestre.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(13)))), ((int)(((byte)(76)))), ((int)(((byte)(146)))));
             this.dgvAsignaturasSemestre.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvAsignaturasSemestre.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvAsignaturasSemestre.Location = new System.Drawing.Point(39, 31);
+            this.dgvAsignaturasSemestre.Location = new System.Drawing.Point(39, 83);
             this.dgvAsignaturasSemestre.Name = "dgvAsignaturasSemestre";
             this.dgvAsignaturasSemestre.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
             this.dgvAsignaturasSemestre.RowTemplate.Height = 29;
             this.dgvAsignaturasSemestre.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvAsignaturasSemestre.Size = new System.Drawing.Size(917, 533);
+            this.dgvAsignaturasSemestre.Size = new System.Drawing.Size(1042, 624);
             this.dgvAsignaturasSemestre.TabIndex = 10;
             this.dgvAsignaturasSemestre.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAsignaturasSemestre_CellContentClick);
             // 
@@ -114,7 +145,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(13)))), ((int)(((byte)(76)))), ((int)(((byte)(146)))));
-            this.ClientSize = new System.Drawing.Size(1412, 745);
+            this.ClientSize = new System.Drawing.Size(1412, 908);
             this.Controls.Add(this.panelContent);
             this.Controls.Add(this.panelSelector);
             this.Name = "FrmManageAsigSmst";
@@ -123,6 +154,7 @@
             this.panelSelector.ResumeLayout(false);
             this.panelSelector.PerformLayout();
             this.panelContent.ResumeLayout(false);
+            this.panelContent.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAsignaturasSemestre)).EndInit();
             this.ResumeLayout(false);
 
@@ -136,5 +168,7 @@
         private Panel panelContent;
         private Label label1;
         private DataGridView dgvAsignaturasSemestre;
+        private Label label2;
+        private TextBox txtFiltro;
     }
 }

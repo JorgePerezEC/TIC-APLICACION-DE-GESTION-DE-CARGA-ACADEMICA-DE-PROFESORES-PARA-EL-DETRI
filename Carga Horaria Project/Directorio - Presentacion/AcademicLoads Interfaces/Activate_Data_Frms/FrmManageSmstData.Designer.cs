@@ -29,9 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmManageSmstData));
-            this.panelAdminDocentes = new System.Windows.Forms.Panel();
-            this.label7 = new System.Windows.Forms.Label();
-            this.dgvDocenteSemestre = new System.Windows.Forms.DataGridView();
             this.panelTipoDocente = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.cmbSemestre = new System.Windows.Forms.ComboBox();
@@ -58,52 +55,23 @@
             this.btnGuardar = new System.Windows.Forms.Button();
             this.btnEditar = new System.Windows.Forms.Button();
             this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
-            this.panelAdminDocentes.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvDocenteSemestre)).BeginInit();
+            this.panelAdminDocentes = new System.Windows.Forms.Panel();
+            this.label10 = new System.Windows.Forms.Label();
+            this.txtFiltro = new System.Windows.Forms.TextBox();
+            this.dgvDocenteSemestre = new System.Windows.Forms.DataGridView();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.label7 = new System.Windows.Forms.Label();
+            this.panelAdminDocentes2 = new System.Windows.Forms.Panel();
             this.panelTipoDocente.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panelTpDocente.SuspendLayout();
             this.panelTableContainer.SuspendLayout();
             this.tblPanelHorasExigibles.SuspendLayout();
+            this.panelAdminDocentes.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDocenteSemestre)).BeginInit();
+            this.panel1.SuspendLayout();
+            this.panelAdminDocentes2.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // panelAdminDocentes
-            // 
-            this.panelAdminDocentes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(13)))), ((int)(((byte)(76)))), ((int)(((byte)(146)))));
-            this.panelAdminDocentes.Controls.Add(this.label7);
-            this.panelAdminDocentes.Controls.Add(this.dgvDocenteSemestre);
-            this.panelAdminDocentes.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelAdminDocentes.Location = new System.Drawing.Point(356, 0);
-            this.panelAdminDocentes.Name = "panelAdminDocentes";
-            this.panelAdminDocentes.Size = new System.Drawing.Size(1568, 955);
-            this.panelAdminDocentes.TabIndex = 1;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.BackColor = System.Drawing.Color.Coral;
-            this.label7.Font = new System.Drawing.Font("Roboto Black", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label7.ForeColor = System.Drawing.Color.White;
-            this.label7.Location = new System.Drawing.Point(43, 43);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(606, 37);
-            this.label7.TabIndex = 8;
-            this.label7.Text = "Administrar Docentes Activos por Semestre";
-            // 
-            // dgvDocenteSemestre
-            // 
-            this.dgvDocenteSemestre.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(13)))), ((int)(((byte)(76)))), ((int)(((byte)(146)))));
-            this.dgvDocenteSemestre.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dgvDocenteSemestre.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvDocenteSemestre.Location = new System.Drawing.Point(43, 118);
-            this.dgvDocenteSemestre.Name = "dgvDocenteSemestre";
-            this.dgvDocenteSemestre.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
-            this.dgvDocenteSemestre.RowTemplate.Height = 29;
-            this.dgvDocenteSemestre.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvDocenteSemestre.Size = new System.Drawing.Size(1249, 784);
-            this.dgvDocenteSemestre.TabIndex = 7;
-            this.dgvDocenteSemestre.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDocenteSemestre_CellContentClick);
-            this.dgvDocenteSemestre.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgvDocenteSemestre_CellPainting);
             // 
             // panelTipoDocente
             // 
@@ -416,6 +384,7 @@
             this.btnGuardar.TabIndex = 5;
             this.btnGuardar.Text = "GUARDAR";
             this.btnGuardar.UseVisualStyleBackColor = false;
+            this.btnGuardar.Visible = false;
             this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
             // 
             // btnEditar
@@ -441,20 +410,103 @@
             this.printPreviewDialog1.Name = "printPreviewDialog1";
             this.printPreviewDialog1.Visible = false;
             // 
+            // panelAdminDocentes
+            // 
+            this.panelAdminDocentes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(13)))), ((int)(((byte)(76)))), ((int)(((byte)(146)))));
+            this.panelAdminDocentes.Controls.Add(this.label10);
+            this.panelAdminDocentes.Controls.Add(this.txtFiltro);
+            this.panelAdminDocentes.Controls.Add(this.dgvDocenteSemestre);
+            this.panelAdminDocentes.Location = new System.Drawing.Point(0, 131);
+            this.panelAdminDocentes.Name = "panelAdminDocentes";
+            this.panelAdminDocentes.Size = new System.Drawing.Size(1568, 824);
+            this.panelAdminDocentes.TabIndex = 10;
+            this.panelAdminDocentes.Visible = false;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label10.ForeColor = System.Drawing.Color.White;
+            this.label10.Location = new System.Drawing.Point(43, 28);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(203, 28);
+            this.label10.TabIndex = 14;
+            this.label10.Text = "Buscar por Docente:";
+            // 
+            // txtFiltro
+            // 
+            this.txtFiltro.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtFiltro.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.txtFiltro.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.txtFiltro.Location = new System.Drawing.Point(261, 26);
+            this.txtFiltro.Name = "txtFiltro";
+            this.txtFiltro.PlaceholderText = "Docente ...";
+            this.txtFiltro.Size = new System.Drawing.Size(293, 30);
+            this.txtFiltro.TabIndex = 13;
+            this.txtFiltro.TextChanged += new System.EventHandler(this.txtFiltro_TextChanged);
+            this.txtFiltro.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFiltro_KeyPress);
+            // 
+            // dgvDocenteSemestre
+            // 
+            this.dgvDocenteSemestre.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(13)))), ((int)(((byte)(76)))), ((int)(((byte)(146)))));
+            this.dgvDocenteSemestre.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dgvDocenteSemestre.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvDocenteSemestre.Location = new System.Drawing.Point(43, 84);
+            this.dgvDocenteSemestre.Name = "dgvDocenteSemestre";
+            this.dgvDocenteSemestre.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
+            this.dgvDocenteSemestre.RowTemplate.Height = 29;
+            this.dgvDocenteSemestre.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvDocenteSemestre.Size = new System.Drawing.Size(1249, 701);
+            this.dgvDocenteSemestre.TabIndex = 7;
+            this.dgvDocenteSemestre.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDocenteSemestre_CellContentClick);
+            this.dgvDocenteSemestre.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgvDocenteSemestre_CellPainting);
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.Khaki;
+            this.panel1.Controls.Add(this.label7);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1568, 125);
+            this.panel1.TabIndex = 9;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.BackColor = System.Drawing.Color.Coral;
+            this.label7.Font = new System.Drawing.Font("Roboto Black", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label7.ForeColor = System.Drawing.Color.White;
+            this.label7.Location = new System.Drawing.Point(43, 44);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(606, 37);
+            this.label7.TabIndex = 8;
+            this.label7.Text = "Administrar Docentes Activos por Semestre";
+            // 
+            // panelAdminDocentes2
+            // 
+            this.panelAdminDocentes2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(13)))), ((int)(((byte)(76)))), ((int)(((byte)(146)))));
+            this.panelAdminDocentes2.Controls.Add(this.panel1);
+            this.panelAdminDocentes2.Controls.Add(this.panelAdminDocentes);
+            this.panelAdminDocentes2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelAdminDocentes2.Location = new System.Drawing.Point(356, 0);
+            this.panelAdminDocentes2.Name = "panelAdminDocentes2";
+            this.panelAdminDocentes2.Size = new System.Drawing.Size(1568, 955);
+            this.panelAdminDocentes2.TabIndex = 1;
+            // 
             // FrmManageSmstData
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(13)))), ((int)(((byte)(76)))), ((int)(((byte)(146)))));
             this.ClientSize = new System.Drawing.Size(1924, 955);
-            this.Controls.Add(this.panelAdminDocentes);
+            this.Controls.Add(this.panelAdminDocentes2);
             this.Controls.Add(this.panelTipoDocente);
             this.Name = "FrmManageSmstData";
             this.Text = "Frm_Manage_Docente_DataBySemestre";
             this.Load += new System.EventHandler(this.FrmManageSmstData_Load);
-            this.panelAdminDocentes.ResumeLayout(false);
-            this.panelAdminDocentes.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvDocenteSemestre)).EndInit();
             this.panelTipoDocente.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
@@ -462,13 +514,17 @@
             this.panelTableContainer.ResumeLayout(false);
             this.tblPanelHorasExigibles.ResumeLayout(false);
             this.tblPanelHorasExigibles.PerformLayout();
+            this.panelAdminDocentes.ResumeLayout(false);
+            this.panelAdminDocentes.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDocenteSemestre)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.panelAdminDocentes2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private Panel panelAdminDocentes;
         private Panel panelTipoDocente;
         private TableLayoutPanel tblPanelHorasExigibles;
         private Label lblTiempoCompleto;
@@ -489,13 +545,18 @@
         private Button btnGuardar;
         private Button btnEditar;
         private Panel panelTableContainer;
-        private DataGridView dgvDocenteSemestre;
-        private Label label7;
         private Label label9;
         private Label label8;
         private PrintPreviewDialog printPreviewDialog1;
         private Panel panelTpDocente;
         protected TextBox txtH_TTC;
         private Button btnCancelar;
+        private Panel panelAdminDocentes;
+        private DataGridView dgvDocenteSemestre;
+        private Panel panel1;
+        private Label label7;
+        private Panel panelAdminDocentes2;
+        private Label label10;
+        private TextBox txtFiltro;
     }
 }

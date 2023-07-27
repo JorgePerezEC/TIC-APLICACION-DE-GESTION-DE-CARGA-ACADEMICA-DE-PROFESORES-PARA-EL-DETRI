@@ -18,6 +18,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
     {
 
         private int idAcLoadLocal;
+        private int idSemestreL;
         private int countBtns = 0;
         private bool Editar = false;
         ClsStyles tableStyle = new ClsStyles();
@@ -31,10 +32,11 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
         private FrmCreate_AcademicLoad _frmAcademicLoad;
         private FrmCRUD_Asignaturas_Ac_Load _frmCRUD;
 
-        public FrmCRUD_Asignaturas_Ac_Load(int idAcLoad)
+        public FrmCRUD_Asignaturas_Ac_Load(int idAcLoad, int idSemestre)
         {
             InitializeComponent();
             idAcLoadLocal = idAcLoad;
+            idSemestreL = idSemestre;
             tableStyle.tableStyle(dgLstRegistros);
         }
 
@@ -58,7 +60,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
         private void btnAddAsignatura_Click(object sender, EventArgs e)
         {
             Editar = false;
-            FrmCUAsignatura_AL frmCUAsignatura = new FrmCUAsignatura_AL(idAcLoadLocal, Editar);
+            FrmCUAsignatura_AL frmCUAsignatura = new FrmCUAsignatura_AL(idAcLoadLocal, Editar, idSemestreL);
             frmCUAsignatura.FrmAcademicLoad = _frmAcademicLoad;
             frmCUAsignatura.FrmCRUD = _frmCRUD;
             frmCUAsignatura.FormClosed += ChildForm_FormClosed;
@@ -105,7 +107,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
             {
                 Editar = true;
                 idAsigCarga = Convert.ToInt32(dgLstRegistros.Rows[e.RowIndex].Cells["ID"].Value);
-                FrmCUAsignatura_AL frm = new FrmCUAsignatura_AL(idAcLoadLocal, Editar);
+                FrmCUAsignatura_AL frm = new FrmCUAsignatura_AL(idAcLoadLocal, Editar, idSemestreL);
                 AsignaturaName = dgLstRegistros.Rows[e.RowIndex].Cells[2].Value.ToString();
                 GrName = dgLstRegistros.Rows[e.RowIndex].Cells[1].Value.ToString();
                 frm.ShowDialog();

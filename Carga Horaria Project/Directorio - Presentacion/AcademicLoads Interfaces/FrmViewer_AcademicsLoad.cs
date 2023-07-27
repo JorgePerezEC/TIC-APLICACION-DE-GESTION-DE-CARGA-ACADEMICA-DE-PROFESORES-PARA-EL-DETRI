@@ -23,7 +23,7 @@ using iText.Layout.Borders;
 
 namespace Directorio___Presentacion.AcademicLoads_Interfaces
 {
-    public partial class FrmAcademicsLoads_Viewer : Form
+    public partial class FrmViewer_AcademicsLoad : Form
     {
         //private CN_Docente objetoCNegocio = new CN_Docente();
         CN_Docente objetoNDocente = new CN_Docente();
@@ -57,11 +57,12 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
         private static int horasExigiblesFaltantes;
 
         private static string docenteName;
+        private static string docenteTipo;
 
         ClsStyles tableStyle = new ClsStyles();
 
         #region Constructor
-        public FrmAcademicsLoads_Viewer()
+        public FrmViewer_AcademicsLoad()
         {
             InitializeComponent();
 
@@ -120,10 +121,10 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
                     // Agregar el nodo nieto al nodo hijo
                     childNode.Nodes.Add(grandChildNode);
                 }
-            }
-
             // Agregar el nodo padre al treeview
             tvDocentesLst.Nodes.Add(parentNode);
+            }
+
         }
 
         #endregion
@@ -166,14 +167,17 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
                 {
                     panelDocenteInfo.Visible = true;
                     panelMain.Visible = true;
+                    panelTotales.Visible = true;
 
                     lblDocenteName.Text = string.Empty;
+                    lblTipoDocente.Text = string.Empty;
                     lblSemestre.Text = string.Empty;
                     lblHorasExigibles.Text = string.Empty;
 
 
                     idCH = objetoCarga_N.GetIDCargaHorariaNegocio(cmbValueSemestre.ToString(), id.ToString());
                     docenteName = objetoCarga_N.GetDocenteNameByCrgHoraria_Negocio(idCH.ToString());
+                    docenteTipo = objetoCarga_N.GetDocenteNameTypeByCrgHoraria_Negocio(idCH.ToString(), cmbValueSemestre.ToString());
                     horasExigibles = objetoCarga_N.CheckHorasExigiblesDocenteByIdCarga_Negocio(idCH.ToString());
 
                     dgvAsignaturas.Refresh();
@@ -191,6 +195,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
                     tableStyle.tableStyle(dgvAsignaturas);
 
                     lblDocenteName.Text = docenteName;
+                    lblTipoDocente.Text = docenteTipo;
                     lblSemestre.Text = cmbSemestre.Text;
                     lblHorasExigibles.Text = horasExigibles.ToString();
 
@@ -216,6 +221,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
                     rootNode.Nodes.Clear();
                 }
                 tvDocentesLst.Visible = true;
+                lblListaDocentes.Visible = true;
                 cmbValueSemestre = Convert.ToInt32(cmbSemestre.SelectedValue);
                 numSemanasClase = objetoCarga_N.GetSemanasClase_Negocio(cmbValueSemestre.ToString());
                 numSemanasSemestre = objetoCarga_N.GetSemanasSemestre_Negocio(cmbValueSemestre.ToString());
@@ -232,9 +238,9 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
             horasSemanalesClases = numSemanasClase * objetoCarga_N.GetSemanalHoursClasesNegocio(idCarga.ToString());
             txtHorasT_Semestre.Text = horasSemanalesClases.ToString();
             horasSemanalesDocenciaD11 = numSemanasClase * objetoCarga_N.GetSemanalHoursDocenciaD11Negocio(idCarga.ToString());
-            horasSemanalesDocenciaF11 = numSemanasClase * objetoCarga_N.GetSemanalHoursDocenciaF11Negocio(idCarga.ToString());
-            horasSemanalesGestion = numSemanasClase * objetoCarga_N.GetSemanalHoursGestionNegocio(idCarga.ToString());
-            horasSemanalesInvestigacion = numSemanasClase * objetoCarga_N.GetSemanalHoursInvestigacionNegocio(idCarga.ToString());
+            horasSemanalesDocenciaF11 = numSemanasSemestre * objetoCarga_N.GetSemanalHoursDocenciaF11Negocio(idCarga.ToString());
+            horasSemanalesGestion = numSemanasSemestre * objetoCarga_N.GetSemanalHoursGestionNegocio(idCarga.ToString());
+            horasSemanalesInvestigacion = numSemanasSemestre * objetoCarga_N.GetSemanalHoursInvestigacionNegocio(idCarga.ToString());
             //Obtencion de horas totales de actividades
             horasTotalesGestion = objetoCarga_N.GetTotalHoursGestionNegocio(idCarga.ToString());
             horasTotalesDocenciaD11 = objetoCarga_N.GetTotalHoursDocenciaD11Negocio(idCarga.ToString());
@@ -245,11 +251,21 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
             horasTotalesCargaHoraria = horasTotalesDocenciaT + horasSemanalesGestion +
                 horasSemanalesInvestigacion + horasTotalesByActTotalHour;
 
+            lblTotalDocenciaF11.Text = horasTotalesDocenciaF11.ToString();
             lblTotalDocencia.Text = horasTotalesDocenciaT.ToString();
             lblTotalGestion.Text = (horasSemanalesGestion + horasTotalesGestion).ToString();
             lblTotalInv.Text = (horasSemanalesInvestigacion + horasTotalesInvestigacion).ToString();
             lblHorasTotales.Text = horasTotalesCargaHoraria.ToString();
-
+            if (horasExigibles - horasTotalesCargaHoraria == 0)
+            {
+                lblHorasTotales.BackColor = System.Drawing.Color.LawnGreen;
+                lblHorasTotales.ForeColor = System.Drawing.Color.Black;
+            }
+            else
+            {
+                lblHorasTotales.BackColor = System.Drawing.Color.Red;
+                lblHorasTotales.ForeColor = System.Drawing.Color.Yellow;
+            }
         }
 
 
@@ -464,10 +480,11 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
 
         class CustomPageEventHandler : IEventHandler
         {
-            private string logoImagePath = "C:\\Users\\jorge\\OneDrive - Escuela Politécnica Nacional\\TESIS LAPTOP SYNC\\resp\\Carga Horaria Project\\Directorio - Presentacion\\Images\\EPNLogo.png";
             public void HandleEvent(Event @event)
             {
-                Image logoImage = new Image(ImageDataFactory.Create(logoImagePath));
+                //Image logoImage = new Image(ImageDataFactory.Create(logoImagePath));
+                Image logoImage = new Image(ImageDataFactory.Create(@"Images\EPNLogo.png"));
+
 
                 PdfDocumentEvent docEvent = (PdfDocumentEvent)@event;
                 PdfDocument pdfDoc = docEvent.GetDocument();

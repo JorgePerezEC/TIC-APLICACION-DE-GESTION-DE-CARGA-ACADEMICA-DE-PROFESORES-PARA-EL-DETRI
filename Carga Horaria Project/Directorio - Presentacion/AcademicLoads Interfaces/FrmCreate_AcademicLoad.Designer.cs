@@ -39,18 +39,21 @@
             this.label11 = new System.Windows.Forms.Label();
             this.lblSemanasSemestre = new System.Windows.Forms.Label();
             this.panelHoras = new System.Windows.Forms.Panel();
-            this.txtClases = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.txtHorasTotales = new System.Windows.Forms.TextBox();
-            this.txtHorasInvestigacionMain = new System.Windows.Forms.TextBox();
-            this.txtHorasGestionMain = new System.Windows.Forms.TextBox();
-            this.txtHorasDocenteMain = new System.Windows.Forms.TextBox();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.txtHorasInvestigacionMain = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.txtHorasGestionMain = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.txtHorasDocenteF11Main = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.txtHorasDocenteMain = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.txtClases = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.txtHorasTotales = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.pieChart = new LiveCharts.WinForms.PieChart();
-            this.label6 = new System.Windows.Forms.Label();
             this.btnNewCarga = new System.Windows.Forms.Button();
             this.btnInvestigacion = new System.Windows.Forms.Button();
             this.btnGestion = new System.Windows.Forms.Button();
@@ -66,6 +69,7 @@
             this.panel1.SuspendLayout();
             this.panelHorasExigibles.SuspendLayout();
             this.panelHoras.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             this.panelHijo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCargasHorarias)).BeginInit();
             this.SuspendLayout();
@@ -88,7 +92,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1627, 227);
+            this.panel1.Size = new System.Drawing.Size(1653, 227);
             this.panel1.TabIndex = 0;
             // 
             // panelHorasExigibles
@@ -222,132 +226,216 @@
             // 
             // panelHoras
             // 
-            this.panelHoras.Controls.Add(this.txtClases);
-            this.panelHoras.Controls.Add(this.label8);
-            this.panelHoras.Controls.Add(this.txtHorasTotales);
-            this.panelHoras.Controls.Add(this.txtHorasInvestigacionMain);
-            this.panelHoras.Controls.Add(this.txtHorasGestionMain);
-            this.panelHoras.Controls.Add(this.txtHorasDocenteMain);
+            this.panelHoras.Controls.Add(this.tableLayoutPanel1);
             this.panelHoras.Controls.Add(this.label7);
-            this.panelHoras.Controls.Add(this.label5);
-            this.panelHoras.Controls.Add(this.label4);
-            this.panelHoras.Controls.Add(this.label3);
             this.panelHoras.Controls.Add(this.pieChart);
-            this.panelHoras.Controls.Add(this.label6);
             this.panelHoras.Location = new System.Drawing.Point(917, 9);
             this.panelHoras.Name = "panelHoras";
             this.panelHoras.Size = new System.Drawing.Size(698, 212);
             this.panelHoras.TabIndex = 22;
             // 
-            // txtClases
+            // tableLayoutPanel1
             // 
-            this.txtClases.BackColor = System.Drawing.Color.LightCoral;
-            this.txtClases.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtClases.Enabled = false;
-            this.txtClases.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.txtClases.Location = new System.Drawing.Point(302, 33);
-            this.txtClases.Name = "txtClases";
-            this.txtClases.Size = new System.Drawing.Size(143, 23);
-            this.txtClases.TabIndex = 13;
-            this.txtClases.TabStop = false;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label8.Location = new System.Drawing.Point(63, 33);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(235, 20);
-            this.label8.TabIndex = 12;
-            this.label8.Text = "Total de Dictado de Clases:";
-            // 
-            // txtHorasTotales
-            // 
-            this.txtHorasTotales.BackColor = System.Drawing.Color.SandyBrown;
-            this.txtHorasTotales.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtHorasTotales.Enabled = false;
-            this.txtHorasTotales.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.txtHorasTotales.Location = new System.Drawing.Point(302, 183);
-            this.txtHorasTotales.Name = "txtHorasTotales";
-            this.txtHorasTotales.Size = new System.Drawing.Size(143, 23);
-            this.txtHorasTotales.TabIndex = 11;
-            this.txtHorasTotales.TabStop = false;
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 75F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.Controls.Add(this.txtHorasInvestigacionMain, 1, 5);
+            this.tableLayoutPanel1.Controls.Add(this.label23, 0, 5);
+            this.tableLayoutPanel1.Controls.Add(this.txtHorasGestionMain, 1, 4);
+            this.tableLayoutPanel1.Controls.Add(this.label21, 0, 4);
+            this.tableLayoutPanel1.Controls.Add(this.txtHorasDocenteF11Main, 1, 3);
+            this.tableLayoutPanel1.Controls.Add(this.label19, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.txtHorasDocenteMain, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.label17, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.txtClases, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.label13, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.txtHorasTotales, 1, 6);
+            this.tableLayoutPanel1.Controls.Add(this.label15, 0, 6);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(13, 35);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 7;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15.83317F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5.001F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15.83317F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15.83317F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15.83317F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15.83317F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15.83317F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(412, 164);
+            this.tableLayoutPanel1.TabIndex = 25;
             // 
             // txtHorasInvestigacionMain
             // 
-            this.txtHorasInvestigacionMain.BackColor = System.Drawing.SystemColors.Info;
-            this.txtHorasInvestigacionMain.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtHorasInvestigacionMain.Enabled = false;
-            this.txtHorasInvestigacionMain.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.txtHorasInvestigacionMain.Location = new System.Drawing.Point(302, 150);
+            this.txtHorasInvestigacionMain.AutoSize = true;
+            this.txtHorasInvestigacionMain.BackColor = System.Drawing.Color.SteelBlue;
+            this.txtHorasInvestigacionMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtHorasInvestigacionMain.Font = new System.Drawing.Font("Segoe UI Semibold", 11.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.txtHorasInvestigacionMain.ForeColor = System.Drawing.Color.White;
+            this.txtHorasInvestigacionMain.Location = new System.Drawing.Point(312, 108);
             this.txtHorasInvestigacionMain.Name = "txtHorasInvestigacionMain";
-            this.txtHorasInvestigacionMain.Size = new System.Drawing.Size(143, 23);
-            this.txtHorasInvestigacionMain.TabIndex = 10;
-            this.txtHorasInvestigacionMain.TabStop = false;
+            this.txtHorasInvestigacionMain.Size = new System.Drawing.Size(97, 25);
+            this.txtHorasInvestigacionMain.TabIndex = 11;
+            this.txtHorasInvestigacionMain.Text = "Total Dictado de Clases:";
+            this.txtHorasInvestigacionMain.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.BackColor = System.Drawing.Color.SteelBlue;
+            this.label23.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label23.Font = new System.Drawing.Font("Segoe UI Semibold", 11.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label23.ForeColor = System.Drawing.Color.White;
+            this.label23.Location = new System.Drawing.Point(3, 108);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(303, 25);
+            this.label23.TabIndex = 10;
+            this.label23.Text = "Componente Investigación:";
             // 
             // txtHorasGestionMain
             // 
-            this.txtHorasGestionMain.BackColor = System.Drawing.SystemColors.Info;
-            this.txtHorasGestionMain.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtHorasGestionMain.Enabled = false;
-            this.txtHorasGestionMain.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.txtHorasGestionMain.Location = new System.Drawing.Point(302, 117);
+            this.txtHorasGestionMain.AutoSize = true;
+            this.txtHorasGestionMain.BackColor = System.Drawing.Color.SteelBlue;
+            this.txtHorasGestionMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtHorasGestionMain.Font = new System.Drawing.Font("Segoe UI Semibold", 11.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.txtHorasGestionMain.ForeColor = System.Drawing.Color.White;
+            this.txtHorasGestionMain.Location = new System.Drawing.Point(312, 83);
             this.txtHorasGestionMain.Name = "txtHorasGestionMain";
-            this.txtHorasGestionMain.Size = new System.Drawing.Size(143, 23);
+            this.txtHorasGestionMain.Size = new System.Drawing.Size(97, 25);
             this.txtHorasGestionMain.TabIndex = 9;
-            this.txtHorasGestionMain.TabStop = false;
+            this.txtHorasGestionMain.Text = "Total Dictado de Clases:";
+            this.txtHorasGestionMain.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.BackColor = System.Drawing.Color.SteelBlue;
+            this.label21.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label21.Font = new System.Drawing.Font("Segoe UI Semibold", 11.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label21.ForeColor = System.Drawing.Color.White;
+            this.label21.Location = new System.Drawing.Point(3, 83);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(303, 25);
+            this.label21.TabIndex = 8;
+            this.label21.Text = "Componente Gestión:";
+            // 
+            // txtHorasDocenteF11Main
+            // 
+            this.txtHorasDocenteF11Main.AutoSize = true;
+            this.txtHorasDocenteF11Main.BackColor = System.Drawing.Color.SteelBlue;
+            this.txtHorasDocenteF11Main.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtHorasDocenteF11Main.Font = new System.Drawing.Font("Segoe UI Semibold", 11.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.txtHorasDocenteF11Main.ForeColor = System.Drawing.Color.White;
+            this.txtHorasDocenteF11Main.Location = new System.Drawing.Point(312, 58);
+            this.txtHorasDocenteF11Main.Name = "txtHorasDocenteF11Main";
+            this.txtHorasDocenteF11Main.Size = new System.Drawing.Size(97, 25);
+            this.txtHorasDocenteF11Main.TabIndex = 7;
+            this.txtHorasDocenteF11Main.Text = "Total Dictado de Clases:";
+            this.txtHorasDocenteF11Main.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.BackColor = System.Drawing.Color.SteelBlue;
+            this.label19.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label19.Font = new System.Drawing.Font("Segoe UI Semibold", 11.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label19.ForeColor = System.Drawing.Color.White;
+            this.label19.Location = new System.Drawing.Point(3, 58);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(303, 25);
+            this.label19.TabIndex = 6;
+            this.label19.Text = "Componente Docente F 1:1:";
             // 
             // txtHorasDocenteMain
             // 
-            this.txtHorasDocenteMain.BackColor = System.Drawing.SystemColors.Info;
-            this.txtHorasDocenteMain.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtHorasDocenteMain.Enabled = false;
-            this.txtHorasDocenteMain.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.txtHorasDocenteMain.Location = new System.Drawing.Point(302, 84);
+            this.txtHorasDocenteMain.AutoSize = true;
+            this.txtHorasDocenteMain.BackColor = System.Drawing.Color.SteelBlue;
+            this.txtHorasDocenteMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtHorasDocenteMain.Font = new System.Drawing.Font("Segoe UI Semibold", 11.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.txtHorasDocenteMain.ForeColor = System.Drawing.Color.White;
+            this.txtHorasDocenteMain.Location = new System.Drawing.Point(312, 33);
             this.txtHorasDocenteMain.Name = "txtHorasDocenteMain";
-            this.txtHorasDocenteMain.Size = new System.Drawing.Size(143, 23);
-            this.txtHorasDocenteMain.TabIndex = 8;
-            this.txtHorasDocenteMain.TabStop = false;
+            this.txtHorasDocenteMain.Size = new System.Drawing.Size(97, 25);
+            this.txtHorasDocenteMain.TabIndex = 5;
+            this.txtHorasDocenteMain.Text = "Total Dictado de Clases:";
+            this.txtHorasDocenteMain.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.BackColor = System.Drawing.Color.SteelBlue;
+            this.label17.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label17.Font = new System.Drawing.Font("Segoe UI Semibold", 11.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label17.ForeColor = System.Drawing.Color.White;
+            this.label17.Location = new System.Drawing.Point(3, 33);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(303, 25);
+            this.label17.TabIndex = 4;
+            this.label17.Text = "Componente Docente 1:1:";
+            // 
+            // txtClases
+            // 
+            this.txtClases.AutoSize = true;
+            this.txtClases.BackColor = System.Drawing.Color.BurlyWood;
+            this.txtClases.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtClases.Font = new System.Drawing.Font("Segoe UI Semibold", 11.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.txtClases.ForeColor = System.Drawing.Color.DimGray;
+            this.txtClases.Location = new System.Drawing.Point(312, 0);
+            this.txtClases.Name = "txtClases";
+            this.txtClases.Size = new System.Drawing.Size(97, 25);
+            this.txtClases.TabIndex = 1;
+            this.txtClases.Text = "Total Dictado de Clases:";
+            this.txtClases.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.BackColor = System.Drawing.Color.Orange;
+            this.label13.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label13.Font = new System.Drawing.Font("Segoe UI Semibold", 11.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label13.ForeColor = System.Drawing.Color.DimGray;
+            this.label13.Location = new System.Drawing.Point(3, 0);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(303, 25);
+            this.label13.TabIndex = 0;
+            this.label13.Text = "Total Dictado de Clases:";
+            // 
+            // txtHorasTotales
+            // 
+            this.txtHorasTotales.AutoSize = true;
+            this.txtHorasTotales.BackColor = System.Drawing.Color.Khaki;
+            this.txtHorasTotales.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtHorasTotales.Font = new System.Drawing.Font("Segoe UI Semibold", 11.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.txtHorasTotales.ForeColor = System.Drawing.Color.DimGray;
+            this.txtHorasTotales.Location = new System.Drawing.Point(312, 133);
+            this.txtHorasTotales.Name = "txtHorasTotales";
+            this.txtHorasTotales.Size = new System.Drawing.Size(97, 31);
+            this.txtHorasTotales.TabIndex = 3;
+            this.txtHorasTotales.Text = "Total Dictado de Clases:";
+            this.txtHorasTotales.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.BackColor = System.Drawing.Color.Gold;
+            this.label15.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label15.Font = new System.Drawing.Font("Segoe UI Semibold", 11.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label15.ForeColor = System.Drawing.Color.DimGray;
+            this.label15.Location = new System.Drawing.Point(3, 133);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(303, 31);
+            this.label15.TabIndex = 2;
+            this.label15.Text = "Horas Totales (Componentes):";
             // 
             // label7
             // 
-            this.label7.AutoSize = true;
+            this.label7.BackColor = System.Drawing.Color.Gold;
             this.label7.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label7.Location = new System.Drawing.Point(333, 3);
+            this.label7.Location = new System.Drawing.Point(325, 3);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(71, 27);
+            this.label7.Size = new System.Drawing.Size(97, 27);
             this.label7.TabIndex = 7;
             this.label7.Text = "Horas";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label5.Location = new System.Drawing.Point(110, 120);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(186, 20);
-            this.label5.TabIndex = 5;
-            this.label5.Text = "Componente Gestión:";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label4.Location = new System.Drawing.Point(104, 88);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(192, 20);
-            this.label4.TabIndex = 4;
-            this.label4.Text = "Componente Docente:";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label3.Location = new System.Drawing.Point(38, 185);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(258, 20);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "Horas Totales (Componentes):";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // pieChart
             // 
@@ -358,16 +446,6 @@
             this.pieChart.Size = new System.Drawing.Size(225, 209);
             this.pieChart.TabIndex = 0;
             this.pieChart.Text = "pieChart1";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label6.Location = new System.Drawing.Point(63, 155);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(233, 20);
-            this.label6.TabIndex = 6;
-            this.label6.Text = "Componente Investigación:";
             // 
             // btnNewCarga
             // 
@@ -516,7 +594,7 @@
             this.panelHijo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelHijo.Location = new System.Drawing.Point(0, 227);
             this.panelHijo.Name = "panelHijo";
-            this.panelHijo.Size = new System.Drawing.Size(1627, 764);
+            this.panelHijo.Size = new System.Drawing.Size(1653, 764);
             this.panelHijo.TabIndex = 1;
             // 
             // dgvCargasHorarias
@@ -526,7 +604,7 @@
             this.dgvCargasHorarias.Name = "dgvCargasHorarias";
             this.dgvCargasHorarias.RowHeadersWidth = 51;
             this.dgvCargasHorarias.RowTemplate.Height = 29;
-            this.dgvCargasHorarias.Size = new System.Drawing.Size(749, 518);
+            this.dgvCargasHorarias.Size = new System.Drawing.Size(422, 645);
             this.dgvCargasHorarias.TabIndex = 0;
             this.dgvCargasHorarias.Visible = false;
             this.dgvCargasHorarias.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCargasHorarias_CellContentClick);
@@ -535,7 +613,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1627, 991);
+            this.ClientSize = new System.Drawing.Size(1653, 991);
             this.Controls.Add(this.panelHijo);
             this.Controls.Add(this.panel1);
             this.Name = "FrmCreate_AcademicLoad";
@@ -547,7 +625,8 @@
             this.panelHorasExigibles.ResumeLayout(false);
             this.panelHorasExigibles.PerformLayout();
             this.panelHoras.ResumeLayout(false);
-            this.panelHoras.PerformLayout();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.panelHijo.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvCargasHorarias)).EndInit();
             this.ResumeLayout(false);
@@ -559,15 +638,7 @@
         private Panel panel1;
         private Button btnCrearCargaAcademica;
         private ComboBox cmbSemestre;
-        private TextBox txtHorasTotales;
-        private TextBox txtHorasInvestigacionMain;
-        private TextBox txtHorasGestionMain;
-        private TextBox txtHorasDocenteMain;
         private Label label7;
-        private Label label6;
-        private Label label5;
-        private Label label4;
-        private Label label3;
         private Label label2;
         private Label label1;
         private LiveCharts.WinForms.PieChart pieChart;
@@ -576,8 +647,6 @@
         private DataGridView dgvCargasHorarias;
         private Panel panelHoras;
         public Button btnAsignaturas;
-        private TextBox txtClases;
-        private Label label8;
         public ComboBox cmbDocente;
         private TableLayoutPanel panelHorasExigibles;
         private Label lblHorasFaltantes;
@@ -591,5 +660,18 @@
         public Button btnInvestigacion;
         public Button btnGestion;
         public Button btnDocencia;
+        private TableLayoutPanel tableLayoutPanel1;
+        private Label txtHorasInvestigacionMain;
+        private Label label23;
+        private Label txtHorasGestionMain;
+        private Label label21;
+        private Label txtHorasDocenteF11Main;
+        private Label label19;
+        private Label txtHorasDocenteMain;
+        private Label label17;
+        private Label txtClases;
+        private Label label13;
+        private Label txtHorasTotales;
+        private Label label15;
     }
 }

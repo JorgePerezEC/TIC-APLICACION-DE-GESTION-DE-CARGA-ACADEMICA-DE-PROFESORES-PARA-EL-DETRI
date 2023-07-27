@@ -13,7 +13,7 @@
     <Compile Update="AcademicLoads Interfaces\Error_Frms\Frm_Err_HorasExigibles.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="AcademicLoads Interfaces\FrmAcademicsLoads_Viewer.cs">
+    <Compile Update="AcademicLoads Interfaces\FrmViewer_AcademicsLoad.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="AcademicLoads Interfaces\FrmCreate_AcademicLoad.cs">
@@ -80,6 +80,15 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Update="Main.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Reportes Frms\FrmReporteActividades.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Reportes Frms\FrmReporteAsignaturas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Reportes Frms\FrmReporteComisiones.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Reportes Frms\FrmReporteDocentesCargas.cs">

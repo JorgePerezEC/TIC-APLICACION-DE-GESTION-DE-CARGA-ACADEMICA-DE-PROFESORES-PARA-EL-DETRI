@@ -295,12 +295,14 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
             cmbActividad.DisplayMember = "Actividad";
             cmbActividad.ValueMember = "ID";
         }
-        public void ListarAllActividadesCmb(string type)
+        public void ListarAllActividadesCmb(string type, bool newActivity)
         {
             if (type == "D11") ListarActividadesDocencia11();
             else if (type == "D") ListarActividadesDocenciaF11();
             else if (type == "G") ListarActividadesGestion();
             else if (type == "I") ListarActividadesInvestigacion();
+
+            if (newActivity) cmbActividad.SelectedIndex = cmbActividad.Items.Count - 1;
         }
         private void ListarActividadesGral()
         {

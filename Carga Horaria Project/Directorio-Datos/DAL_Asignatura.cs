@@ -23,7 +23,7 @@ namespace Directorio_Datos
         #region CRUD METHODS
         // CRUD METHODS
         // CREATE ASIGNATURA
-        public bool CreateAsignatura(ClsAsignatura _asignatura)
+        public bool CreateAsignatura(ClsAsignatura _asignatura, ClsCarrera _carrera)
         {
             try
             {
@@ -32,13 +32,13 @@ namespace Directorio_Datos
                 sqlCommand.CommandText = "spAddAsignatura";
                 sqlCommand.CommandType = CommandType.StoredProcedure;
 
+                sqlCommand.Parameters.AddWithValue("@idCarrera", _carrera.IdCarrera);
                 sqlCommand.Parameters.AddWithValue("@nameAsig", _asignatura.NombreAsignatura);
                 sqlCommand.Parameters.AddWithValue("@tpAsig", _asignatura.TipoAsignatura);
                 sqlCommand.Parameters.AddWithValue("@codAsig", _asignatura.CodigoAsignatura);
                 sqlCommand.Parameters.AddWithValue("@hAsigTot", _asignatura.HorasAsignaturaTotales);
                 sqlCommand.Parameters.AddWithValue("@hAsigSem", _asignatura.HorasAsignaturaSemanales);
                 sqlCommand.Parameters.AddWithValue("@lvlAsig", _asignatura.NivelAsignatura);
-                sqlCommand.Parameters.AddWithValue("@state", _asignatura.Estado);
 
                 ObjDataBase.AbrirConexion();
                 sqlCommand.ExecuteNonQuery();
@@ -59,7 +59,7 @@ namespace Directorio_Datos
 
         }
         // UPDATE ASIGNATURA
-        public bool UpdateAsignatura(ClsAsignatura _asignatura)
+        public bool UpdateAsignatura(ClsAsignatura _asignatura, ClsCarrera _carrera)
         {
             try
             {
@@ -69,13 +69,13 @@ namespace Directorio_Datos
                 sqlCommand.CommandType = CommandType.StoredProcedure;
 
                 sqlCommand.Parameters.AddWithValue("@id", _asignatura.IdAsignatura);
+                sqlCommand.Parameters.AddWithValue("@idCarrera", _carrera.IdCarrera);
                 sqlCommand.Parameters.AddWithValue("@nameAsig", _asignatura.NombreAsignatura);
                 sqlCommand.Parameters.AddWithValue("@tpAsig", _asignatura.TipoAsignatura);
                 sqlCommand.Parameters.AddWithValue("@codAsig", _asignatura.CodigoAsignatura);
                 sqlCommand.Parameters.AddWithValue("@hAsigTot", _asignatura.HorasAsignaturaTotales);
                 sqlCommand.Parameters.AddWithValue("@hAsigSem", _asignatura.HorasAsignaturaSemanales);
                 sqlCommand.Parameters.AddWithValue("@lvlAsig", _asignatura.NivelAsignatura);
-                sqlCommand.Parameters.AddWithValue("@state", _asignatura.Estado);
 
                 ObjDataBase.AbrirConexion();
                 sqlCommand.ExecuteNonQuery();
@@ -150,12 +150,13 @@ namespace Directorio_Datos
             ObjDataBase.CerrarConexion();
             return tabla;
         }
-        public DataTable MostrarAsignaturasConGrupos()
+        public DataTable MostrarAsignaturasConGrupos(ClsSemestre _semestre)
         {
             //comando.Connection = manejador.AbrirConexion();
             comando.Connection = ObjDataBase.sqlConexion;
             comando.CommandText = "spReadAllAsignaturasWGroups";
             comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.AddWithValue("@idSemestre", _semestre.IdSemestre);
             ObjDataBase.AbrirConexion();
             leer = comando.ExecuteReader();
             tabla.Load(leer);
@@ -168,6 +169,38 @@ namespace Directorio_Datos
             SqlCommand comando = new SqlCommand();
             comando.Connection = ObjDataBase.sqlConexion;
             comando.CommandText = "spReadAllSmstreAsignaturaBySemestre";
+            comando.CommandType = CommandType.StoredProcedure;
+
+            comando.Parameters.AddWithValue("@idSemestre", _semestre.IdSemestre);
+
+            ObjDataBase.AbrirConexion();
+            leer = comando.ExecuteReader();
+            tabla.Load(leer);
+            ObjDataBase.CerrarConexion();
+            return tabla;
+        }
+        public DataTable MostrarRegistrosAsignaturaWithDocenteByIdSemestre(ClsSemestre _semestre)
+        {
+            //comando.Connection = manejador.AbrirConexion();
+            SqlCommand comando = new SqlCommand();
+            comando.Connection = ObjDataBase.sqlConexion;
+            comando.CommandText = "spGetAsignaturaGrBySemestreWithDocente_Reporte";
+            comando.CommandType = CommandType.StoredProcedure;
+
+            comando.Parameters.AddWithValue("@idSemestre", _semestre.IdSemestre);
+
+            ObjDataBase.AbrirConexion();
+            leer = comando.ExecuteReader();
+            tabla.Load(leer);
+            ObjDataBase.CerrarConexion();
+            return tabla;
+        }
+        public DataTable MostrarRegistrosAsignaturaWithOutDocenteByIdSemestre(ClsSemestre _semestre)
+        {
+            //comando.Connection = manejador.AbrirConexion();
+            SqlCommand comando = new SqlCommand();
+            comando.Connection = ObjDataBase.sqlConexion;
+            comando.CommandText = "spGetAsignaturaGrBySemestreWithOutDocente_Reporte";
             comando.CommandType = CommandType.StoredProcedure;
 
             comando.Parameters.AddWithValue("@idSemestre", _semestre.IdSemestre);

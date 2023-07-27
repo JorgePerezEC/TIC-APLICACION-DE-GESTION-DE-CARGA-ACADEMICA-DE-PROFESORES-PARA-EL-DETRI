@@ -28,12 +28,22 @@ namespace Directorio___Presentacion.CRUD_Interfaces
         private void FrmCRUD_Asignatura_Load(object sender, EventArgs e)
         {
             MostrarAsignaturas();
+            ListarCarreras();
             clsStyles.tableStyle(dgLstRegistros);
+        }
+        private void ListarCarreras()
+        {
+            CN_Carrera objetoCNegocio = new CN_Carrera();
+            cmbCarrera.DataSource = objetoCNegocio.MostrarCarreras();
+            cmbCarrera.DisplayMember = "Carrera";
+            cmbCarrera.ValueMember = "ID";
         }
         private void MostrarAsignaturas()
         {
             CN_Asignatura objetoCNegocio = new CN_Asignatura();
             dgLstRegistros.DataSource = objetoCNegocio.MostrarAsignaturas();
+            dgLstRegistros.Columns[0].Visible = false;
+            dgLstRegistros.Columns[1].Visible = false;
         }
         #region Clicks Events
         private void btnNew_Click(object sender, EventArgs e)
@@ -52,8 +62,8 @@ namespace Directorio___Presentacion.CRUD_Interfaces
             {
                 try
                 {
-                    objetoCNegocio.CreateAsignaturaNeg(txtNombreAsignatura.Text, txtTipoAsignatura.Text, txtCodigo.Text, txtHTotales.Text, txtHSemanales.Text, txtNivel.Text, ckboxEstado.Checked.ToString());
-                    MessageBox.Show("Carrera insertadada correctamente" + ckboxEstado.Checked.ToString());
+                    objetoCNegocio.CreateAsignaturaNeg(cmbCarrera.SelectedValue.ToString(),txtNombreAsignatura.Text, txtTipoAsignatura.Text, txtCodigo.Text, txtHTotales.Text, txtHSemanales.Text, txtNivel.Text);
+                    MessageBox.Show("Carrera insertadada correctamente");
                     MostrarAsignaturas();
                     //ClearTxtBox();
                 }
@@ -67,7 +77,7 @@ namespace Directorio___Presentacion.CRUD_Interfaces
             {
                 try
                 {
-                    objetoCNegocio.UpdateAsignaturaNeg(idAsignatura, txtNombreAsignatura.Text, txtTipoAsignatura.Text, txtCodigo.Text, txtHTotales.Text, txtHSemanales.Text, txtNivel.Text, ckboxEstado.Checked.ToString());
+                    objetoCNegocio.UpdateAsignaturaNeg(idAsignatura,cmbCarrera.SelectedValue.ToString(), txtNombreAsignatura.Text, txtTipoAsignatura.Text, txtCodigo.Text, txtHTotales.Text, txtHSemanales.Text, txtNivel.Text);
                     MessageBox.Show("Carrera actualizada correctamente");
                     MostrarAsignaturas();
                     Editar = false;
@@ -89,14 +99,14 @@ namespace Directorio___Presentacion.CRUD_Interfaces
                 {
                     panelCreate.Visible = true;
                     Editar = true;
+                    cmbCarrera.SelectedValue = dgLstRegistros.CurrentRow.Cells[1].Value.ToString()!;
                     idAsignatura = dgLstRegistros.CurrentRow.Cells[0].Value.ToString()!;
-                    txtNombreAsignatura.Text = dgLstRegistros.CurrentRow.Cells[1].Value.ToString()!;
-                    txtTipoAsignatura.Text = dgLstRegistros.CurrentRow.Cells[2].Value.ToString();
-                    txtCodigo.Text = dgLstRegistros.CurrentRow.Cells[3].Value.ToString();
-                    txtHTotales.Text = dgLstRegistros.CurrentRow.Cells[4].Value.ToString();
-                    txtHSemanales.Text = dgLstRegistros.CurrentRow.Cells[5].Value.ToString();
-                    txtNivel.Text = dgLstRegistros.CurrentRow.Cells[6].Value.ToString();
-                    ckboxEstado.Text = dgLstRegistros.CurrentRow.Cells[7].Value.ToString();
+                    txtNombreAsignatura.Text = dgLstRegistros.CurrentRow.Cells[3].Value.ToString()!;
+                    txtTipoAsignatura.Text = dgLstRegistros.CurrentRow.Cells[4].Value.ToString();
+                    txtCodigo.Text = dgLstRegistros.CurrentRow.Cells[5].Value.ToString();
+                    txtHTotales.Text = dgLstRegistros.CurrentRow.Cells[6].Value.ToString();
+                    txtHSemanales.Text = dgLstRegistros.CurrentRow.Cells[7].Value.ToString();
+                    txtNivel.Text = dgLstRegistros.CurrentRow.Cells[8].Value.ToString();
                 }
                 else
                 {

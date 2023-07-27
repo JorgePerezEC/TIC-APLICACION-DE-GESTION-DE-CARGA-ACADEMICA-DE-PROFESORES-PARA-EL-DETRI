@@ -277,6 +277,16 @@ namespace Directorio_Logica
             string docenteName = objetoCData.GetDocenteNameByCrgHoraria_DAL(ObjCrgHoraria);
             return docenteName;
         }
+        public string GetDocenteNameTypeByCrgHoraria_Negocio(string idCargaHoraria, string idSemestre)
+        {
+            ClsCargaHoraria ObjCrgHoraria = new ClsCargaHoraria()
+            {
+                IdCargaHoraria  = Convert.ToInt32(idCargaHoraria),
+                IdSemestre      = Convert.ToInt32(idSemestre)
+            };
+            string docenteName = objetoCData.GetDocenteNameTypeByCrgHoraria_DAL(ObjCrgHoraria);
+            return docenteName;
+        }
         public int CheckCargaHorariaNegocio(string idSemestre, string idDocente)
         {
             ClsCargaHoraria ObjCargaHoraria = new ClsCargaHoraria()
@@ -418,6 +428,7 @@ namespace Directorio_Logica
             tabla = objetoCData.MostrarAllActividadesCrgAcademica(objCargaHoraria);
             return tabla;
         }
+        //REPORTES ******************************
         public DataTable MostrarReporteDocentes_ByIdSemestre_Negocio(string idSemestre)
         {
             DataTable tabla = new DataTable();
@@ -427,6 +438,38 @@ namespace Directorio_Logica
             };
             tabla = objetoCData.MostrarReporteDocentes_ByIdSemestre_DAL(objSemestre);
             return tabla;
+        }
+        public DataTable MostrarReporteActividadesD11D_ByIdSemestre_Negocio(string idSemestre)
+        {
+            DataTable tabla = new DataTable();
+            ClsSemestre objSemestre = new ClsSemestre()
+            {
+                IdSemestre = Convert.ToInt32(idSemestre)
+            };
+            tabla = objetoCData.MostrarReporteActividadesD11D_ByIdSemestre_DAL(objSemestre);
+            return tabla;
+        }
+        public DataTable MostrarReporteActividadesComisiones_ByIdSemestre_Negocio(string idSemestre)
+        {
+            DataTable tabla = new DataTable();
+            ClsSemestre objSemestre = new ClsSemestre()
+            {
+                IdSemestre = Convert.ToInt32(idSemestre)
+            };
+            tabla = objetoCData.MostrarReporteActividadesComisiones_ByIdSemestre_DAL(objSemestre);
+            return tabla;
+        }
+        //**********************************
+
+        public List<int> GetIdsCargaHorariaLst_ByIdSemestre_Negocio(string idSemestre)
+        {
+            List<int> idsCargaHorariaList = new List<int>();
+            ClsSemestre objSemestre = new ClsSemestre()
+            {
+                IdSemestre = Convert.ToInt32(idSemestre)
+            };
+            idsCargaHorariaList = objetoCData.GetIdsCargaHorariaLst_ByIdSemestre_DAL(objSemestre);
+            return idsCargaHorariaList;
         }
         #endregion
 

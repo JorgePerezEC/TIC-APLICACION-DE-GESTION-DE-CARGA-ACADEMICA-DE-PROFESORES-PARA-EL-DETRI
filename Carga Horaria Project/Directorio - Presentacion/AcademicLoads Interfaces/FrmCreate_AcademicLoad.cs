@@ -36,6 +36,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
         private int cmbValueSemestre;
         private static int cmbValueDocente;
         private int idCH;
+        private int idSemestre;
         private int count = 0;
         private int countBtns = 0;
         private int checkCH = -1;
@@ -128,7 +129,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
 
         private void btnAsignaturas_Click(object sender, EventArgs e)
         {
-            frmAsigSon = new FrmCRUD_Asignaturas_Ac_Load(idCargaHoraria_FrmPrincipal);
+            frmAsigSon = new FrmCRUD_Asignaturas_Ac_Load(idCargaHoraria_FrmPrincipal, cmbValueSemestre);
             openChildForm(frmAsigSon);
             btnDocencia.BackColor = System.Drawing.Color.LightSalmon;
             btnAsignaturas.BackColor = System.Drawing.Color.LightSeaGreen;
@@ -174,6 +175,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
             try
             {
                 cmbValueSemestre = Convert.ToInt32(cmbSemestre.SelectedValue);
+                idSemestre = cmbValueSemestre;
                 cmbValueDocente = Convert.ToInt32(cmbDocente.SelectedValue);
                 numSemanasClase = objetoCNegocio.GetSemanasClase_Negocio(cmbValueSemestre.ToString());
                 numSemanasSemestre = objetoCNegocio.GetSemanasSemestre_Negocio(cmbValueSemestre.ToString());
@@ -191,7 +193,8 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
                         btnCrearCargaAcademica.Visible = false;
                         idCH = objetoCNegocio.GetIDCargaHorariaNegocio(cmbValueSemestre.ToString(), cmbValueDocente.ToString());
                         //MessageBox.Show("Carga Horaria creada correctamente");
-                        frmAsigSon = new FrmCRUD_Asignaturas_Ac_Load(idCH);
+                        
+                        frmAsigSon = new FrmCRUD_Asignaturas_Ac_Load(idCH, idSemestre);
                         openChildForm(frmAsigSon);
                         FrmCRUD_Asignaturas_Ac_Load frmCRUD = Application.OpenForms["FrmCRUD_Asignaturas_Ac_Load"] as FrmCRUD_Asignaturas_Ac_Load;
                         if (frmCRUD != null)
@@ -208,7 +211,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
                         btnAsignaturas.BackColor = System.Drawing.Color.LightSeaGreen;
                         idCH = objetoCNegocio.GetIDCargaHorariaNegocio(cmbValueSemestre.ToString(), cmbValueDocente.ToString());
                         MessageBox.Show("Carga Horaria creada previamente. Accediendo al modo edicion");
-                        frmAsigSon = new FrmCRUD_Asignaturas_Ac_Load(idCH);
+                        frmAsigSon = new FrmCRUD_Asignaturas_Ac_Load(idCH, idSemestre);
                         openChildForm(frmAsigSon);
                     }
                     idCH = objetoCNegocio.GetIDCargaHorariaNegocio(cmbValueSemestre.ToString(), cmbValueDocente.ToString());
@@ -269,6 +272,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
         {
             CN_CargaHoraria objetoCNegocio = new CN_CargaHoraria();
             dgvCargasHorarias.DataSource = objetoCNegocio.LoadCargasHorarias_Negocio(semestre);
+            dgvCargasHorarias.Columns[0].Visible = false;
             if (countBtns < 1)
             {
                 countBtns++;
@@ -311,8 +315,8 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
             horasTotalesDocenciaT = horasSemanalesDocenciaD11 + horasSemanalesClases + horasSemanalesDocenciaF11;
             horasTotalesCargaHoraria = horasTotalesDocenciaT + horasSemanalesGestion +
                 horasSemanalesInvestigacion + horasTotalesByActTotalHour;
-
             txtHorasDocenteMain.Text = horasTotalesDocenciaT.ToString();
+            txtHorasDocenteF11Main.Text = horasTotalesDocenciaF11.ToString();
             txtHorasGestionMain.Text = (horasSemanalesGestion + horasTotalesGestion).ToString();
             txtHorasInvestigacionMain.Text = (horasSemanalesInvestigacion + horasTotalesInvestigacion).ToString();
             txtHorasTotales.Text = horasTotalesCargaHoraria.ToString();
@@ -329,32 +333,40 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
             lblSemanasClases.Text = numSemanasClase.ToString();
             lblSemanasSemestre.Text = numSemanasSemestre.ToString();
 
-            if (horasExigiblesFaltantes <= 0)
+            if (horasExigiblesFaltantes == 0)
             {
-                lblHorasFaltantes.BackColor = System.Drawing.Color.Red;
-                lblHorasFaltantes.ForeColor = System.Drawing.Color.Yellow;
+                lblHorasFaltantes.BackColor = System.Drawing.Color.LawnGreen;
+                lblHorasFaltantes.ForeColor = System.Drawing.Color.Black;
             }
             else { 
-                lblHorasFaltantes.BackColor = System.Drawing.Color.LemonChiffon;
-                lblHorasFaltantes.ForeColor = System.Drawing.Color.Black;
+                lblHorasFaltantes.BackColor = System.Drawing.Color.Red;
+                lblHorasFaltantes.ForeColor = System.Drawing.Color.Yellow;
             }
 
             SeriesCollection series = new SeriesCollection
             {
                 new PieSeries
                 {
-                    Title = "Horas de Docencia",
+                    Title = "Horas de Docencia D 1:1",
                     Values = new ChartValues<int> { horasTotalesDocenciaT },
                     DataLabels = true,
-                    Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(218, 165, 32)), // rojo
+                    Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(121, 134, 203 )),
                     PushOut = 1 // Configura la separación para el primer segmento
+                },
+                new PieSeries
+                {
+                    Title = "Horas de Docencia F 1:1",
+                    Values = new ChartValues<int> { horasTotalesDocenciaF11 },
+                    DataLabels = true,
+                    Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(229, 115, 115)), 
+                    PushOut = 1 // Configura la separación para el tercer segmento
                 },
                 new PieSeries
                 {
                     Title = "Horas de Gestión",
                     Values = new ChartValues<int> {(horasSemanalesGestion + horasTotalesGestion) },
                     DataLabels = true,
-                    Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 182, 118)), // blue
+                    Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(40, 53, 147)), 
                     PushOut = 1 // Configura la separación para el segundo segmento
                 },
                 new PieSeries
@@ -362,7 +374,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
                     Title = "Horas de Investigación",
                     Values = new ChartValues<int> { (horasSemanalesInvestigacion + horasTotalesInvestigacion) },
                     DataLabels = true,
-                    Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(64, 64, 64)), // green
+                    Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 195, 0)), 
                     PushOut = 1 // Configura la separación para el tercer segmento
                 }
             };
@@ -394,7 +406,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
                 //ClearTxtBox();
                 dgvCargasHorarias.Visible = false;
                 btnCrearCargaAcademica.Enabled = false;
-                frmAsigSon = new FrmCRUD_Asignaturas_Ac_Load(idCargaHoraria_FrmPrincipal);
+                frmAsigSon = new FrmCRUD_Asignaturas_Ac_Load(idCargaHoraria_FrmPrincipal, cmbValueSemestre);
                 openChildForm(frmAsigSon);
                 btnNewCarga.Visible = true;
                 btnCrearCargaAcademica.Visible = false;
@@ -425,7 +437,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
         {
             cmbSemestre.SelectedIndex = -1;
             cmbDocente.SelectedIndex = -1;
-            cmbDocente.Enabled = true;
+            cmbDocente.Enabled = false;
             cmbSemestre.Enabled = true;
             txtHorasDocenteMain.Text = string.Empty;
             txtHorasGestionMain.Text = string.Empty;

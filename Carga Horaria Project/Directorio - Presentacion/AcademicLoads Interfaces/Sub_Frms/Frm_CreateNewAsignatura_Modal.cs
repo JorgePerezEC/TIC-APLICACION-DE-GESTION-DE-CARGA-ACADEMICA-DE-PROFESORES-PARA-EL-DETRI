@@ -52,7 +52,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
             FrmCUAsignatura_AL frmCuAsignatura = Application.OpenForms["FrmCUAsignatura_AL"] as FrmCUAsignatura_AL;
             if (frmCuAsignatura != null)
             {
-                frmCuAsignatura.ListarGruposAsignatura();
+                frmCuAsignatura.ListarGruposAsignatura(true);
             }
             this.Close();
         }

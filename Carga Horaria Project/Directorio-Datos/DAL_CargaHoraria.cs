@@ -420,6 +420,55 @@ namespace Directorio_Datos
             ObjDataBase.CerrarConexion();
             return tabla;
         }
+        public DataTable MostrarReporteActividadesD11D_ByIdSemestre_DAL(ClsSemestre _semestre)
+        {
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.Connection = ObjDataBase.sqlConexion;
+            sqlCommand.CommandText = "spGetActividadesD11D_BySemestre_Reporte";
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.Parameters.AddWithValue("@idSemestre", _semestre.IdSemestre);
+            ObjDataBase.AbrirConexion();
+            leer = sqlCommand.ExecuteReader();
+            tabla.Load(leer);
+            ObjDataBase.CerrarConexion();
+            return tabla;
+        }
+        public DataTable MostrarReporteActividadesComisiones_ByIdSemestre_DAL(ClsSemestre _semestre)
+        {
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.Connection = ObjDataBase.sqlConexion;
+            sqlCommand.CommandText = "spGetActividadesComisiones_BySemestre_Reporte";
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.Parameters.AddWithValue("@idSemestre", _semestre.IdSemestre);
+            ObjDataBase.AbrirConexion();
+            leer = sqlCommand.ExecuteReader();
+            tabla.Load(leer);
+            ObjDataBase.CerrarConexion();
+            return tabla;
+        }
+        public List<int> GetIdsCargaHorariaLst_ByIdSemestre_DAL(ClsSemestre _semestre)
+        {
+            List<int> idsCargaHorariaList = new List<int>();
+
+            //comando.Connection = manejador.AbrirConexion();
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.Connection = ObjDataBase.sqlConexion;
+            sqlCommand.CommandText = "spGetIdCargaHorariaLst_BySemestre";
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.Parameters.AddWithValue("@idSemestre", _semestre.IdSemestre);
+            ObjDataBase.AbrirConexion();
+            leer = sqlCommand.ExecuteReader();
+            while (leer.Read())
+            {
+                int idCargaHoraria = Convert.ToInt32(leer[0]);
+                idsCargaHorariaList.Add(idCargaHoraria);
+            }
+
+            leer.Close();
+            ObjDataBase.CerrarConexion();
+
+            return idsCargaHorariaList;
+        }
         public int GetIdCargaHorariaDAL(ClsCargaHoraria _cargaHoraria)
         {
             ManejadorDB ObjDataBaseL = new ManejadorDB();
@@ -521,6 +570,49 @@ namespace Directorio_Datos
                 string docenteName = sqlCommand.ExecuteScalar().ToString();
 
                 return docenteName;
+
+            }
+            catch (SqlException ex)
+            {
+                SqlError err = ex.Errors[0];
+                string mensaje = string.Empty;
+                switch (err.Number)
+                {
+                    case 109:
+                        mensaje = "Problemas con insert"; break;
+                    case 110:
+                        mensaje = "Más problemas con insert"; break;
+                    case 113:
+                        mensaje = "Problemas con comentarios"; break;
+                    case 156:
+                        mensaje = "Error de sintaxis"; break;
+                    default:
+                        mensaje = err.ToString(); break;
+
+                }
+                return "";
+            }
+            finally
+            {
+                ObjDataBaseL.CerrarConexion();
+            }
+        }
+        public string GetDocenteNameTypeByCrgHoraria_DAL(ClsCargaHoraria _crgHoraria)
+        {
+            ManejadorDB ObjDataBaseL = new ManejadorDB();
+            try
+            {
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.Connection = ObjDataBaseL.sqlConexion;
+                sqlCommand.CommandText = "spGetDocenteNameTypeByCrgHoraria";
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                sqlCommand.Parameters.AddWithValue("@idCrgHoraria", _crgHoraria.IdCargaHoraria);
+                sqlCommand.Parameters.AddWithValue("@idSemestre",  _crgHoraria.IdSemestre);
+
+                ObjDataBaseL.AbrirConexion();
+                string docenteTypeName = sqlCommand.ExecuteScalar().ToString();
+
+                return docenteTypeName;
 
             }
             catch (SqlException ex)

@@ -23,6 +23,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Activate_Data_Frms
         private ClsStyles clsStyles = new ClsStyles();
 
         private bool Editar = false;
+        private DataTable dtDocentes;
         private int idTipoDocente = 7;
         #endregion
         public FrmManageSmstData()
@@ -33,7 +34,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Activate_Data_Frms
         private void FrmManageSmstData_Load(object sender, EventArgs e)
         {
             panelTpDocente.Visible = false;
-            panelAdminDocentes.Visible = false;
+            //panelAdminDocentes.Visible = false;
             ListarSemestres();
         }
 
@@ -50,44 +51,6 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Activate_Data_Frms
                 txtH_TP.Text  = objTpDocente.GetTipoDocenteHoras_Negocio(idSemestre, "6").ToString();
             }
         }
-        //private void MostrarDocentes()
-        //{
-        //    if (cmbSemestre.SelectedValue != null)
-        //    {
-        //        panelTpDocente.Visible = true;
-        //        panelTableContainer.Visible = true;
-        //        string idSemestre = cmbSemestre.SelectedValue.ToString();
-        //        LoadHorasTipoDocentes(idSemestre);
-        //        DataTable dtDocentes = objDocente_N.MostrarRegistrosByIdSemestre_Negocio(idSemestre);
-        //        dgvDocenteSemestre.DataSource = dtDocentes;
-        //        dgvDocenteSemestre.Columns[1].HeaderText = "Docente";
-        //        dgvDocenteSemestre.Columns[2].HeaderText = "Activo?";
-
-        //        // Asignar los valores correspondientes a los ComboBox
-        //        AgregarColumnasTipoDocentes();
-        //        for (int i = 0; i < dgvDocenteSemestre.Rows.Count - 1; i++)
-        //        {
-        //            int valorColumna = Convert.ToInt32(dtDocentes.Rows[i][3]);
-
-        //            for (int j = 4; j < dgvDocenteSemestre.Columns.Count; j++)
-        //            {
-        //                dgvDocenteSemestre.Rows[i].Cells[j].Value = false;
-        //            }
-
-        //            int columnaIndex = valorColumna + 3;
-        //            if (columnaIndex >= 4 && columnaIndex < dgvDocenteSemestre.Columns.Count)
-        //            {
-        //                dgvDocenteSemestre.Rows[i].Cells[columnaIndex].Value = true;
-        //            }
-        //        }
-        //        dgvDocenteSemestre.Columns[0].Visible = false;
-        //        dgvDocenteSemestre.Columns[3].Visible = false;
-        //        clsStyles.tableActivateDocentesStyle(dgvDocenteSemestre);
-        //        //dgvDocenteSemestre.ColumnHeadersHeight = 80;
-        //        dgvDocenteSemestre.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
-        //        dgvDocenteSemestre.CellPainting += dgvDocenteSemestre_CellPainting;
-        //    }
-        //}
 
         private void MostrarDocentes()
         {
@@ -95,13 +58,14 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Activate_Data_Frms
             {
                 CN_Docente objDocente_N = new CN_Docente();
                 string idSemestre = cmbSemestre.SelectedValue.ToString();
+                panelAdminDocentes.Visible = true;
                 LimpiarTabla();
 
                 // Cargar el contenido de la tabla
                 panelTpDocente.Visible = true;
                 panelTableContainer.Visible = true;
                 LoadHorasTipoDocentes(idSemestre);
-                DataTable dtDocentes = objDocente_N.MostrarRegistrosByIdSemestre_Negocio(idSemestre);
+                dtDocentes = objDocente_N.MostrarRegistrosByIdSemestre_Negocio(idSemestre);
                 dgvDocenteSemestre.DataSource = dtDocentes;
                 dgvDocenteSemestre.Columns[1].HeaderText = "Docente";
                 dgvDocenteSemestre.Columns[2].HeaderText = "Activo?";
@@ -371,6 +335,42 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Activate_Data_Frms
             txtH_TTP.Enabled = true;
             panelAdminDocentes.Enabled = true;
 
+        }
+
+        private void txtFiltro_TextChanged(object sender, EventArgs e)
+        {
+            string filtro = txtFiltro.Text.Trim(); // Obtener el texto ingresado en el TextBox y eliminar los espacios en blanco
+
+            // Realizar el filtrado del DataTable en función del texto ingresado
+            DataTable dataTableFiltrado = FiltrarDataTable(dtDocentes, filtro);
+
+            // Asignar el DataTable filtrado al DataSource del DataGridView
+            dgvDocenteSemestre.DataSource = dataTableFiltrado;
+        }
+        private DataTable FiltrarDataTable(DataTable dataTable, string filtro)
+        {
+            // Crear un nuevo DataTable para almacenar los datos filtrados
+            DataTable dataTableFiltrado = dataTable.Clone();
+
+            // Filtrar los datos del DataTable en función del texto ingresado
+            foreach (DataRow row in dataTable.Rows)
+            {
+                if (row.ItemArray.Any(field => field.ToString().IndexOf(filtro, StringComparison.OrdinalIgnoreCase) >= 0))
+                {
+                    // Copiar la fila filtrada al nuevo DataTable
+                    dataTableFiltrado.ImportRow(row);
+                }
+            }
+
+            return dataTableFiltrado;
+        }
+
+        private void txtFiltro_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char tecla = char.ToUpper(e.KeyChar);
+
+            e.KeyChar = tecla;
+            e.Handled = false;
         }
     }
 }

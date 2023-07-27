@@ -20,6 +20,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
         public FrmCRUD_Asignaturas_Ac_Load FrmCRUD { get; set; }
 
         private int idAcLoad;
+        private int idSemestreLocal;
         private string idAsigCarga;
         private int idGrAsignatura;
         //Variables to edit
@@ -27,12 +28,13 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
         private CN_CargaHoraria objetoNegocioCargaHoraria = new CN_CargaHoraria();
         private CN_GrAsignatura objNegocioGrAsig = new CN_GrAsignatura();
         int count = 0;
-        public FrmCUAsignatura_AL(int idCargaHoraria, bool Editar)
+        public FrmCUAsignatura_AL(int idCargaHoraria, bool Editar, int idSemestre)
         {
             InitializeComponent();
             this.KeyPreview = true;
             idAcLoad = idCargaHoraria;
             EditarL = Editar;
+            idSemestreLocal = idSemestre;
             btnAgregar.Enabled = Editar;
 
             this.FormClosed += new FormClosedEventHandler(FrmCUAsignatura_AL_FormClosed);
@@ -43,7 +45,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
             if (EditarL)
             {
                 ListarAsignaturasAll();
-                FrmCRUD_Asignaturas_Ac_Load frmA = new FrmCRUD_Asignaturas_Ac_Load(idAcLoad);
+                FrmCRUD_Asignaturas_Ac_Load frmA = new FrmCRUD_Asignaturas_Ac_Load(idAcLoad, idSemestreLocal);
                 List<string> list = frmA.GetArgumentosToEdit();
                 cmbAsignatura.Text = list.ElementAt(0);
                 cmbGR.Text = list.ElementAt(1);
@@ -133,7 +135,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
         private void ListarAsignaturas()
         {
             CN_Asignatura objetoCNegocio = new CN_Asignatura();
-            cmbAsignatura.DataSource = objetoCNegocio.MostrarAsignaturasWithGroups_CNegocio();
+            cmbAsignatura.DataSource = objetoCNegocio.MostrarAsignaturasWithGroups_CNegocio(idSemestreLocal.ToString());
             cmbAsignatura.DisplayMember = "Asignatura";
             cmbAsignatura.ValueMember = "ID";
         }
@@ -144,7 +146,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
             cmbAsignatura.DisplayMember = "Asignatura";
             cmbAsignatura.ValueMember = "ID";
         }
-        public void ListarGruposAsignatura()
+        public void ListarGruposAsignatura(bool NewGr)
         {
             if (cmbAsignatura.SelectedIndex > -1)
             {
@@ -157,6 +159,10 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
                 txtNivel.Text = objetoGrNegocio.GetLvlAsignatura_Negocio(cmbAsignatura.Text);
                 txtType.Text = objetoGrNegocio.GetTypeAsigByAsig_Negocio(cmbAsignatura.Text);
                 txtCode.Text = objetoGrNegocio.GetCodeAsigByAsig_Negocio(cmbAsignatura.Text);
+                if (NewGr)
+                {
+                    cmbGR.SelectedIndex = cmbGR.Items.Count - 1;
+                }
             }
         }
         #endregion
@@ -170,7 +176,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
             count++;
             if (cmbAsignatura.SelectedIndex > -1 && count > 2)
             {
-                ListarGruposAsignatura();
+                ListarGruposAsignatura(false);
                 btnAgregar.Enabled = true;
             }
         }

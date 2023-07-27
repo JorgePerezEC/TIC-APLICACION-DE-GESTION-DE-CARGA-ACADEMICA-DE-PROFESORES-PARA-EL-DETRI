@@ -32,6 +32,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panelGR = new System.Windows.Forms.Panel();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txtCode = new System.Windows.Forms.TextBox();
             this.btnAddGR = new System.Windows.Forms.Button();
             this.cmbGR = new System.Windows.Forms.ComboBox();
             this.btnAgregar = new System.Windows.Forms.Button();
@@ -43,8 +45,6 @@
             this.btnCancelar = new System.Windows.Forms.Button();
             this.cmbAsignatura = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.txtCode = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panelGR.SuspendLayout();
@@ -57,7 +57,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(964, 83);
+            this.panel1.Size = new System.Drawing.Size(960, 83);
             this.panel1.TabIndex = 0;
             // 
             // label1
@@ -80,7 +80,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 83);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(964, 371);
+            this.panel2.Size = new System.Drawing.Size(960, 367);
             this.panel2.TabIndex = 1;
             // 
             // panelGR
@@ -101,6 +101,24 @@
             this.panelGR.TabIndex = 8;
             this.panelGR.Visible = false;
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label6.Location = new System.Drawing.Point(18, 3);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(218, 28);
+            this.label6.TabIndex = 11;
+            this.label6.Text = "Código de asignatura:";
+            // 
+            // txtCode
+            // 
+            this.txtCode.Enabled = false;
+            this.txtCode.Location = new System.Drawing.Point(284, 3);
+            this.txtCode.Name = "txtCode";
+            this.txtCode.Size = new System.Drawing.Size(248, 27);
+            this.txtCode.TabIndex = 12;
+            // 
             // btnAddGR
             // 
             this.btnAddGR.BackColor = System.Drawing.Color.Beige;
@@ -119,6 +137,7 @@
             // 
             this.cmbGR.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.cmbGR.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cmbGR.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbGR.FormattingEnabled = true;
             this.cmbGR.Location = new System.Drawing.Point(284, 135);
             this.cmbGR.Name = "cmbGR";
@@ -220,29 +239,11 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "Seleccione la asignatura:";
             // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label6.Location = new System.Drawing.Point(18, 3);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(218, 28);
-            this.label6.TabIndex = 11;
-            this.label6.Text = "Código de asignatura:";
-            // 
-            // txtCode
-            // 
-            this.txtCode.Enabled = false;
-            this.txtCode.Location = new System.Drawing.Point(284, 3);
-            this.txtCode.Name = "txtCode";
-            this.txtCode.Size = new System.Drawing.Size(248, 27);
-            this.txtCode.TabIndex = 12;
-            // 
             // FrmCUAsignatura_AL
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(964, 454);
+            this.ClientSize = new System.Drawing.Size(960, 450);
             this.ControlBox = false;
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);

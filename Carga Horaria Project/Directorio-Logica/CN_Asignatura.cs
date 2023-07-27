@@ -20,10 +20,14 @@ namespace Directorio_Logica
             tabla = objetoCData.MostrarRegistros();
             return tabla;
         }
-        public DataTable MostrarAsignaturasWithGroups_CNegocio()
+        public DataTable MostrarAsignaturasWithGroups_CNegocio(string idSemestre)
         {
             DataTable tabla = new DataTable();
-            tabla = objetoCData.MostrarAsignaturasConGrupos();
+            ClsSemestre objSemestre = new ClsSemestre()
+            {
+                IdSemestre = Convert.ToInt32(idSemestre)
+            };
+            tabla = objetoCData.MostrarAsignaturasConGrupos(objSemestre);
             return tabla;
         }
         public DataTable MostrarAllAsignaturasCmb_CNegocio()
@@ -42,16 +46,32 @@ namespace Directorio_Logica
             tabla = objetoCData.MostrarRegistrosByIdSemestre(objSemestre);
             return tabla;
         }
+        public DataTable MostrarRegistrosAsignaturaWithDocenteByIdSemestre_Negocio(string idSemestre)
+        {
+            DataTable tabla = new DataTable();
+            ClsSemestre objSemestre = new ClsSemestre()
+            {
+                IdSemestre = Convert.ToInt32(idSemestre)
+            };
+            tabla = objetoCData.MostrarRegistrosAsignaturaWithDocenteByIdSemestre(objSemestre);
+            return tabla;
+        }
+        public DataTable MostrarRegistrosAsignaturaWithOutDocenteByIdSemestre_Negocio(string idSemestre)
+        {
+            DataTable tabla = new DataTable();
+            ClsSemestre objSemestre = new ClsSemestre()
+            {
+                IdSemestre = Convert.ToInt32(idSemestre)
+            };
+            tabla = objetoCData.MostrarRegistrosAsignaturaWithOutDocenteByIdSemestre(objSemestre);
+            return tabla;
+        }
 
         #region CRUD Methods
-        public bool CreateAsignaturaNeg(string nameAsig, string tpAsig, string cod, string hTot, string hSem, string lvlAsig, string estado)
+        public bool CreateAsignaturaNeg(string idCarrera,string nameAsig, string tpAsig, string cod, string hTot, string hSem, string lvlAsig)
         {
             try
             {
-                if (estado == "True")
-                {
-                    state = true;
-                }
                 ClsAsignatura ObjAsignatura = new ClsAsignatura()
                 {
                     NombreAsignatura = nameAsig,
@@ -59,10 +79,13 @@ namespace Directorio_Logica
                     CodigoAsignatura = cod,
                     HorasAsignaturaTotales = Convert.ToInt32(hTot),
                     HorasAsignaturaSemanales = Convert.ToInt32(hSem),
-                    NivelAsignatura = lvlAsig,
-                    Estado = state
+                    NivelAsignatura = lvlAsig
                 };
-                objetoCData.CreateAsignatura(ObjAsignatura);
+                ClsCarrera ObjCarrera = new ClsCarrera()
+                {
+                    IdCarrera = Convert.ToInt32(idCarrera),
+                };
+                objetoCData.CreateAsignatura(ObjAsignatura, ObjCarrera);
 
                 return true;
 
@@ -76,14 +99,10 @@ namespace Directorio_Logica
 
         }
 
-        public bool UpdateAsignaturaNeg(string idAsignatura, string nameAsig, string tpAsig, string cod, string hTot, string hSem, string lvlAsig, string estado)
+        public bool UpdateAsignaturaNeg(string idAsignatura, string idCarrera ,string nameAsig, string tpAsig, string cod, string hTot, string hSem, string lvlAsig)
         {
             try
             {
-                if (estado == "True")
-                {
-                    state = true;
-                }
                 ClsAsignatura ObjAsignatura = new ClsAsignatura()
                 {
                     IdAsignatura = Convert.ToInt32(idAsignatura),
@@ -92,10 +111,13 @@ namespace Directorio_Logica
                     CodigoAsignatura = cod,
                     HorasAsignaturaTotales = Convert.ToInt32(hTot),
                     HorasAsignaturaSemanales = Convert.ToInt32(hSem),
-                    NivelAsignatura = lvlAsig,
-                    Estado = state
+                    NivelAsignatura = lvlAsig
                 };
-                objetoCData.UpdateAsignatura(ObjAsignatura);
+                ClsCarrera ObjCarrera = new ClsCarrera()
+                {
+                    IdCarrera = Convert.ToInt32(idCarrera),
+                };
+                objetoCData.UpdateAsignatura(ObjAsignatura, ObjCarrera);
 
 
                 return true;
