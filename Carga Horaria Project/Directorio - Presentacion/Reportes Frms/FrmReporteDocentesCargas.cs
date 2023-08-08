@@ -226,6 +226,43 @@ namespace Directorio___Presentacion.Reportes_Frms
 
         }
 
+        private int numSemanasClase;
+        private int numSemanasSemestre;
+        private int horasSemanalesClases;
+        private int horasSemanalesDocenciaD11;
+        private int horasSemanalesDocenciaF11;
+        private int horasSemanalesGestion;
+        private int horasSemanalesInvestigacion;
+        private int horasTotalesDocenciaD11;
+        private int horasTotalesDocenciaF11;
+        private int horasTotalesDocenciaT;
+        private int horasTotalesGestion;
+        private int horasTotalesInvestigacion;
+        private int horasTotalesCargaHoraria;
+        public void CalcularHoras(int idCarga)
+        {
+            //Cargamos valores de horas Totales en casillas
+            CN_CargaHoraria objCarga_N = new CN_CargaHoraria();
+            //Obtencion de horas semanales
+            numSemanasClase = objCarga_N.GetSemanasClase_Negocio(cmbValueSemestre.ToString());
+            numSemanasSemestre = objCarga_N.GetSemanasSemestre_Negocio(cmbValueSemestre.ToString());
+            horasSemanalesClases = numSemanasClase * objCarga_N.GetSemanalHoursClasesNegocio(idCarga.ToString());
+            int horasTotalesClasesModulares = objCarga_N.GetClasesModularHours_Negocio(idCarga.ToString());
+            horasSemanalesDocenciaD11 = numSemanasClase * objCarga_N.GetSemanalHoursDocenciaD11Negocio(idCarga.ToString());
+            horasSemanalesDocenciaF11 = numSemanasSemestre * objCarga_N.GetSemanalHoursDocenciaF11Negocio(idCarga.ToString());
+            horasSemanalesGestion = numSemanasSemestre * objCarga_N.GetSemanalHoursGestionNegocio(idCarga.ToString());
+            horasSemanalesInvestigacion = numSemanasSemestre * objCarga_N.GetSemanalHoursInvestigacionNegocio(idCarga.ToString());
+            //Obtencion de horas totales de actividades
+            horasTotalesGestion = objCarga_N.GetTotalHoursGestionNegocio(idCarga.ToString());
+            horasTotalesDocenciaD11 = objCarga_N.GetTotalHoursDocenciaD11Negocio(idCarga.ToString());
+            horasTotalesDocenciaF11 = objCarga_N.GetTotalHoursDocenciaF11Negocio(idCarga.ToString());
+            horasTotalesInvestigacion = objCarga_N.GetTotalHoursInvestigacionNegocio(idCarga.ToString());
+            int horasTotalesByActTotalHour = horasTotalesInvestigacion + horasTotalesGestion + horasTotalesDocenciaF11;
+            horasTotalesDocenciaT = horasSemanalesDocenciaD11 + horasSemanalesClases + horasTotalesDocenciaD11;
+            horasTotalesCargaHoraria = horasTotalesDocenciaT + horasSemanalesGestion +
+                horasSemanalesInvestigacion + horasTotalesByActTotalHour;
+        }
+
         private void GenerarDocumentoPDF(string filePath, int idCH, string docenteName)
         {
             // Generar el documento y guardarlo en filePath
@@ -287,7 +324,7 @@ namespace Directorio___Presentacion.Reportes_Frms
 
             DataTable dtAsignaturas = objCarga_N2_L.LoadAsignaturas_Negocio(idCH.ToString());
             // Crea una tabla con 4 columnas
-            Table tableAsignaturas = new Table(4);
+            Table tableAsignaturas = new Table(dtAsignaturas.Columns.Count - 1);
 
             foreach (DataColumn column in dtAsignaturas.Columns)
             {
@@ -326,7 +363,7 @@ namespace Directorio___Presentacion.Reportes_Frms
             doc.Add(AcividadesTitle);
 
             // Crea una tabla con 4 columnas
-            Table table = new Table(4);
+            Table table = new Table(dt.Columns.Count - 1);
 
             foreach (DataColumn column in dt.Columns)
             {
@@ -368,8 +405,11 @@ namespace Directorio___Presentacion.Reportes_Frms
             Table tableTotalHours = new Table(2);
 
             // Agregar la primera fila a la tabla
-            tableTotalHours.AddCell("TOTAL DOCENCIA").SetFont(timesNewRoman).SetFontSize(10);
+            tableTotalHours.AddCell("TOTAL DOCENCIA D1:1").SetFont(timesNewRoman).SetFontSize(10);
             tableTotalHours.AddCell(horasTotalesDocenciaT.ToString()).SetFont(timesNewRoman).SetFontSize(10);
+
+            tableTotalHours.AddCell("TOTAL DOCENCIA F1:1").SetFont(timesNewRoman).SetFontSize(10);
+            tableTotalHours.AddCell(horasTotalesDocenciaF11.ToString()).SetFont(timesNewRoman).SetFontSize(10);
 
             // Agregar la segunda fila a la tabla
             tableTotalHours.AddCell("TOTAL INVESTIGACION").SetFont(timesNewRoman).SetFontSize(10);
@@ -490,38 +530,6 @@ namespace Directorio___Presentacion.Reportes_Frms
             }
         }
 
-        private static int numSemanasClase;
-        private static int numSemanasSemestre;
-        private static int horasSemanalesClases;
-        private static int horasSemanalesDocenciaD11;
-        private static int horasSemanalesDocenciaF11;
-        private static int horasSemanalesGestion;
-        private static int horasSemanalesInvestigacion;
-        private static int horasTotalesDocenciaD11;
-        private static int horasTotalesDocenciaF11;
-        private static int horasTotalesDocenciaT;
-        private static int horasTotalesGestion;
-        private static int horasTotalesInvestigacion;
-        private static int horasTotalesCargaHoraria;
-        public void CalcularHoras(int idCarga)
-        {
-            //Cargamos valores de horas Totales en casillas
-
-            //Obtencion de horas semanales
-            horasSemanalesClases = numSemanasClase * objCarga_N.GetSemanalHoursClasesNegocio(idCarga.ToString());
-            horasSemanalesDocenciaD11 = numSemanasClase * objCarga_N.GetSemanalHoursDocenciaD11Negocio(idCarga.ToString());
-            horasSemanalesDocenciaF11 = numSemanasSemestre * objCarga_N.GetSemanalHoursDocenciaF11Negocio(idCarga.ToString());
-            horasSemanalesGestion = numSemanasSemestre * objCarga_N.GetSemanalHoursGestionNegocio(idCarga.ToString());
-            horasSemanalesInvestigacion = numSemanasSemestre * objCarga_N.GetSemanalHoursInvestigacionNegocio(idCarga.ToString());
-            //Obtencion de horas totales de actividades
-            horasTotalesGestion = objCarga_N.GetTotalHoursGestionNegocio(idCarga.ToString());
-            horasTotalesDocenciaD11 = objCarga_N.GetTotalHoursDocenciaD11Negocio(idCarga.ToString());
-            horasTotalesDocenciaF11 = objCarga_N.GetTotalHoursDocenciaF11Negocio(idCarga.ToString());
-            horasTotalesInvestigacion = objCarga_N.GetTotalHoursInvestigacionNegocio(idCarga.ToString());
-            int horasTotalesByActTotalHour = horasTotalesInvestigacion + horasTotalesGestion + horasTotalesDocenciaD11 + horasTotalesDocenciaF11;
-            horasTotalesDocenciaT = horasSemanalesDocenciaD11 + horasSemanalesClases + horasSemanalesDocenciaF11;
-            horasTotalesCargaHoraria = horasTotalesDocenciaT + horasSemanalesGestion +
-                horasSemanalesInvestigacion + horasTotalesByActTotalHour;
-        }
+        
     }
 }

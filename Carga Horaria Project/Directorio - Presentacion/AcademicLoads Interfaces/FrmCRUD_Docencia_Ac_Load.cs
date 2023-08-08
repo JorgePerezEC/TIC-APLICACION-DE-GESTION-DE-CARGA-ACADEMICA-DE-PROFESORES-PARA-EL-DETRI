@@ -55,7 +55,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
             dgLstRegistrosD11.DataSource = null;
             dgLstRegistrosD11.DataSource = objetoCNegocio.LoadActividadesD11_Negocio(idAcLoadLocal.ToString());
             dgLstRegistrosD11.Columns[0].Visible = false;
-            dgLstRegistrosD11.Columns[3].Visible = false;
+            //dgLstRegistrosD11.Columns[3].Visible = false;
 
             if (countBtnsD < 1)
             {

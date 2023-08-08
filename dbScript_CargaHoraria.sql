@@ -1426,12 +1426,12 @@ BEGIN
 END
 GO
 -- Stored Procedure to Read all Asignaturas from a Specifica Academic Load from tblAsigCrgHoraria
-CREATE PROCEDURE [dbo].[spReadAllCargaAsignaturas]
+CREATE OR ALTER PROCEDURE [dbo].[spReadAllCargaAsignaturas]
 @idCrgHoraria int
 AS
 BEGIN 
-	SELECT interAsig.idAsigCrgHoraria AS ID,gr.grupoAsignatura as GR,asig.nombreAsignatura AS 'Asignatura',
-		asig.horasAsignaturaSemanales AS 'Horas Semanales', asig.horasAsignaturaTotales AS 'Horas Totales'
+	SELECT interAsig.idAsigCrgHoraria AS ID,asig.tipoAsignatura AS TIPO,ASIG.codigoAsignatura as CÓDIGO,gr.grupoAsignatura as GR,asig.nombreAsignatura AS 'ASIGNATURA',
+		asig.horasAsignaturaSemanales AS 'HORAS SEMANALES', asig.horasAsignaturaTotales AS 'HORAS TOTALES'
 	FROM   tblAsigCrgHoraria interAsig
 	INNER JOIN tblGrAsignatura gr on interAsig.idGrAsig = gr.idGrAsig
 	INNER JOIN tblAsignatura asig  on gr.idAsignatura = asig.idAsignatura
@@ -2091,10 +2091,16 @@ AS
 BEGIN
 	DECLARE @id_CargaH INT;
 	DECLARE @horasSemanalesAsignaturas INT;
+	DECLARE @horasTotalesAsigModulares INT;
 	DECLARE @horaSemana1 INT;
 	DECLARE @horaSemana2 INT;
 	DECLARE @horaSemana3 INT;
 	DECLARE @horaSemana4 INT;
+
+	DECLARE @horaSemana1Mod INT;
+	DECLARE @horaSemana2Mod INT;
+	DECLARE @horaSemana3Mod INT;
+	DECLARE @horaSemana4Mod INT;
 	-- Se recupera el id de la Carga Horaria
     SELECT @id_CargaH = idCrgHoraria
     FROM inserted;
@@ -2106,6 +2112,12 @@ BEGIN
 	INNER JOIN tblAsignatura asig on gr.idAsignatura = asig.idAsignatura
 	WHERE (interAsig.idCrgHoraria = @id_CargaH AND (asig.tipoAsignatura='Semestral'));
 
+	SELECT @horasTotalesAsigModulares = COALESCE(SUM(asig.horasAsignaturaTotales),0)
+	FROM   tblAsigCrgHoraria interAsig
+	INNER JOIN tblGrAsignatura gr  on interAsig.idGrAsig = gr.idGrAsig
+	INNER JOIN tblAsignatura asig on gr.idAsignatura = asig.idAsignatura
+	WHERE (interAsig.idCrgHoraria = @id_CargaH AND (asig.tipoAsignatura='Modular'));
+	
 	 ---- Se verifica que las actividades 1, 2, 3 y 4 existan en la tabla tblActividadCargas
   --  IF NOT EXISTS (SELECT 1 FROM tblActividadCargas WHERE idCrgHoraria = @id_CargaH AND idActividad IN (1, 2, 3, 4))
   --  BEGIN
@@ -2117,8 +2129,8 @@ BEGIN
 	-- Calcular horas por actividad
     DECLARE @horasPorActividad DECIMAL(10, 2);
     SET @horasPorActividad = CAST(@horasSemanalesAsignaturas / 4.0 AS DECIMAL(10, 2));
-    
-    -- Distribuir horas en variables
+
+	-- Distribuir horas en variables  -SEMESTRALES
 	IF @horasSemanalesAsignaturas > 0
 		BEGIN
 			SET @horaSemana1 = CEILING(@horasPorActividad);
@@ -2137,10 +2149,29 @@ BEGIN
 			SET @horaSemana3 = 0;
 			SET @horaSemana4 = 0;
 		END
-	--PRINT '@horaSemana1 = ' + CAST(@horaSemana1 AS VARCHAR(10));
-	--PRINT '@horaSemana2 = ' + CAST(@horaSemana2 AS VARCHAR(10));
-	--PRINT '@horaSemana3 = ' + CAST(@horaSemana3 AS VARCHAR(10));
-	--PRINT '@horaSemana4 = ' + CAST(@horaSemana4 AS VARCHAR(10));
+
+	DECLARE @horasPorActividadModular DECIMAL(10, 2);
+    SET @horasPorActividadModular = CAST(@horasTotalesAsigModulares / 4.0 AS DECIMAL(10, 2));
+    
+    -- Distribuir horas en variables  -MODULAR
+	IF @horasTotalesAsigModulares > 0
+		BEGIN
+			SET @horaSemana1Mod = CEILING(@horasPorActividadModular);
+			IF @horaSemana1Mod <= 0 SET @horaSemana1Mod = 0;
+			SET @horaSemana2Mod = FLOOR(@horasPorActividadModular);
+			IF @horaSemana2Mod <= 0 SET @horaSemana2Mod = 0;
+			SET @horaSemana3Mod = FLOOR(@horasPorActividadModular);
+			IF @horaSemana3Mod <= 0 SET @horaSemana3Mod = 0;
+			SET @horaSemana4Mod = @horasTotalesAsigModulares - @horaSemana1Mod - @horaSemana2Mod - @horaSemana3Mod;
+			IF @horaSemana4Mod <= 0 SET @horaSemana4Mod = 0;
+		END
+    ELSE
+		BEGIN
+			SET @horaSemana1Mod = 0;
+			SET @horaSemana2Mod = 0;
+			SET @horaSemana3Mod = 0;
+			SET @horaSemana4Mod = 0;
+		END
 
     -- Recalcular horas de actividades de Docencia por defecto
 	UPDATE tblActividadCargas
@@ -2154,6 +2185,20 @@ BEGIN
 	WHERE idCrgHoraria = @id_CargaH AND idActividad = 3
 	UPDATE tblActividadCargas
 	SET horasSemana = @horaSemana4
+	WHERE idCrgHoraria = @id_CargaH AND idActividad = 4
+
+	-- Recalcular horas de actividades de Docencia por defecto PARA ASIG MODULARES
+	UPDATE tblActividadCargas
+	SET horaTotal = @horaSemana1Mod
+	WHERE idCrgHoraria = @id_CargaH AND idActividad = 1
+	UPDATE tblActividadCargas
+	SET horaTotal = @horaSemana2Mod
+	WHERE idCrgHoraria = @id_CargaH AND idActividad = 2
+	UPDATE tblActividadCargas
+	SET horaTotal = @horaSemana3Mod
+	WHERE idCrgHoraria = @id_CargaH AND idActividad = 3
+	UPDATE tblActividadCargas
+	SET horaTotal = @horaSemana4Mod
 	WHERE idCrgHoraria = @id_CargaH AND idActividad = 4
 END;
 --tblAsigCrgHoraria

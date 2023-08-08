@@ -1108,6 +1108,58 @@ namespace Directorio_Datos
                 ObjDataBaseL.CerrarConexion();
             }
         }
+
+        public int GetClasesModularHoursDAL(ClsCargaHoraria _cargaHoraria)
+        {
+            ManejadorDB ObjDataBaseL = new ManejadorDB();
+            try
+            {
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.Connection = ObjDataBaseL.sqlConexion;
+                sqlCommand.CommandText = "spSumCargaClasesModular";
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                sqlCommand.Parameters.AddWithValue("@idCrgHoraria", _cargaHoraria.IdCargaHoraria);
+
+                ObjDataBaseL.AbrirConexion();
+                object scalarValue = sqlCommand.ExecuteScalar();
+                if (Convert.IsDBNull(scalarValue))
+                {
+                    return 0;
+                }
+                else
+                {
+                    int horasGestion = (int)sqlCommand.ExecuteScalar();
+                    return horasGestion;
+                }
+
+
+
+            }
+            catch (SqlException ex)
+            {
+                SqlError err = ex.Errors[0];
+                string mensaje = string.Empty;
+                switch (err.Number)
+                {
+                    case 109:
+                        mensaje = "Problemas con insert"; break;
+                    case 110:
+                        mensaje = "Más problemas con insert"; break;
+                    case 113:
+                        mensaje = "Problemas con comentarios"; break;
+                    case 156:
+                        mensaje = "Error de sintaxis"; break;
+                    default:
+                        mensaje = err.ToString(); break;
+
+                }
+                return -1;
+            }
+            finally
+            {
+                ObjDataBaseL.CerrarConexion();
+            }
+        }
         public int GetGestionSemanalHoursDAL(ClsCargaHoraria _cargaHoraria)
         {
             ManejadorDB ObjDataBaseL = new ManejadorDB();

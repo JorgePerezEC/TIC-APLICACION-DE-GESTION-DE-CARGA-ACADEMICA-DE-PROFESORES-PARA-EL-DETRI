@@ -484,6 +484,15 @@ namespace Directorio_Logica
             int horasTClases = objetoCData.GetClasesSemanalHoursDAL(ObjCargaHoraria);
             return horasTClases;
         }
+        public int GetClasesModularHours_Negocio(string idCargaHoraria)
+        {
+            ClsCargaHoraria ObjCargaHoraria = new ClsCargaHoraria()
+            {
+                IdCargaHoraria = Convert.ToInt32(idCargaHoraria)
+            };
+            int horasTClases = objetoCData.GetClasesModularHoursDAL(ObjCargaHoraria);
+            return horasTClases;
+        }
         //Sum By Semanal Hours
         public int GetSemanalHoursGestionNegocio(string idCargaHoraria)
         {

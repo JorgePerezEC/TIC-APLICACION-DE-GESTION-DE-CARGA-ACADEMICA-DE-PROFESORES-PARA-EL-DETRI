@@ -48,6 +48,7 @@
             this.cmbSemestre = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.btnExportPdf = new System.Windows.Forms.Button();
             this.panelDataShow.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReporte)).BeginInit();
             this.panel1.SuspendLayout();
@@ -60,6 +61,7 @@
             // panelDataShow
             // 
             this.panelDataShow.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(76)))), ((int)(((byte)(146)))));
+            this.panelDataShow.Controls.Add(this.btnExportPdf);
             this.panelDataShow.Controls.Add(this.label14);
             this.panelDataShow.Controls.Add(this.txtFiltro);
             this.panelDataShow.Controls.Add(this.dgvReporte);
@@ -323,6 +325,18 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "REPORTE DE ASIGNATURAS ASIGNADAS EN CARGAS ACADÉMICAS";
             // 
+            // btnExportPdf
+            // 
+            this.btnExportPdf.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.btnExportPdf.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnExportPdf.Location = new System.Drawing.Point(1377, 86);
+            this.btnExportPdf.Name = "btnExportPdf";
+            this.btnExportPdf.Size = new System.Drawing.Size(140, 70);
+            this.btnExportPdf.TabIndex = 18;
+            this.btnExportPdf.Text = "EXPORTAR  EN PDF";
+            this.btnExportPdf.UseVisualStyleBackColor = false;
+            this.btnExportPdf.Click += new System.EventHandler(this.btnExportPdf_Click);
+            // 
             // FrmReporteAsignaturas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -374,5 +388,6 @@
         private RadioButton rbGRAsignados;
         private RadioButton rbGRNoAsignados;
         private TextBox txtFiltro;
+        private Button btnExportPdf;
     }
 }

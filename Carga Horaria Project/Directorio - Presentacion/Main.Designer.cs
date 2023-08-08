@@ -124,7 +124,7 @@
             this.btnReporteActividades.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
             this.btnReporteActividades.Size = new System.Drawing.Size(262, 53);
             this.btnReporteActividades.TabIndex = 3;
-            this.btnReporteActividades.Text = "Reporte de Actividades asignadas a Cargas Académicas";
+            this.btnReporteActividades.Text = "REPORTE DE ACTIVIDADES ASIGNADAS A CARGAS";
             this.btnReporteActividades.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnReporteActividades.UseVisualStyleBackColor = false;
             this.btnReporteActividades.Click += new System.EventHandler(this.btnReporteActividades_Click);
@@ -142,7 +142,7 @@
             this.btnReporteAsignaturas.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
             this.btnReporteAsignaturas.Size = new System.Drawing.Size(262, 53);
             this.btnReporteAsignaturas.TabIndex = 2;
-            this.btnReporteAsignaturas.Text = "Reporte de Asignaturas asignadas a Cargas Académicas";
+            this.btnReporteAsignaturas.Text = "REPORTE DE ASIGNATURAS ASIGNADAS A CARGAS";
             this.btnReporteAsignaturas.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnReporteAsignaturas.UseVisualStyleBackColor = false;
             this.btnReporteAsignaturas.Click += new System.EventHandler(this.btnReporteAsignaturas_Click);
@@ -160,7 +160,7 @@
             this.btnReporteComisiones.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
             this.btnReporteComisiones.Size = new System.Drawing.Size(262, 53);
             this.btnReporteComisiones.TabIndex = 1;
-            this.btnReporteComisiones.Text = "Reporte de Cargas por Comisiones";
+            this.btnReporteComisiones.Text = "REPORTE DE CARGAS POR COMISIONES";
             this.btnReporteComisiones.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnReporteComisiones.UseVisualStyleBackColor = false;
             this.btnReporteComisiones.Click += new System.EventHandler(this.btnReporteComisiones_Click);
@@ -178,7 +178,7 @@
             this.btnReporteDocentesCargas.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
             this.btnReporteDocentesCargas.Size = new System.Drawing.Size(262, 53);
             this.btnReporteDocentesCargas.TabIndex = 0;
-            this.btnReporteDocentesCargas.Text = "Reporte de Cargas Académicas de Docentes";
+            this.btnReporteDocentesCargas.Text = "REPORTE DE CARGAS ACADÉMICAS DE DOCENTES";
             this.btnReporteDocentesCargas.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnReporteDocentesCargas.UseVisualStyleBackColor = false;
             this.btnReporteDocentesCargas.Click += new System.EventHandler(this.btnReporteDocentesCargas_Click);
@@ -196,7 +196,7 @@
             this.btnReportesMain.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.btnReportesMain.Size = new System.Drawing.Size(262, 60);
             this.btnReportesMain.TabIndex = 5;
-            this.btnReportesMain.Text = "Reportes";
+            this.btnReportesMain.Text = "REPORTES";
             this.btnReportesMain.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnReportesMain.UseVisualStyleBackColor = false;
             this.btnReportesMain.Click += new System.EventHandler(this.btnReportesMain_Click);
@@ -234,7 +234,7 @@
             this.btnGestionSemestres.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
             this.btnGestionSemestres.Size = new System.Drawing.Size(262, 53);
             this.btnGestionSemestres.TabIndex = 8;
-            this.btnGestionSemestres.Text = "Gestión de Semestres";
+            this.btnGestionSemestres.Text = "GESTIÓN DE SEMESTRES";
             this.btnGestionSemestres.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnGestionSemestres.UseVisualStyleBackColor = false;
             this.btnGestionSemestres.Click += new System.EventHandler(this.btnGestionSemestres_Click);
@@ -278,7 +278,7 @@
             this.btnTpDocentes.Padding = new System.Windows.Forms.Padding(45, 0, 0, 0);
             this.btnTpDocentes.Size = new System.Drawing.Size(262, 47);
             this.btnTpDocentes.TabIndex = 2;
-            this.btnTpDocentes.Text = "Tipo de Docentes";
+            this.btnTpDocentes.Text = "TIPO DE DOCENTES";
             this.btnTpDocentes.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnTpDocentes.UseVisualStyleBackColor = false;
             this.btnTpDocentes.Click += new System.EventHandler(this.btnTpDocentes_Click);
@@ -294,7 +294,7 @@
             this.btnDocentes.Padding = new System.Windows.Forms.Padding(45, 0, 0, 0);
             this.btnDocentes.Size = new System.Drawing.Size(262, 47);
             this.btnDocentes.TabIndex = 1;
-            this.btnDocentes.Text = "Docentes";
+            this.btnDocentes.Text = "DOCENTES";
             this.btnDocentes.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnDocentes.UseVisualStyleBackColor = false;
             this.btnDocentes.Click += new System.EventHandler(this.btnDocentes_Click);
@@ -312,7 +312,7 @@
             this.btnGestionDocentes.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
             this.btnGestionDocentes.Size = new System.Drawing.Size(262, 53);
             this.btnGestionDocentes.TabIndex = 6;
-            this.btnGestionDocentes.Text = "Gestión de Docentes";
+            this.btnGestionDocentes.Text = "GESTIÓN DE DOCENTES";
             this.btnGestionDocentes.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnGestionDocentes.UseVisualStyleBackColor = false;
             this.btnGestionDocentes.Click += new System.EventHandler(this.btnGestionDocentes_Click);
@@ -330,7 +330,7 @@
             this.btnGestionDepartamentos.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
             this.btnGestionDepartamentos.Size = new System.Drawing.Size(262, 53);
             this.btnGestionDepartamentos.TabIndex = 5;
-            this.btnGestionDepartamentos.Text = "Gestión de Departamentos";
+            this.btnGestionDepartamentos.Text = "GESTIÓN DE DEPARTAMENTOS";
             this.btnGestionDepartamentos.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnGestionDepartamentos.UseVisualStyleBackColor = false;
             this.btnGestionDepartamentos.Click += new System.EventHandler(this.btnGestionDepartamentos_Click);
@@ -348,7 +348,7 @@
             this.btnGestionCarreras.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
             this.btnGestionCarreras.Size = new System.Drawing.Size(262, 53);
             this.btnGestionCarreras.TabIndex = 4;
-            this.btnGestionCarreras.Text = "Gestión de Carreras";
+            this.btnGestionCarreras.Text = "GESTIÓN DE CARRERAS";
             this.btnGestionCarreras.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnGestionCarreras.UseVisualStyleBackColor = false;
             this.btnGestionCarreras.Click += new System.EventHandler(this.btnGestionCarreras_Click);
@@ -376,7 +376,7 @@
             this.btnHorarios.Padding = new System.Windows.Forms.Padding(45, 0, 0, 0);
             this.btnHorarios.Size = new System.Drawing.Size(262, 47);
             this.btnHorarios.TabIndex = 3;
-            this.btnHorarios.Text = "Horarios";
+            this.btnHorarios.Text = "HORARIOS";
             this.btnHorarios.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnHorarios.UseVisualStyleBackColor = false;
             this.btnHorarios.Click += new System.EventHandler(this.btnHorarios_Click);
@@ -392,7 +392,7 @@
             this.btnGrupoAsig.Padding = new System.Windows.Forms.Padding(45, 0, 0, 0);
             this.btnGrupoAsig.Size = new System.Drawing.Size(262, 47);
             this.btnGrupoAsig.TabIndex = 2;
-            this.btnGrupoAsig.Text = "GRs";
+            this.btnGrupoAsig.Text = "CURSOS O GRs";
             this.btnGrupoAsig.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnGrupoAsig.UseVisualStyleBackColor = false;
             this.btnGrupoAsig.Click += new System.EventHandler(this.btnGrupoAsig_Click);
@@ -408,7 +408,7 @@
             this.btnAsignaturas.Padding = new System.Windows.Forms.Padding(45, 0, 0, 0);
             this.btnAsignaturas.Size = new System.Drawing.Size(262, 47);
             this.btnAsignaturas.TabIndex = 1;
-            this.btnAsignaturas.Text = "Asignaturas";
+            this.btnAsignaturas.Text = "ASIGNATURAS";
             this.btnAsignaturas.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnAsignaturas.UseVisualStyleBackColor = false;
             this.btnAsignaturas.Click += new System.EventHandler(this.btnAsignaturas_Click);
@@ -426,7 +426,7 @@
             this.btnGestionAsignaturas.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
             this.btnGestionAsignaturas.Size = new System.Drawing.Size(262, 53);
             this.btnGestionAsignaturas.TabIndex = 2;
-            this.btnGestionAsignaturas.Text = "Gestión de Asignaturas";
+            this.btnGestionAsignaturas.Text = "GESTIÓN DE ASIGNATURAS";
             this.btnGestionAsignaturas.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnGestionAsignaturas.UseVisualStyleBackColor = false;
             this.btnGestionAsignaturas.Click += new System.EventHandler(this.btnGestionAsignaturas_Click);
@@ -453,7 +453,7 @@
             this.btnTpActividades.Padding = new System.Windows.Forms.Padding(45, 0, 0, 0);
             this.btnTpActividades.Size = new System.Drawing.Size(262, 47);
             this.btnTpActividades.TabIndex = 2;
-            this.btnTpActividades.Text = "Tipo de Actividades";
+            this.btnTpActividades.Text = "TIPO DE ACTIVIDADES";
             this.btnTpActividades.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnTpActividades.UseVisualStyleBackColor = false;
             this.btnTpActividades.Click += new System.EventHandler(this.btnTpActividades_Click);
@@ -469,7 +469,7 @@
             this.btnActividades.Padding = new System.Windows.Forms.Padding(45, 0, 0, 0);
             this.btnActividades.Size = new System.Drawing.Size(262, 47);
             this.btnActividades.TabIndex = 1;
-            this.btnActividades.Text = "Actividades";
+            this.btnActividades.Text = "ACTIVIDADES";
             this.btnActividades.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnActividades.UseVisualStyleBackColor = false;
             this.btnActividades.Click += new System.EventHandler(this.btnActividades_Click);
@@ -487,7 +487,7 @@
             this.btnGestionActividades.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
             this.btnGestionActividades.Size = new System.Drawing.Size(262, 53);
             this.btnGestionActividades.TabIndex = 0;
-            this.btnGestionActividades.Text = "Gestión de Actividades";
+            this.btnGestionActividades.Text = "GESTIÓN DE ACTIVIDADES";
             this.btnGestionActividades.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnGestionActividades.UseVisualStyleBackColor = false;
             this.btnGestionActividades.Click += new System.EventHandler(this.btnGestionActividades_Click);
@@ -505,7 +505,7 @@
             this.btnGestion.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.btnGestion.Size = new System.Drawing.Size(262, 60);
             this.btnGestion.TabIndex = 3;
-            this.btnGestion.Text = "Gestionar Datos";
+            this.btnGestion.Text = "GESTIONAR DATOS";
             this.btnGestion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnGestion.UseVisualStyleBackColor = false;
             this.btnGestion.Click += new System.EventHandler(this.btnGestion_Click);
@@ -537,7 +537,7 @@
             this.btnHabilitarAsignaturas.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
             this.btnHabilitarAsignaturas.Size = new System.Drawing.Size(262, 53);
             this.btnHabilitarAsignaturas.TabIndex = 3;
-            this.btnHabilitarAsignaturas.Text = "Habilitar Asignaturas";
+            this.btnHabilitarAsignaturas.Text = "HABILITAR ASIGNATURAS";
             this.btnHabilitarAsignaturas.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnHabilitarAsignaturas.UseVisualStyleBackColor = false;
             this.btnHabilitarAsignaturas.Click += new System.EventHandler(this.btnHabilitarAsignaturas_Click);
@@ -555,7 +555,7 @@
             this.btnHabilitarDocentes.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
             this.btnHabilitarDocentes.Size = new System.Drawing.Size(262, 53);
             this.btnHabilitarDocentes.TabIndex = 2;
-            this.btnHabilitarDocentes.Text = "Habilitar Docentes";
+            this.btnHabilitarDocentes.Text = "HABILITAR DOCENTES";
             this.btnHabilitarDocentes.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnHabilitarDocentes.UseVisualStyleBackColor = false;
             this.btnHabilitarDocentes.Click += new System.EventHandler(this.btnHabilitarDocentes_Click);
@@ -573,7 +573,7 @@
             this.btnGestionarCargas.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
             this.btnGestionarCargas.Size = new System.Drawing.Size(262, 53);
             this.btnGestionarCargas.TabIndex = 1;
-            this.btnGestionarCargas.Text = "Visualizar Cargas Académicas";
+            this.btnGestionarCargas.Text = "VISUALIZAR CARGAS ACADÉMICAS";
             this.btnGestionarCargas.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnGestionarCargas.UseVisualStyleBackColor = false;
             this.btnGestionarCargas.Click += new System.EventHandler(this.btnGestionarCargas_Click);
@@ -591,7 +591,7 @@
             this.btnCrearCargaAcademica.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
             this.btnCrearCargaAcademica.Size = new System.Drawing.Size(262, 53);
             this.btnCrearCargaAcademica.TabIndex = 0;
-            this.btnCrearCargaAcademica.Text = "Crear Carga Académica";
+            this.btnCrearCargaAcademica.Text = "CREAR CARGA ACADÉMICA";
             this.btnCrearCargaAcademica.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnCrearCargaAcademica.UseVisualStyleBackColor = false;
             this.btnCrearCargaAcademica.Click += new System.EventHandler(this.btnCrearCargaAcademica_Click);
@@ -609,7 +609,7 @@
             this.btnAdminCargas.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.btnAdminCargas.Size = new System.Drawing.Size(262, 60);
             this.btnAdminCargas.TabIndex = 1;
-            this.btnAdminCargas.Text = "Administrar Cargas";
+            this.btnAdminCargas.Text = "ADMINISTRAR CARGAS";
             this.btnAdminCargas.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnAdminCargas.UseVisualStyleBackColor = false;
             this.btnAdminCargas.Click += new System.EventHandler(this.btnAdminCargas_Click);
@@ -628,11 +628,12 @@
             // 
             this.label1.Font = new System.Drawing.Font("Roboto", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label1.Location = new System.Drawing.Point(33, 12);
+            this.label1.Location = new System.Drawing.Point(11, 8);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(201, 105);
+            this.label1.Size = new System.Drawing.Size(248, 105);
             this.label1.TabIndex = 0;
-            this.label1.Text = "DETRI - Administrador de Cargas Horarias";
+            this.label1.Text = "DETRI ADMINISTRADOR DE CARGAS HORARIAS";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panel2
             // 
@@ -660,9 +661,9 @@
             this.pixtbxLogo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pixtbxLogo.Location = new System.Drawing.Point(329, 98);
+            this.pixtbxLogo.Location = new System.Drawing.Point(206, 83);
             this.pixtbxLogo.Name = "pixtbxLogo";
-            this.pixtbxLogo.Size = new System.Drawing.Size(794, 706);
+            this.pixtbxLogo.Size = new System.Drawing.Size(877, 764);
             this.pixtbxLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pixtbxLogo.TabIndex = 0;
             this.pixtbxLogo.TabStop = false;
@@ -678,7 +679,8 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Administrador de Cargas Académicas";
+            this.Tag = "DETRI ACA";
+            this.Text = "ADMIN - CARGAS ACADÉMICAS";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Main_Load);
             this.panelMenuLateral.ResumeLayout(false);

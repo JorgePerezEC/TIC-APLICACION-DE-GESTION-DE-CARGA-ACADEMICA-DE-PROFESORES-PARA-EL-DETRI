@@ -31,9 +31,18 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.lstBoxAsignaturas = new System.Windows.Forms.ListBox();
+            this.tblPanelFiltros = new System.Windows.Forms.TableLayoutPanel();
+            this.rbTodo = new System.Windows.Forms.RadioButton();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.cmbCarreras = new System.Windows.Forms.ComboBox();
+            this.txtCodeFilter = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.panelGR = new System.Windows.Forms.Panel();
-            this.label6 = new System.Windows.Forms.Label();
             this.txtCode = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.btnAddGR = new System.Windows.Forms.Button();
             this.cmbGR = new System.Windows.Forms.ComboBox();
             this.btnAgregar = new System.Windows.Forms.Button();
@@ -47,6 +56,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.tblPanelFiltros.SuspendLayout();
             this.panelGR.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -57,7 +67,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(960, 83);
+            this.panel1.Size = new System.Drawing.Size(956, 83);
             this.panel1.TabIndex = 0;
             // 
             // label1
@@ -73,6 +83,9 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.LightBlue;
+            this.panel2.Controls.Add(this.lstBoxAsignaturas);
+            this.panel2.Controls.Add(this.tblPanelFiltros);
+            this.panel2.Controls.Add(this.label7);
             this.panel2.Controls.Add(this.panelGR);
             this.panel2.Controls.Add(this.btnCancelar);
             this.panel2.Controls.Add(this.cmbAsignatura);
@@ -80,13 +93,125 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 83);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(960, 367);
+            this.panel2.Size = new System.Drawing.Size(956, 607);
             this.panel2.TabIndex = 1;
+            // 
+            // lstBoxAsignaturas
+            // 
+            this.lstBoxAsignaturas.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.lstBoxAsignaturas.FormattingEnabled = true;
+            this.lstBoxAsignaturas.ItemHeight = 20;
+            this.lstBoxAsignaturas.Location = new System.Drawing.Point(304, 178);
+            this.lstBoxAsignaturas.Name = "lstBoxAsignaturas";
+            this.lstBoxAsignaturas.Size = new System.Drawing.Size(570, 144);
+            this.lstBoxAsignaturas.TabIndex = 5;
+            // 
+            // tblPanelFiltros
+            // 
+            this.tblPanelFiltros.BackColor = System.Drawing.Color.LightCyan;
+            this.tblPanelFiltros.ColumnCount = 2;
+            this.tblPanelFiltros.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.tblPanelFiltros.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
+            this.tblPanelFiltros.Controls.Add(this.rbTodo, 1, 0);
+            this.tblPanelFiltros.Controls.Add(this.label8, 0, 0);
+            this.tblPanelFiltros.Controls.Add(this.label9, 0, 1);
+            this.tblPanelFiltros.Controls.Add(this.label10, 0, 2);
+            this.tblPanelFiltros.Controls.Add(this.cmbCarreras, 1, 1);
+            this.tblPanelFiltros.Controls.Add(this.txtCodeFilter, 1, 2);
+            this.tblPanelFiltros.Location = new System.Drawing.Point(304, 6);
+            this.tblPanelFiltros.Name = "tblPanelFiltros";
+            this.tblPanelFiltros.RowCount = 3;
+            this.tblPanelFiltros.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tblPanelFiltros.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tblPanelFiltros.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tblPanelFiltros.Size = new System.Drawing.Size(456, 104);
+            this.tblPanelFiltros.TabIndex = 10;
+            // 
+            // rbTodo
+            // 
+            this.rbTodo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.rbTodo.AutoSize = true;
+            this.rbTodo.Checked = true;
+            this.rbTodo.Location = new System.Drawing.Point(185, 3);
+            this.rbTodo.Name = "rbTodo";
+            this.rbTodo.Size = new System.Drawing.Size(268, 28);
+            this.rbTodo.TabIndex = 1;
+            this.rbTodo.TabStop = true;
+            this.rbTodo.UseVisualStyleBackColor = true;
+            this.rbTodo.CheckedChanged += new System.EventHandler(this.rbTodo_CheckedChanged);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.BackColor = System.Drawing.Color.Transparent;
+            this.label8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label8.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label8.Location = new System.Drawing.Point(3, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(176, 34);
+            this.label8.TabIndex = 1;
+            this.label8.Text = "Mostrar todas";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label9.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label9.Location = new System.Drawing.Point(3, 34);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(176, 34);
+            this.label9.TabIndex = 2;
+            this.label9.Text = "Por Carrera";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label10.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label10.Location = new System.Drawing.Point(3, 68);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(176, 36);
+            this.label10.TabIndex = 3;
+            this.label10.Text = "Por código";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // cmbCarreras
+            // 
+            this.cmbCarreras.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.cmbCarreras.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cmbCarreras.FormattingEnabled = true;
+            this.cmbCarreras.Location = new System.Drawing.Point(185, 37);
+            this.cmbCarreras.Name = "cmbCarreras";
+            this.cmbCarreras.Size = new System.Drawing.Size(268, 28);
+            this.cmbCarreras.TabIndex = 2;
+            this.cmbCarreras.SelectedIndexChanged += new System.EventHandler(this.cmbCarreras_SelectedIndexChanged);
+            // 
+            // txtCodeFilter
+            // 
+            this.txtCodeFilter.Location = new System.Drawing.Point(185, 71);
+            this.txtCodeFilter.Name = "txtCodeFilter";
+            this.txtCodeFilter.Size = new System.Drawing.Size(268, 27);
+            this.txtCodeFilter.TabIndex = 3;
+            this.txtCodeFilter.TextChanged += new System.EventHandler(this.txtCodeFilter_TextChanged);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label7.Location = new System.Drawing.Point(47, 13);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(211, 28);
+            this.label7.TabIndex = 9;
+            this.label7.Text = "Filtro de asignaturas:";
             // 
             // panelGR
             // 
-            this.panelGR.Controls.Add(this.label6);
             this.panelGR.Controls.Add(this.txtCode);
+            this.panelGR.Controls.Add(this.label6);
             this.panelGR.Controls.Add(this.btnAddGR);
             this.panelGR.Controls.Add(this.cmbGR);
             this.panelGR.Controls.Add(this.btnAgregar);
@@ -95,11 +220,20 @@
             this.panelGR.Controls.Add(this.txtNivel);
             this.panelGR.Controls.Add(this.txtType);
             this.panelGR.Controls.Add(this.label4);
-            this.panelGR.Location = new System.Drawing.Point(20, 88);
+            this.panelGR.Location = new System.Drawing.Point(12, 347);
             this.panelGR.Name = "panelGR";
             this.panelGR.Size = new System.Drawing.Size(781, 248);
             this.panelGR.TabIndex = 8;
             this.panelGR.Visible = false;
+            // 
+            // txtCode
+            // 
+            this.txtCode.Enabled = false;
+            this.txtCode.Location = new System.Drawing.Point(284, 7);
+            this.txtCode.Name = "txtCode";
+            this.txtCode.Size = new System.Drawing.Size(248, 27);
+            this.txtCode.TabIndex = 12;
+            this.txtCode.TabStop = false;
             // 
             // label6
             // 
@@ -111,14 +245,6 @@
             this.label6.TabIndex = 11;
             this.label6.Text = "Código de asignatura:";
             // 
-            // txtCode
-            // 
-            this.txtCode.Enabled = false;
-            this.txtCode.Location = new System.Drawing.Point(284, 3);
-            this.txtCode.Name = "txtCode";
-            this.txtCode.Size = new System.Drawing.Size(248, 27);
-            this.txtCode.TabIndex = 12;
-            // 
             // btnAddGR
             // 
             this.btnAddGR.BackColor = System.Drawing.Color.Beige;
@@ -128,7 +254,7 @@
             this.btnAddGR.Location = new System.Drawing.Point(571, 131);
             this.btnAddGR.Name = "btnAddGR";
             this.btnAddGR.Size = new System.Drawing.Size(140, 37);
-            this.btnAddGR.TabIndex = 10;
+            this.btnAddGR.TabIndex = 8;
             this.btnAddGR.Text = "Agregar GR";
             this.btnAddGR.UseVisualStyleBackColor = false;
             this.btnAddGR.Click += new System.EventHandler(this.btnAddGR_Click);
@@ -142,7 +268,7 @@
             this.cmbGR.Location = new System.Drawing.Point(284, 135);
             this.cmbGR.Name = "cmbGR";
             this.cmbGR.Size = new System.Drawing.Size(249, 28);
-            this.cmbGR.TabIndex = 9;
+            this.cmbGR.TabIndex = 7;
             this.cmbGR.SelectedIndexChanged += new System.EventHandler(this.cmbGR_SelectedIndexChanged);
             // 
             // btnAgregar
@@ -154,7 +280,7 @@
             this.btnAgregar.Location = new System.Drawing.Point(614, 198);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(140, 37);
-            this.btnAgregar.TabIndex = 2;
+            this.btnAgregar.TabIndex = 9;
             this.btnAgregar.Text = "Agregar";
             this.btnAgregar.UseVisualStyleBackColor = false;
             this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
@@ -185,6 +311,7 @@
             this.txtNivel.Name = "txtNivel";
             this.txtNivel.Size = new System.Drawing.Size(248, 27);
             this.txtNivel.TabIndex = 7;
+            this.txtNivel.TabStop = false;
             // 
             // txtType
             // 
@@ -193,6 +320,7 @@
             this.txtType.Name = "txtType";
             this.txtType.Size = new System.Drawing.Size(248, 27);
             this.txtType.TabIndex = 5;
+            this.txtType.TabStop = false;
             // 
             // label4
             // 
@@ -210,10 +338,10 @@
             this.btnCancelar.FlatAppearance.BorderSize = 0;
             this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelar.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnCancelar.Location = new System.Drawing.Point(807, 286);
+            this.btnCancelar.Location = new System.Drawing.Point(799, 545);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(140, 37);
-            this.btnCancelar.TabIndex = 3;
+            this.btnCancelar.TabIndex = 12;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = false;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
@@ -223,17 +351,18 @@
             this.cmbAsignatura.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.cmbAsignatura.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cmbAsignatura.FormattingEnabled = true;
-            this.cmbAsignatura.Location = new System.Drawing.Point(304, 30);
+            this.cmbAsignatura.Location = new System.Drawing.Point(304, 124);
             this.cmbAsignatura.Name = "cmbAsignatura";
             this.cmbAsignatura.Size = new System.Drawing.Size(570, 28);
-            this.cmbAsignatura.TabIndex = 1;
+            this.cmbAsignatura.TabIndex = 4;
             this.cmbAsignatura.SelectedIndexChanged += new System.EventHandler(this.cmbAsignatura_SelectedIndexChanged);
+            this.cmbAsignatura.TextChanged += new System.EventHandler(this.cmbAsignatura_TextChanged);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label2.Location = new System.Drawing.Point(38, 26);
+            this.label2.Location = new System.Drawing.Point(38, 120);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(246, 28);
             this.label2.TabIndex = 0;
@@ -243,11 +372,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(960, 450);
+            this.ClientSize = new System.Drawing.Size(956, 690);
             this.ControlBox = false;
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "FrmCUAsignatura_AL";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -259,6 +388,8 @@
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.tblPanelFiltros.ResumeLayout(false);
+            this.tblPanelFiltros.PerformLayout();
             this.panelGR.ResumeLayout(false);
             this.panelGR.PerformLayout();
             this.ResumeLayout(false);
@@ -283,6 +414,15 @@
         private Label label5;
         private Button btnAddGR;
         private Label label6;
+        private TableLayoutPanel tblPanelFiltros;
+        private RadioButton rbTodo;
+        private Label label8;
+        private Label label7;
         private TextBox txtCode;
+        private Label label9;
+        private Label label10;
+        private ComboBox cmbCarreras;
+        private TextBox txtCodeFilter;
+        private ListBox lstBoxAsignaturas;
     }
 }

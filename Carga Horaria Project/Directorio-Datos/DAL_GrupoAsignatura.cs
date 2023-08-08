@@ -126,13 +126,13 @@ namespace Directorio_Datos
             ObjDataBase.CerrarConexion();
             return tabla;
         }
-        public DataTable MostrarGruposPorAsignatura(string nameAsignatura)
+        public DataTable MostrarGruposPorAsignatura(string idAsignatura)
         {
             comando.Connection = ObjDataBase.sqlConexion;
             comando.CommandText = "spReadAllGroupsByAsig";
             comando.CommandType = CommandType.StoredProcedure;
 
-            comando.Parameters.AddWithValue("@nameAsignatura", nameAsignatura);
+            comando.Parameters.AddWithValue("@idAsignatura", idAsignatura);
 
             ObjDataBase.AbrirConexion();
             leer = comando.ExecuteReader();
@@ -192,7 +192,7 @@ namespace Directorio_Datos
                 sqlCommand.Connection = ObjDataBaseL.sqlConexion;
                 sqlCommand.CommandText = "spGetLevelAsignatura";
                 sqlCommand.CommandType = CommandType.StoredProcedure;
-                sqlCommand.Parameters.AddWithValue("@nameAsignatura", _asignatura.NombreAsignatura);
+                sqlCommand.Parameters.AddWithValue("@idAsignatura", _asignatura.IdAsignatura);
 
                 ObjDataBaseL.AbrirConexion();
                 string level = sqlCommand.ExecuteScalar().ToString();
@@ -234,7 +234,7 @@ namespace Directorio_Datos
                 sqlCommand.Connection = ObjDataBaseL.sqlConexion;
                 sqlCommand.CommandText = "spGetTypeAsignatura";
                 sqlCommand.CommandType = CommandType.StoredProcedure;
-                sqlCommand.Parameters.AddWithValue("@nameAsignatura", _asignatura.NombreAsignatura);
+                sqlCommand.Parameters.AddWithValue("@idAsignatura", _asignatura.IdAsignatura);
 
                 ObjDataBaseL.AbrirConexion();
                 string level = sqlCommand.ExecuteScalar().ToString();
@@ -276,7 +276,7 @@ namespace Directorio_Datos
                 sqlCommand.Connection = ObjDataBaseL.sqlConexion;
                 sqlCommand.CommandText = "spGetCodeAsignatura";
                 sqlCommand.CommandType = CommandType.StoredProcedure;
-                sqlCommand.Parameters.AddWithValue("@nameAsignatura", _asignatura.NombreAsignatura);
+                sqlCommand.Parameters.AddWithValue("@idAsignatura", _asignatura.IdAsignatura);
 
                 ObjDataBaseL.AbrirConexion();
                 string code = sqlCommand.ExecuteScalar().ToString();

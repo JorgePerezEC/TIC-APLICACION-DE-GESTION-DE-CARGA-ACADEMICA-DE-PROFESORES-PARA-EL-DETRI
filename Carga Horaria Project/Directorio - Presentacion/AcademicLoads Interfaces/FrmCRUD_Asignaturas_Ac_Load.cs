@@ -103,17 +103,17 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
 
         private void dgLstRegistros_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == 5 && e.RowIndex >= 0)
+            if (e.ColumnIndex == 7 && e.RowIndex >= 0)
             {
                 Editar = true;
                 idAsigCarga = Convert.ToInt32(dgLstRegistros.Rows[e.RowIndex].Cells["ID"].Value);
                 FrmCUAsignatura_AL frm = new FrmCUAsignatura_AL(idAcLoadLocal, Editar, idSemestreL);
-                AsignaturaName = dgLstRegistros.Rows[e.RowIndex].Cells[2].Value.ToString();
-                GrName = dgLstRegistros.Rows[e.RowIndex].Cells[1].Value.ToString();
+                AsignaturaName = dgLstRegistros.Rows[e.RowIndex].Cells[4].Value.ToString();
+                GrName = dgLstRegistros.Rows[e.RowIndex].Cells[3].Value.ToString();
                 frm.ShowDialog();
                 Editar = false;
             }
-            else if (e.ColumnIndex == 6 && e.RowIndex >= 0)
+            else if (e.ColumnIndex == 8 && e.RowIndex >= 0)
             {
                 DialogResult result = MessageBox.Show("¿Está seguro que desea eliminar el registro?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 

@@ -19,10 +19,10 @@ namespace Directorio_Logica
             tabla = objetoCData.MostrarAllRegistros();
             return tabla;
         }
-        public DataTable MostrarGruposPorAsignatura_Negocio(string nameAsignatura)
+        public DataTable MostrarGruposPorAsignatura_Negocio(string idAsignatuar)
         {
             DataTable tabla = new DataTable();
-            tabla = objetoCData.MostrarGruposPorAsignatura(nameAsignatura);
+            tabla = objetoCData.MostrarGruposPorAsignatura(idAsignatuar);
             return tabla;
         }
 
@@ -106,29 +106,29 @@ namespace Directorio_Logica
             int idCargHoraria = objetoCData.GetIdGrAsignaturaDAL(ObjGrAsignatura);
             return idCargHoraria;
         }
-        public string GetLvlAsignatura_Negocio(string nameAsignatura)
+        public string GetLvlAsignatura_Negocio(string idAsignatura)
         {
             ClsAsignatura ObjAsignatura = new ClsAsignatura()
             {
-                NombreAsignatura = nameAsignatura
+                IdAsignatura = Convert.ToInt32(idAsignatura),
             };
             string lvlAsignatura = objetoCData.GetAsigLevelByAsigDAL(ObjAsignatura);
             return lvlAsignatura;
         }
-        public string GetTypeAsigByAsig_Negocio(string nameAsignatura)
+        public string GetTypeAsigByAsig_Negocio(string idAsignatura)
         {
             ClsAsignatura ObjAsignatura = new ClsAsignatura()
             {
-                NombreAsignatura = nameAsignatura
+                IdAsignatura = Convert.ToInt32(idAsignatura),
             };
             string typeAsignatura = objetoCData.GetTypeAsigByAsig_DAL(ObjAsignatura);
             return typeAsignatura;
         }
-        public string GetCodeAsigByAsig_Negocio(string nameAsignatura)
+        public string GetCodeAsigByAsig_Negocio(string idAsignatura)
         {
             ClsAsignatura ObjAsignatura = new ClsAsignatura()
             {
-                NombreAsignatura = nameAsignatura
+                IdAsignatura = Convert.ToInt32(idAsignatura),
             };
             string typeAsignatura = objetoCData.GetCodeAsigByAsig_DAL(ObjAsignatura);
             return typeAsignatura;

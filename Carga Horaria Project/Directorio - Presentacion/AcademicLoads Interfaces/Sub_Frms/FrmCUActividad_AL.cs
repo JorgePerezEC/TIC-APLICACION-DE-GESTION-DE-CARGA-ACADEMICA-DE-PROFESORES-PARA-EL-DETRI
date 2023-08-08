@@ -75,6 +75,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
                     if (DataEditLst.ElementAt(1) == "NA")
                     {
                         txtHorasActividad.Text = "0";
+                        cboxHorasTotales.Checked = true;
                     }
                     else
                     {
@@ -83,6 +84,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
                     if (DataEditLst.ElementAt(3) == "NA")
                     {
                         txtHorasTotales.Text = "0";
+                        cboxHorasSemanales.Checked = true;
                     }
                     else
                     {
@@ -104,6 +106,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
                     if (DataEditLst.ElementAt(1) == "NA")
                     {
                         txtHorasActividad.Text = "0";
+                        cboxHorasTotales.Checked = true;
                     }
                     else
                     {
@@ -112,6 +115,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
                     if (DataEditLst.ElementAt(3) == "NA")
                     {
                         txtHorasTotales.Text = "0";
+                        cboxHorasSemanales.Checked = true;
                     }
                     else
                     {
@@ -131,6 +135,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
                     if (DataEditLst.ElementAt(1)=="NA")
                     {
                         txtHorasActividad.Text = "0";
+                        cboxHorasTotales.Checked = true;
                     }
                     else
                     {
@@ -139,6 +144,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
                     if (DataEditLst.ElementAt(3) == "NA")
                     {
                         txtHorasTotales.Text = "0";
+                        cboxHorasSemanales.Checked = true;
                     }
                     else
                     {
@@ -162,6 +168,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
                     if (DataEditLst.ElementAt(1) == "NA")
                     {
                         txtHorasActividad.Text = "0";
+                        cboxHorasTotales.Checked = true;
                     }
                     else
                     {
@@ -170,6 +177,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
                     if (DataEditLst.ElementAt(3) == "NA")
                     {
                         txtHorasTotales.Text = "0";
+                        cboxHorasSemanales.Checked = true;
                     }
                     else
                     {

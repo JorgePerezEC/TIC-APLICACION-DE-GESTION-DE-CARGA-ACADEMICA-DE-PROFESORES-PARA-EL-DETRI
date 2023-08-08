@@ -43,7 +43,7 @@
             // 
             // panelSelector
             // 
-            this.panelSelector.BackColor = System.Drawing.Color.Khaki;
+            this.panelSelector.BackColor = System.Drawing.Color.PowderBlue;
             this.panelSelector.Controls.Add(this.label1);
             this.panelSelector.Controls.Add(this.cmbSemestre);
             this.panelSelector.Controls.Add(this.lblSemestre);
@@ -56,9 +56,9 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Coral;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Roboto Black", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.ForeColor = System.Drawing.Color.Black;
             this.label1.Location = new System.Drawing.Point(39, 18);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(641, 37);
@@ -136,7 +136,7 @@
             this.dgvAsignaturasSemestre.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
             this.dgvAsignaturasSemestre.RowTemplate.Height = 29;
             this.dgvAsignaturasSemestre.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvAsignaturasSemestre.Size = new System.Drawing.Size(1042, 624);
+            this.dgvAsignaturasSemestre.Size = new System.Drawing.Size(1178, 624);
             this.dgvAsignaturasSemestre.TabIndex = 10;
             this.dgvAsignaturasSemestre.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAsignaturasSemestre_CellContentClick);
             // 

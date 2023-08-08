@@ -117,7 +117,7 @@
             this.cboxHorasTotales.Location = new System.Drawing.Point(92, 27);
             this.cboxHorasTotales.Name = "cboxHorasTotales";
             this.cboxHorasTotales.Size = new System.Drawing.Size(18, 17);
-            this.cboxHorasTotales.TabIndex = 4;
+            this.cboxHorasTotales.TabIndex = 3;
             this.cboxHorasTotales.UseVisualStyleBackColor = true;
             this.cboxHorasTotales.CheckedChanged += new System.EventHandler(this.cboxHorasTotales_CheckedChanged);
             // 
@@ -152,7 +152,7 @@
             this.cboxHorasSemanales.Location = new System.Drawing.Point(92, 3);
             this.cboxHorasSemanales.Name = "cboxHorasSemanales";
             this.cboxHorasSemanales.Size = new System.Drawing.Size(18, 17);
-            this.cboxHorasSemanales.TabIndex = 3;
+            this.cboxHorasSemanales.TabIndex = 2;
             this.cboxHorasSemanales.UseVisualStyleBackColor = true;
             this.cboxHorasSemanales.CheckedChanged += new System.EventHandler(this.cboxHorasSemanales_CheckedChanged);
             // 
@@ -183,7 +183,7 @@
             this.txtHorasTotales.Location = new System.Drawing.Point(363, 15);
             this.txtHorasTotales.Name = "txtHorasTotales";
             this.txtHorasTotales.Size = new System.Drawing.Size(248, 34);
-            this.txtHorasTotales.TabIndex = 5;
+            this.txtHorasTotales.TabIndex = 4;
             this.txtHorasTotales.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtHorasTotales_KeyPress);
             // 
             // lblHorasAct
@@ -216,7 +216,7 @@
             this.btnAgregar.Location = new System.Drawing.Point(771, 108);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(156, 41);
-            this.btnAgregar.TabIndex = 2;
+            this.btnAgregar.TabIndex = 5;
             this.btnAgregar.Text = "Agregar";
             this.btnAgregar.UseVisualStyleBackColor = false;
             this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
@@ -230,7 +230,7 @@
             this.btnCancelar.Location = new System.Drawing.Point(984, 210);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(156, 41);
-            this.btnCancelar.TabIndex = 3;
+            this.btnCancelar.TabIndex = 10;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = false;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
@@ -247,7 +247,7 @@
             this.cmbActividad.Location = new System.Drawing.Point(305, 30);
             this.cmbActividad.Name = "cmbActividad";
             this.cmbActividad.Size = new System.Drawing.Size(855, 28);
-            this.cmbActividad.TabIndex = 0;
+            this.cmbActividad.TabIndex = 1;
             this.cmbActividad.SelectedIndexChanged += new System.EventHandler(this.cmbActividad_SelectedIndexChanged);
             // 
             // label2
@@ -280,7 +280,7 @@
             this.btnCrearActividad.Location = new System.Drawing.Point(756, 26);
             this.btnCrearActividad.Name = "btnCrearActividad";
             this.btnCrearActividad.Size = new System.Drawing.Size(384, 41);
-            this.btnCrearActividad.TabIndex = 9;
+            this.btnCrearActividad.TabIndex = 15;
             this.btnCrearActividad.Text = "Crear actividad";
             this.btnCrearActividad.UseVisualStyleBackColor = false;
             this.btnCrearActividad.Click += new System.EventHandler(this.btnCrearActividad_Click);

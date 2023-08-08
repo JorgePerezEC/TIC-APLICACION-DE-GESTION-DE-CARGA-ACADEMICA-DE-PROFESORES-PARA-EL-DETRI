@@ -27,7 +27,9 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
 
         private void Frm_CreateNewActivity_Modal_Load(object sender, EventArgs e)
         {
+            cmbTpActiv.Visible = false;
             ListarTiposActividades();
+            txtTipoActividad.Enabled= false;
             btnGuardar.Text = "&Guardar";
             this.KeyPreview = true;
             txtHorasSemanales.Enabled = false;
@@ -39,6 +41,27 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
             {
                 cmbTpActiv.SelectedIndex = index;
                 cmbTpActiv.Enabled = false;
+                if (index == 1)
+                {
+                    ckboxSemanal.Enabled= false;
+                    ckboxTotal.Checked = true;
+                    txtTipoActividad.Text = "Fuera del 1:1";
+                }
+                else if (index == 2)
+                {
+                    txtTipoActividad.Text = "Investigación";
+                }
+                else if (index == 3)
+                {
+                    txtTipoActividad.Text = "Gestión";
+                }
+                else if (index == 0)
+                {
+                    txtTipoActividad.Text = "Dentro del 1:1";
+                    ckboxTotal.Enabled = false;
+                    ckboxSemanal.Checked = true;
+                    
+                }
             }
         }
 

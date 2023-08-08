@@ -568,12 +568,41 @@ BEGIN
 	--LEFT JOIN tblSemestreAsignatura sa ON a.idAsignatura = sa.idAsignatura
  --   WHERE c.idAsigCrgHoraria IS NULL AND g.grupoAsignatura IS NOT NULL AND sa.isActive = 1
 	--ORDER BY a.nombreAsignatura ASC
-	SELECT DISTINCT a.idAsignatura AS ID, a.nombreAsignatura AS Asignatura
+	SELECT DISTINCT a.idAsignatura AS ID,  CONCAT(a.codigoAsignatura,' - ',a.nombreAsignatura) AS Asignatura
     FROM tblAsignatura a
     INNER JOIN tblGrAsignatura g ON a.idAsignatura = g.idAsignatura
     LEFT JOIN tblAsigCrgHoraria c ON g.idGrAsig = c.idGrAsig
 	LEFT JOIN tblSemestreAsignatura sa ON a.idAsignatura = sa.idAsignatura
     WHERE c.idAsigCrgHoraria IS NULL AND g.grupoAsignatura IS NOT NULL AND sa.isActive = 1 AND sa.idSemestre = @idSemestre
+	ORDER BY Asignatura ASC
+END
+GO
+-- Stored Procedure to Read All Rows from  "tblAsignaturas" where had Groups
+IF OBJECT_ID('spReadAllAsignaturasWGroups_ByCarrera') IS NOT NULL
+BEGIN 
+    DROP PROC [dbo].[spReadAllAsignaturasWGroups_ByCarrera]
+END 
+GO
+CREATE PROC [dbo].[spReadAllAsignaturasWGroups_ByCarrera]
+@idSemestre int,
+@idCarrera int
+AS 
+BEGIN 
+	--SELECT DISTINCT a.idAsignatura AS ID, a.nombreAsignatura AS Asignatura
+ --   FROM tblAsignatura a
+ --   INNER JOIN tblGrAsignatura g ON a.idAsignatura = g.idAsignatura
+ --   LEFT JOIN tblAsigCrgHoraria c ON g.idGrAsig = c.idGrAsig
+	--LEFT JOIN tblSemestreAsignatura sa ON a.idAsignatura = sa.idAsignatura
+ --   WHERE c.idAsigCrgHoraria IS NULL AND g.grupoAsignatura IS NOT NULL AND sa.isActive = 1 AND sa.idSemestre = @idSemestre
+	--AND a.idCarrera = @idCarrera
+	--ORDER BY Asignatura ASC
+	SELECT DISTINCT a.idAsignatura AS ID,   CONCAT(a.codigoAsignatura,' - ',a.nombreAsignatura) AS Asignatura
+    FROM tblAsignatura a
+    INNER JOIN tblGrAsignatura g ON a.idAsignatura = g.idAsignatura
+    LEFT JOIN tblAsigCrgHoraria c ON g.idGrAsig = c.idGrAsig
+	LEFT JOIN tblSemestreAsignatura sa ON a.idAsignatura = sa.idAsignatura
+    WHERE c.idAsigCrgHoraria IS NULL AND g.grupoAsignatura IS NOT NULL AND sa.isActive = 1 AND sa.idSemestre = @idSemestre
+	AND a.idCarrera = @idCarrera
 	ORDER BY Asignatura ASC
 END
 GO
@@ -1333,13 +1362,13 @@ BEGIN
 END 
 GO
 CREATE PROC [dbo].[spReadAllGroupsByAsig]
-	@nameAsignatura varchar(150)
+	@idAsignatura varchar(150)
 AS 
 BEGIN 
     SELECT gr.idAsignatura AS ID, gr.grupoAsignatura AS Grupos
     FROM tblGrAsignatura gr
     INNER JOIN tblAsignatura asg ON gr.idAsignatura = asg.idAsignatura
-    WHERE asg.nombreAsignatura = @nameAsignatura
+    WHERE asg.idAsignatura = @idAsignatura
     AND NOT EXISTS (
         SELECT 1
         FROM tblAsigCrgHoraria ash
@@ -1384,7 +1413,10 @@ AS
 			INNER JOIN tblTipoDocente tp ON std.idTipoDoc = tp.idTipoDocente
 			INNER JOIN tblSemestre sm ON std.idSemestre = sm.idSemestre
 			INNER JOIN tblCargaHoraria ch ON std.idDocente = ch.idDocente
-			WHERE ch.idSemestre = @idSemestre AND doc.idDepa = @idDepa and std.idSemestre = @idSemestre
+			WHERE ch.idSemestre = @idSemestre 
+			AND doc.idDepa = @idDepa 
+			and std.idSemestre = @idSemestre
+			AND std.estadoSemestreDoc = 1
 		) AS subquery
 		GROUP BY ID, Docente, codigoSemestre
 		ORDER BY Docente ASC
@@ -1421,7 +1453,7 @@ BEGIN
 END
 GO
 -- Stored Procedure to Read all Asignaturas from a Specifica Academic Load from tblAsigCrgHoraria
-CREATE PROCEDURE [dbo].[spReadAllCargaAsignaturas]
+CREATE OR ALTER PROCEDURE [dbo].[spReadAllCargaAsignaturas]
 @idCrgHoraria int
 AS
 BEGIN 
@@ -1430,7 +1462,9 @@ BEGIN
 	FROM   tblAsigCrgHoraria interAsig
 	INNER JOIN tblGrAsignatura gr on interAsig.idGrAsig = gr.idGrAsig
 	INNER JOIN tblAsignatura asig  on gr.idAsignatura = asig.idAsignatura
+	INNER JOIN tblSemestreAsignatura sa ON asig.idAsignatura = sa.idAsignatura
 	WHERE idCrgHoraria = @idCrgHoraria
+	AND sa.isActive = 1
 END
 GO
 -- Stored Procedure to Read all Asignaturas from a Specifica Academic Load from tblAsigCrgHoraria
@@ -1730,30 +1764,30 @@ BEGIN
 END
 GO
 -- Stored Procedure to get Asignature Level from tblAsignatura based on Asignature Name
-CREATE PROCEDURE [dbo].[spGetLevelAsignatura]
-@nameAsignatura varchar(250)
+CREATE OR ALTER PROCEDURE [dbo].[spGetLevelAsignatura]
+@idAsignatura int
 AS
 BEGIN 
 	SELECT nivelAsignatura FROM tblAsignatura
-	WHERE nombreAsignatura = @nameAsignatura
+	WHERE idAsignatura = @idAsignatura
 END
 GO
 -- Stored Procedure to get Asignature type from tblAsignatura based on Asignature Name
-CREATE PROCEDURE [dbo].[spGetTypeAsignatura]
-@nameAsignatura varchar(250)
+CREATE OR ALTER PROCEDURE [dbo].[spGetTypeAsignatura]
+@idAsignatura int
 AS
 BEGIN 
 	SELECT tipoAsignatura FROM tblAsignatura
-	WHERE nombreAsignatura = @nameAsignatura
+	WHERE idAsignatura = @idAsignatura
 END
 GO
 -- Stored Procedure to get Asignature Code from tblAsignatura based on Asignature Name
-CREATE PROCEDURE [dbo].[spGetCodeAsignatura]
-@nameAsignatura varchar(250)
+CREATE OR ALTER PROCEDURE [dbo].[spGetCodeAsignatura]
+@idAsignatura int
 AS
 BEGIN 
 	SELECT codigoAsignatura FROM tblAsignatura
-	WHERE nombreAsignatura = @nameAsignatura
+	WHERE idAsignatura = @idAsignatura
 END
 GO
 -- Stored Procedure to get IdActividad from tblActividad based on Activity Name
@@ -1959,9 +1993,11 @@ CREATE OR ALTER PROCEDURE [dbo].[spGetIdCargaHorariaLst_BySemestre]
 @idSemestre int
 AS
 BEGIN 
-	SELECT DISTINCT idCargaHoraria AS id
-	FROM tblCargaHoraria
-	WHERE idSemestre = @idSemestre
+	SELECT DISTINCT ch.idCargaHoraria AS id, std.estadoSemestreDoc
+	FROM tblCargaHoraria ch
+	INNER JOIN tblSemestreTpDocente std ON ch.idDocente = std.idDocente
+	WHERE ch.idSemestre = @idSemestre
+	AND std.estadoSemestreDoc = 1
 	ORDER BY id
 END
 GO
@@ -2153,6 +2189,68 @@ BEGIN
 END;
 --tblAsigCrgHoraria
 GO
+----Trigger to recalculate hours of the DOCENCIA component of an academic load when adding a subject
+--CREATE TRIGGER tr_recalcularHorasDocencia_CargaH_afterDisableAsignatura
+--ON tblSemestreAs
+--AFTER INSERT, UPDATE, DELETE
+--AS
+--BEGIN
+--	DECLARE @id_CargaH INT;
+--	DECLARE @horasSemanalesAsignaturas INT;
+--	DECLARE @horaSemana1 INT;
+--	DECLARE @horaSemana2 INT;
+--	DECLARE @horaSemana3 INT;
+--	DECLARE @horaSemana4 INT;
+--	-- Se recupera el id de la Carga Horaria
+--    SELECT @id_CargaH = idCrgHoraria
+--    FROM inserted;
+
+--	-- Se obtiene la suma de horasAsignatura semestrales mediante el procedimiento almacenado
+--	SELECT @horasSemanalesAsignaturas = COALESCE(SUM(asig.horasAsignaturaSemanales),0)
+--	FROM   tblAsigCrgHoraria interAsig
+--	INNER JOIN tblGrAsignatura gr  on interAsig.idGrAsig = gr.idGrAsig
+--	INNER JOIN tblAsignatura asig on gr.idAsignatura = asig.idAsignatura
+--	WHERE (interAsig.idCrgHoraria = @id_CargaH AND (asig.tipoAsignatura='Semestral'));
+
+
+--	-- Calcular horas por actividad
+--    DECLARE @horasPorActividad DECIMAL(10, 2);
+--    SET @horasPorActividad = CAST(@horasSemanalesAsignaturas / 4.0 AS DECIMAL(10, 2));
+    
+--    -- Distribuir horas en variables
+--	IF @horasSemanalesAsignaturas > 0
+--		BEGIN
+--			SET @horaSemana1 = CEILING(@horasPorActividad);
+--			IF @horaSemana1 <= 0 SET @horaSemana1 = 0;
+--			SET @horaSemana2 = FLOOR(@horasPorActividad);
+--			IF @horaSemana2 <= 0 SET @horaSemana2 = 0;
+--			SET @horaSemana3 = FLOOR(@horasPorActividad);
+--			IF @horaSemana3 <= 0 SET @horaSemana3 = 0;
+--			SET @horaSemana4 = @horasSemanalesAsignaturas - @horaSemana1 - @horaSemana2 - @horaSemana3;
+--			IF @horaSemana4 <= 0 SET @horaSemana4 = 0;
+--		END
+--    ELSE
+--		BEGIN
+--			SET @horaSemana1 = 0;
+--			SET @horaSemana2 = 0;
+--			SET @horaSemana3 = 0;
+--			SET @horaSemana4 = 0;
+--		END
+--    -- Recalcular horas de actividades de Docencia por defecto
+--	UPDATE tblActividadCargas
+--	SET horasSemana = @horaSemana1
+--	WHERE idCrgHoraria = @id_CargaH AND idActividad = 1
+--	UPDATE tblActividadCargas
+--	SET horasSemana = @horaSemana2
+--	WHERE idCrgHoraria = @id_CargaH AND idActividad = 2
+--	UPDATE tblActividadCargas
+--	SET horasSemana = @horaSemana3
+--	WHERE idCrgHoraria = @id_CargaH AND idActividad = 3
+--	UPDATE tblActividadCargas
+--	SET horasSemana = @horaSemana4
+--	WHERE idCrgHoraria = @id_CargaH AND idActividad = 4
+--END;
+--GO
 -- TRIGGER PARA AGREGAR LOS DOCENTES AL NUEVO SEMESTRE CREADO
 CREATE TRIGGER tr_AddDocentesSemestreTpDocente
 ON tblSemestre

@@ -47,10 +47,12 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
         private static int horasSemanalesClases;
         private static int horasSemanalesDocenciaD11;
         private static int horasSemanalesDocenciaF11;
-        private static int horasSemanalesDocenciaT;
         private static int horasSemanalesGestion;
         private static int horasSemanalesInvestigacion;
         private static int horasSemanalesCargaHoraria;
+
+        //Modulares
+        private static int horasTotalesDocenciaD11Modular;
 
         private static int horasTotalesClases;
         private static int horasTotalesDocenciaD11;
@@ -302,6 +304,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
             //Cargamos valores de horas Totales en casillas
             //Obtencion de horas semanales
             horasSemanalesClases = numSemanasClase * objetoCNegocio.GetSemanalHoursClasesNegocio(idCarga.ToString());
+            int horasTotalesClasesModulares = objetoCNegocio.GetClasesModularHours_Negocio(idCarga.ToString());
             horasSemanalesDocenciaD11 = numSemanasClase * objetoCNegocio.GetSemanalHoursDocenciaD11Negocio(idCarga.ToString());
             horasSemanalesDocenciaF11 = numSemanasSemestre * objetoCNegocio.GetSemanalHoursDocenciaF11Negocio(idCarga.ToString());
             horasSemanalesGestion = numSemanasSemestre * objetoCNegocio.GetSemanalHoursGestionNegocio(idCarga.ToString());
@@ -311,16 +314,20 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
             horasTotalesDocenciaD11 = objetoCNegocio.GetTotalHoursDocenciaD11Negocio(idCarga.ToString());
             horasTotalesDocenciaF11 = objetoCNegocio.GetTotalHoursDocenciaF11Negocio(idCarga.ToString());
             horasTotalesInvestigacion = objetoCNegocio.GetTotalHoursInvestigacionNegocio(idCarga.ToString());
-            int horasTotalesByActTotalHour = horasTotalesInvestigacion + horasTotalesGestion + horasTotalesDocenciaD11 + horasTotalesDocenciaF11;
-            horasTotalesDocenciaT = horasSemanalesDocenciaD11 + horasSemanalesClases + horasSemanalesDocenciaF11;
+            int horasTotalesByActTotalHour = horasTotalesInvestigacion + horasTotalesGestion + horasTotalesDocenciaF11;
+            horasTotalesDocenciaT = horasSemanalesDocenciaD11 + horasSemanalesClases + horasTotalesDocenciaD11;
             horasTotalesCargaHoraria = horasTotalesDocenciaT + horasSemanalesGestion +
                 horasSemanalesInvestigacion + horasTotalesByActTotalHour;
+
+            //Obtencion de data para asignaturas Modulares
+            //horasTotalesDocenciaD11Modular = objetoCNegocio.GetTotalHoursDocenciaD11Negocio(idCarga.ToString());
+            //Show data into frm
             txtHorasDocenteMain.Text = horasTotalesDocenciaT.ToString();
             txtHorasDocenteF11Main.Text = horasTotalesDocenciaF11.ToString();
             txtHorasGestionMain.Text = (horasSemanalesGestion + horasTotalesGestion).ToString();
             txtHorasInvestigacionMain.Text = (horasSemanalesInvestigacion + horasTotalesInvestigacion).ToString();
             txtHorasTotales.Text = horasTotalesCargaHoraria.ToString();
-            txtClases.Text = horasSemanalesClases.ToString();
+            txtClases.Text = (horasSemanalesClases + horasTotalesClasesModulares).ToString();
 
             cmbValueSemestre = Convert.ToInt32(cmbSemestre.SelectedValue);
             cmbValueDocente = Convert.ToInt32(cmbDocente.SelectedValue);

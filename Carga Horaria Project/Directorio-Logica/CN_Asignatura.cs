@@ -30,6 +30,20 @@ namespace Directorio_Logica
             tabla = objetoCData.MostrarAsignaturasConGrupos(objSemestre);
             return tabla;
         }
+        public DataTable MostrarAsignaturasWithGroups_ByCarrera_CNegocio(string idSemestre, string idCarrera)
+        {
+            DataTable tabla = new DataTable();
+            ClsSemestre objSemestre = new ClsSemestre()
+            {
+                IdSemestre = Convert.ToInt32(idSemestre)
+            };
+            ClsCarrera objCarrera = new ClsCarrera()
+            {
+                IdCarrera = Convert.ToInt32(idCarrera)
+            };
+            tabla = objetoCData.MostrarAsignaturasConGrupos_ByCarrera_DAL(objSemestre, objCarrera);
+            return tabla;
+        }
         public DataTable MostrarAllAsignaturasCmb_CNegocio()
         {
             DataTable tabla = new DataTable();

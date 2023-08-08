@@ -163,6 +163,20 @@ namespace Directorio_Datos
             ObjDataBase.CerrarConexion();
             return tabla;
         }
+        public DataTable MostrarAsignaturasConGrupos_ByCarrera_DAL(ClsSemestre _semestre, ClsCarrera _carrera)
+        {
+            //comando.Connection = manejador.AbrirConexion();
+            comando.Connection = ObjDataBase.sqlConexion;
+            comando.CommandText = "spReadAllAsignaturasWGroups_ByCarrera";
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.AddWithValue("@idSemestre", _semestre.IdSemestre);
+            comando.Parameters.AddWithValue("@idCarrera", _carrera.IdCarrera);
+            ObjDataBase.AbrirConexion();
+            leer = comando.ExecuteReader();
+            tabla.Load(leer);
+            ObjDataBase.CerrarConexion();
+            return tabla;
+        }
         public DataTable MostrarRegistrosByIdSemestre(ClsSemestre _semestre)
         {
             //comando.Connection = manejador.AbrirConexion();

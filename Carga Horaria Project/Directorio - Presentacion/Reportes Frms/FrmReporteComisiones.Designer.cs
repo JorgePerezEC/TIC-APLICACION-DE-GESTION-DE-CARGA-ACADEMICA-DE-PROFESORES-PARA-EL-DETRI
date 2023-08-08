@@ -53,6 +53,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.panelDataShow = new System.Windows.Forms.Panel();
+            this.btnExportPdf = new System.Windows.Forms.Button();
             this.label16 = new System.Windows.Forms.Label();
             this.txtFiltro = new System.Windows.Forms.TextBox();
             this.dgvReporte = new System.Windows.Forms.DataGridView();
@@ -401,6 +402,7 @@
             // panelDataShow
             // 
             this.panelDataShow.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(76)))), ((int)(((byte)(146)))));
+            this.panelDataShow.Controls.Add(this.btnExportPdf);
             this.panelDataShow.Controls.Add(this.label16);
             this.panelDataShow.Controls.Add(this.txtFiltro);
             this.panelDataShow.Controls.Add(this.dgvReporte);
@@ -409,6 +411,18 @@
             this.panelDataShow.Name = "panelDataShow";
             this.panelDataShow.Size = new System.Drawing.Size(1477, 717);
             this.panelDataShow.TabIndex = 2;
+            // 
+            // btnExportPdf
+            // 
+            this.btnExportPdf.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.btnExportPdf.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnExportPdf.Location = new System.Drawing.Point(1210, 13);
+            this.btnExportPdf.Name = "btnExportPdf";
+            this.btnExportPdf.Size = new System.Drawing.Size(140, 70);
+            this.btnExportPdf.TabIndex = 17;
+            this.btnExportPdf.Text = "EXPORTAR  EN PDF";
+            this.btnExportPdf.UseVisualStyleBackColor = false;
+            this.btnExportPdf.Click += new System.EventHandler(this.btnExportPdf_Click);
             // 
             // label16
             // 
@@ -504,5 +518,6 @@
         private DataGridView dgvReporte;
         private Label label16;
         private TextBox txtFiltro;
+        private Button btnExportPdf;
     }
 }

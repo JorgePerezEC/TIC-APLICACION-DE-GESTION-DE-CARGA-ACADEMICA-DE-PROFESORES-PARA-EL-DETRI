@@ -1,6 +1,8 @@
 ﻿using Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms;
+using Directorio___Presentacion.ElementsStyles_Configuration;
 using Directorio_Entidades;
 using Directorio_Logica;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -23,14 +25,16 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
         private int idSemestreLocal;
         private string idAsigCarga;
         private int idGrAsignatura;
+        private DataTable LstAsignaturas;
+        private DataTable LstAsignaturasFiltered;
         //Variables to edit
         private bool EditarL = false;
         private CN_CargaHoraria objetoNegocioCargaHoraria = new CN_CargaHoraria();
         private CN_GrAsignatura objNegocioGrAsig = new CN_GrAsignatura();
-        int count = 0;
         public FrmCUAsignatura_AL(int idCargaHoraria, bool Editar, int idSemestre)
         {
             InitializeComponent();
+            cmbAsignatura.TextChanged += cmbAsignatura_TextChanged;
             this.KeyPreview = true;
             idAcLoad = idCargaHoraria;
             EditarL = Editar;
@@ -42,6 +46,9 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
 
         private void FrmCUAsignatura_AL_Load(object sender, EventArgs e)
         {
+            cmbCarreras.Focus();
+            ListarCarreras();
+            rbTodo.Checked= true;
             if (EditarL)
             {
                 ListarAsignaturasAll();
@@ -135,16 +142,29 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
         private void ListarAsignaturas()
         {
             CN_Asignatura objetoCNegocio = new CN_Asignatura();
-            cmbAsignatura.DataSource = objetoCNegocio.MostrarAsignaturasWithGroups_CNegocio(idSemestreLocal.ToString());
+            LstAsignaturas = objetoCNegocio.MostrarAsignaturasWithGroups_CNegocio(idSemestreLocal.ToString());
+            cmbAsignatura.DataSource = LstAsignaturas;
             cmbAsignatura.DisplayMember = "Asignatura";
             cmbAsignatura.ValueMember = "ID";
+
+            lstBoxAsignaturas.DataSource = LstAsignaturas;
+            lstBoxAsignaturas.DisplayMember = "Asignatura";
+            lstBoxAsignaturas.ValueMember = "ID";
+            lstBoxAsignaturas.Refresh();
         }
         private void ListarAsignaturasAll()
         {
             CN_Asignatura objetoCNegocio = new CN_Asignatura();
-            cmbAsignatura.DataSource = objetoCNegocio.MostrarAllAsignaturasCmb_CNegocio();
+            DataTable LstAsignaturas = new DataTable();
+            LstAsignaturas = objetoCNegocio.MostrarAllAsignaturasCmb_CNegocio();
+            cmbAsignatura.DataSource = LstAsignaturas;
             cmbAsignatura.DisplayMember = "Asignatura";
             cmbAsignatura.ValueMember = "ID";
+
+            lstBoxAsignaturas.DataSource = LstAsignaturas;
+            lstBoxAsignaturas.DisplayMember = "Asignatura";
+            lstBoxAsignaturas.ValueMember = "ID";
+            lstBoxAsignaturas.Refresh();
         }
         public void ListarGruposAsignatura(bool NewGr)
         {
@@ -152,13 +172,15 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
             {
                 panelGR.Visible = true;
                 cmbGR.Visible = true;
+
                 CN_GrAsignatura objetoGrNegocio = new CN_GrAsignatura();
-                cmbGR.DataSource = objetoGrNegocio.MostrarGruposPorAsignatura_Negocio(cmbAsignatura.Text);
+                cmbGR.DataSource = objetoGrNegocio.MostrarGruposPorAsignatura_Negocio(cmbAsignatura.SelectedValue.ToString());
                 cmbGR.DisplayMember = "Grupos";
                 cmbGR.ValueMember = "ID";
-                txtNivel.Text = objetoGrNegocio.GetLvlAsignatura_Negocio(cmbAsignatura.Text);
-                txtType.Text = objetoGrNegocio.GetTypeAsigByAsig_Negocio(cmbAsignatura.Text);
-                txtCode.Text = objetoGrNegocio.GetCodeAsigByAsig_Negocio(cmbAsignatura.Text);
+
+                txtNivel.Text = objetoGrNegocio.GetLvlAsignatura_Negocio(cmbAsignatura.SelectedValue.ToString());
+                txtType.Text = objetoGrNegocio.GetTypeAsigByAsig_Negocio(cmbAsignatura.SelectedValue.ToString());
+                txtCode.Text = objetoGrNegocio.GetCodeAsigByAsig_Negocio(cmbAsignatura.SelectedValue.ToString());
                 if (NewGr)
                 {
                     cmbGR.SelectedIndex = cmbGR.Items.Count - 1;
@@ -173,8 +195,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
 
         private void cmbAsignatura_SelectedIndexChanged(object sender, EventArgs e)
         {
-            count++;
-            if (cmbAsignatura.SelectedIndex > -1 && count > 2)
+            if (cmbAsignatura.SelectedIndex > -1 && cmbAsignatura.SelectedValue != null)
             {
                 ListarGruposAsignatura(false);
                 btnAgregar.Enabled = true;
@@ -213,6 +234,92 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
         {
             Frm_CreateNewAsignatura_Modal frmCreateAsig = new Frm_CreateNewAsignatura_Modal(cmbAsignatura.Text);
             frmCreateAsig.ShowDialog();
+        }
+        private void ListarCarreras()
+        {
+            CN_Carrera objetoCNegocio = new CN_Carrera();
+            cmbCarreras.DataSource = objetoCNegocio.MostrarCarreras();
+            cmbCarreras.DisplayMember = "Carrera";
+            cmbCarreras.ValueMember = "ID";
+            cmbCarreras.SelectedIndex = -1;
+            cmbCarreras.SelectedValue = -1;
+        }
+
+        private void rbTodo_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbTodo.Checked)
+            {
+                cmbCarreras.SelectedIndex = -1;
+                txtCodeFilter.Text = string.Empty;
+                cmbAsignatura.DataSource = LstAsignaturas;
+                cmbAsignatura.DisplayMember = "Asignatura";
+                cmbAsignatura.ValueMember = "ID";
+
+                lstBoxAsignaturas.DataSource = LstAsignaturas;
+                lstBoxAsignaturas.DisplayMember = "Asignatura";
+                lstBoxAsignaturas.ValueMember = "ID";
+                lstBoxAsignaturas.Refresh();
+            }
+        }
+
+        private void cmbCarreras_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbCarreras.SelectedValue != null)
+            {
+                rbTodo.Checked = false;
+                txtCodeFilter.Text = string.Empty;
+
+                if (cmbCarreras.SelectedValue is int selectedValueInt)
+                {
+                    CN_Asignatura objetoCNegocio = new CN_Asignatura();
+                    LstAsignaturasFiltered = objetoCNegocio.MostrarAsignaturasWithGroups_ByCarrera_CNegocio(idSemestreLocal.ToString(), selectedValueInt.ToString());
+                    //VALIDACION REGISTROS
+                    if (LstAsignaturasFiltered.Rows.Count > 0)
+                    {
+                        lstBoxAsignaturas.DataSource = LstAsignaturasFiltered;
+                        lstBoxAsignaturas.DisplayMember = "Asignatura";
+                        lstBoxAsignaturas.ValueMember = "ID";
+                        lstBoxAsignaturas.Refresh();
+                        cmbAsignatura.Enabled = true;
+                        cmbGR.Enabled = true;
+                    }
+                    else
+                    {
+                        lstBoxAsignaturas.DataSource = new string[] { "NO SE ENCONTRARON REGISTROS" };
+                        cmbAsignatura.Enabled = false;
+                        txtCode.Text = string.Empty;
+                        txtNivel.Text = string.Empty;
+                        txtType.Text = string.Empty;
+                        cmbGR.Text = string.Empty;
+                        cmbGR.SelectedIndex = -1;
+                        cmbGR.Enabled = false;
+                    }
+                    cmbAsignatura.DataSource = LstAsignaturasFiltered;
+                    cmbAsignatura.DisplayMember = "Asignatura";
+                    cmbAsignatura.ValueMember = "ID";
+                    cmbAsignatura.SelectedIndex = -1;
+
+                    //lstBoxAsignaturas.DataSource = LstAsignaturasFiltered;
+                    //lstBoxAsignaturas.DisplayMember = "Asignatura";
+                    //lstBoxAsignaturas.ValueMember = "ID";
+                    //lstBoxAsignaturas.Refresh();
+                }
+            }
+        }
+
+        private void txtCodeFilter_TextChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void cmbAsignatura_TextChanged(object sender, EventArgs e)
+        {
+            //if (cmbCarreras.SelectedValue != null)
+            //{
+            //    string enteredText = cmbAsignatura.Text.ToLower();
+            //    DataView dataView = new DataView(LstAsignaturas);
+            //    dataView.RowFilter = $"Asignatura LIKE '%{enteredText}%'";
+            //    cmbAsignatura.DataSource = dataView;
+            //}
         }
     }
 }

@@ -70,5 +70,10 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
                 e.Handled = true;
             }
         }
+
+        private void cmbGR_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

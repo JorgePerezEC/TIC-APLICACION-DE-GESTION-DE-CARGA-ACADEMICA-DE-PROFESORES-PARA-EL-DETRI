@@ -83,7 +83,8 @@
             this.panelFilters.Location = new System.Drawing.Point(51, 105);
             this.panelFilters.Name = "panelFilters";
             this.panelFilters.Size = new System.Drawing.Size(310, 125);
-            this.panelFilters.TabIndex = 21;
+            this.panelFilters.TabIndex = 2;
+            this.panelFilters.TabStop = true;
             // 
             // tableLayoutPanel2
             // 
@@ -368,7 +369,7 @@
             this.cmbSemestre.Location = new System.Drawing.Point(176, 71);
             this.cmbSemestre.Name = "cmbSemestre";
             this.cmbSemestre.Size = new System.Drawing.Size(167, 28);
-            this.cmbSemestre.TabIndex = 16;
+            this.cmbSemestre.TabIndex = 1;
             this.cmbSemestre.SelectedIndexChanged += new System.EventHandler(this.cmbSemestre_SelectedIndexChanged);
             // 
             // label7
@@ -412,7 +413,7 @@
             this.btnExportAll.Location = new System.Drawing.Point(1365, 292);
             this.btnExportAll.Name = "btnExportAll";
             this.btnExportAll.Size = new System.Drawing.Size(140, 70);
-            this.btnExportAll.TabIndex = 2;
+            this.btnExportAll.TabIndex = 3;
             this.btnExportAll.Text = "EXPORTAR TODOS EN PDF";
             this.btnExportAll.UseVisualStyleBackColor = false;
             this.btnExportAll.Visible = false;

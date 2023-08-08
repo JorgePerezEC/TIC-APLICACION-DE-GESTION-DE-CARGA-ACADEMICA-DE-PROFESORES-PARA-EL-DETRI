@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panelCreate = new System.Windows.Forms.Panel();
+            this.txtTipoActividad = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.ckboxTotal = new System.Windows.Forms.CheckBox();
@@ -52,6 +53,7 @@
             // panelCreate
             // 
             this.panelCreate.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.panelCreate.Controls.Add(this.txtTipoActividad);
             this.panelCreate.Controls.Add(this.label11);
             this.panelCreate.Controls.Add(this.tableLayoutPanel2);
             this.panelCreate.Controls.Add(this.btnClose);
@@ -69,6 +71,17 @@
             this.panelCreate.Name = "panelCreate";
             this.panelCreate.Size = new System.Drawing.Size(1141, 305);
             this.panelCreate.TabIndex = 10;
+            // 
+            // txtTipoActividad
+            // 
+            this.txtTipoActividad.AllowDrop = true;
+            this.txtTipoActividad.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.txtTipoActividad.Location = new System.Drawing.Point(212, 31);
+            this.txtTipoActividad.Name = "txtTipoActividad";
+            this.txtTipoActividad.Size = new System.Drawing.Size(283, 27);
+            this.txtTipoActividad.TabIndex = 26;
+            this.txtTipoActividad.Text = "example";
+            this.txtTipoActividad.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label11
             // 
@@ -105,7 +118,7 @@
             this.ckboxTotal.Location = new System.Drawing.Point(92, 27);
             this.ckboxTotal.Name = "ckboxTotal";
             this.ckboxTotal.Size = new System.Drawing.Size(18, 17);
-            this.ckboxTotal.TabIndex = 4;
+            this.ckboxTotal.TabIndex = 3;
             this.ckboxTotal.UseVisualStyleBackColor = true;
             this.ckboxTotal.CheckedChanged += new System.EventHandler(this.ckboxTotal_CheckedChanged);
             // 
@@ -140,7 +153,7 @@
             this.ckboxSemanal.Location = new System.Drawing.Point(92, 3);
             this.ckboxSemanal.Name = "ckboxSemanal";
             this.ckboxSemanal.Size = new System.Drawing.Size(18, 17);
-            this.ckboxSemanal.TabIndex = 3;
+            this.ckboxSemanal.TabIndex = 2;
             this.ckboxSemanal.UseVisualStyleBackColor = true;
             this.ckboxSemanal.CheckedChanged += new System.EventHandler(this.ckboxSemanal_CheckedChanged);
             // 
@@ -169,7 +182,7 @@
             this.txtHorasTotales.Name = "txtHorasTotales";
             this.txtHorasTotales.PlaceholderText = "Ingrese la duración total de la actvidad";
             this.txtHorasTotales.Size = new System.Drawing.Size(271, 27);
-            this.txtHorasTotales.TabIndex = 21;
+            this.txtHorasTotales.TabIndex = 5;
             this.txtHorasTotales.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtHorasSemanales_KeyPress);
             // 
             // label5
@@ -189,7 +202,7 @@
             this.txtHorasSemanales.Name = "txtHorasSemanales";
             this.txtHorasSemanales.PlaceholderText = "Ingrese la duración de la actvidad";
             this.txtHorasSemanales.Size = new System.Drawing.Size(271, 27);
-            this.txtHorasSemanales.TabIndex = 19;
+            this.txtHorasSemanales.TabIndex = 4;
             this.txtHorasSemanales.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtHorasSemanales_KeyPress);
             // 
             // cmbTpActiv
@@ -216,10 +229,11 @@
             "18",
             "19",
             "20"});
-            this.cmbTpActiv.Location = new System.Drawing.Point(212, 34);
+            this.cmbTpActiv.Location = new System.Drawing.Point(212, 170);
             this.cmbTpActiv.Name = "cmbTpActiv";
             this.cmbTpActiv.Size = new System.Drawing.Size(283, 28);
             this.cmbTpActiv.TabIndex = 18;
+            this.cmbTpActiv.TabStop = false;
             this.cmbTpActiv.SelectedIndexChanged += new System.EventHandler(this.cmbTpActiv_SelectedIndexChanged);
             // 
             // btnGuardar
@@ -235,7 +249,7 @@
             this.btnGuardar.MaximumSize = new System.Drawing.Size(125, 41);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(125, 41);
-            this.btnGuardar.TabIndex = 5;
+            this.btnGuardar.TabIndex = 6;
             this.btnGuardar.Text = "&Guardar";
             this.btnGuardar.UseVisualStyleBackColor = false;
             this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
@@ -247,7 +261,7 @@
             this.txtNameActividad.Name = "txtNameActividad";
             this.txtNameActividad.PlaceholderText = "Ingrese el nombre de la actividad";
             this.txtNameActividad.Size = new System.Drawing.Size(283, 27);
-            this.txtNameActividad.TabIndex = 10;
+            this.txtNameActividad.TabIndex = 1;
             // 
             // label7
             // 
@@ -320,5 +334,6 @@
         private Label label13;
         private CheckBox ckboxSemanal;
         public Button btnGuardar;
+        private TextBox txtTipoActividad;
     }
 }

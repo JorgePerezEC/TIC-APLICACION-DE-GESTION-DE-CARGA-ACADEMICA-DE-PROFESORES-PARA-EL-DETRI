@@ -82,7 +82,8 @@
             this.cmbGR.Location = new System.Drawing.Point(196, 87);
             this.cmbGR.Name = "cmbGR";
             this.cmbGR.Size = new System.Drawing.Size(97, 28);
-            this.cmbGR.TabIndex = 24;
+            this.cmbGR.TabIndex = 2;
+            this.cmbGR.SelectedIndexChanged += new System.EventHandler(this.cmbGR_SelectedIndexChanged);
             // 
             // label3
             // 
@@ -104,7 +105,7 @@
             this.btnClose.MaximumSize = new System.Drawing.Size(125, 41);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(125, 41);
-            this.btnClose.TabIndex = 22;
+            this.btnClose.TabIndex = 4;
             this.btnClose.Text = "Cancelar";
             this.btnClose.UseVisualStyleBackColor = false;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
@@ -138,7 +139,7 @@
             this.cmbAsignaturas.Location = new System.Drawing.Point(196, 32);
             this.cmbAsignaturas.Name = "cmbAsignaturas";
             this.cmbAsignaturas.Size = new System.Drawing.Size(435, 28);
-            this.cmbAsignaturas.TabIndex = 18;
+            this.cmbAsignaturas.TabIndex = 1;
             // 
             // btnGuardar
             // 
@@ -150,7 +151,7 @@
             this.btnGuardar.MaximumSize = new System.Drawing.Size(125, 41);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(125, 41);
-            this.btnGuardar.TabIndex = 5;
+            this.btnGuardar.TabIndex = 3;
             this.btnGuardar.Text = "&Guardar";
             this.btnGuardar.UseVisualStyleBackColor = false;
             this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);

@@ -86,7 +86,7 @@
             // 
             // panel3
             // 
-            this.panel3.BackColor = System.Drawing.Color.Khaki;
+            this.panel3.BackColor = System.Drawing.Color.PowderBlue;
             this.panel3.Controls.Add(this.cmbSemestre);
             this.panel3.Controls.Add(this.lblSemestre);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
@@ -465,7 +465,7 @@
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.Khaki;
+            this.panel1.BackColor = System.Drawing.Color.PowderBlue;
             this.panel1.Controls.Add(this.label7);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
@@ -476,9 +476,9 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.BackColor = System.Drawing.Color.Coral;
+            this.label7.BackColor = System.Drawing.Color.Transparent;
             this.label7.Font = new System.Drawing.Font("Roboto Black", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label7.ForeColor = System.Drawing.Color.White;
+            this.label7.ForeColor = System.Drawing.Color.Black;
             this.label7.Location = new System.Drawing.Point(43, 44);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(606, 37);

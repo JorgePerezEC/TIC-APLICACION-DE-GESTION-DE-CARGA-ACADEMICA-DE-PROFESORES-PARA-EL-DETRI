@@ -236,7 +236,8 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
             //Obtencion de horas semanales
             txtHorasT_Semana.Text = objetoCarga_N.GetSemanalHoursClasesNegocio(idCarga.ToString()).ToString();
             horasSemanalesClases = numSemanasClase * objetoCarga_N.GetSemanalHoursClasesNegocio(idCarga.ToString());
-            txtHorasT_Semestre.Text = horasSemanalesClases.ToString();
+            int horasTotalesClasesModulares = objetoCarga_N.GetClasesModularHours_Negocio(idCarga.ToString());
+            txtHorasT_Semestre.Text = (horasSemanalesClases + horasTotalesClasesModulares).ToString();
             horasSemanalesDocenciaD11 = numSemanasClase * objetoCarga_N.GetSemanalHoursDocenciaD11Negocio(idCarga.ToString());
             horasSemanalesDocenciaF11 = numSemanasSemestre * objetoCarga_N.GetSemanalHoursDocenciaF11Negocio(idCarga.ToString());
             horasSemanalesGestion = numSemanasSemestre * objetoCarga_N.GetSemanalHoursGestionNegocio(idCarga.ToString());
@@ -246,8 +247,8 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
             horasTotalesDocenciaD11 = objetoCarga_N.GetTotalHoursDocenciaD11Negocio(idCarga.ToString());
             horasTotalesDocenciaF11 = objetoCarga_N.GetTotalHoursDocenciaF11Negocio(idCarga.ToString());
             horasTotalesInvestigacion = objetoCarga_N.GetTotalHoursInvestigacionNegocio(idCarga.ToString());
-            int horasTotalesByActTotalHour = horasTotalesInvestigacion + horasTotalesGestion + horasTotalesDocenciaD11 + horasTotalesDocenciaF11;
-            horasTotalesDocenciaT = horasSemanalesDocenciaD11 + horasSemanalesClases + horasSemanalesDocenciaF11;
+            int horasTotalesByActTotalHour = horasTotalesInvestigacion + horasTotalesGestion + horasTotalesDocenciaF11;
+            horasTotalesDocenciaT = horasSemanalesDocenciaD11 + horasSemanalesClases + horasTotalesDocenciaD11;
             horasTotalesCargaHoraria = horasTotalesDocenciaT + horasSemanalesGestion +
                 horasSemanalesInvestigacion + horasTotalesByActTotalHour;
 
@@ -341,7 +342,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
 
                 DataTable dtAsignaturas = objetoCarga_N_2.LoadAsignaturas_Negocio(idCH.ToString());
                 // Crea una tabla con 4 columnas
-                Table tableAsignaturas = new Table(4);
+                Table tableAsignaturas = new Table(dtAsignaturas.Columns.Count - 1);
 
                 foreach (DataColumn column in dtAsignaturas.Columns)
                 {
@@ -422,8 +423,11 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
                 Table tableTotalHours = new Table(2);
 
                 // Agregar la primera fila a la tabla
-                tableTotalHours.AddCell("TOTAL DOCENCIA").SetFont(timesNewRoman).SetFontSize(10); 
+                tableTotalHours.AddCell("TOTAL DOCENCIA D1:1").SetFont(timesNewRoman).SetFontSize(10); 
                 tableTotalHours.AddCell(horasTotalesDocenciaT.ToString()).SetFont(timesNewRoman).SetFontSize(10);
+
+                tableTotalHours.AddCell("TOTAL DOCENCIA F1:1").SetFont(timesNewRoman).SetFontSize(10);
+                tableTotalHours.AddCell(horasTotalesDocenciaF11.ToString()).SetFont(timesNewRoman).SetFontSize(10);
 
                 // Agregar la segunda fila a la tabla
                 tableTotalHours.AddCell("TOTAL INVESTIGACION").SetFont(timesNewRoman).SetFontSize(10);

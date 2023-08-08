@@ -24,6 +24,10 @@ namespace Directorio___Presentacion.Reportes_Frms
         private bool Editar = false;
         private DataTable dtActividades;
         private DataTable dtData;
+
+        private ClsPdfFormat clsPdf = new ClsPdfFormat();
+        private string filtroText = "Sin filtro";
+        private DataTable dtDataPDF;
         #endregion
         public FrmReporteActividades()
         {
@@ -63,6 +67,7 @@ namespace Directorio___Presentacion.Reportes_Frms
                 //lblNumSiDocente.Text = dtData.Rows.Count.ToString();
                 //lblNumNoDocente.Text = dataNoAsignado.Rows.Count.ToString();
                 dgvReporte.DataSource = dtData;
+                dtDataPDF = dtData;
                 panelFilters.Visible = true;
 
                 dgvReporte.Columns[0].Visible = false;
@@ -105,6 +110,7 @@ namespace Directorio___Presentacion.Reportes_Frms
             DataTable dataTableFiltrado = FiltrarDataTable(dtData, filtro);
 
             dgvReporte.DataSource = dataTableFiltrado;
+            dtDataPDF = dataTableFiltrado;
         }
 
         private void rbD11_CheckedChanged(object sender, EventArgs e)
@@ -112,6 +118,7 @@ namespace Directorio___Presentacion.Reportes_Frms
             if (rbD11.Checked)
             {
                 FiltrarYActualizarDataGrid("D11");
+                filtroText = "Actividades de Docencia D11";
             }
         }
 
@@ -121,6 +128,7 @@ namespace Directorio___Presentacion.Reportes_Frms
             {
                 FiltrarYActualizarDataGrid("D");
                 panelLecturaDiv.Visible = true;
+                filtroText = "Actividades de Docencia Fuera del 11";
             }
         }
 
@@ -130,6 +138,7 @@ namespace Directorio___Presentacion.Reportes_Frms
             {
                 MostrarActividades();
                 txtFiltro.Text = "";
+                filtroText = "Sin Filtro";
             }
         }
 
@@ -149,38 +158,62 @@ namespace Directorio___Presentacion.Reportes_Frms
         private void FiltrarYActualizarDataGrid(string filtro)
         {
             DataTable dataTableFiltrado = FiltrarDataTableRb(dtData, filtro);
+            
             if (rbF11.Checked)
             {
                 // Verificar que el TextBox tenga un valor numérico válido antes de realizar la división.
                 if (double.TryParse(txtB.Text, out double divisor) && divisor != 0)
                 {
                     // Agregar una nueva columna "ResultadoDivisión" al DataTable y calcular los valores.
-                    dataTableFiltrado.Columns.Add("Horas Lectura", typeof(int));
+                    dataTableFiltrado.Columns.Add("Horas de Lectura", typeof(int));
 
                     foreach (DataRow row in dataTableFiltrado.Rows)
                     {
                         // Realizar la división y almacenar el resultado redondeado al entero superior.
                         double valorUltimaColumna = Convert.ToDouble(row[dataTableFiltrado.Columns.Count - 2]); // Suponiendo que la última columna es la penúltima en la colección.
                         int resultadoDivision = (int)Math.Ceiling(valorUltimaColumna / divisor);
-                        row["Horas Lectura"] = resultadoDivision;
+                        row["Horas de Lectura"] = resultadoDivision;
                     }
                 }
                 else
                 {
                     // El valor del divisor no es válido o es cero, establecer "NA" en la nueva columna.
-                    dataTableFiltrado.Columns.Add("Horas Lectura", typeof(string));
+                    dataTableFiltrado.Columns.Add("Horas de Lectura", typeof(string));
                     foreach (DataRow row in dataTableFiltrado.Rows)
                     {
-                        row["Horas Lectura"] = "NA";
+                        row["Horas de Lectura"] = "NA";
                     }
                 }
             }
             dgvReporte.DataSource = dataTableFiltrado;
+            dtDataPDF = dataTableFiltrado;
         }
 
         private void txtB_TextChanged(object sender, EventArgs e)
         {
             FiltrarYActualizarDataGrid("D");
+        }
+
+        private void btnExportPdf_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+
+            DateTime now = DateTime.Now;
+            string formattedDateTime = now.ToString("yyyyMMdd_HHmmss");
+
+            // Establecer opciones de diálogo
+            saveFileDialog1.Filter = "Archivos PDF|*.pdf";
+            saveFileDialog1.Title = "Guardar documento PDF";
+            saveFileDialog1.FileName = "Reporte_Actividades_" + cmbSemestre.Text + "_" + filtroText.Replace(" ", "_") + "_" + formattedDateTime + ".pdf";
+            // Mostrar el diálogo y guardar la ubicación seleccionada
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                string filePath = saveFileDialog1.FileName;
+                string folderPath = System.IO.Path.GetDirectoryName(saveFileDialog1.FileName);
+                string pdfTitle = "REPORTE DE ACTIVIDADES";
+
+                clsPdf.GenerarDocumentoOneTablePDF(filePath, pdfTitle, filePath, cmbSemestre.Text, filtroText, dtDataPDF);
+            }
         }
     }
 }

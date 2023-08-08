@@ -21,9 +21,12 @@ namespace Directorio___Presentacion.Reportes_Frms
         CN_TipoDocente objTpDocente = new CN_TipoDocente();
         private ClsStyles clsStyles = new ClsStyles();
 
-        private bool Editar = false;
-        private DataTable dtActividades;
+        private ClsPdfFormat clsPdf = new ClsPdfFormat();
+        private string filtroText = "Sin filtro";
+        private DataTable dtDataPDF;
+
         private DataTable dtData;
+
         #endregion
         public FrmReporteComisiones()
         {
@@ -63,6 +66,7 @@ namespace Directorio___Presentacion.Reportes_Frms
                 // Cargar el contenido de la tabla
                 panelDataShow.Visible = true;
                 dtData = objCargaH.MostrarReporteActividadesComisiones_ByIdSemestre_Negocio(idSemestre);
+                dtDataPDF = dtData;
                 //lblNumSiDocente.Text = dtData.Rows.Count.ToString();
                 //lblNumNoDocente.Text = dataNoAsignado.Rows.Count.ToString();
                 dgvReporte.DataSource = dtData;
@@ -85,7 +89,7 @@ namespace Directorio___Presentacion.Reportes_Frms
         {
             string filtro = txtFiltro.Text.Trim();
             DataTable dataTableFiltrado = FiltrarDataTable(dtData, filtro);
-
+            dtDataPDF = FiltrarDataTable(dtData, filtro);
             dgvReporte.DataSource = dataTableFiltrado;
         }
         private DataTable FiltrarDataTable(DataTable dataTable, string filtro)
@@ -108,6 +112,7 @@ namespace Directorio___Presentacion.Reportes_Frms
             if (rbGestion.Checked)
             {
                 FiltrarYActualizarDataGrid("G");
+                filtroText = "Actividades de Gestión";
             }
         }
 
@@ -116,6 +121,7 @@ namespace Directorio___Presentacion.Reportes_Frms
             if (rbInvestigacion.Checked)
             {
                 FiltrarYActualizarDataGrid("I");
+                filtroText = "Actividades de Investigación";
             }
         }
 
@@ -125,6 +131,7 @@ namespace Directorio___Presentacion.Reportes_Frms
             {
                 MostrarActividades();
                 txtFiltro.Text = "";
+                filtroText = "Sin Filtro";
             }
         }
         #endregion
@@ -152,7 +159,32 @@ namespace Directorio___Presentacion.Reportes_Frms
         private void FiltrarYActualizarDataGrid(string filtro)
         {
             DataTable dataTableFiltrado = FiltrarDataTableRb(dtData, filtro);
+            dtDataPDF = FiltrarDataTableRb(dtData, filtro);
             dgvReporte.DataSource = dataTableFiltrado;
+        }
+
+        private void btnExportPdf_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+
+            DateTime now = DateTime.Now;
+            string formattedDateTime = now.ToString("yyyyMMdd_HHmmss");
+
+            // Establecer opciones de diálogo
+            saveFileDialog1.Filter = "Archivos PDF|*.pdf";
+            saveFileDialog1.Title = "Guardar documento PDF";
+            saveFileDialog1.FileName = "Reporte_Comisiones_" + cmbSemestre.Text + "_" + filtroText.Replace(" ","_") + "_" + formattedDateTime + ".pdf";
+            // Mostrar el diálogo y guardar la ubicación seleccionada
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                string filePath = saveFileDialog1.FileName;
+                string folderPath = System.IO.Path.GetDirectoryName(saveFileDialog1.FileName);
+                //string fileName = "Reporte_Comisiones_" + cmbSemestre.Text + "_" + formattedDateTime + ".pdf";
+                //string filePath = System.IO.Path.Combine(folderPath, fileName);
+                string pdfTitle = "REPORTE DE COMISIONES";
+
+                clsPdf.GenerarDocumentoOneTablePDF(filePath, pdfTitle, filePath, cmbSemestre.Text, filtroText, dtDataPDF);
+            }
         }
     }
 }

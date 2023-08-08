@@ -342,7 +342,7 @@
             this.cmbSemestre.Location = new System.Drawing.Point(169, 164);
             this.cmbSemestre.Name = "cmbSemestre";
             this.cmbSemestre.Size = new System.Drawing.Size(167, 28);
-            this.cmbSemestre.TabIndex = 14;
+            this.cmbSemestre.TabIndex = 1;
             this.cmbSemestre.SelectedIndexChanged += new System.EventHandler(this.cmbSemestre_SelectedIndexChanged);
             // 
             // label7
@@ -412,58 +412,58 @@
             this.panel2.Controls.Add(this.panel3);
             this.panel2.Location = new System.Drawing.Point(33, 28);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(972, 297);
+            this.panel2.Size = new System.Drawing.Size(1125, 297);
             this.panel2.TabIndex = 3;
             // 
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.ColumnCount = 3;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 28.44365F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35.77818F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35.77818F));
             this.tableLayoutPanel2.Controls.Add(this.label13, 2, 0);
             this.tableLayoutPanel2.Controls.Add(this.label5, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.label4, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.txtHorasT_Semestre, 2, 1);
             this.tableLayoutPanel2.Controls.Add(this.txtHorasT_Semana, 1, 1);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(634, 53);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(847, 53);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(318, 124);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(275, 123);
             this.tableLayoutPanel2.TabIndex = 7;
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label13.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label13.ForeColor = System.Drawing.Color.White;
-            this.label13.Location = new System.Drawing.Point(214, 0);
+            this.label13.Location = new System.Drawing.Point(179, 0);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(65, 46);
+            this.label13.Size = new System.Drawing.Size(59, 40);
             this.label13.TabIndex = 8;
             this.label13.Text = "Horas Totales";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label5.ForeColor = System.Drawing.Color.White;
-            this.label5.Location = new System.Drawing.Point(108, 0);
+            this.label5.Location = new System.Drawing.Point(81, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(94, 46);
+            this.label5.Size = new System.Drawing.Size(83, 40);
             this.label5.TabIndex = 8;
             this.label5.Text = "Horas Semanales";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(3, 46);
+            this.label4.Location = new System.Drawing.Point(3, 40);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(98, 69);
+            this.label4.Size = new System.Drawing.Size(67, 80);
             this.label4.TabIndex = 4;
             this.label4.Text = "Total Dictado de Clases";
             // 
@@ -474,9 +474,9 @@
             this.txtHorasT_Semestre.Enabled = false;
             this.txtHorasT_Semestre.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.txtHorasT_Semestre.ForeColor = System.Drawing.Color.Black;
-            this.txtHorasT_Semestre.Location = new System.Drawing.Point(214, 49);
+            this.txtHorasT_Semestre.Location = new System.Drawing.Point(179, 43);
             this.txtHorasT_Semestre.Name = "txtHorasT_Semestre";
-            this.txtHorasT_Semestre.Size = new System.Drawing.Size(101, 27);
+            this.txtHorasT_Semestre.Size = new System.Drawing.Size(93, 27);
             this.txtHorasT_Semestre.TabIndex = 6;
             // 
             // txtHorasT_Semana
@@ -486,9 +486,9 @@
             this.txtHorasT_Semana.Enabled = false;
             this.txtHorasT_Semana.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.txtHorasT_Semana.ForeColor = System.Drawing.Color.Black;
-            this.txtHorasT_Semana.Location = new System.Drawing.Point(108, 49);
+            this.txtHorasT_Semana.Location = new System.Drawing.Point(81, 43);
             this.txtHorasT_Semana.Name = "txtHorasT_Semana";
-            this.txtHorasT_Semana.Size = new System.Drawing.Size(100, 27);
+            this.txtHorasT_Semana.Size = new System.Drawing.Size(92, 27);
             this.txtHorasT_Semana.TabIndex = 5;
             // 
             // dgvAsignaturas
@@ -498,7 +498,7 @@
             this.dgvAsignaturas.Name = "dgvAsignaturas";
             this.dgvAsignaturas.RowHeadersWidth = 51;
             this.dgvAsignaturas.RowTemplate.Height = 29;
-            this.dgvAsignaturas.Size = new System.Drawing.Size(613, 229);
+            this.dgvAsignaturas.Size = new System.Drawing.Size(826, 229);
             this.dgvAsignaturas.TabIndex = 3;
             // 
             // panel3
@@ -528,7 +528,7 @@
             this.panel5.Controls.Add(this.panel6);
             this.panel5.Location = new System.Drawing.Point(33, 351);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(972, 419);
+            this.panel5.Size = new System.Drawing.Size(1125, 419);
             this.panel5.TabIndex = 4;
             // 
             // dgvActividades
