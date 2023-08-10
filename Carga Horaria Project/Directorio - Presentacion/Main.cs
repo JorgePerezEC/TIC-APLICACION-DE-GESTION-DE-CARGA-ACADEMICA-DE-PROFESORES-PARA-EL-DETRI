@@ -280,5 +280,15 @@ namespace Directorio___Presentacion
             hideSubMenu();
             hideSubMenu2();
         }
+
+        private void lblAutores_MouseHover(object sender, EventArgs e)
+        {
+            lblAutores.ForeColor = Color.Yellow;
+        }
+
+        private void lblAutores_MouseLeave(object sender, EventArgs e)
+        {
+            lblAutores.ForeColor = Color.White;
+        }
     }
 }

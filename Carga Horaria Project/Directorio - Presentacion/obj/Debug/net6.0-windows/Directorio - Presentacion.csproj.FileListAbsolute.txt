@@ -495,3 +495,4 @@ C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\C
 C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\Carga Horaria Project\Directorio - Presentacion\obj\Debug\net6.0-windows\Directorio - Presentacion.pdb
 C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\Carga Horaria Project\Directorio - Presentacion\obj\Debug\net6.0-windows\Directorio - Presentacion.genruntimeconfig.cache
 C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\Carga Horaria Project\Directorio - Presentacion\obj\Debug\net6.0-windows\ref\Directorio - Presentacion.dll
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\Carga Horaria Project\Directorio - Presentacion\bin\Debug\net6.0-windows\BipsControlsForms.dll

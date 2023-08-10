@@ -152,7 +152,7 @@ namespace Directorio_Datos
         }
         public DataTable MostrarAsignaturasConGrupos(ClsSemestre _semestre)
         {
-            //comando.Connection = manejador.AbrirConexion();
+            SqlCommand comando = new SqlCommand();
             comando.Connection = ObjDataBase.sqlConexion;
             comando.CommandText = "spReadAllAsignaturasWGroups";
             comando.CommandType = CommandType.StoredProcedure;

@@ -144,17 +144,7 @@ CREATE TABLE tblGrAsignatura(
 	CONSTRAINT uq_tblGrAsignatura UNIQUE(idAsignatura, grupoAsignatura)
 );
 GO
--- Table: HorarioAsig
-CREATE TABLE tblHorarioGrAsig(
-	idHorario int  NOT NULL IDENTITY(1, 1),--PK
-	idGrAsig int NOT NULL,
-	horaInicio time,
-	horaFin time,
-	dia varchar(50),
-	PRIMARY KEY (idHorario),
-	FOREIGN KEY (idGrAsig) REFERENCES tblGrAsignatura(idGrAsig) ON UPDATE  NO ACTION  ON DELETE  NO ACTION
-);
-GO
+
 -- Table: SemestreGrupoAsignatura intermedia
 CREATE TABLE tblSemestreGrAsignatura (
     idSemestreGrAsignatura int NOT NULL IDENTITY(1, 1) PRIMARY KEY,
@@ -164,6 +154,32 @@ CREATE TABLE tblSemestreGrAsignatura (
     CONSTRAINT FK_SemestreGrAsignatura_Semestre FOREIGN KEY (idSemestre) REFERENCES tblSemestre(idSemestre) ON UPDATE NO ACTION ON DELETE NO ACTION,
     CONSTRAINT FK_SemestreGrAsignatura_GrAsignatura FOREIGN KEY (idGrAsig) REFERENCES tblGrAsignatura(idGrAsig) ON UPDATE NO ACTION ON DELETE NO ACTION
 );
+GO
+-- Table: DiaSemana
+CREATE TABLE tblDiaSemana (
+    idDiaSemana int NOT NULL IDENTITY(1, 1) PRIMARY KEY,
+    dia varchar(50) NOT NULL
+);
+GO
+CREATE TABLE tblHorarioGrAsig(
+    idHorario int NOT NULL IDENTITY(1, 1) PRIMARY KEY,
+    idSemestreGrAsignatura int NOT NULL, -- FK
+    horaInicio time NOT NULL,
+    horaFin time NOT NULL,
+    idDiaSemana int NOT NULL,
+	isActive bit NOT NULL,
+    FOREIGN KEY (idSemestreGrAsignatura) REFERENCES tblSemestreGrAsignatura(idSemestreGrAsignatura) ON UPDATE NO ACTION ON DELETE NO ACTION,
+	FOREIGN KEY (idDiaSemana) REFERENCES tblDiaSemana(idDiaSemana) ON UPDATE NO ACTION ON DELETE NO ACTION
+); 
+--CREATE TABLE tblHorarioGrAsig(  respaldo 10AGO
+--    idHorario int NOT NULL IDENTITY(1, 1) PRIMARY KEY,
+--    idSemestreGrAsignatura int NOT NULL, -- FK
+--    horaInicio time NOT NULL,
+--    horaFin time NOT NULL,
+--    dia varchar(50) NOT NULL,
+--	isActive bit NOT NULL,
+--    FOREIGN KEY (idSemestreGrAsignatura) REFERENCES tblSemestreGrAsignatura(idSemestreGrAsignatura) ON UPDATE NO ACTION ON DELETE NO ACTION
+--);
 GO
 -- Table: SemestreAsignatura intermedia
 CREATE TABLE tblSemestreAsignatura (
@@ -448,16 +464,58 @@ AS
 	END
 GO
 -- Stored Procedure to create one row from "tblHorarioGrAsig"
-CREATE PROCEDURE [dbo].[spAddHorarioAsig]
-	@idGr int,
-	@hIni time,
-	@hFin time,
-	@day varchar(50)
+CREATE OR ALTER PROCEDURE [dbo].[spAddHorarioAsig]
+    @idSemestre int,
+    @idGrAsig	int,
+    @horaInicio time,
+    @horaFin	time,
+    @dia		int,
+    @resultado	bit OUTPUT
 AS
-	BEGIN 
-		INSERT INTO tblHorarioGrAsig(idGrAsig,horaInicio,horaFin, dia)
-		VALUES(@idGr, @hIni, @hFin,@day)
-	END
+BEGIN
+    DECLARE @idSemestreGrAsignatura int
+
+    SET @resultado = 0 -- Inicializar con valor "False" (Error)
+
+    -- Verificar si hay conflicto de horario
+    IF NOT EXISTS (
+        SELECT 1
+        FROM tblHorarioGrAsig HGA
+		INNER JOIN tblSemestreGrAsignatura SGA ON HGA.idSemestreGrAsignatura = SGA.idSemestreGrAsignatura
+        WHERE SGA.idGrAsig = @idGrAsig AND HGA.isActive = 1
+            AND idDiaSemana = @dia
+            AND (
+                (@horaInicio >= horaInicio AND @horaInicio < horaFin) OR
+                (@horaFin > horaInicio AND @horaFin <= horaFin) OR
+                (@horaInicio <= horaInicio AND @horaFin >= horaFin)
+            )
+    )
+    BEGIN
+        -- Verificar si ya existe un registro con el mismo idSemestre e idGrAsig
+        SELECT @idSemestreGrAsignatura = idSemestreGrAsignatura
+        FROM tblSemestreGrAsignatura
+        WHERE idSemestre = @idSemestre AND idGrAsig = @idGrAsig
+
+        IF @idSemestreGrAsignatura IS NULL
+        BEGIN
+            -- Insertar en tblSemestreGrAsignatura solo si no existe
+            INSERT INTO tblSemestreGrAsignatura (idSemestre, idGrAsig, isActive)
+            VALUES (@idSemestre, @idGrAsig, 1)
+        
+            SET @idSemestreGrAsignatura = SCOPE_IDENTITY() -- Obtener el ID recién insertado
+        END
+
+        -- Insertar en tblHorarioGrAsig usando el ID de tblSemestreGrAsignatura
+        INSERT INTO tblHorarioGrAsig (idSemestreGrAsignatura, horaInicio, horaFin, idDiaSemana, isActive)
+        VALUES (@idSemestreGrAsignatura, @horaInicio, @horaFin, @dia, 1)
+        
+        SET @resultado = 1 -- Cambiar a valor "True" (Éxito)
+    END
+    ELSE
+    BEGIN
+        SET @resultado = 0 -- Mantener valor "False" (Error)
+    END
+END
 GO
 -- Stored Procedure to create one row from "tblHorarioGrAsig" Version2
 
@@ -556,22 +614,37 @@ BEGIN
 END
 GO
 -- Stored Procedure to Read All Rows from  "tblAsignaturas" where had Groups
+IF OBJECT_ID('spReadAllAsignaturasWGroupsWHorario') IS NOT NULL
+BEGIN 
+    DROP PROC [dbo].[spReadAllAsignaturasWGroupsWHorario]
+END 
+GO
+CREATE OR ALTER PROC [dbo].[spReadAllAsignaturasWGroupsWHorario]
+@idSemestre int
+AS 
+BEGIN 
+	SELECT DISTINCT a.idAsignatura AS ID,CONCAT(a.nombreAsignatura,' - ',a.codigoAsignatura) AS Asignatura
+    FROM tblAsignatura a
+    INNER JOIN tblGrAsignatura g ON a.idAsignatura = g.idAsignatura
+	INNER JOIN tblSemestreGrAsignatura SGA ON g.idGrAsig = SGA.idGrAsig
+    LEFT JOIN tblAsigCrgHoraria c ON g.idGrAsig = c.idGrAsig
+	LEFT JOIN tblSemestreAsignatura sa ON a.idAsignatura = sa.idAsignatura
+	LEFT JOIN tblHorarioGrAsig HGA ON SGA.idSemestreGrAsignatura = HGA.idSemestreGrAsignatura
+    WHERE c.idAsigCrgHoraria IS NULL AND g.grupoAsignatura IS NOT NULL AND sa.isActive = 1 AND sa.idSemestre = 1--@idSemestre
+	AND SGA.isActive = 1 AND HGA.isActive = 1 AND SGA.idSemestre = 1
+	ORDER BY Asignatura ASC
+END
+GO
+-- Stored Procedure to Read All Rows from  "tblAsignaturas" where had Groups
 IF OBJECT_ID('spReadAllAsignaturasWGroups') IS NOT NULL
 BEGIN 
     DROP PROC [dbo].[spReadAllAsignaturasWGroups]
 END 
 GO
-CREATE PROC [dbo].[spReadAllAsignaturasWGroups]
+CREATE OR ALTER PROC [dbo].[spReadAllAsignaturasWGroups]
 @idSemestre int
 AS 
 BEGIN 
- --   SELECT DISTINCT a.idAsignatura AS ID, a.nombreAsignatura AS Asignatura
- --   FROM tblAsignatura a
- --   INNER JOIN tblGrAsignatura g ON a.idAsignatura = g.idAsignatura
- --   LEFT JOIN tblAsigCrgHoraria c ON g.idGrAsig = c.idGrAsig
-	--LEFT JOIN tblSemestreAsignatura sa ON a.idAsignatura = sa.idAsignatura
- --   WHERE c.idAsigCrgHoraria IS NULL AND g.grupoAsignatura IS NOT NULL AND sa.isActive = 1
-	--ORDER BY a.nombreAsignatura ASC
 	SELECT DISTINCT a.idAsignatura AS ID, a.nombreAsignatura AS Asignatura
     FROM tblAsignatura a
     INNER JOIN tblGrAsignatura g ON a.idAsignatura = g.idAsignatura
@@ -644,14 +717,86 @@ BEGIN
     DROP PROC [dbo].[spReadAllHorariosAsignaturas]
 END 
 GO
-CREATE PROC [dbo].[spReadAllHorariosAsignaturas]
+CREATE or ALTER PROC [dbo].[spReadAllHorariosAsignaturas]
 AS 
 BEGIN 
-	SELECT gr.idHorario AS ID, asg.nombreAsignatura as Asignatura, gra.grupoAsignatura as Grupo,
-		gr.horaInicio AS 'Hora de Inicio', gr.horaFin AS 'Hora de Fin', gr.dia AS 'Día'
-	FROM   tblHorarioGrAsig gr
-		   INNER JOIN tblGrAsignatura gra ON gra.idGrAsig=gr.idGrAsig
-		   INNER JOIN tblAsignatura asg ON gra.idAsignatura=asg.idAsignatura
+    DECLARE @DaysOfWeek TABLE (
+        DayIndex INT,
+        DayName VARCHAR(10)
+    )
+
+    INSERT INTO @DaysOfWeek (DayIndex, DayName)
+    VALUES
+        (1, 'LUNES'),
+        (2, 'MARTES'),
+        (3, 'MIÉRCOLES'),
+        (4, 'JUEVES'),
+        (5, 'VIERNES'),
+        (6, 'SÁBADO'),
+        (7, 'DOMINGO')
+
+    DECLARE @DynamicSQL NVARCHAR(MAX)
+    SET @DynamicSQL = ''
+
+    SELECT @DynamicSQL = @DynamicSQL + 
+        ', MAX(CASE WHEN HGR.idDiaSemana = ''' + DayIndex + ''' THEN ISNULL(CONVERT(VARCHAR(5), HGR.horaInicio, 108) + '' - '' + CONVERT(VARCHAR(5), HGR.horaFin, 108), '''') ELSE '''' END) AS [' + DayName + ']'
+    FROM @DaysOfWeek
+    SET @DynamicSQL = 'SELECT HGR.idHorario AS ID, S.codigoSemestre AS SEMESTRE,A.nombreAsignatura as ASIGNATURA, GR.grupoAsignatura as GRUPO ' + @DynamicSQL +
+		', CONVERT(VARCHAR(5), HGR.horaInicio, 108) AS horaInicio, CONVERT(VARCHAR(5), HGR.horaFin, 108) AS horaFin, HGR.dia  ' +
+        ' FROM tblHorarioGrAsig HGR ' +
+        ' INNER JOIN tblSemestreGrAsignatura SGA ON HGR.idSemestreGrAsignatura = SGA.idSemestreGrAsignatura ' +
+        ' INNER JOIN tblGrAsignatura GR ON SGA.idGrAsig = GR.idGrAsig ' +
+        ' INNER JOIN tblAsignatura A ON GR.idAsignatura = A.idAsignatura ' +
+		' INNER JOIN tblSemestre S ON SGA.idSemestre = S.idSemestre ' +
+        ' WHERE HGR.isActive = 1 ' +
+        ' GROUP BY HGR.idHorario, A.nombreAsignatura, GR.grupoAsignatura, S.codigoSemestre, horaInicio, horaFin, HGR.dia'
+
+    EXEC sp_executesql @DynamicSQL
+END
+GO
+-- Stored Procedure to GET all HORARIOS from  "tblHorarioGrAsig" based on idGrAsig and idSemestre
+CREATE or alter PROC [dbo].[spGetAllHorariosByGRAsig]
+@idSemestre int,
+@idGrAsig   int
+AS 
+BEGIN 
+	DECLARE @idSemestreGrAsignatura int
+
+    SELECT @idSemestreGrAsignatura = SGA.idSemestreGrAsignatura 
+    FROM   tblSemestreGrAsignatura   SGA
+	WHERE SGA.idGrAsig = @idGrAsig
+	AND SGA.idSemestre = @idSemestre
+	PRINT(@idSemestreGrAsignatura)
+	IF @idSemestreGrAsignatura IS NOT NULL
+        BEGIN
+            SELECT idDiaSemana, horaInicio, horaFin
+			FROM tblHorarioGrAsig HGA
+			WHERE idSemestreGrAsignatura = @idSemestreGrAsignatura
+        END
+END
+GO
+--SP TO GET HORARIO TO VIEW
+CREATE or alter PROC [dbo].[spGetAllHorariosByGRAsigViewer]
+@idSemestre int,
+@idGrAsig   int
+AS 
+BEGIN 
+	DECLARE @idSemestreGrAsignatura int
+
+    SELECT @idSemestreGrAsignatura = SGA.idSemestreGrAsignatura 
+    FROM   tblSemestreGrAsignatura   SGA
+	WHERE SGA.idGrAsig = @idGrAsig
+	AND SGA.idSemestre = @idSemestre
+	PRINT(@idSemestreGrAsignatura)
+	IF @idSemestreGrAsignatura IS NOT NULL
+        BEGIN
+            SELECT DD.dia AS 'DÍA DE LA SEMANA',
+			ISNULL(CONVERT(VARCHAR(5), horaInicio, 108), 'N/A') AS 'HORA INICIO', 
+            ISNULL(CONVERT(VARCHAR(5), horaFin, 108), 'N/A') AS 'HORA FIN'
+			FROM tblHorarioGrAsig HGA
+			INNER JOIN tblDiaSemana DD ON HGA.idDiaSemana = DD.idDiaSemana
+			WHERE idSemestreGrAsignatura = @idSemestreGrAsignatura
+        END
 END
 GO
 -- Stored Procedure to Read all departments from  "tblDepartamento"
@@ -1136,8 +1281,8 @@ CREATE PROCEDURE [dbo].[spUpdateHorarioAsig]
 AS
 	BEGIN
 		UPDATE tblHorarioGrAsig
-		SET idGrAsig = @idGr, horaInicio =@hIni,
-			horaFin = @hFin, dia = @day
+		SET idSemestreGrAsignatura = @idGr, horaInicio =@hIni,
+			horaFin = @hFin, idDiaSemana = @day, isActive = 1
 		WHERE idHorario = @id;
 	END
 GO
@@ -1318,8 +1463,9 @@ CREATE PROCEDURE [dbo].[spDeleteHorarioAsig]
 	@id int
 AS
 	BEGIN
-		DELETE FROM tblHorarioGrAsig 
-		WHERE idHorario = @id
+		UPDATE tblHorarioGrAsig
+		SET isActive = 0
+		WHERE idHorario = @id;
 	END
 GO
 -- Stored Procedure to delete one row from  "tblActividad"
@@ -1366,11 +1512,11 @@ BEGIN
     DROP PROC [dbo].[spReadAllGroupsByAsig]
 END 
 GO
-CREATE PROC [dbo].[spReadAllGroupsByAsig]
+CREATE OR ALTER PROC [dbo].[spReadAllGroupsByAsig]
 	@idAsignatura varchar(150)
 AS 
 BEGIN 
-    SELECT gr.idAsignatura AS ID, gr.grupoAsignatura AS Grupos
+    SELECT gr.idGrAsig AS ID, gr.grupoAsignatura AS Grupos
     FROM tblGrAsignatura gr
     INNER JOIN tblAsignatura asg ON gr.idAsignatura = asg.idAsignatura
     WHERE asg.idAsignatura = @idAsignatura
@@ -2531,6 +2677,16 @@ INSERT INTO tblActividad VALUES(4,'Jefe del DETRI.', 5,0,1);--Id=60
 INSERT INTO tblActividad VALUES(4,'Apoyo a las actividades de gestión.', 5,0,1);--Id=61
 INSERT INTO tblActividad VALUES(4,'Colaboración en la Comisión de Prácticas Preprofesionales y Pasantías.', 5,0,1);--Id=62
 INSERT INTO tblActividad VALUES(4,'Otras actividades.', 5,0,1);--Id=63
+GO
+--TABLE tblDiaSemana
+INSERT INTO tblDiaSemana VALUES
+('LUNES'),
+('MARTES'),
+('MIÉRCOLES'),
+('JUEVES'),
+('VIERNES'),
+('SÁBADO'),
+('DOMINGO')
 GO
 --  TABLA: Asignaturas   DATOS    (nombreAsignatura,'tipoAsignatura','codigoAsignatura',horasAsignaturaTotales,horasAsignaturaSemanales,nivelAsignatura, estadoAsignatura)
 --INSERTAR DATOS EN MATERIA---

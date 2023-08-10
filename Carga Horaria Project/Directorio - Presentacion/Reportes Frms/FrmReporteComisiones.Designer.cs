@@ -434,6 +434,7 @@
             this.label16.Size = new System.Drawing.Size(75, 28);
             this.label16.TabIndex = 16;
             this.label16.Text = "Filtrar:";
+            this.label16.Click += new System.EventHandler(this.label16_Click);
             // 
             // txtFiltro
             // 

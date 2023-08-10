@@ -29,40 +29,46 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnCancelar = new MaterialSkin.Controls.MaterialButton();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.lstBoxAsignaturas = new System.Windows.Forms.ListBox();
             this.tblPanelFiltros = new System.Windows.Forms.TableLayoutPanel();
-            this.rbTodo = new System.Windows.Forms.RadioButton();
+            this.rbTodo = new MaterialSkin.Controls.MaterialRadioButton();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.cmbCarreras = new System.Windows.Forms.ComboBox();
             this.txtCodeFilter = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.cmbAsignatura = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.panelGR = new System.Windows.Forms.Panel();
+            this.btnAgregar = new MaterialSkin.Controls.MaterialButton();
+            this.btnAddGR = new MaterialSkin.Controls.MaterialButton();
             this.txtCode = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.btnAddGR = new System.Windows.Forms.Button();
             this.cmbGR = new System.Windows.Forms.ComboBox();
-            this.btnAgregar = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.txtNivel = new System.Windows.Forms.TextBox();
             this.txtType = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.btnCancelar = new System.Windows.Forms.Button();
-            this.cmbAsignatura = new System.Windows.Forms.ComboBox();
-            this.label2 = new System.Windows.Forms.Label();
+            this.panelHorario = new System.Windows.Forms.Panel();
+            this.label11 = new System.Windows.Forms.Label();
+            this.dgvHorario = new System.Windows.Forms.DataGridView();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.tblPanelFiltros.SuspendLayout();
             this.panelGR.SuspendLayout();
+            this.panelHorario.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvHorario)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.panel1.Controls.Add(this.btnCancelar);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
@@ -70,15 +76,37 @@
             this.panel1.Size = new System.Drawing.Size(956, 83);
             this.panel1.TabIndex = 0;
             // 
+            // btnCancelar
+            // 
+            this.btnCancelar.AutoSize = false;
+            this.btnCancelar.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnCancelar.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.btnCancelar.Depth = 0;
+            this.btnCancelar.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnCancelar.HighEmphasis = true;
+            this.btnCancelar.Icon = null;
+            this.btnCancelar.Location = new System.Drawing.Point(800, 25);
+            this.btnCancelar.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnCancelar.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnCancelar.Name = "btnCancelar";
+            this.btnCancelar.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.btnCancelar.Size = new System.Drawing.Size(128, 45);
+            this.btnCancelar.TabIndex = 34;
+            this.btnCancelar.Text = "CANCELAR";
+            this.btnCancelar.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnCancelar.UseAccentColor = false;
+            this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(20, 11);
+            this.label1.Location = new System.Drawing.Point(30, 25);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(274, 38);
+            this.label1.Size = new System.Drawing.Size(335, 38);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Agregar Asignatura";
+            this.label1.Text = "AGREGAR ASIGNATURA";
             // 
             // panel2
             // 
@@ -86,14 +114,12 @@
             this.panel2.Controls.Add(this.lstBoxAsignaturas);
             this.panel2.Controls.Add(this.tblPanelFiltros);
             this.panel2.Controls.Add(this.label7);
-            this.panel2.Controls.Add(this.panelGR);
-            this.panel2.Controls.Add(this.btnCancelar);
             this.panel2.Controls.Add(this.cmbAsignatura);
             this.panel2.Controls.Add(this.label2);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 83);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(956, 607);
+            this.panel2.Size = new System.Drawing.Size(956, 309);
             this.panel2.TabIndex = 1;
             // 
             // lstBoxAsignaturas
@@ -101,7 +127,7 @@
             this.lstBoxAsignaturas.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.lstBoxAsignaturas.FormattingEnabled = true;
             this.lstBoxAsignaturas.ItemHeight = 20;
-            this.lstBoxAsignaturas.Location = new System.Drawing.Point(304, 178);
+            this.lstBoxAsignaturas.Location = new System.Drawing.Point(304, 158);
             this.lstBoxAsignaturas.Name = "lstBoxAsignaturas";
             this.lstBoxAsignaturas.Size = new System.Drawing.Size(570, 144);
             this.lstBoxAsignaturas.TabIndex = 5;
@@ -110,8 +136,8 @@
             // 
             this.tblPanelFiltros.BackColor = System.Drawing.Color.LightCyan;
             this.tblPanelFiltros.ColumnCount = 2;
-            this.tblPanelFiltros.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
-            this.tblPanelFiltros.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
+            this.tblPanelFiltros.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.tblPanelFiltros.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
             this.tblPanelFiltros.Controls.Add(this.rbTodo, 1, 0);
             this.tblPanelFiltros.Controls.Add(this.label8, 0, 0);
             this.tblPanelFiltros.Controls.Add(this.label9, 0, 1);
@@ -124,20 +150,22 @@
             this.tblPanelFiltros.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tblPanelFiltros.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tblPanelFiltros.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tblPanelFiltros.Size = new System.Drawing.Size(456, 104);
+            this.tblPanelFiltros.Size = new System.Drawing.Size(455, 104);
             this.tblPanelFiltros.TabIndex = 10;
             // 
             // rbTodo
             // 
-            this.rbTodo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.rbTodo.AutoSize = true;
             this.rbTodo.Checked = true;
-            this.rbTodo.Location = new System.Drawing.Point(185, 3);
+            this.rbTodo.Depth = 0;
+            this.rbTodo.Location = new System.Drawing.Point(136, 0);
+            this.rbTodo.Margin = new System.Windows.Forms.Padding(0);
+            this.rbTodo.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.rbTodo.MouseState = MaterialSkin.MouseState.HOVER;
             this.rbTodo.Name = "rbTodo";
-            this.rbTodo.Size = new System.Drawing.Size(268, 28);
-            this.rbTodo.TabIndex = 1;
+            this.rbTodo.Ripple = true;
+            this.rbTodo.Size = new System.Drawing.Size(34, 34);
+            this.rbTodo.TabIndex = 35;
             this.rbTodo.TabStop = true;
             this.rbTodo.UseVisualStyleBackColor = true;
             this.rbTodo.CheckedChanged += new System.EventHandler(this.rbTodo_CheckedChanged);
@@ -150,7 +178,7 @@
             this.label8.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label8.Location = new System.Drawing.Point(3, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(176, 34);
+            this.label8.Size = new System.Drawing.Size(130, 34);
             this.label8.TabIndex = 1;
             this.label8.Text = "Mostrar todas";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -162,7 +190,7 @@
             this.label9.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label9.Location = new System.Drawing.Point(3, 34);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(176, 34);
+            this.label9.Size = new System.Drawing.Size(130, 34);
             this.label9.TabIndex = 2;
             this.label9.Text = "Por Carrera";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -174,7 +202,7 @@
             this.label10.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label10.Location = new System.Drawing.Point(3, 68);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(176, 36);
+            this.label10.Size = new System.Drawing.Size(130, 36);
             this.label10.TabIndex = 3;
             this.label10.Text = "Por código";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -184,167 +212,29 @@
             this.cmbCarreras.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
             this.cmbCarreras.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cmbCarreras.FormattingEnabled = true;
-            this.cmbCarreras.Location = new System.Drawing.Point(185, 37);
+            this.cmbCarreras.Location = new System.Drawing.Point(139, 37);
             this.cmbCarreras.Name = "cmbCarreras";
-            this.cmbCarreras.Size = new System.Drawing.Size(268, 28);
+            this.cmbCarreras.Size = new System.Drawing.Size(313, 28);
             this.cmbCarreras.TabIndex = 2;
             this.cmbCarreras.SelectedIndexChanged += new System.EventHandler(this.cmbCarreras_SelectedIndexChanged);
             // 
             // txtCodeFilter
             // 
-            this.txtCodeFilter.Location = new System.Drawing.Point(185, 71);
+            this.txtCodeFilter.Location = new System.Drawing.Point(139, 71);
             this.txtCodeFilter.Name = "txtCodeFilter";
-            this.txtCodeFilter.Size = new System.Drawing.Size(268, 27);
+            this.txtCodeFilter.Size = new System.Drawing.Size(313, 27);
             this.txtCodeFilter.TabIndex = 3;
             this.txtCodeFilter.TextChanged += new System.EventHandler(this.txtCodeFilter_TextChanged);
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label7.Location = new System.Drawing.Point(47, 13);
+            this.label7.Font = new System.Drawing.Font("Calibri", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label7.Location = new System.Drawing.Point(30, 12);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(211, 28);
+            this.label7.Size = new System.Drawing.Size(210, 28);
             this.label7.TabIndex = 9;
             this.label7.Text = "Filtro de asignaturas:";
-            // 
-            // panelGR
-            // 
-            this.panelGR.Controls.Add(this.txtCode);
-            this.panelGR.Controls.Add(this.label6);
-            this.panelGR.Controls.Add(this.btnAddGR);
-            this.panelGR.Controls.Add(this.cmbGR);
-            this.panelGR.Controls.Add(this.btnAgregar);
-            this.panelGR.Controls.Add(this.label5);
-            this.panelGR.Controls.Add(this.label3);
-            this.panelGR.Controls.Add(this.txtNivel);
-            this.panelGR.Controls.Add(this.txtType);
-            this.panelGR.Controls.Add(this.label4);
-            this.panelGR.Location = new System.Drawing.Point(12, 347);
-            this.panelGR.Name = "panelGR";
-            this.panelGR.Size = new System.Drawing.Size(781, 248);
-            this.panelGR.TabIndex = 8;
-            this.panelGR.Visible = false;
-            // 
-            // txtCode
-            // 
-            this.txtCode.Enabled = false;
-            this.txtCode.Location = new System.Drawing.Point(284, 7);
-            this.txtCode.Name = "txtCode";
-            this.txtCode.Size = new System.Drawing.Size(248, 27);
-            this.txtCode.TabIndex = 12;
-            this.txtCode.TabStop = false;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label6.Location = new System.Drawing.Point(18, 3);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(218, 28);
-            this.label6.TabIndex = 11;
-            this.label6.Text = "Código de asignatura:";
-            // 
-            // btnAddGR
-            // 
-            this.btnAddGR.BackColor = System.Drawing.Color.Beige;
-            this.btnAddGR.FlatAppearance.BorderSize = 0;
-            this.btnAddGR.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAddGR.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnAddGR.Location = new System.Drawing.Point(571, 131);
-            this.btnAddGR.Name = "btnAddGR";
-            this.btnAddGR.Size = new System.Drawing.Size(140, 37);
-            this.btnAddGR.TabIndex = 8;
-            this.btnAddGR.Text = "Agregar GR";
-            this.btnAddGR.UseVisualStyleBackColor = false;
-            this.btnAddGR.Click += new System.EventHandler(this.btnAddGR_Click);
-            // 
-            // cmbGR
-            // 
-            this.cmbGR.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.cmbGR.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.cmbGR.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbGR.FormattingEnabled = true;
-            this.cmbGR.Location = new System.Drawing.Point(284, 135);
-            this.cmbGR.Name = "cmbGR";
-            this.cmbGR.Size = new System.Drawing.Size(249, 28);
-            this.cmbGR.TabIndex = 7;
-            this.cmbGR.SelectedIndexChanged += new System.EventHandler(this.cmbGR_SelectedIndexChanged);
-            // 
-            // btnAgregar
-            // 
-            this.btnAgregar.BackColor = System.Drawing.Color.Beige;
-            this.btnAgregar.FlatAppearance.BorderSize = 0;
-            this.btnAgregar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAgregar.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnAgregar.Location = new System.Drawing.Point(614, 198);
-            this.btnAgregar.Name = "btnAgregar";
-            this.btnAgregar.Size = new System.Drawing.Size(140, 37);
-            this.btnAgregar.TabIndex = 9;
-            this.btnAgregar.Text = "Agregar";
-            this.btnAgregar.UseVisualStyleBackColor = false;
-            this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
-            // 
-            // label5
-            // 
-            this.label5.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label5.Location = new System.Drawing.Point(18, 135);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(246, 65);
-            this.label5.TabIndex = 8;
-            this.label5.Text = "Seleccione el grupo de asignatura:";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label3.Location = new System.Drawing.Point(18, 51);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(194, 28);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Tipo de asignatura:";
-            // 
-            // txtNivel
-            // 
-            this.txtNivel.Enabled = false;
-            this.txtNivel.Location = new System.Drawing.Point(284, 93);
-            this.txtNivel.Name = "txtNivel";
-            this.txtNivel.Size = new System.Drawing.Size(248, 27);
-            this.txtNivel.TabIndex = 7;
-            this.txtNivel.TabStop = false;
-            // 
-            // txtType
-            // 
-            this.txtType.Enabled = false;
-            this.txtType.Location = new System.Drawing.Point(284, 51);
-            this.txtType.Name = "txtType";
-            this.txtType.Size = new System.Drawing.Size(248, 27);
-            this.txtType.TabIndex = 5;
-            this.txtType.TabStop = false;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label4.Location = new System.Drawing.Point(18, 89);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(202, 28);
-            this.label4.TabIndex = 6;
-            this.label4.Text = "Nivel de asignatura:";
-            // 
-            // btnCancelar
-            // 
-            this.btnCancelar.BackColor = System.Drawing.Color.Beige;
-            this.btnCancelar.FlatAppearance.BorderSize = 0;
-            this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancelar.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnCancelar.Location = new System.Drawing.Point(799, 545);
-            this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(140, 37);
-            this.btnCancelar.TabIndex = 12;
-            this.btnCancelar.Text = "Cancelar";
-            this.btnCancelar.UseVisualStyleBackColor = false;
-            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // cmbAsignatura
             // 
@@ -361,26 +251,208 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label2.Location = new System.Drawing.Point(38, 120);
+            this.label2.Font = new System.Drawing.Font("Calibri", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label2.Location = new System.Drawing.Point(30, 121);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(246, 28);
             this.label2.TabIndex = 0;
             this.label2.Text = "Seleccione la asignatura:";
             // 
+            // panelGR
+            // 
+            this.panelGR.BackColor = System.Drawing.Color.LightBlue;
+            this.panelGR.Controls.Add(this.btnAgregar);
+            this.panelGR.Controls.Add(this.btnAddGR);
+            this.panelGR.Controls.Add(this.txtCode);
+            this.panelGR.Controls.Add(this.label6);
+            this.panelGR.Controls.Add(this.cmbGR);
+            this.panelGR.Controls.Add(this.label5);
+            this.panelGR.Controls.Add(this.label3);
+            this.panelGR.Controls.Add(this.txtNivel);
+            this.panelGR.Controls.Add(this.txtType);
+            this.panelGR.Controls.Add(this.label4);
+            this.panelGR.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelGR.Location = new System.Drawing.Point(0, 392);
+            this.panelGR.Name = "panelGR";
+            this.panelGR.Size = new System.Drawing.Size(956, 217);
+            this.panelGR.TabIndex = 8;
+            this.panelGR.Visible = false;
+            // 
+            // btnAgregar
+            // 
+            this.btnAgregar.AutoSize = false;
+            this.btnAgregar.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnAgregar.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.btnAgregar.Depth = 0;
+            this.btnAgregar.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnAgregar.HighEmphasis = true;
+            this.btnAgregar.Icon = null;
+            this.btnAgregar.Location = new System.Drawing.Point(779, 51);
+            this.btnAgregar.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnAgregar.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnAgregar.Name = "btnAgregar";
+            this.btnAgregar.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.btnAgregar.Size = new System.Drawing.Size(128, 45);
+            this.btnAgregar.TabIndex = 35;
+            this.btnAgregar.Text = "agregar";
+            this.btnAgregar.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnAgregar.UseAccentColor = false;
+            this.btnAgregar.UseVisualStyleBackColor = true;
+            this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
+            // 
+            // btnAddGR
+            // 
+            this.btnAddGR.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAddGR.AutoSize = false;
+            this.btnAddGR.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnAddGR.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.btnAddGR.Depth = 0;
+            this.btnAddGR.Enabled = false;
+            this.btnAddGR.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.btnAddGR.HighEmphasis = true;
+            this.btnAddGR.Icon = null;
+            this.btnAddGR.Location = new System.Drawing.Point(511, 126);
+            this.btnAddGR.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnAddGR.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnAddGR.Name = "btnAddGR";
+            this.btnAddGR.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.btnAddGR.Size = new System.Drawing.Size(125, 39);
+            this.btnAddGR.TabIndex = 13;
+            this.btnAddGR.Text = "Agregar GR";
+            this.btnAddGR.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnAddGR.UseAccentColor = false;
+            this.btnAddGR.UseVisualStyleBackColor = true;
+            this.btnAddGR.Click += new System.EventHandler(this.btnAddGR_Click);
+            // 
+            // txtCode
+            // 
+            this.txtCode.Enabled = false;
+            this.txtCode.Location = new System.Drawing.Point(255, 6);
+            this.txtCode.Name = "txtCode";
+            this.txtCode.Size = new System.Drawing.Size(248, 27);
+            this.txtCode.TabIndex = 12;
+            this.txtCode.TabStop = false;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Calibri", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label6.Location = new System.Drawing.Point(18, 3);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(215, 28);
+            this.label6.TabIndex = 11;
+            this.label6.Text = "Código de asignatura:";
+            // 
+            // cmbGR
+            // 
+            this.cmbGR.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cmbGR.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cmbGR.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbGR.FormattingEnabled = true;
+            this.cmbGR.Location = new System.Drawing.Point(255, 134);
+            this.cmbGR.Name = "cmbGR";
+            this.cmbGR.Size = new System.Drawing.Size(249, 28);
+            this.cmbGR.TabIndex = 7;
+            this.cmbGR.SelectedIndexChanged += new System.EventHandler(this.cmbGR_SelectedIndexChanged);
+            // 
+            // label5
+            // 
+            this.label5.Font = new System.Drawing.Font("Calibri", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label5.Location = new System.Drawing.Point(18, 135);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(230, 65);
+            this.label5.TabIndex = 8;
+            this.label5.Text = "Seleccione el grupo de asignatura:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Calibri", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label3.Location = new System.Drawing.Point(18, 51);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(191, 28);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Tipo de asignatura:";
+            // 
+            // txtNivel
+            // 
+            this.txtNivel.Enabled = false;
+            this.txtNivel.Location = new System.Drawing.Point(255, 92);
+            this.txtNivel.Name = "txtNivel";
+            this.txtNivel.Size = new System.Drawing.Size(248, 27);
+            this.txtNivel.TabIndex = 7;
+            this.txtNivel.TabStop = false;
+            // 
+            // txtType
+            // 
+            this.txtType.Enabled = false;
+            this.txtType.Location = new System.Drawing.Point(255, 50);
+            this.txtType.Name = "txtType";
+            this.txtType.Size = new System.Drawing.Size(248, 27);
+            this.txtType.TabIndex = 5;
+            this.txtType.TabStop = false;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Calibri", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label4.Location = new System.Drawing.Point(18, 89);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(200, 28);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "Nivel de asignatura:";
+            // 
+            // panelHorario
+            // 
+            this.panelHorario.BackColor = System.Drawing.Color.LightBlue;
+            this.panelHorario.Controls.Add(this.label11);
+            this.panelHorario.Controls.Add(this.dgvHorario);
+            this.panelHorario.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelHorario.Location = new System.Drawing.Point(0, 609);
+            this.panelHorario.Name = "panelHorario";
+            this.panelHorario.Size = new System.Drawing.Size(956, 259);
+            this.panelHorario.TabIndex = 37;
+            this.panelHorario.Visible = false;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.BackColor = System.Drawing.Color.SkyBlue;
+            this.label11.Font = new System.Drawing.Font("Calibri", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label11.Location = new System.Drawing.Point(18, 13);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(127, 35);
+            this.label11.TabIndex = 1;
+            this.label11.Text = "HORARIO";
+            // 
+            // dgvHorario
+            // 
+            this.dgvHorario.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvHorario.Location = new System.Drawing.Point(188, 13);
+            this.dgvHorario.Name = "dgvHorario";
+            this.dgvHorario.RowHeadersWidth = 51;
+            this.dgvHorario.RowTemplate.Height = 29;
+            this.dgvHorario.Size = new System.Drawing.Size(485, 205);
+            this.dgvHorario.TabIndex = 0;
+            // 
             // FrmCUAsignatura_AL
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(956, 690);
+            this.BackColor = System.Drawing.Color.LightBlue;
+            this.ClientSize = new System.Drawing.Size(956, 868);
             this.ControlBox = false;
+            this.Controls.Add(this.panelHorario);
+            this.Controls.Add(this.panelGR);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "FrmCUAsignatura_AL";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Agregar asignatura";
+            this.Text = "  AGREGAR ASIGNATURA";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmCUAsignatura_AL_FormClosed);
             this.Load += new System.EventHandler(this.FrmCUAsignatura_AL_Load);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.FrmCUAsignatura_AL_KeyPress);
@@ -392,6 +464,9 @@
             this.tblPanelFiltros.PerformLayout();
             this.panelGR.ResumeLayout(false);
             this.panelGR.PerformLayout();
+            this.panelHorario.ResumeLayout(false);
+            this.panelHorario.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvHorario)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -405,17 +480,13 @@
         private Label label4;
         private TextBox txtType;
         private Label label3;
-        private Button btnCancelar;
-        private Button btnAgregar;
         private ComboBox cmbAsignatura;
         private Label label2;
         private Panel panelGR;
         private ComboBox cmbGR;
         private Label label5;
-        private Button btnAddGR;
         private Label label6;
         private TableLayoutPanel tblPanelFiltros;
-        private RadioButton rbTodo;
         private Label label8;
         private Label label7;
         private TextBox txtCode;
@@ -424,5 +495,12 @@
         private ComboBox cmbCarreras;
         private TextBox txtCodeFilter;
         private ListBox lstBoxAsignaturas;
+        private MaterialSkin.Controls.MaterialButton btnAddGR;
+        private MaterialSkin.Controls.MaterialButton btnCancelar;
+        private MaterialSkin.Controls.MaterialButton btnAgregar;
+        private MaterialSkin.Controls.MaterialRadioButton rbTodo;
+        private Panel panelHorario;
+        private DataGridView dgvHorario;
+        private Label label11;
     }
 }

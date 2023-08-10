@@ -23,8 +23,37 @@ namespace Directorio_Logica
             return tabla;
         }
 
+        public DataTable GetHorariosByAsignaturaGR_Negocio(string idSemestre, string idGrAsig)
+        {
+            DataTable tabla = new DataTable();
+            ClsSemestre ObjSemestre = new ClsSemestre()
+            {
+                IdSemestre = Convert.ToInt32(idSemestre),
+            };
+            ClsGrupoAsignatura ObjGrAsig = new ClsGrupoAsignatura()
+            {
+                IdGrupoAsignatura = Convert.ToInt32(idGrAsig),
+            };
+            tabla = objetoCData.GetHorariosByAsignaturaGR_DAL(ObjSemestre, ObjGrAsig);
+            return tabla;
+        }
+        public DataTable GetHorariosByAsignaturaGRView_Negocio(string idSemestre, string idGrAsig)
+        {
+            DataTable tabla = new DataTable();
+            ClsSemestre ObjSemestre = new ClsSemestre()
+            {
+                IdSemestre = Convert.ToInt32(idSemestre),
+            };
+            ClsGrupoAsignatura ObjGrAsig = new ClsGrupoAsignatura()
+            {
+                IdGrupoAsignatura = Convert.ToInt32(idGrAsig),
+            };
+            tabla = objetoCData.GetHorariosByAsignaturaGRView_DAL(ObjSemestre, ObjGrAsig);
+            return tabla;
+        }
+
         #region CRUD Methods
-        public bool CreateHorariosNegocio(string idAsig, string nameGr, string hInicio, string hFin, string day)
+        public bool CreateHorariosNegocio(string idSemestre, string idGrAsig, string hInicio, string hFin, string day)
         {
             try
             {
@@ -32,19 +61,21 @@ namespace Directorio_Logica
                 var dateTimeF = DateTime.Parse(hFin);
                 var timeOnlyInicio = TimeOnly.FromDateTime(dateTimeI);
                 var timeOnlyFin = TimeOnly.FromDateTime(dateTimeF);
-                var dateOnlyString = timeOnlyInicio.ToString("HH:mm");
-                var startTime = new TimeOnly(10, 30);
-                var startTime2 = new TimeOnly(12, 33);
+
                 ClsHorarioGrAsignatura ObjHorarioAsig = new ClsHorarioGrAsignatura()
                 {
-                    IdGrupo = 5,
-                    HoraInicio = startTime,
-                    HoraFin = startTime2,
-                    DiaSemana = day
+                    IdGrAsig = Convert.ToInt32(idGrAsig),
+                    HoraInicio = timeOnlyInicio,
+                    HoraFin = timeOnlyFin,
+                    IdDiaSemana = Convert.ToInt32(day),
                 };
-                objetoCData.CreateHorarioAsig(ObjHorarioAsig);
+                ClsSemestre ObjSemestre = new ClsSemestre()
+                {
+                    IdSemestre = Convert.ToInt32(idSemestre),
+                };
+                bool resul = objetoCData.CreateHorarioAsig(ObjSemestre, ObjHorarioAsig);
 
-                return true;
+                return resul;
 
             }
             catch (System.Data.SqlClient.SqlException sqlException)
@@ -53,7 +84,6 @@ namespace Directorio_Logica
                 return false;
 
             }
-
         }
 
         public bool UpdateHorariosNegocio(string idHorario, string idAsig, string nameGr, string hInicio, string hFin, string day)
@@ -63,7 +93,7 @@ namespace Directorio_Logica
                 ClsHorarioGrAsignatura ObjHorarioAsig = new ClsHorarioGrAsignatura()
                 {
                     IdHorario = Convert.ToInt32(idHorario),
-                    IdAsig = Convert.ToInt32(idAsig),
+                    IdGrAsig = Convert.ToInt32(idAsig),
                     Grupo = nameGr,
                     HoraInicio = TimeOnly.Parse(hInicio),
                     HoraFin = TimeOnly.Parse(hFin),

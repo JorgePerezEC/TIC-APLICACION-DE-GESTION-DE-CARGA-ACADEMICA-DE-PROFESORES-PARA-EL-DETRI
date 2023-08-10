@@ -12,11 +12,12 @@ namespace Directorio_Entidades
         #region Atributos Privados
         private int _idHorario;
         private int _idGrupo;
-        private int _idAsig;
+        private int _idGrAsig;
         private string _grupo;
         private TimeOnly _horaInicio;
         private TimeOnly _horaFin;
         private string _diaSemana;
+        private int _idDiaSemana;
         #endregion
 
         #region Atributos Públicos
@@ -24,9 +25,10 @@ namespace Directorio_Entidades
         public TimeOnly HoraInicio { get => _horaInicio; set => _horaInicio = value; }
         public TimeOnly HoraFin { get => _horaFin; set => _horaFin = value; }
         public string DiaSemana { get => _diaSemana; set => _diaSemana = value; }
-        public int IdAsig { get => _idAsig; set => _idAsig = value; }
         public string Grupo { get => _grupo; set => _grupo = value; }
         public int IdGrupo { get => _idGrupo; set => _idGrupo = value; }
+        public int IdGrAsig { get => _idGrAsig; set => _idGrAsig = value; }
+        public int IdDiaSemana { get => _idDiaSemana; set => _idDiaSemana = value; }
         #endregion
 
 

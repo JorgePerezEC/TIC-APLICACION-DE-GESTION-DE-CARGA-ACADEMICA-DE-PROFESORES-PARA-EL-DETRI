@@ -2,6 +2,25 @@
   "version": 3,
   "targets": {
     "net6.0-windows7.0": {
+      "BipsControlsForms/1.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0-windows7.0/BipsControlsForms.dll": {}
+        },
+        "runtime": {
+          "lib/net6.0-windows7.0/BipsControlsForms.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App"
+        ],
+        "contentFiles": {
+          "contentFiles/any/net6.0-windows7.0/Software.ico": {
+            "buildAction": "Content",
+            "codeLanguage": "any",
+            "copyToOutput": false
+          }
+        }
+      },
       "itext7/8.0.0": {
         "type": "package",
         "dependencies": {
@@ -1925,6 +1944,22 @@
     }
   },
   "libraries": {
+    "BipsControlsForms/1.0.0": {
+      "sha512": "0MpCjHktCfzNbyQq+3Vif4JFE4bgjH5UqtXNtMRXaPIVcMw/RKYFWXrd1L6BDFA1N5fDPPuhTM5AjlQq+f2/eg==",
+      "type": "package",
+      "path": "bipscontrolsforms/1.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "IconoBipsControls.PNG",
+        "README.md",
+        "bipscontrolsforms.1.0.0.nupkg.sha512",
+        "bipscontrolsforms.nuspec",
+        "content/Software.ico",
+        "contentFiles/any/net6.0-windows7.0/Software.ico",
+        "lib/net6.0-windows7.0/BipsControlsForms.dll"
+      ]
+    },
     "itext7/8.0.0": {
       "sha512": "HWdCvclpwMXKA2slBzgxKOdCHOUch9+wq0mj5ec3AL46ZDU4j2XbojVB4Zy9j1yecDJdLJeMeD39f7ZPmZ9j5Q==",
       "type": "package",
@@ -6006,6 +6041,7 @@
   },
   "projectFileDependencyGroups": {
     "net6.0-windows7.0": [
+      "BipsControlsForms >= 1.0.0",
       "Directorio-Entidades >= 1.0.0",
       "Directorio-LogicaNegocio >= 1.0.0",
       "LiveCharts.WinForms.NetCore3 >= 0.9.7",
@@ -6063,6 +6099,10 @@
       "net6.0-windows7.0": {
         "targetAlias": "net6.0-windows",
         "dependencies": {
+          "BipsControlsForms": {
+            "target": "Package",
+            "version": "[1.0.0, )"
+          },
           "LiveCharts.WinForms.NetCore3": {
             "target": "Package",
             "version": "[0.9.7, )"

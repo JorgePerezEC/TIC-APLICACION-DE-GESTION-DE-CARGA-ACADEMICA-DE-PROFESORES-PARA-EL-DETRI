@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.panelMenuLateral = new System.Windows.Forms.Panel();
+            this.lblAutores = new System.Windows.Forms.Label();
             this.panelSubmenuReportes = new System.Windows.Forms.Panel();
             this.btnReporteActividades = new System.Windows.Forms.Button();
             this.btnReporteAsignaturas = new System.Windows.Forms.Button();
@@ -64,6 +65,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             this.panelChildForm = new System.Windows.Forms.Panel();
             this.pixtbxLogo = new System.Windows.Forms.PictureBox();
             this.panelMenuLateral.SuspendLayout();
@@ -74,6 +76,7 @@
             this.panelGestActividades.SuspendLayout();
             this.panelSubmenuAdminCargas.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.panelChildForm.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pixtbxLogo)).BeginInit();
             this.SuspendLayout();
@@ -83,6 +86,7 @@
             this.panelMenuLateral.AutoScroll = true;
             this.panelMenuLateral.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(0)))), ((int)(((byte)(90)))));
             this.panelMenuLateral.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelMenuLateral.Controls.Add(this.lblAutores);
             this.panelMenuLateral.Controls.Add(this.panelSubmenuReportes);
             this.panelMenuLateral.Controls.Add(this.btnReportesMain);
             this.panelMenuLateral.Controls.Add(this.panelSubmenuGestionData);
@@ -93,8 +97,23 @@
             this.panelMenuLateral.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelMenuLateral.Location = new System.Drawing.Point(0, 0);
             this.panelMenuLateral.Name = "panelMenuLateral";
-            this.panelMenuLateral.Size = new System.Drawing.Size(285, 963);
+            this.panelMenuLateral.Size = new System.Drawing.Size(285, 1055);
             this.panelMenuLateral.TabIndex = 0;
+            // 
+            // lblAutores
+            // 
+            this.lblAutores.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.lblAutores.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblAutores.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.lblAutores.Location = new System.Drawing.Point(0, 1407);
+            this.lblAutores.Name = "lblAutores";
+            this.lblAutores.Padding = new System.Windows.Forms.Padding(7, 0, 0, 7);
+            this.lblAutores.Size = new System.Drawing.Size(262, 105);
+            this.lblAutores.TabIndex = 7;
+            this.lblAutores.Text = "ESTUDIANTE:  JORGE PÉREZ\r\nDIRECTOR:      ANA ZAMBRANO";
+            this.lblAutores.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.lblAutores.MouseLeave += new System.EventHandler(this.lblAutores_MouseLeave);
+            this.lblAutores.MouseHover += new System.EventHandler(this.lblAutores_MouseHover);
             // 
             // panelSubmenuReportes
             // 
@@ -117,7 +136,7 @@
             this.btnReporteActividades.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnReporteActividades.FlatAppearance.BorderSize = 0;
             this.btnReporteActividades.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnReporteActividades.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnReporteActividades.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnReporteActividades.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.btnReporteActividades.Location = new System.Drawing.Point(0, 159);
             this.btnReporteActividades.Name = "btnReporteActividades";
@@ -135,7 +154,7 @@
             this.btnReporteAsignaturas.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnReporteAsignaturas.FlatAppearance.BorderSize = 0;
             this.btnReporteAsignaturas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnReporteAsignaturas.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnReporteAsignaturas.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnReporteAsignaturas.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.btnReporteAsignaturas.Location = new System.Drawing.Point(0, 106);
             this.btnReporteAsignaturas.Name = "btnReporteAsignaturas";
@@ -153,7 +172,7 @@
             this.btnReporteComisiones.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnReporteComisiones.FlatAppearance.BorderSize = 0;
             this.btnReporteComisiones.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnReporteComisiones.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnReporteComisiones.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnReporteComisiones.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.btnReporteComisiones.Location = new System.Drawing.Point(0, 53);
             this.btnReporteComisiones.Name = "btnReporteComisiones";
@@ -171,7 +190,7 @@
             this.btnReporteDocentesCargas.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnReporteDocentesCargas.FlatAppearance.BorderSize = 0;
             this.btnReporteDocentesCargas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnReporteDocentesCargas.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnReporteDocentesCargas.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnReporteDocentesCargas.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.btnReporteDocentesCargas.Location = new System.Drawing.Point(0, 0);
             this.btnReporteDocentesCargas.Name = "btnReporteDocentesCargas";
@@ -189,7 +208,7 @@
             this.btnReportesMain.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnReportesMain.FlatAppearance.BorderSize = 0;
             this.btnReportesMain.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnReportesMain.Font = new System.Drawing.Font("Roboto", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnReportesMain.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnReportesMain.ForeColor = System.Drawing.Color.Transparent;
             this.btnReportesMain.Location = new System.Drawing.Point(0, 1134);
             this.btnReportesMain.Name = "btnReportesMain";
@@ -227,7 +246,7 @@
             this.btnGestionSemestres.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnGestionSemestres.FlatAppearance.BorderSize = 0;
             this.btnGestionSemestres.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnGestionSemestres.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnGestionSemestres.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnGestionSemestres.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.btnGestionSemestres.Location = new System.Drawing.Point(0, 634);
             this.btnGestionSemestres.Name = "btnGestionSemestres";
@@ -257,6 +276,8 @@
             this.btnAsignarHoras.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnAsignarHoras.FlatAppearance.BorderSize = 0;
             this.btnAsignarHoras.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAsignarHoras.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnAsignarHoras.ForeColor = System.Drawing.Color.MidnightBlue;
             this.btnAsignarHoras.Location = new System.Drawing.Point(0, 94);
             this.btnAsignarHoras.Name = "btnAsignarHoras";
             this.btnAsignarHoras.Padding = new System.Windows.Forms.Padding(45, 0, 0, 0);
@@ -273,6 +294,8 @@
             this.btnTpDocentes.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnTpDocentes.FlatAppearance.BorderSize = 0;
             this.btnTpDocentes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTpDocentes.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnTpDocentes.ForeColor = System.Drawing.Color.MidnightBlue;
             this.btnTpDocentes.Location = new System.Drawing.Point(0, 47);
             this.btnTpDocentes.Name = "btnTpDocentes";
             this.btnTpDocentes.Padding = new System.Windows.Forms.Padding(45, 0, 0, 0);
@@ -289,6 +312,8 @@
             this.btnDocentes.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnDocentes.FlatAppearance.BorderSize = 0;
             this.btnDocentes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDocentes.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnDocentes.ForeColor = System.Drawing.Color.MidnightBlue;
             this.btnDocentes.Location = new System.Drawing.Point(0, 0);
             this.btnDocentes.Name = "btnDocentes";
             this.btnDocentes.Padding = new System.Windows.Forms.Padding(45, 0, 0, 0);
@@ -305,7 +330,7 @@
             this.btnGestionDocentes.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnGestionDocentes.FlatAppearance.BorderSize = 0;
             this.btnGestionDocentes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnGestionDocentes.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnGestionDocentes.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnGestionDocentes.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.btnGestionDocentes.Location = new System.Drawing.Point(0, 441);
             this.btnGestionDocentes.Name = "btnGestionDocentes";
@@ -323,7 +348,7 @@
             this.btnGestionDepartamentos.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnGestionDepartamentos.FlatAppearance.BorderSize = 0;
             this.btnGestionDepartamentos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnGestionDepartamentos.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnGestionDepartamentos.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnGestionDepartamentos.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.btnGestionDepartamentos.Location = new System.Drawing.Point(0, 388);
             this.btnGestionDepartamentos.Name = "btnGestionDepartamentos";
@@ -341,7 +366,7 @@
             this.btnGestionCarreras.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnGestionCarreras.FlatAppearance.BorderSize = 0;
             this.btnGestionCarreras.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnGestionCarreras.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnGestionCarreras.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnGestionCarreras.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.btnGestionCarreras.Location = new System.Drawing.Point(0, 335);
             this.btnGestionCarreras.Name = "btnGestionCarreras";
@@ -371,6 +396,8 @@
             this.btnHorarios.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnHorarios.FlatAppearance.BorderSize = 0;
             this.btnHorarios.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnHorarios.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnHorarios.ForeColor = System.Drawing.Color.MidnightBlue;
             this.btnHorarios.Location = new System.Drawing.Point(0, 94);
             this.btnHorarios.Name = "btnHorarios";
             this.btnHorarios.Padding = new System.Windows.Forms.Padding(45, 0, 0, 0);
@@ -387,6 +414,8 @@
             this.btnGrupoAsig.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnGrupoAsig.FlatAppearance.BorderSize = 0;
             this.btnGrupoAsig.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGrupoAsig.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnGrupoAsig.ForeColor = System.Drawing.Color.MidnightBlue;
             this.btnGrupoAsig.Location = new System.Drawing.Point(0, 47);
             this.btnGrupoAsig.Name = "btnGrupoAsig";
             this.btnGrupoAsig.Padding = new System.Windows.Forms.Padding(45, 0, 0, 0);
@@ -403,6 +432,8 @@
             this.btnAsignaturas.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnAsignaturas.FlatAppearance.BorderSize = 0;
             this.btnAsignaturas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAsignaturas.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnAsignaturas.ForeColor = System.Drawing.Color.MidnightBlue;
             this.btnAsignaturas.Location = new System.Drawing.Point(0, 0);
             this.btnAsignaturas.Name = "btnAsignaturas";
             this.btnAsignaturas.Padding = new System.Windows.Forms.Padding(45, 0, 0, 0);
@@ -419,7 +450,7 @@
             this.btnGestionAsignaturas.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnGestionAsignaturas.FlatAppearance.BorderSize = 0;
             this.btnGestionAsignaturas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnGestionAsignaturas.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnGestionAsignaturas.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnGestionAsignaturas.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.btnGestionAsignaturas.Location = new System.Drawing.Point(0, 145);
             this.btnGestionAsignaturas.Name = "btnGestionAsignaturas";
@@ -448,6 +479,8 @@
             this.btnTpActividades.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnTpActividades.FlatAppearance.BorderSize = 0;
             this.btnTpActividades.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTpActividades.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnTpActividades.ForeColor = System.Drawing.Color.MidnightBlue;
             this.btnTpActividades.Location = new System.Drawing.Point(0, 47);
             this.btnTpActividades.Name = "btnTpActividades";
             this.btnTpActividades.Padding = new System.Windows.Forms.Padding(45, 0, 0, 0);
@@ -464,6 +497,8 @@
             this.btnActividades.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnActividades.FlatAppearance.BorderSize = 0;
             this.btnActividades.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnActividades.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnActividades.ForeColor = System.Drawing.Color.MidnightBlue;
             this.btnActividades.Location = new System.Drawing.Point(0, 0);
             this.btnActividades.Name = "btnActividades";
             this.btnActividades.Padding = new System.Windows.Forms.Padding(45, 0, 0, 0);
@@ -480,7 +515,7 @@
             this.btnGestionActividades.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnGestionActividades.FlatAppearance.BorderSize = 0;
             this.btnGestionActividades.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnGestionActividades.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnGestionActividades.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnGestionActividades.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.btnGestionActividades.Location = new System.Drawing.Point(0, 0);
             this.btnGestionActividades.Name = "btnGestionActividades";
@@ -498,7 +533,7 @@
             this.btnGestion.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnGestion.FlatAppearance.BorderSize = 0;
             this.btnGestion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnGestion.Font = new System.Drawing.Font("Roboto", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnGestion.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnGestion.ForeColor = System.Drawing.Color.Transparent;
             this.btnGestion.Location = new System.Drawing.Point(0, 387);
             this.btnGestion.Name = "btnGestion";
@@ -530,7 +565,7 @@
             this.btnHabilitarAsignaturas.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnHabilitarAsignaturas.FlatAppearance.BorderSize = 0;
             this.btnHabilitarAsignaturas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnHabilitarAsignaturas.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnHabilitarAsignaturas.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnHabilitarAsignaturas.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.btnHabilitarAsignaturas.Location = new System.Drawing.Point(0, 159);
             this.btnHabilitarAsignaturas.Name = "btnHabilitarAsignaturas";
@@ -548,7 +583,7 @@
             this.btnHabilitarDocentes.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnHabilitarDocentes.FlatAppearance.BorderSize = 0;
             this.btnHabilitarDocentes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnHabilitarDocentes.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnHabilitarDocentes.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnHabilitarDocentes.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.btnHabilitarDocentes.Location = new System.Drawing.Point(0, 106);
             this.btnHabilitarDocentes.Name = "btnHabilitarDocentes";
@@ -566,7 +601,7 @@
             this.btnGestionarCargas.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnGestionarCargas.FlatAppearance.BorderSize = 0;
             this.btnGestionarCargas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnGestionarCargas.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnGestionarCargas.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnGestionarCargas.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.btnGestionarCargas.Location = new System.Drawing.Point(0, 53);
             this.btnGestionarCargas.Name = "btnGestionarCargas";
@@ -584,7 +619,7 @@
             this.btnCrearCargaAcademica.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnCrearCargaAcademica.FlatAppearance.BorderSize = 0;
             this.btnCrearCargaAcademica.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCrearCargaAcademica.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnCrearCargaAcademica.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnCrearCargaAcademica.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.btnCrearCargaAcademica.Location = new System.Drawing.Point(0, 0);
             this.btnCrearCargaAcademica.Name = "btnCrearCargaAcademica";
@@ -602,7 +637,7 @@
             this.btnAdminCargas.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnAdminCargas.FlatAppearance.BorderSize = 0;
             this.btnAdminCargas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAdminCargas.Font = new System.Drawing.Font("Roboto", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnAdminCargas.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnAdminCargas.ForeColor = System.Drawing.Color.Transparent;
             this.btnAdminCargas.Location = new System.Drawing.Point(0, 117);
             this.btnAdminCargas.Name = "btnAdminCargas";
@@ -626,7 +661,7 @@
             // 
             // label1
             // 
-            this.label1.Font = new System.Drawing.Font("Roboto", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label1.Font = new System.Drawing.Font("Calibri", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.label1.Location = new System.Drawing.Point(11, 8);
             this.label1.Name = "label1";
@@ -638,11 +673,27 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(130)))), ((int)(((byte)(173)))));
+            this.panel2.Controls.Add(this.button1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(285, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1358, 80);
+            this.panel2.Size = new System.Drawing.Size(1252, 80);
             this.panel2.TabIndex = 1;
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(133)))), ((int)(((byte)(205)))), ((int)(((byte)(253)))));
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Location = new System.Drawing.Point(46, 12);
+            this.button1.Name = "button1";
+            this.button1.Padding = new System.Windows.Forms.Padding(45, 0, 0, 0);
+            this.button1.Size = new System.Drawing.Size(174, 47);
+            this.button1.TabIndex = 4;
+            this.button1.Text = "HORARIOS";
+            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.btnHorarios_Click);
             // 
             // panelChildForm
             // 
@@ -653,7 +704,7 @@
             this.panelChildForm.ForeColor = System.Drawing.Color.Black;
             this.panelChildForm.Location = new System.Drawing.Point(285, 80);
             this.panelChildForm.Name = "panelChildForm";
-            this.panelChildForm.Size = new System.Drawing.Size(1358, 883);
+            this.panelChildForm.Size = new System.Drawing.Size(1252, 975);
             this.panelChildForm.TabIndex = 2;
             // 
             // pixtbxLogo
@@ -663,7 +714,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pixtbxLogo.Location = new System.Drawing.Point(206, 83);
             this.pixtbxLogo.Name = "pixtbxLogo";
-            this.pixtbxLogo.Size = new System.Drawing.Size(877, 764);
+            this.pixtbxLogo.Size = new System.Drawing.Size(771, 856);
             this.pixtbxLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pixtbxLogo.TabIndex = 0;
             this.pixtbxLogo.TabStop = false;
@@ -672,7 +723,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1643, 963);
+            this.ClientSize = new System.Drawing.Size(1537, 1055);
             this.Controls.Add(this.panelChildForm);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panelMenuLateral);
@@ -692,6 +743,7 @@
             this.panelGestActividades.ResumeLayout(false);
             this.panelSubmenuAdminCargas.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
             this.panelChildForm.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pixtbxLogo)).EndInit();
             this.ResumeLayout(false);
@@ -737,5 +789,7 @@
         private Button btnReportesMain;
         private Button btnHabilitarAsignaturas;
         private Button btnReporteActividades;
+        private Button button1;
+        private Label lblAutores;
     }
 }

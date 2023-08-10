@@ -126,13 +126,14 @@ namespace Directorio_Datos
             ObjDataBase.CerrarConexion();
             return tabla;
         }
-        public DataTable MostrarGruposPorAsignatura(string idAsignatura)
+        public DataTable MostrarGruposPorAsignatura(ClsAsignatura _objAsignatura)
         {
+            SqlCommand comando = new SqlCommand();
             comando.Connection = ObjDataBase.sqlConexion;
             comando.CommandText = "spReadAllGroupsByAsig";
             comando.CommandType = CommandType.StoredProcedure;
 
-            comando.Parameters.AddWithValue("@idAsignatura", idAsignatura);
+            comando.Parameters.AddWithValue("@idAsignatura", _objAsignatura.IdAsignatura);
 
             ObjDataBase.AbrirConexion();
             leer = comando.ExecuteReader();

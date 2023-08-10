@@ -19,7 +19,7 @@ namespace Directorio_Datos
 
         #region CRUD METHODS
         // CREATE HORARIO ASIGNATURA
-        public bool CreateHorarioAsig(ClsHorarioGrAsignatura _grHorariosAsignaturas)
+        public bool CreateHorarioAsig(ClsSemestre _semestre ,ClsHorarioGrAsignatura _grHorariosAsignaturas)
         {
             try
             {
@@ -28,15 +28,25 @@ namespace Directorio_Datos
                 sqlCommand.CommandText = "spAddHorarioAsig";
                 sqlCommand.CommandType = CommandType.StoredProcedure;
 
-                sqlCommand.Parameters.AddWithValue("@idGr", _grHorariosAsignaturas.IdGrupo);
-                sqlCommand.Parameters.AddWithValue("@hIni", _grHorariosAsignaturas.HoraInicio.ToString());
-                sqlCommand.Parameters.AddWithValue("@hFin", _grHorariosAsignaturas.HoraFin.ToString());
-                sqlCommand.Parameters.AddWithValue("@day", _grHorariosAsignaturas.DiaSemana);
+                bool resul;
+
+                sqlCommand.Parameters.AddWithValue("@idSemestre", _semestre.IdSemestre);
+                sqlCommand.Parameters.AddWithValue("@idGrAsig", _grHorariosAsignaturas.IdGrAsig);
+                sqlCommand.Parameters.AddWithValue("@horaInicio", _grHorariosAsignaturas.HoraInicio.ToString());
+                sqlCommand.Parameters.AddWithValue("@horaFin", _grHorariosAsignaturas.HoraFin.ToString());
+                sqlCommand.Parameters.AddWithValue("@dia", _grHorariosAsignaturas.IdDiaSemana);
+
+                SqlParameter resultadoParam = new SqlParameter("@resultado", SqlDbType.Bit);
+                resultadoParam.Direction = ParameterDirection.Output;
+                sqlCommand.Parameters.Add(resultadoParam);
+
 
                 ObjDataBase.AbrirConexion();
                 sqlCommand.ExecuteNonQuery();
 
-                return true;
+                bool resultado = (bool)resultadoParam.Value;
+
+                return resultado;
 
             }
             catch (System.Data.SqlClient.SqlException sqlException)
@@ -121,6 +131,39 @@ namespace Directorio_Datos
             comando.Connection = ObjDataBase.sqlConexion;
             comando.CommandText = "spReadAllHorariosAsignaturas";
             comando.CommandType = CommandType.StoredProcedure;
+            ObjDataBase.AbrirConexion();
+            leer = comando.ExecuteReader();
+            tabla.Load(leer);
+            ObjDataBase.CerrarConexion();
+            return tabla;
+        }
+
+        public DataTable GetHorariosByAsignaturaGR_DAL(ClsSemestre _semestre, ClsGrupoAsignatura _grAsignatura)
+        {
+            SqlCommand comando = new SqlCommand();
+            comando.Connection = ObjDataBase.sqlConexion;
+            comando.CommandText = "spGetAllHorariosByGRAsig";
+            comando.CommandType = CommandType.StoredProcedure;
+
+            comando.Parameters.AddWithValue("@idSemestre", _semestre.IdSemestre);
+            comando.Parameters.AddWithValue("@idGrAsig", _grAsignatura.IdGrupoAsignatura);
+
+            ObjDataBase.AbrirConexion();
+            leer = comando.ExecuteReader();
+            tabla.Load(leer);
+            ObjDataBase.CerrarConexion();
+            return tabla;
+        }
+        public DataTable GetHorariosByAsignaturaGRView_DAL(ClsSemestre _semestre, ClsGrupoAsignatura _grAsignatura)
+        {
+            SqlCommand comando = new SqlCommand();
+            comando.Connection = ObjDataBase.sqlConexion;
+            comando.CommandText = "spGetAllHorariosByGRAsigViewer";
+            comando.CommandType = CommandType.StoredProcedure;
+
+            comando.Parameters.AddWithValue("@idSemestre", _semestre.IdSemestre);
+            comando.Parameters.AddWithValue("@idGrAsig", _grAsignatura.IdGrupoAsignatura);
+
             ObjDataBase.AbrirConexion();
             leer = comando.ExecuteReader();
             tabla.Load(leer);

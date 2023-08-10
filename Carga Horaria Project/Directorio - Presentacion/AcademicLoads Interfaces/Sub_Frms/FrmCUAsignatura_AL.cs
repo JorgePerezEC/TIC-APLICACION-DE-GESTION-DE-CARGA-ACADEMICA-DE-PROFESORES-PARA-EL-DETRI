@@ -2,6 +2,7 @@
 using Directorio___Presentacion.ElementsStyles_Configuration;
 using Directorio_Entidades;
 using Directorio_Logica;
+using MaterialSkin;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -31,9 +32,16 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
         private bool EditarL = false;
         private CN_CargaHoraria objetoNegocioCargaHoraria = new CN_CargaHoraria();
         private CN_GrAsignatura objNegocioGrAsig = new CN_GrAsignatura();
+        MaterialSkinManager TManager = MaterialSkinManager.Instance;
+        ClsStyles tableStyle = new ClsStyles();
+
         public FrmCUAsignatura_AL(int idCargaHoraria, bool Editar, int idSemestre)
         {
             InitializeComponent();
+
+            TManager.Theme = MaterialSkinManager.Themes.LIGHT;
+            TManager.ColorScheme = new ColorScheme(Primary.BlueGrey800, Primary.BlueGrey900, Primary.BlueGrey500, Accent.LightBlue700, TextShade.WHITE);
+
             cmbAsignatura.TextChanged += cmbAsignatura_TextChanged;
             this.KeyPreview = true;
             idAcLoad = idCargaHoraria;
@@ -46,6 +54,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
 
         private void FrmCUAsignatura_AL_Load(object sender, EventArgs e)
         {
+            tableStyle.tableStyle(dgvHorario);
             cmbCarreras.Focus();
             ListarCarreras();
             rbTodo.Checked= true;
@@ -191,6 +200,17 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
 
         private void cmbGR_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (cmbAsignatura.SelectedIndex > -1 && cmbAsignatura.SelectedValue != null)
+            {
+                if (int.TryParse(cmbGR.SelectedValue.ToString(), out int selectedValueAsInt) && selectedValueAsInt > 0)
+                { 
+                    panelHorario.Visible = true;
+                    CN_HorarioAsignatura objetoCNegocio = new CN_HorarioAsignatura();
+                    DataTable dtHorarios = objetoCNegocio.GetHorariosByAsignaturaGRView_Negocio(idSemestreLocal.ToString(), cmbGR.SelectedValue.ToString());
+                    dgvHorario.DataSource = dtHorarios;
+
+                }
+            }
         }
 
         private void cmbAsignatura_SelectedIndexChanged(object sender, EventArgs e)
@@ -199,6 +219,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
             {
                 ListarGruposAsignatura(false);
                 btnAgregar.Enabled = true;
+                btnAddGR.Enabled = true;
             }
         }
 
@@ -232,7 +253,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
 
         private void btnAddGR_Click(object sender, EventArgs e)
         {
-            Frm_CreateNewAsignatura_Modal frmCreateAsig = new Frm_CreateNewAsignatura_Modal(cmbAsignatura.Text);
+            Frm_CreateNewAsignatura_Modal frmCreateAsig = new Frm_CreateNewAsignatura_Modal(cmbAsignatura.Text, idSemestreLocal);
             frmCreateAsig.ShowDialog();
         }
         private void ListarCarreras()
@@ -276,6 +297,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
                     //VALIDACION REGISTROS
                     if (LstAsignaturasFiltered.Rows.Count > 0)
                     {
+                        btnAddGR.Enabled = true;
                         lstBoxAsignaturas.DataSource = LstAsignaturasFiltered;
                         lstBoxAsignaturas.DisplayMember = "Asignatura";
                         lstBoxAsignaturas.ValueMember = "ID";
@@ -285,6 +307,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
                     }
                     else
                     {
+                        btnAddGR.Enabled = false;
                         lstBoxAsignaturas.DataSource = new string[] { "NO SE ENCONTRARON REGISTROS" };
                         cmbAsignatura.Enabled = false;
                         txtCode.Text = string.Empty;

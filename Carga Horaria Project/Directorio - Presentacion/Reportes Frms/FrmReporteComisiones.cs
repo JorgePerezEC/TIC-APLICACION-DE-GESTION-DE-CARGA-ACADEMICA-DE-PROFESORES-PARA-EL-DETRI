@@ -186,5 +186,10 @@ namespace Directorio___Presentacion.Reportes_Frms
                 clsPdf.GenerarDocumentoOneTablePDF(filePath, pdfTitle, filePath, cmbSemestre.Text, filtroText, dtDataPDF);
             }
         }
+
+        private void label16_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

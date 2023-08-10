@@ -19,10 +19,14 @@ namespace Directorio_Logica
             tabla = objetoCData.MostrarAllRegistros();
             return tabla;
         }
-        public DataTable MostrarGruposPorAsignatura_Negocio(string idAsignatuar)
+        public DataTable MostrarGruposPorAsignatura_Negocio(string idAsignatura)
         {
             DataTable tabla = new DataTable();
-            tabla = objetoCData.MostrarGruposPorAsignatura(idAsignatuar);
+            ClsAsignatura objAsig = new ClsAsignatura()
+            {
+                IdAsignatura = Convert.ToInt32(idAsignatura),
+            };
+            tabla = objetoCData.MostrarGruposPorAsignatura(objAsig);
             return tabla;
         }
 

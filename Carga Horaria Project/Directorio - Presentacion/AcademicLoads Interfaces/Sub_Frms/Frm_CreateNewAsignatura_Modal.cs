@@ -1,4 +1,6 @@
-﻿using Directorio_Logica;
+﻿using Directorio_Entidades;
+using Directorio_Logica;
+using MaterialSkin;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,18 +13,26 @@ using System.Windows.Forms;
 
 namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
 {
+
     public partial class Frm_CreateNewAsignatura_Modal : Form
     {
+        MaterialSkinManager TManager = MaterialSkinManager.Instance;
         CN_GrAsignatura objetoCNegocio = new CN_GrAsignatura();
         private string asignatura = "";
-        public Frm_CreateNewAsignatura_Modal(string asignaturaName)
+        private string idSemestreLocal;
+
+        public Frm_CreateNewAsignatura_Modal(string asignaturaName, int idSemestre)
         {
             InitializeComponent();
-            asignatura= asignaturaName;
+            idSemestreLocal = Convert.ToString(idSemestre);
+            TManager.Theme = MaterialSkinManager.Themes.LIGHT;
+            TManager.ColorScheme = new ColorScheme(Primary.BlueGrey800, Primary.BlueGrey900, Primary.Purple400, Accent.LightBlue700, TextShade.WHITE);
+            asignatura = asignaturaName;
         }
 
         private void Frm_CreateNewAsignatura_Modal_Load(object sender, EventArgs e)
         {
+            FormatosDateTimePickersGral();
             ListarAsignaturas();
             this.KeyPreview = true;
             int index = cmbAsignaturas.FindStringExact(asignatura);
@@ -49,12 +59,16 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
             }
             int cmbValue = Convert.ToInt32(cmbAsignaturas.SelectedValue);
             objetoCNegocio.CreateGruposNeg(cmbValue.ToString(), cmbGR.Text);
+            //validar creacion GR
+            panelSaveGR.Visible = false;
+            panelCreateHorario.Visible = true;
+
             FrmCUAsignatura_AL frmCuAsignatura = Application.OpenForms["FrmCUAsignatura_AL"] as FrmCUAsignatura_AL;
             if (frmCuAsignatura != null)
             {
                 frmCuAsignatura.ListarGruposAsignatura(true);
             }
-            this.Close();
+            
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -75,5 +89,312 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
         {
 
         }
+
+        private void btnSaveHorario_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                //int cmbValueAsig = Convert.ToInt32(cmbAsignaturas.SelectedValue);
+                int cmbValueGrupo = Convert.ToInt32(cmbGR.SelectedValue);
+                bool exito = false;
+                bool exito2 = false;
+                bool exito3 = false;
+                bool exito4 = false;
+                bool exito5 = false;
+                bool exito6 = false;
+                bool exito7 = false;
+
+                //bool exito = objetoCNegocio.CreateHorariosNegocio(cmbSemestre.SelectedValue.ToString(), cmbValueGrupo.ToString(),dtHoraInicio.Text, dtHoraFin.Text, cmbDay.Text);
+                if (cbLun.Checked)
+                {
+                    //MessageBox.Show(cmbSemestre.SelectedValue.ToString() + " " + cmbValueGrupo.ToString() + " " + dtLunesI.Text + " " + dtLunesF.Text + " " + cmbDay.Text);
+                    CN_HorarioAsignatura objetoCNegocio = new CN_HorarioAsignatura();
+                    exito = objetoCNegocio.CreateHorariosNegocio(idSemestreLocal, cmbValueGrupo.ToString(), dtLunesI.Text, dtLunesF.Text, "1");
+                }
+                if (cbMar.Checked)
+                {
+                    CN_HorarioAsignatura objetoCNegocio = new CN_HorarioAsignatura();
+                    exito2 = objetoCNegocio.CreateHorariosNegocio(idSemestreLocal, cmbValueGrupo.ToString(), dtMartesI.Text, dtMartesF.Text, "2");
+                }
+                if (cbMie.Checked)
+                {
+                    CN_HorarioAsignatura objetoCNegocio = new CN_HorarioAsignatura();
+                    exito3 = objetoCNegocio.CreateHorariosNegocio(idSemestreLocal, cmbValueGrupo.ToString(), dtMieI.Text, dtMieF.Text, "3");
+                }
+                if (cbJue.Checked)
+                {
+                    CN_HorarioAsignatura objetoCNegocio = new CN_HorarioAsignatura();
+                    exito4 = objetoCNegocio.CreateHorariosNegocio(idSemestreLocal, cmbValueGrupo.ToString(), dtJueI.Text, dtJueF.Text, "4");
+                }
+                if (cbVie.Checked)
+                {
+                    CN_HorarioAsignatura objetoCNegocio = new CN_HorarioAsignatura();
+                    exito5 = objetoCNegocio.CreateHorariosNegocio(idSemestreLocal, cmbValueGrupo.ToString(), dtVieI.Text, dtVieF.Text, "5");
+                }
+                if (cbSab.Checked)
+                {
+                    CN_HorarioAsignatura objetoCNegocio = new CN_HorarioAsignatura();
+                    exito6 = objetoCNegocio.CreateHorariosNegocio(idSemestreLocal, cmbValueGrupo.ToString(), dtSabI.Text, dtSabF.Text, "6");
+                }
+                if (cbDom.Checked)
+                {
+                    CN_HorarioAsignatura objetoCNegocio = new CN_HorarioAsignatura();
+                    exito7 = objetoCNegocio.CreateHorariosNegocio(idSemestreLocal, cmbValueGrupo.ToString(), dtDomI.Text, dtDomF.Text, "7");
+                }
+
+                if (exito || exito2 || exito3 || exito4 || exito5 || exito6 || exito7)
+                {
+                    //MessageBox.Show("Horario/s agregado correctamente");
+                    //MostrarHorarios();
+                }
+                else
+                {
+                    MessageBox.Show("El Horario/s ingresado posee un conflicto de cruce de horario");
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Excepción: No se pudo registrar el Horario. Motivo: " + ex.Message);
+            }
+        }
+
+        private void btnCancelarH_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        #region Checkbox Methods
+
+        private void FormatosDateTimePickersGral()
+        {
+            dtLunesI.CustomFormat = "HH:mm";
+            dtLunesI.Text = "09:00";
+            dtLunesI.ShowUpDown = true;
+            dtLunesF.CustomFormat = "HH:mm";
+            dtLunesF.Text = "11:00";
+            dtLunesF.ShowUpDown = true;
+
+            dtMartesI.CustomFormat = "HH:mm";
+            dtMartesI.Text = "09:00";
+            dtMartesI.ShowUpDown = true;
+            dtMartesF.CustomFormat = "HH:mm";
+            dtMartesF.Text = "11:00";
+            dtMartesF.ShowUpDown = true;
+
+            dtMieI.CustomFormat = "HH:mm";
+            dtMieI.Text = "09:00";
+            dtMieI.ShowUpDown = true;
+            dtMieF.CustomFormat = "HH:mm";
+            dtMieF.Text = "11:00";
+            dtMieF.ShowUpDown = true;
+
+            dtJueI.CustomFormat = "HH:mm";
+            dtJueI.Text = "09:00";
+            dtJueI.ShowUpDown = true;
+            dtJueF.CustomFormat = "HH:mm";
+            dtJueF.Text = "11:00";
+            dtJueF.ShowUpDown = true;
+
+            dtVieI.CustomFormat = "HH:mm";
+            dtVieI.Text = "09:00";
+            dtVieI.ShowUpDown = true;
+            dtVieF.CustomFormat = "HH:mm";
+            dtVieF.Text = "11:00";
+            dtVieF.ShowUpDown = true;
+
+            dtSabI.CustomFormat = "HH:mm";
+            dtSabI.Text = "09:00";
+            dtSabI.ShowUpDown = true;
+            dtSabF.CustomFormat = "HH:mm";
+            dtSabF.Text = "11:00";
+            dtSabF.ShowUpDown = true;
+
+            dtDomI.CustomFormat = "HH:mm";
+            dtDomI.Text = "09:00";
+            dtDomI.ShowUpDown = true;
+            dtDomF.CustomFormat = "HH:mm";
+            dtDomF.Text = "11:00";
+            dtDomF.ShowUpDown = true;
+        }
+
+        private void cbLun_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbLun.Checked)
+            {
+                dtLunesI.Enabled = true;
+                dtLunesF.Enabled = true;
+            }
+            else
+            {
+                dtLunesI.Enabled = false;
+                dtLunesF.Enabled = false;
+                FormatosDateTimePickersGral();
+            }
+        }
+
+        private void cbMar_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbMar.Checked)
+            {
+                dtMartesI.Enabled = true;
+                dtMartesF.Enabled = true;
+            }
+            else
+            {
+                dtMartesI.Enabled = false;
+                dtMartesF.Enabled = false;
+                FormatosDateTimePickersGral();
+            }
+        }
+
+        private void cbMie_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbMie.Checked)
+            {
+                dtMieI.Enabled = true;
+                dtMieF.Enabled = true;
+            }
+            else
+            {
+                dtMieI.Enabled = false;
+                dtMieI.Enabled = false;
+                FormatosDateTimePickersGral();
+            }
+        }
+
+        private void cbJue_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbJue.Checked)
+            {
+                dtJueI.Enabled = true;
+                dtJueF.Enabled = true;
+            }
+            else
+            {
+                dtJueI.Enabled = false;
+                dtJueF.Enabled = false;
+                FormatosDateTimePickersGral();
+            }
+        }
+
+        private void cbVie_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbVie.Checked)
+            {
+                dtVieI.Enabled = true;
+                dtVieF.Enabled = true;
+            }
+            else
+            {
+                dtVieI.Enabled = false;
+                dtVieF.Enabled = false;
+                FormatosDateTimePickersGral();
+            }
+        }
+
+        private void cbSab_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbSab.Checked)
+            {
+                dtSabF.Enabled = true;
+                dtSabI.Enabled = true;
+            }
+            else
+            {
+                dtSabI.Enabled = false;
+                dtSabF.Enabled = false;
+                FormatosDateTimePickersGral();
+            }
+        }
+
+        private void cbDom_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbDom.Checked)
+            {
+                dtDomI.Enabled = true;
+                dtDomF.Enabled = true;
+            }
+            else
+            {
+                dtDomI.Enabled = false;
+                dtDomF.Enabled = false;
+                FormatosDateTimePickersGral();
+            }
+        }
+
+        #endregion
+
+        #region DATETIME PICKERS METHODS
+        private void dtLunesI_ValueChanged(object sender, EventArgs e)
+        {
+            if (DateTime.TryParse(dtLunesI.Text, out DateTime selectedDate))
+            {
+                DateTime nuevaHoraFin = selectedDate.AddHours(2);
+
+                dtLunesF.Value = nuevaHoraFin;
+            }
+        }
+
+        private void dtMartesI_ValueChanged(object sender, EventArgs e)
+        {
+            if (DateTime.TryParse(dtMartesI.Text, out DateTime selectedDate))
+            {
+                DateTime nuevaHoraFin = selectedDate.AddHours(2);
+
+                dtMartesF.Value = nuevaHoraFin;
+            }
+        }
+
+        private void dtMieI_ValueChanged(object sender, EventArgs e)
+        {
+            if (DateTime.TryParse(dtMieI.Text, out DateTime selectedDate))
+            {
+                DateTime nuevaHoraFin = selectedDate.AddHours(2);
+
+                dtMieF.Value = nuevaHoraFin;
+            }
+        }
+
+        private void dtJueI_ValueChanged(object sender, EventArgs e)
+        {
+            if (DateTime.TryParse(dtJueI.Text, out DateTime selectedDate))
+            {
+                DateTime nuevaHoraFin = selectedDate.AddHours(2);
+
+                dtJueF.Value = nuevaHoraFin;
+            }
+        }
+
+        private void dtVieI_ValueChanged(object sender, EventArgs e)
+        {
+            if (DateTime.TryParse(dtVieI.Text, out DateTime selectedDate))
+            {
+                DateTime nuevaHoraFin = selectedDate.AddHours(2);
+
+                dtVieF.Value = nuevaHoraFin;
+            }
+        }
+
+        private void dtSabI_ValueChanged(object sender, EventArgs e)
+        {
+            if (DateTime.TryParse(dtSabI.Text, out DateTime selectedDate))
+            {
+                DateTime nuevaHoraFin = selectedDate.AddHours(2);
+
+                dtSabF.Value = nuevaHoraFin;
+            }
+        }
+
+        private void dtDomI_ValueChanged(object sender, EventArgs e)
+        {
+            if (DateTime.TryParse(dtDomI.Text, out DateTime selectedDate))
+            {
+                DateTime nuevaHoraFin = selectedDate.AddHours(2);
+
+                dtDomF.Value = nuevaHoraFin;
+            }
+        }
+        #endregion
     }
 }
