@@ -22,6 +22,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
         public FrmCreate_AcademicLoad FrmAcademicLoad { get; set; }
         public FrmCRUD_Asignaturas_Ac_Load FrmCRUD { get; set; }
 
+        private bool isCruceHorario = false;
         private int idAcLoad;
         private int idSemestreLocal;
         private string idAsigCarga;
@@ -55,6 +56,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
         private void FrmCUAsignatura_AL_Load(object sender, EventArgs e)
         {
             tableStyle.tableStyle(dgvHorario);
+            dgvHorario.BackgroundColor= Color.LightBlue;
             cmbCarreras.Focus();
             ListarCarreras();
             rbTodo.Checked= true;
@@ -81,7 +83,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
         {
             try
             {
-                if (EditarL == false)
+                if (!EditarL)
                 {
                     if (cmbAsignatura.SelectedIndex != -1 || cmbGR.SelectedIndex != -1)
                     {
@@ -105,7 +107,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
                         MessageBox.Show("Por favor complete todos los campos antes de continuar. ");
                     }
                 }
-                else if (EditarL)
+                else
                 {
                     if (cmbAsignatura.SelectedIndex != -1 || cmbGR.SelectedIndex != -1)
                     {
@@ -115,7 +117,6 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
                         {
                             idGrAsignatura = objNegocioGrAsig.GetIDGrAsignaturaNegocio(cmbValueAsig.ToString(), cmbGR.Text);
                             objetoNegocioCargaHoraria.UpdateAsignaturaCargaHNeg(idAsigCarga.ToString(), idAcLoad.ToString(), idGrAsignatura.ToString());
-                            //MessageBox.Show(idAcLoad.ToString() + " " + idGrAsignatura.ToString());
                             //MessageBox.Show("Asignatura actualizada correctamente a la carga académica. ");
                             this.Close();
                         }
@@ -183,7 +184,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
                 cmbGR.Visible = true;
 
                 CN_GrAsignatura objetoGrNegocio = new CN_GrAsignatura();
-                cmbGR.DataSource = objetoGrNegocio.MostrarGruposPorAsignatura_Negocio(cmbAsignatura.SelectedValue.ToString());
+                cmbGR.DataSource = objetoGrNegocio.MostrarGruposPorAsignaturaWHorario_Negocio(idSemestreLocal.ToString(),cmbAsignatura.SelectedValue.ToString());
                 cmbGR.DisplayMember = "Grupos";
                 cmbGR.ValueMember = "ID";
 
@@ -209,6 +210,20 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
                     DataTable dtHorarios = objetoCNegocio.GetHorariosByAsignaturaGRView_Negocio(idSemestreLocal.ToString(), cmbGR.SelectedValue.ToString());
                     dgvHorario.DataSource = dtHorarios;
 
+                    CN_HorarioAsignatura objetoCNegocio2 = new CN_HorarioAsignatura();
+                    isCruceHorario = objetoCNegocio2.VerificarCruceHorario_Negocio(idAcLoad.ToString(),cmbGR.SelectedValue.ToString());
+                    if (isCruceHorario)
+                    {
+                        lblCruceHorario.Visible = true;
+                        btnAgregar.Enabled = false;
+                    }
+                    else
+                    {
+                        lblCruceHorario.Visible = false;
+                        btnAgregar.Enabled = true;
+                    }
+                    //MessageBox.Show(isCruceHorario.ToString(), "VERIFICAR CRUCE HORARIO");
+                    //spVerificarConflictoHorario
                 }
             }
         }
@@ -253,7 +268,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
 
         private void btnAddGR_Click(object sender, EventArgs e)
         {
-            Frm_CreateNewAsignatura_Modal frmCreateAsig = new Frm_CreateNewAsignatura_Modal(cmbAsignatura.Text, idSemestreLocal);
+            Frm_CreateNewAsignatura_Modal frmCreateAsig = new Frm_CreateNewAsignatura_Modal(cmbAsignatura.SelectedValue.ToString(), idSemestreLocal);
             frmCreateAsig.ShowDialog();
         }
         private void ListarCarreras()

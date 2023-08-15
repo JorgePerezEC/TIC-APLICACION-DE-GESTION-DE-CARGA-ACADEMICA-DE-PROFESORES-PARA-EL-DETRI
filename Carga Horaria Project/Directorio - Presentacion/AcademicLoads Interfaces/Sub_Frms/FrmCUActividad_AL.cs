@@ -202,7 +202,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
         {
             try
             {
-                if (EditarL == false)
+                if (!EditarL)
                 {
                     if (cmbActividad.SelectedIndex != -1)
                     {
@@ -213,14 +213,14 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
                             if (cboxHorasTotales.Checked)
                             {
                                 objetoNegocioCargaHoraria.Create_ActividadCargaHoraria_Negocio(idAcLoad.ToString(), cmbValueActiv.ToString(), "0", txtHorasTotales.Text);
-                                MessageBox.Show("Actividad agregada correctamente a la carga académica. ");
+                                //MessageBox.Show("Actividad agregada correctamente a la carga académica. ");
                                 this.Close();
                                 RefreshMainForm();
                             }
                             else
                             {
                                 objetoNegocioCargaHoraria.Create_ActividadCargaHoraria_Negocio(idAcLoad.ToString(), cmbValueActiv.ToString(), txtHorasActividad.Text, "0");
-                                MessageBox.Show("Actividad agregada correctamente a la carga académica. ");
+                                //MessageBox.Show("Actividad agregada correctamente a la carga académica. ");
                                 this.Close();
                                 RefreshMainForm();
                             }
@@ -236,7 +236,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
                         MessageBox.Show("Por favor complete todos los campos antes de continuar. ");
                     }
                 }
-                else if (EditarL)
+                else
                 {
                     if (cmbActividad.SelectedIndex != -1)
                     {

@@ -55,7 +55,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 83);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1609, 713);
+            this.panel2.Size = new System.Drawing.Size(1688, 713);
             this.panel2.TabIndex = 3;
             // 
             // label3
@@ -63,7 +63,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label3.ForeColor = System.Drawing.Color.Transparent;
-            this.label3.Location = new System.Drawing.Point(955, 36);
+            this.label3.Location = new System.Drawing.Point(988, 36);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(368, 31);
             this.label3.TabIndex = 2;
@@ -74,7 +74,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label2.ForeColor = System.Drawing.Color.Transparent;
-            this.label2.Location = new System.Drawing.Point(48, 36);
+            this.label2.Location = new System.Drawing.Point(28, 36);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(384, 31);
             this.label2.TabIndex = 1;
@@ -83,11 +83,11 @@
             // dgLstRegistrosF11
             // 
             this.dgLstRegistrosF11.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgLstRegistrosF11.Location = new System.Drawing.Point(955, 70);
+            this.dgLstRegistrosF11.Location = new System.Drawing.Point(988, 70);
             this.dgLstRegistrosF11.Name = "dgLstRegistrosF11";
             this.dgLstRegistrosF11.RowHeadersWidth = 51;
             this.dgLstRegistrosF11.RowTemplate.Height = 29;
-            this.dgLstRegistrosF11.Size = new System.Drawing.Size(644, 330);
+            this.dgLstRegistrosF11.Size = new System.Drawing.Size(668, 330);
             this.dgLstRegistrosF11.TabIndex = 1;
             this.dgLstRegistrosF11.TabStop = false;
             this.dgLstRegistrosF11.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgLstRegistrosF11_CellContentClick);
@@ -95,11 +95,11 @@
             // dgLstRegistrosD11
             // 
             this.dgLstRegistrosD11.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgLstRegistrosD11.Location = new System.Drawing.Point(48, 70);
+            this.dgLstRegistrosD11.Location = new System.Drawing.Point(28, 70);
             this.dgLstRegistrosD11.Name = "dgLstRegistrosD11";
             this.dgLstRegistrosD11.RowHeadersWidth = 51;
             this.dgLstRegistrosD11.RowTemplate.Height = 29;
-            this.dgLstRegistrosD11.Size = new System.Drawing.Size(867, 330);
+            this.dgLstRegistrosD11.Size = new System.Drawing.Size(931, 330);
             this.dgLstRegistrosD11.TabIndex = 0;
             this.dgLstRegistrosD11.TabStop = false;
             this.dgLstRegistrosD11.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgLstRegistrosD11_CellContentClick);
@@ -113,7 +113,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1609, 83);
+            this.panel1.Size = new System.Drawing.Size(1688, 83);
             this.panel1.TabIndex = 2;
             // 
             // btnAddActividadF11
@@ -170,7 +170,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1609, 796);
+            this.ClientSize = new System.Drawing.Size(1688, 796);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Name = "CRUD_Docencia_Ac_Load";

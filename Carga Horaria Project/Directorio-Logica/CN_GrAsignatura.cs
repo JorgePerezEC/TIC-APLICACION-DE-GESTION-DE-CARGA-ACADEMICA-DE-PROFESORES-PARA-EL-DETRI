@@ -30,6 +30,21 @@ namespace Directorio_Logica
             return tabla;
         }
 
+        public DataTable MostrarGruposPorAsignaturaWHorario_Negocio(string idSemestre ,string idAsignatura)
+        {
+            DataTable tabla = new DataTable();
+            ClsAsignatura objAsig = new ClsAsignatura()
+            {
+                IdAsignatura = Convert.ToInt32(idAsignatura),
+            };
+            ClsSemestre objSemestre = new ClsSemestre()
+            {
+                IdSemestre = Convert.ToInt32(idSemestre),
+            };
+            tabla = objetoCData.MostrarGruposPorAsignaturaWHorario_DAL(objAsig, objSemestre);
+            return tabla;
+        }
+
         #region CRUD Methods
         public bool CreateGruposNeg(string idAsig, string nameGr)
         {
@@ -49,6 +64,26 @@ namespace Directorio_Logica
             {
                 Console.WriteLine("Error" + ex.Message);
                 return false;
+            }
+
+        }
+        public int CreateGruposOutNeg(string idAsig, string nameGr)
+        {
+            try
+            {
+                ClsGrupoAsignatura ObjGrupoAsig = new ClsGrupoAsignatura()
+                {
+                    IdAsignatura = Convert.ToInt32(idAsig),
+                    NombreGrupo = nameGr
+                };
+                int idGrCreated = objetoCData.CreateGrAsignaturaOut_DAL(ObjGrupoAsig);
+
+                return idGrCreated;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error" + ex.Message);
+                return 0;
             }
 
         }

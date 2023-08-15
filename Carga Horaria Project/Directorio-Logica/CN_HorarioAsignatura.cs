@@ -136,5 +136,31 @@ namespace Directorio_Logica
         }
         #endregion
 
+        public bool VerificarCruceHorario_Negocio(string idCargaHoraria, string idGr)
+        {
+            try
+            {
+                ClsCargaHoraria ObjCargaHoraria = new ClsCargaHoraria()
+                {
+                    IdCargaHoraria = Convert.ToInt32(idCargaHoraria)
+                };
+                ClsGrupoAsignatura ObjGrAsig = new ClsGrupoAsignatura()
+                {
+                    IdGrupoAsignatura = Convert.ToInt32(idGr)
+                };
+                bool cruceExists = objetoCData.VerificarCruceHorario_DAL(ObjCargaHoraria, ObjGrAsig);
+
+                return cruceExists;
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error" + ex.Message);
+                return true;
+
+            }
+
+        }
+
     }
 }

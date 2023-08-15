@@ -104,14 +104,14 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
         {
             //Image as button
             DataGridViewImageColumn btnEdit = new DataGridViewImageColumn();
-            btnEdit.HeaderText = "Editar";
+            btnEdit.HeaderText = "EDITAR";
             btnEdit.Tag = true;
             btnEdit.Image = new Bitmap(Properties.Resources.boton_editar, new Size(40, 40));
             btnEdit.ToolTipText = "Editar registro";
             dgLstRegistrosD11.Columns.Add(btnEdit);
 
             DataGridViewImageColumn btnConfirmDelete = new DataGridViewImageColumn();
-            btnConfirmDelete.HeaderText = "Eliminar";
+            btnConfirmDelete.HeaderText = "ELIMINAR";
             btnConfirmDelete.Tag = true;
             btnConfirmDelete.Image = new Bitmap(Properties.Resources.delete, new Size(40, 40));
             btnConfirmDelete.ToolTipText = "Eliminar registro";
@@ -121,14 +121,14 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
         {
             //Image as button
             DataGridViewImageColumn btnEdit = new DataGridViewImageColumn();
-            btnEdit.HeaderText = "Editar";
+            btnEdit.HeaderText = "EDITAR";
             btnEdit.Tag = true;
             btnEdit.Image = new Bitmap(Properties.Resources.boton_editar, new Size(40, 40));
             btnEdit.ToolTipText = "Editar registro";
             dgLstRegistrosF11.Columns.Add(btnEdit);
 
             DataGridViewImageColumn btnConfirmDelete = new DataGridViewImageColumn();
-            btnConfirmDelete.HeaderText = "Eliminar";
+            btnConfirmDelete.HeaderText = "ELIMINAR";
             btnConfirmDelete.Tag = true;
             btnConfirmDelete.Image = new Bitmap(Properties.Resources.delete, new Size(40, 40));
             btnConfirmDelete.ToolTipText = "Eliminar registro";

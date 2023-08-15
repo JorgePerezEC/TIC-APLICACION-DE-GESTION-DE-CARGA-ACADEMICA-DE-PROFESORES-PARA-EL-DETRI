@@ -463,6 +463,20 @@ AS
 		VALUES(@idAsig,@Gr)
 	END
 GO
+--SP to create one row from tblGrAsignatura and get those id row
+CREATE PROCEDURE [dbo].[spAddGrAsignaturaOut]
+	@idAsig int,
+	@Gr varchar(20),
+	@InsertedID int OUTPUT
+AS
+BEGIN 
+	INSERT INTO tblGrAsignatura(idAsignatura, grupoAsignatura)
+	VALUES (@idAsig, @Gr);
+
+	SET @InsertedID = SCOPE_IDENTITY();
+END
+GO
+
 -- Stored Procedure to create one row from "tblHorarioGrAsig"
 CREATE OR ALTER PROCEDURE [dbo].[spAddHorarioAsig]
     @idSemestre int,
@@ -630,7 +644,7 @@ BEGIN
     LEFT JOIN tblAsigCrgHoraria c ON g.idGrAsig = c.idGrAsig
 	LEFT JOIN tblSemestreAsignatura sa ON a.idAsignatura = sa.idAsignatura
 	LEFT JOIN tblHorarioGrAsig HGA ON SGA.idSemestreGrAsignatura = HGA.idSemestreGrAsignatura
-    WHERE c.idAsigCrgHoraria IS NULL AND g.grupoAsignatura IS NOT NULL AND sa.isActive = 1 AND sa.idSemestre = 1--@idSemestre
+    WHERE c.idAsigCrgHoraria IS NULL AND g.grupoAsignatura IS NOT NULL AND sa.isActive = 1 AND sa.idSemestre = @idSemestre
 	AND SGA.isActive = 1 AND HGA.isActive = 1 AND SGA.idSemestre = 1
 	ORDER BY Asignatura ASC
 END
@@ -645,7 +659,7 @@ CREATE OR ALTER PROC [dbo].[spReadAllAsignaturasWGroups]
 @idSemestre int
 AS 
 BEGIN 
-	SELECT DISTINCT a.idAsignatura AS ID, a.nombreAsignatura AS Asignatura
+	SELECT DISTINCT a.idAsignatura AS ID,CONCAT(a.nombreAsignatura,' - ',a.codigoAsignatura) AS Asignatura
     FROM tblAsignatura a
     INNER JOIN tblGrAsignatura g ON a.idAsignatura = g.idAsignatura
     LEFT JOIN tblAsigCrgHoraria c ON g.idGrAsig = c.idGrAsig
@@ -798,6 +812,87 @@ BEGIN
 			WHERE idSemestreGrAsignatura = @idSemestreGrAsignatura
         END
 END
+GO
+--SP TO GET DOCENTE HORARIO
+CREATE OR ALTER PROCEDURE spGetHorarioForCargaHoraria
+    @idCargaHoraria int
+AS
+BEGIN
+    DECLARE @idSemestre AS int;
+    CREATE TABLE #LstidGRAsig (idGrAsig int);
+
+    SELECT @idSemestre = CH.idSemestre
+    FROM tblCargaHoraria CH
+    WHERE CH.idCargaHoraria = @idCargaHoraria;
+
+    INSERT INTO #LstidGRAsig (idGrAsig)
+    SELECT ACH.idGrAsig
+    FROM tblAsigCrgHoraria ACH
+    WHERE ACH.idCrgHoraria = @idCargaHoraria;
+
+    SELECT CONCAT(CONVERT(NVARCHAR(5), h.horaInicio, 108), ' - ', CONVERT(NVARCHAR(5), h.horaFin, 108)) AS HORA, 
+           CONCAT(g.grupoAsignatura,'-',A.nombreAsignatura) AS ASIGNATURA, ds.dia AS DÍA
+    FROM tblHorarioGrAsig h
+    INNER JOIN tblDiaSemana ds ON h.idDiaSemana = ds.idDiaSemana
+    INNER JOIN tblSemestreGrAsignatura sg ON h.idSemestreGrAsignatura = sg.idSemestreGrAsignatura
+    INNER JOIN tblGrAsignatura g ON sg.idGrAsig = g.idGrAsig
+    INNER JOIN tblAsignatura A ON g.idAsignatura = A.idAsignatura
+    WHERE h.isActive = 1 and sg.idSemestre = @idSemestre and sg.idGrAsig IN (SELECT idGrAsig FROM #LstidGRAsig)
+    ORDER BY HORA ASC;
+
+    DROP TABLE #LstidGRAsig;
+END;
+GO
+--SP PARA VERIFICAR CRUCE DE HORARIO
+CREATE OR ALTER PROCEDURE spVerificarConflictoHorario
+    @idCargaHoraria int,
+	@idGrAsig		int,
+	@ConflictoHorario bit OUTPUT
+AS
+BEGIN
+    DECLARE @idSemestre AS int;
+	DECLARE @idSemestreGrAsig AS int;
+    CREATE TABLE #LstidGRAsigC (idGrAsig int);
+
+    SELECT @idSemestre = CH.idSemestre
+    FROM tblCargaHoraria CH
+    WHERE CH.idCargaHoraria = @idCargaHoraria;
+
+	SELECT @idSemestreGrAsig = idSemestreGrAsignatura
+	FROM tblSemestreGrAsignatura
+	WHERE idSemestre = @idSemestre AND idGrAsig = @idGrAsig
+
+    INSERT INTO #LstidGRAsigC (idGrAsig)
+    SELECT ACH.idGrAsig
+    FROM tblAsigCrgHoraria ACH
+    WHERE ACH.idCrgHoraria = @idCargaHoraria;
+
+    -- Obtener la horaInicio y horaFin del @idSemestreGrAsig actual
+    DECLARE @horaInicio time, @horaFin time, @diaWeek int;
+    SELECT @horaInicio = horaInicio, @horaFin = horaFin, @diaWeek = idDiaSemana
+    FROM tblHorarioGrAsig
+    WHERE idSemestreGrAsignatura = @idSemestreGrAsig;
+
+	SET @ConflictoHorario = 0; -- Suponemos que no hay conflicto inicialmente
+
+	IF EXISTS (
+		SELECT 1
+		FROM tblHorarioGrAsig h
+		INNER JOIN tblDiaSemana ds ON h.idDiaSemana = ds.idDiaSemana
+		INNER JOIN tblSemestreGrAsignatura sg ON h.idSemestreGrAsignatura = sg.idSemestreGrAsignatura
+		INNER JOIN tblGrAsignatura g ON sg.idGrAsig = g.idGrAsig
+		INNER JOIN tblAsignatura A ON g.idAsignatura = A.idAsignatura
+		WHERE h.isActive = 1
+		  AND sg.idGrAsig IN (SELECT idGrAsig FROM #LstidGRAsigC)
+		  AND h.idDiaSemana = @diaWeek
+		  AND ((@horaInicio <= h.horaFin AND @horaFin >= h.horaInicio) OR
+			   (@horaFin >= h.horaInicio AND @horaInicio <= h.horaFin))
+	)
+	BEGIN
+		SET @ConflictoHorario = 1;
+	END;
+	DROP TABLE #LstidGRAsigC;
+END;
 GO
 -- Stored Procedure to Read all departments from  "tblDepartamento"
 CREATE PROC [dbo].[spReadAllDepartamentos2Carrera]
@@ -1527,6 +1622,25 @@ BEGIN
     )
 END
 GO
+CREATE OR ALTER PROC [dbo].[spReadAllGroupsByAsigWithHorario]
+	@idAsignatura varchar(150),
+	@idSemestre int
+AS 
+BEGIN 
+    SELECT gr.idGrAsig AS ID, gr.grupoAsignatura AS Grupos
+    FROM tblGrAsignatura gr
+    INNER JOIN tblAsignatura asg ON gr.idAsignatura = asg.idAsignatura
+	INNER JOIN tblSemestreGrAsignatura SGA ON gr.idGrAsig = SGA.idGrAsig
+    WHERE asg.idAsignatura = @idAsignatura
+    AND NOT EXISTS (
+        SELECT 1
+        FROM tblAsigCrgHoraria ash
+		INNER JOIN tblCargaHoraria CH ON ash.idCrgHoraria = CH.idCargaHoraria
+        WHERE ash.idGrAsig = gr.idGrAsig AND CH.idSemestre = @idSemestre
+    )
+	
+END
+GO
 -- Stored Procedure to Read All Rows from  "tblDepartamento" to TreeView
 IF OBJECT_ID('spReadAllDepartamentoTV') IS NOT NULL
 BEGIN 
@@ -1590,7 +1704,7 @@ AS
 BEGIN 
 	SET NOCOUNT ON;
 
-	SELECT ch.idCargaHoraria AS ID,CONCAT(d.apellido1Docente, ' ', d.apellido2Docente, ' ', d.nombre1Docente, ' ', d.nombre2Docente) AS Docente
+	SELECT ch.idCargaHoraria AS ID,CONCAT(d.apellido1Docente, ' ', d.apellido2Docente, ' ', d.nombre1Docente, ' ', d.nombre2Docente) AS DOCENTE
 	FROM tblCargaHoraria ch
 	INNER JOIN tblDocente d ON ch.idDocente = d.idDocente
 	INNER JOIN tblSemestreTpDocente std ON std.idDocente = d.idDocente
@@ -1627,53 +1741,53 @@ BEGIN
 END
 GO
 -- Stored Procedure to Read all Actividades D11 from a Specifica Academic Load from tblActividadCargas
-CREATE PROCEDURE [dbo].[spReadAllCargaActividadesD11]
+CREATE OR ALTER  PROCEDURE [dbo].[spReadAllCargaActividadesD11]
 @idCrgHoraria int
 AS
 BEGIN 
 	SELECT 
     interActiv.idActivCrgs AS ID, 
-    activ.nombreActividad AS 'Actividad',
+    activ.nombreActividad AS 'ACTIVIDAD',
     CASE 
         WHEN interActiv.horasSemana IS NULL OR interActiv.horasSemana = 0 
         THEN 'NA' 
         ELSE CAST(interActiv.horasSemana AS VARCHAR(10))
-    END AS 'Horas Semanales',
+    END AS 'HORAS SEMANALES',
     CASE 
         WHEN interActiv.horaTotal IS NULL OR interActiv.horaTotal = 0 
         THEN 'NA' 
         ELSE CAST(interActiv.horaTotal AS VARCHAR(10))
-    END AS 'Horas Totales'
+    END AS 'HORAS TOTALES'
 	FROM tblActividadCargas interActiv
 	INNER JOIN tblActividad activ on interActiv.idActividad = activ.idActividad
 	WHERE (interActiv.idCrgHoraria = @idCrgHoraria AND activ.idTpAct_f = 1);
 END
 GO
 -- Stored Procedure to Read all Actividades F11 from a Specifica Academic Load from tblActividadCargas
-CREATE PROCEDURE [dbo].[spReadAllCargaActividadesF11]
+CREATE OR ALTER  PROCEDURE [dbo].[spReadAllCargaActividadesF11]
 @idCrgHoraria int
 AS
 BEGIN 
 	SELECT 
     interActiv.idActivCrgs AS ID, 
-    activ.nombreActividad AS 'Actividad',
+    activ.nombreActividad AS 'ACTIVIDAD',
     CASE 
         WHEN interActiv.horasSemana IS NULL OR interActiv.horasSemana = 0 
         THEN 'NA' 
         ELSE CAST(interActiv.horasSemana AS VARCHAR(10))
-    END AS 'Horas Semanales',
+    END AS 'HORAS SEMANALES',
     CASE 
         WHEN interActiv.horaTotal IS NULL OR interActiv.horaTotal = 0 
         THEN 'NA' 
         ELSE CAST(interActiv.horaTotal AS VARCHAR(10))
-    END AS 'Horas Totales'
+    END AS 'HORAS TOTALES'
 	FROM tblActividadCargas interActiv
 	INNER JOIN tblActividad activ on interActiv.idActividad = activ.idActividad
 	WHERE (interActiv.idCrgHoraria = @idCrgHoraria AND activ.idTpAct_f = 2);
 END
 GO
 -- Stored Procedure to Read all Actividades de Gestion from a Specifica Academic Load from tblActividadCargas
-CREATE PROCEDURE [dbo].[spReadAllCargaActividadesG]
+CREATE OR ALTER PROCEDURE [dbo].[spReadAllCargaActividadesG]
 @idCrgHoraria int
 AS
 BEGIN 
@@ -1684,17 +1798,17 @@ BEGIN
 	--WHERE (interActiv.idCrgHoraria = @idCrgHoraria AND activ.idTpAct_f=4)
 	SELECT 
     interActiv.idActivCrgs AS ID, 
-    activ.nombreActividad AS 'Actividad',
+    activ.nombreActividad AS 'ACTIVIDAD',
     CASE 
         WHEN interActiv.horasSemana IS NULL OR interActiv.horasSemana = 0 
         THEN 'NA' 
         ELSE CAST(interActiv.horasSemana AS VARCHAR(10))
-    END AS 'Horas Semanales',
+    END AS 'HORAS SEMANALES',
     CASE 
         WHEN interActiv.horaTotal IS NULL OR interActiv.horaTotal = 0 
         THEN 'NA' 
         ELSE CAST(interActiv.horaTotal AS VARCHAR(10))
-    END AS 'Horas Totales'
+    END AS 'HORAS TOTALES'
 	FROM tblActividadCargas interActiv
 	INNER JOIN tblActividad activ on interActiv.idActividad = activ.idActividad
 	WHERE (interActiv.idCrgHoraria = @idCrgHoraria AND activ.idTpAct_f = 4);
@@ -1702,7 +1816,7 @@ END
 GO
 
 -- Stored Procedure to Read all Actividades de Investigacion from a Specifica Academic Load from tblActividadCargas
-CREATE PROCEDURE [dbo].[spReadAllCargaActividadesI]
+CREATE OR ALTER PROCEDURE [dbo].[spReadAllCargaActividadesI]
 @idCrgHoraria int
 AS
 BEGIN 
@@ -1713,40 +1827,40 @@ BEGIN
 	--WHERE (interActiv.idCrgHoraria = @idCrgHoraria AND activ.idTpAct_f=3)
 	SELECT 
     interActiv.idActivCrgs AS ID, 
-    activ.nombreActividad AS 'Actividad',
+    activ.nombreActividad AS 'ACTIVIDAD',
     CASE 
         WHEN interActiv.horasSemana IS NULL OR interActiv.horasSemana = 0 
         THEN 'NA' 
         ELSE CAST(interActiv.horasSemana AS VARCHAR(10))
-    END AS 'Horas Semanales',
+    END AS 'HORAS SEMANALES',
     CASE 
         WHEN interActiv.horaTotal IS NULL OR interActiv.horaTotal = 0 
         THEN 'NA' 
         ELSE CAST(interActiv.horaTotal AS VARCHAR(10))
-    END AS 'Horas Totales'
+    END AS 'HORAS TOTALES'
 	FROM tblActividadCargas interActiv
 	INNER JOIN tblActividad activ on interActiv.idActividad = activ.idActividad
 	WHERE (interActiv.idCrgHoraria = @idCrgHoraria AND activ.idTpAct_f = 3);
 END
 GO
 -- Stored Procedure to Read all Actividades from a Specifica Academic Load from tblActividadCargas
-CREATE PROCEDURE [dbo].[spReadAllCargaActividades]
+CREATE OR ALTER PROCEDURE [dbo].[spReadAllCargaActividades]
 @idCrgHoraria int
 AS
 BEGIN 
 	SELECT 
     interActiv.idActivCrgs AS ID, tpActiv.nombreTpAct AS Tipo,
-    activ.nombreActividad AS 'Actividad',
+    activ.nombreActividad AS 'ACTIVIDAD',
     CASE 
         WHEN interActiv.horasSemana IS NULL OR interActiv.horasSemana = 0 
         THEN 'NA'
         ELSE CAST(interActiv.horasSemana AS VARCHAR(10))
-    END AS 'Horas Semanales',
+    END AS 'HORAS SEMANALES',
     CASE 
         WHEN interActiv.horaTotal IS NULL OR interActiv.horaTotal = 0 
         THEN 'NA'
         ELSE CAST(interActiv.horaTotal AS VARCHAR(10))
-    END AS 'Horas Totales'
+    END AS 'HORAS TOTALES'
 	FROM tblActividadCargas interActiv
 	INNER JOIN tblActividad activ on interActiv.idActividad = activ.idActividad
 	INNER JOIN tblTipoActividad tpActiv on activ.idTpAct_f = tpActiv.idTpAct

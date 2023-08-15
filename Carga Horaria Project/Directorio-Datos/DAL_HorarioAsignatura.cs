@@ -125,6 +125,44 @@ namespace Directorio_Datos
 
         }
         #endregion
+
+        public bool VerificarCruceHorario_DAL(ClsCargaHoraria _cargaHoraria, ClsGrupoAsignatura _grAsignatura)
+        {
+            try
+            {
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.Connection = ObjDataBase.sqlConexion;
+                sqlCommand.CommandText = "spVerificarConflictoHorario";
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+
+                sqlCommand.Parameters.AddWithValue("@idCargaHoraria", _cargaHoraria.IdCargaHoraria);
+                sqlCommand.Parameters.AddWithValue("@idGrAsig", _grAsignatura.IdGrupoAsignatura);
+
+                // Agregar el parámetro de salida
+                SqlParameter outputParameter = new SqlParameter("@ConflictoHorario", SqlDbType.Bit);
+                outputParameter.Direction = ParameterDirection.Output;
+                sqlCommand.Parameters.Add(outputParameter);
+
+                ObjDataBase.AbrirConexion();
+                sqlCommand.ExecuteNonQuery();
+
+                bool conflictoHorario = Convert.ToBoolean(outputParameter.Value);
+
+                return conflictoHorario;
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error" + ex.Message);
+                return true;
+
+            }
+            finally
+            {
+                ObjDataBase.CerrarConexion();
+            }
+
+        }
         public DataTable MostrarAllRegistros()
         {
             //comando.Connection = manejador.AbrirConexion();

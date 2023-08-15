@@ -18,29 +18,30 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
     {
         MaterialSkinManager TManager = MaterialSkinManager.Instance;
         CN_GrAsignatura objetoCNegocio = new CN_GrAsignatura();
-        private string asignatura = "";
+        private string IdAsignatura = "";
         private string idSemestreLocal;
+        private int idGrCreated;
 
-        public Frm_CreateNewAsignatura_Modal(string asignaturaName, int idSemestre)
+        public Frm_CreateNewAsignatura_Modal(string asignaturaId, int idSemestre)
         {
             InitializeComponent();
             idSemestreLocal = Convert.ToString(idSemestre);
             TManager.Theme = MaterialSkinManager.Themes.LIGHT;
             TManager.ColorScheme = new ColorScheme(Primary.BlueGrey800, Primary.BlueGrey900, Primary.Purple400, Accent.LightBlue700, TextShade.WHITE);
-            asignatura = asignaturaName;
+            IdAsignatura = asignaturaId;
         }
 
         private void Frm_CreateNewAsignatura_Modal_Load(object sender, EventArgs e)
         {
             FormatosDateTimePickersGral();
             ListarAsignaturas();
-            this.KeyPreview = true;
-            int index = cmbAsignaturas.FindStringExact(asignatura);
-            if (index != -1)
-            {
-                cmbAsignaturas.SelectedIndex = index;
-                cmbAsignaturas.Enabled = false;
-            }
+            cmbAsignaturas.SelectedValue = Convert.ToInt32(IdAsignatura);
+            cmbAsignaturas.Enabled = false;
+            //this.KeyPreview = true;
+            //int index = cmbAsignaturas.FindStringExact(IdAsignatura);
+            //if (index != -1)
+            //{
+            //}
         }
         private void ListarAsignaturas()
         {
@@ -58,17 +59,9 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
                 return;
             }
             int cmbValue = Convert.ToInt32(cmbAsignaturas.SelectedValue);
-            objetoCNegocio.CreateGruposNeg(cmbValue.ToString(), cmbGR.Text);
-            //validar creacion GR
+            idGrCreated = objetoCNegocio.CreateGruposOutNeg(cmbValue.ToString(), cmbGR.Text);
             panelSaveGR.Visible = false;
             panelCreateHorario.Visible = true;
-
-            FrmCUAsignatura_AL frmCuAsignatura = Application.OpenForms["FrmCUAsignatura_AL"] as FrmCUAsignatura_AL;
-            if (frmCuAsignatura != null)
-            {
-                frmCuAsignatura.ListarGruposAsignatura(true);
-            }
-            
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -95,7 +88,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
             try
             {
                 //int cmbValueAsig = Convert.ToInt32(cmbAsignaturas.SelectedValue);
-                int cmbValueGrupo = Convert.ToInt32(cmbGR.SelectedValue);
+                string cmbValueGrupo = Convert.ToString(idGrCreated);
                 bool exito = false;
                 bool exito2 = false;
                 bool exito3 = false;
@@ -109,37 +102,37 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
                 {
                     //MessageBox.Show(cmbSemestre.SelectedValue.ToString() + " " + cmbValueGrupo.ToString() + " " + dtLunesI.Text + " " + dtLunesF.Text + " " + cmbDay.Text);
                     CN_HorarioAsignatura objetoCNegocio = new CN_HorarioAsignatura();
-                    exito = objetoCNegocio.CreateHorariosNegocio(idSemestreLocal, cmbValueGrupo.ToString(), dtLunesI.Text, dtLunesF.Text, "1");
+                    exito = objetoCNegocio.CreateHorariosNegocio(idSemestreLocal, cmbValueGrupo, dtLunesI.Text, dtLunesF.Text, "1");
                 }
                 if (cbMar.Checked)
                 {
                     CN_HorarioAsignatura objetoCNegocio = new CN_HorarioAsignatura();
-                    exito2 = objetoCNegocio.CreateHorariosNegocio(idSemestreLocal, cmbValueGrupo.ToString(), dtMartesI.Text, dtMartesF.Text, "2");
+                    exito2 = objetoCNegocio.CreateHorariosNegocio(idSemestreLocal, cmbValueGrupo, dtMartesI.Text, dtMartesF.Text, "2");
                 }
                 if (cbMie.Checked)
                 {
                     CN_HorarioAsignatura objetoCNegocio = new CN_HorarioAsignatura();
-                    exito3 = objetoCNegocio.CreateHorariosNegocio(idSemestreLocal, cmbValueGrupo.ToString(), dtMieI.Text, dtMieF.Text, "3");
+                    exito3 = objetoCNegocio.CreateHorariosNegocio(idSemestreLocal, cmbValueGrupo, dtMieI.Text, dtMieF.Text, "3");
                 }
                 if (cbJue.Checked)
                 {
                     CN_HorarioAsignatura objetoCNegocio = new CN_HorarioAsignatura();
-                    exito4 = objetoCNegocio.CreateHorariosNegocio(idSemestreLocal, cmbValueGrupo.ToString(), dtJueI.Text, dtJueF.Text, "4");
+                    exito4 = objetoCNegocio.CreateHorariosNegocio(idSemestreLocal, cmbValueGrupo, dtJueI.Text, dtJueF.Text, "4");
                 }
                 if (cbVie.Checked)
                 {
                     CN_HorarioAsignatura objetoCNegocio = new CN_HorarioAsignatura();
-                    exito5 = objetoCNegocio.CreateHorariosNegocio(idSemestreLocal, cmbValueGrupo.ToString(), dtVieI.Text, dtVieF.Text, "5");
+                    exito5 = objetoCNegocio.CreateHorariosNegocio(idSemestreLocal, cmbValueGrupo, dtVieI.Text, dtVieF.Text, "5");
                 }
                 if (cbSab.Checked)
                 {
                     CN_HorarioAsignatura objetoCNegocio = new CN_HorarioAsignatura();
-                    exito6 = objetoCNegocio.CreateHorariosNegocio(idSemestreLocal, cmbValueGrupo.ToString(), dtSabI.Text, dtSabF.Text, "6");
+                    exito6 = objetoCNegocio.CreateHorariosNegocio(idSemestreLocal, cmbValueGrupo, dtSabI.Text, dtSabF.Text, "6");
                 }
                 if (cbDom.Checked)
                 {
                     CN_HorarioAsignatura objetoCNegocio = new CN_HorarioAsignatura();
-                    exito7 = objetoCNegocio.CreateHorariosNegocio(idSemestreLocal, cmbValueGrupo.ToString(), dtDomI.Text, dtDomF.Text, "7");
+                    exito7 = objetoCNegocio.CreateHorariosNegocio(idSemestreLocal, cmbValueGrupo, dtDomI.Text, dtDomF.Text, "7");
                 }
 
                 if (exito || exito2 || exito3 || exito4 || exito5 || exito6 || exito7)
@@ -152,6 +145,13 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
                     MessageBox.Show("El Horario/s ingresado posee un conflicto de cruce de horario");
                     return;
                 }
+
+                FrmCUAsignatura_AL frmCuAsignatura = Application.OpenForms["FrmCUAsignatura_AL"] as FrmCUAsignatura_AL;
+                if (frmCuAsignatura != null)
+                {
+                    frmCuAsignatura.ListarGruposAsignatura(true);
+                }
+                this.Close();
             }
             catch (Exception ex)
             {
@@ -161,7 +161,8 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
 
         private void btnCancelarH_Click(object sender, EventArgs e)
         {
-
+            objetoCNegocio.DeleteGruposNeg(idGrCreated.ToString());
+            this.Close();
         }
 
         #region Checkbox Methods

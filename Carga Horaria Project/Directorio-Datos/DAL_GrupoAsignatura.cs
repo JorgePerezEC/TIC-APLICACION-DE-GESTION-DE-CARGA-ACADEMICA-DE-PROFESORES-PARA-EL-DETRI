@@ -51,6 +51,41 @@ namespace Directorio_Datos
             }
 
         }
+        public int CreateGrAsignaturaOut_DAL(ClsGrupoAsignatura _grAsignatura)
+        {
+            try
+            {
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.Connection = ObjDataBase.sqlConexion;
+                sqlCommand.CommandText = "spAddGrAsignaturaOut";
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+
+                sqlCommand.Parameters.AddWithValue("@idAsig", _grAsignatura.IdAsignatura);
+                sqlCommand.Parameters.AddWithValue("@Gr", _grAsignatura.NombreGrupo);
+
+                SqlParameter insertedIdParam = sqlCommand.Parameters.Add("@InsertedID", SqlDbType.Int);
+                insertedIdParam.Direction = ParameterDirection.Output;
+
+                ObjDataBase.AbrirConexion();
+                sqlCommand.ExecuteNonQuery();
+
+                int insertedID = (int)insertedIdParam.Value;
+
+                return insertedID;
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error" + ex.Message);
+                return 0;
+
+            }
+            finally
+            {
+                ObjDataBase.CerrarConexion();
+            }
+
+        }
         // UPDATE GRUPO ASIGNATURA
         public bool UpdateGrAsignatura(ClsGrupoAsignatura _grAsignatura)
         {
@@ -134,6 +169,23 @@ namespace Directorio_Datos
             comando.CommandType = CommandType.StoredProcedure;
 
             comando.Parameters.AddWithValue("@idAsignatura", _objAsignatura.IdAsignatura);
+
+            ObjDataBase.AbrirConexion();
+            leer = comando.ExecuteReader();
+            tabla.Load(leer);
+            ObjDataBase.CerrarConexion();
+            return tabla;
+        }
+        public DataTable MostrarGruposPorAsignaturaWHorario_DAL(ClsAsignatura _objAsignatura, ClsSemestre _objSemestre)
+        {
+            SqlCommand comando = new SqlCommand();
+            comando.Connection = ObjDataBase.sqlConexion;
+            comando.CommandText = "spReadAllGroupsByAsigWithHorario";
+            comando.CommandType = CommandType.StoredProcedure;
+
+
+            comando.Parameters.AddWithValue("@idAsignatura", _objAsignatura.IdAsignatura);
+            comando.Parameters.AddWithValue("@idSemestre", _objSemestre.IdSemestre);
 
             ObjDataBase.AbrirConexion();
             leer = comando.ExecuteReader();

@@ -38,6 +38,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
             idAcLoadLocal = idAcLoad;
             idSemestreL = idSemestre;
             tableStyle.tableStyle(dgLstRegistros);
+            tableStyle.tableStyle(dgvHorario);
         }
 
         private void FrmCRUD_Asignaturas_Ac_Load_Load(object sender, EventArgs e)
@@ -55,6 +56,9 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
                 AddBtnsIntoDataGridView();
                 dgLstRegistros.AutoGenerateColumns = false;
             }
+
+            CN_CargaHoraria objetoCNegocio2 = new CN_CargaHoraria();
+            dgvHorario.DataSource = objetoCNegocio2.GetHorarioForCargaHoraria_Negocio(idAcLoadLocal.ToString());
         }
 
         private void btnAddAsignatura_Click(object sender, EventArgs e)
@@ -86,14 +90,14 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
         {
             //Image as button
             DataGridViewImageColumn btnEdit = new DataGridViewImageColumn();
-            btnEdit.HeaderText = "Editar";
+            btnEdit.HeaderText = "EDITAR";
             btnEdit.Tag = true;
             btnEdit.Image = new Bitmap(Properties.Resources.boton_editar, new Size(40, 40));
             btnEdit.ToolTipText = "Editar registro";
             dgLstRegistros.Columns.Add(btnEdit);
 
             DataGridViewImageColumn btnConfirmDelete = new DataGridViewImageColumn();
-            btnConfirmDelete.HeaderText = "Eliminar";
+            btnConfirmDelete.HeaderText = "ELIMINAR";
             btnConfirmDelete.Tag = true;
             btnConfirmDelete.Image = new Bitmap(Properties.Resources.delete, new Size(40, 40));
             btnConfirmDelete.ToolTipText = "Eliminar registro";

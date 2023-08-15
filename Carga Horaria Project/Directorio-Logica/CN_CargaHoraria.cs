@@ -378,6 +378,17 @@ namespace Directorio_Logica
             tabla = objetoCData.MostrarAsignaturasCrgAcademicaDAL(objCargaHoraria);
             return tabla;
         }
+
+        public DataTable GetHorarioForCargaHoraria_Negocio(string idCargaHoraria)
+        {
+            DataTable tabla = new DataTable();
+            ClsCargaHoraria objCargaHoraria = new ClsCargaHoraria()
+            {
+                IdCargaHoraria = Convert.ToInt32(idCargaHoraria)
+            };
+            tabla = objetoCData.GetHorarioForCargaHoraria_DAL(objCargaHoraria);
+            return tabla;
+        }
         public DataTable LoadActividadesD11_Negocio(string idCargaHoraria)
         {
             DataTable tabla = new DataTable();

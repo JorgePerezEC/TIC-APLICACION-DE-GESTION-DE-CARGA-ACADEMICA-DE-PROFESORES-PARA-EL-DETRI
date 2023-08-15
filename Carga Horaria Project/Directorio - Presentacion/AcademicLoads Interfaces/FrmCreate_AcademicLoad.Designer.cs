@@ -54,18 +54,18 @@
             this.label15 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.pieChart = new LiveCharts.WinForms.PieChart();
-            this.btnNewCarga = new System.Windows.Forms.Button();
             this.btnInvestigacion = new System.Windows.Forms.Button();
             this.btnGestion = new System.Windows.Forms.Button();
             this.btnDocencia = new System.Windows.Forms.Button();
             this.btnAsignaturas = new System.Windows.Forms.Button();
-            this.btnCrearCargaAcademica = new System.Windows.Forms.Button();
             this.cmbDocente = new System.Windows.Forms.ComboBox();
             this.cmbSemestre = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.panelHijo = new System.Windows.Forms.Panel();
             this.dgvCargasHorarias = new System.Windows.Forms.DataGridView();
+            this.btnNewCarga = new MaterialSkin.Controls.MaterialButton();
+            this.btnCrearCargaAcademica = new MaterialSkin.Controls.MaterialButton();
             this.panel1.SuspendLayout();
             this.panelHorasExigibles.SuspendLayout();
             this.panelHoras.SuspendLayout();
@@ -77,14 +77,14 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.panel1.Controls.Add(this.btnCrearCargaAcademica);
+            this.panel1.Controls.Add(this.btnNewCarga);
             this.panel1.Controls.Add(this.panelHorasExigibles);
             this.panel1.Controls.Add(this.panelHoras);
-            this.panel1.Controls.Add(this.btnNewCarga);
             this.panel1.Controls.Add(this.btnInvestigacion);
             this.panel1.Controls.Add(this.btnGestion);
             this.panel1.Controls.Add(this.btnDocencia);
             this.panel1.Controls.Add(this.btnAsignaturas);
-            this.panel1.Controls.Add(this.btnCrearCargaAcademica);
             this.panel1.Controls.Add(this.cmbDocente);
             this.panel1.Controls.Add(this.cmbSemestre);
             this.panel1.Controls.Add(this.label2);
@@ -447,17 +447,6 @@
             this.pieChart.TabIndex = 0;
             this.pieChart.Text = "pieChart1";
             // 
-            // btnNewCarga
-            // 
-            this.btnNewCarga.BackColor = System.Drawing.Color.MediumTurquoise;
-            this.btnNewCarga.Location = new System.Drawing.Point(23, 129);
-            this.btnNewCarga.Name = "btnNewCarga";
-            this.btnNewCarga.Size = new System.Drawing.Size(136, 43);
-            this.btnNewCarga.TabIndex = 20;
-            this.btnNewCarga.Text = "Nueva Carga";
-            this.btnNewCarga.UseVisualStyleBackColor = false;
-            this.btnNewCarga.Click += new System.EventHandler(this.btnNewCarga_Click);
-            // 
             // btnInvestigacion
             // 
             this.btnInvestigacion.BackColor = System.Drawing.Color.LightSalmon;
@@ -529,30 +518,17 @@
             this.btnAsignaturas.Visible = false;
             this.btnAsignaturas.Click += new System.EventHandler(this.btnAsignaturas_Click);
             // 
-            // btnCrearCargaAcademica
-            // 
-            this.btnCrearCargaAcademica.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(136)))), ((int)(((byte)(139)))));
-            this.btnCrearCargaAcademica.FlatAppearance.BorderSize = 2;
-            this.btnCrearCargaAcademica.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnCrearCargaAcademica.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnCrearCargaAcademica.ForeColor = System.Drawing.Color.White;
-            this.btnCrearCargaAcademica.Location = new System.Drawing.Point(330, 124);
-            this.btnCrearCargaAcademica.Name = "btnCrearCargaAcademica";
-            this.btnCrearCargaAcademica.Size = new System.Drawing.Size(158, 58);
-            this.btnCrearCargaAcademica.TabIndex = 15;
-            this.btnCrearCargaAcademica.Text = "Crear Carga Académica";
-            this.btnCrearCargaAcademica.UseVisualStyleBackColor = false;
-            this.btnCrearCargaAcademica.Click += new System.EventHandler(this.btnCrearCargaAcademica_Click);
-            // 
             // cmbDocente
             // 
             this.cmbDocente.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.cmbDocente.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cmbDocente.BackColor = System.Drawing.Color.LemonChiffon;
+            this.cmbDocente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmbDocente.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.cmbDocente.FormattingEnabled = true;
             this.cmbDocente.Location = new System.Drawing.Point(148, 88);
             this.cmbDocente.Name = "cmbDocente";
-            this.cmbDocente.Size = new System.Drawing.Size(309, 28);
+            this.cmbDocente.Size = new System.Drawing.Size(340, 32);
             this.cmbDocente.TabIndex = 13;
             this.cmbDocente.SelectedIndexChanged += new System.EventHandler(this.cmbDocente_SelectedIndexChanged);
             // 
@@ -560,32 +536,34 @@
             // 
             this.cmbSemestre.BackColor = System.Drawing.Color.LemonChiffon;
             this.cmbSemestre.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbSemestre.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmbSemestre.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.cmbSemestre.FormattingEnabled = true;
             this.cmbSemestre.Location = new System.Drawing.Point(148, 44);
             this.cmbSemestre.Name = "cmbSemestre";
-            this.cmbSemestre.Size = new System.Drawing.Size(167, 28);
+            this.cmbSemestre.Size = new System.Drawing.Size(167, 32);
             this.cmbSemestre.TabIndex = 12;
             this.cmbSemestre.SelectedIndexChanged += new System.EventHandler(this.cmbSemestre_SelectedIndexChanged);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Arial Rounded MT Bold", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label2.Font = new System.Drawing.Font("Calibri", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label2.Location = new System.Drawing.Point(23, 85);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(107, 27);
+            this.label2.Size = new System.Drawing.Size(120, 28);
             this.label2.TabIndex = 2;
-            this.label2.Text = "Docente";
+            this.label2.Text = "DOCENTES:";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Arial Rounded MT Bold", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label1.Font = new System.Drawing.Font("Calibri", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label1.Location = new System.Drawing.Point(23, 44);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(119, 27);
+            this.label1.Size = new System.Drawing.Size(117, 28);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Semestre";
+            this.label1.Text = "SEMESTRE:";
             // 
             // panelHijo
             // 
@@ -608,6 +586,48 @@
             this.dgvCargasHorarias.TabIndex = 0;
             this.dgvCargasHorarias.Visible = false;
             this.dgvCargasHorarias.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCargasHorarias_CellContentClick);
+            // 
+            // btnNewCarga
+            // 
+            this.btnNewCarga.AutoSize = false;
+            this.btnNewCarga.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnNewCarga.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.btnNewCarga.Depth = 0;
+            this.btnNewCarga.HighEmphasis = true;
+            this.btnNewCarga.Icon = null;
+            this.btnNewCarga.Location = new System.Drawing.Point(23, 138);
+            this.btnNewCarga.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnNewCarga.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnNewCarga.Name = "btnNewCarga";
+            this.btnNewCarga.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.btnNewCarga.Size = new System.Drawing.Size(124, 45);
+            this.btnNewCarga.TabIndex = 25;
+            this.btnNewCarga.Text = "NUEVA CARGA";
+            this.btnNewCarga.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnNewCarga.UseAccentColor = false;
+            this.btnNewCarga.UseVisualStyleBackColor = true;
+            this.btnNewCarga.Click += new System.EventHandler(this.btnNewCarga_Click);
+            // 
+            // btnCrearCargaAcademica
+            // 
+            this.btnCrearCargaAcademica.AutoSize = false;
+            this.btnCrearCargaAcademica.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnCrearCargaAcademica.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.btnCrearCargaAcademica.Depth = 0;
+            this.btnCrearCargaAcademica.HighEmphasis = true;
+            this.btnCrearCargaAcademica.Icon = null;
+            this.btnCrearCargaAcademica.Location = new System.Drawing.Point(364, 138);
+            this.btnCrearCargaAcademica.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnCrearCargaAcademica.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnCrearCargaAcademica.Name = "btnCrearCargaAcademica";
+            this.btnCrearCargaAcademica.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.btnCrearCargaAcademica.Size = new System.Drawing.Size(124, 45);
+            this.btnCrearCargaAcademica.TabIndex = 26;
+            this.btnCrearCargaAcademica.Text = "CREAR CARGA ACADÉMICA";
+            this.btnCrearCargaAcademica.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnCrearCargaAcademica.UseAccentColor = false;
+            this.btnCrearCargaAcademica.UseVisualStyleBackColor = true;
+            this.btnCrearCargaAcademica.Click += new System.EventHandler(this.btnCrearCargaAcademica_Click);
             // 
             // FrmCreate_AcademicLoad
             // 
@@ -636,14 +656,12 @@
         #endregion
 
         private Panel panel1;
-        private Button btnCrearCargaAcademica;
         private ComboBox cmbSemestre;
         private Label label7;
         private Label label2;
         private Label label1;
         private LiveCharts.WinForms.PieChart pieChart;
         private Panel panelHijo;
-        private Button btnNewCarga;
         private DataGridView dgvCargasHorarias;
         private Panel panelHoras;
         public Button btnAsignaturas;
@@ -673,5 +691,7 @@
         private Label label13;
         private Label txtHorasTotales;
         private Label label15;
+        private MaterialSkin.Controls.MaterialButton btnCrearCargaAcademica;
+        private MaterialSkin.Controls.MaterialButton btnNewCarga;
     }
 }

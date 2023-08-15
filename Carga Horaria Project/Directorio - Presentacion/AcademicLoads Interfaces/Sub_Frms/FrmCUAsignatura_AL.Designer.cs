@@ -44,7 +44,6 @@
             this.cmbAsignatura = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.panelGR = new System.Windows.Forms.Panel();
-            this.btnAgregar = new MaterialSkin.Controls.MaterialButton();
             this.btnAddGR = new MaterialSkin.Controls.MaterialButton();
             this.txtCode = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -54,9 +53,11 @@
             this.txtNivel = new System.Windows.Forms.TextBox();
             this.txtType = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.btnAgregar = new MaterialSkin.Controls.MaterialButton();
             this.panelHorario = new System.Windows.Forms.Panel();
             this.label11 = new System.Windows.Forms.Label();
             this.dgvHorario = new System.Windows.Forms.DataGridView();
+            this.lblCruceHorario = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.tblPanelFiltros.SuspendLayout();
@@ -261,7 +262,6 @@
             // panelGR
             // 
             this.panelGR.BackColor = System.Drawing.Color.LightBlue;
-            this.panelGR.Controls.Add(this.btnAgregar);
             this.panelGR.Controls.Add(this.btnAddGR);
             this.panelGR.Controls.Add(this.txtCode);
             this.panelGR.Controls.Add(this.label6);
@@ -277,28 +277,6 @@
             this.panelGR.Size = new System.Drawing.Size(956, 217);
             this.panelGR.TabIndex = 8;
             this.panelGR.Visible = false;
-            // 
-            // btnAgregar
-            // 
-            this.btnAgregar.AutoSize = false;
-            this.btnAgregar.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnAgregar.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            this.btnAgregar.Depth = 0;
-            this.btnAgregar.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnAgregar.HighEmphasis = true;
-            this.btnAgregar.Icon = null;
-            this.btnAgregar.Location = new System.Drawing.Point(779, 51);
-            this.btnAgregar.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.btnAgregar.MouseState = MaterialSkin.MouseState.HOVER;
-            this.btnAgregar.Name = "btnAgregar";
-            this.btnAgregar.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.btnAgregar.Size = new System.Drawing.Size(128, 45);
-            this.btnAgregar.TabIndex = 35;
-            this.btnAgregar.Text = "agregar";
-            this.btnAgregar.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.btnAgregar.UseAccentColor = false;
-            this.btnAgregar.UseVisualStyleBackColor = true;
-            this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
             // 
             // btnAddGR
             // 
@@ -404,9 +382,33 @@
             this.label4.TabIndex = 6;
             this.label4.Text = "Nivel de asignatura:";
             // 
+            // btnAgregar
+            // 
+            this.btnAgregar.AutoSize = false;
+            this.btnAgregar.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnAgregar.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.btnAgregar.Depth = 0;
+            this.btnAgregar.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnAgregar.HighEmphasis = true;
+            this.btnAgregar.Icon = null;
+            this.btnAgregar.Location = new System.Drawing.Point(746, 106);
+            this.btnAgregar.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnAgregar.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnAgregar.Name = "btnAgregar";
+            this.btnAgregar.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.btnAgregar.Size = new System.Drawing.Size(128, 45);
+            this.btnAgregar.TabIndex = 35;
+            this.btnAgregar.Text = "agregar";
+            this.btnAgregar.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnAgregar.UseAccentColor = false;
+            this.btnAgregar.UseVisualStyleBackColor = true;
+            this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
+            // 
             // panelHorario
             // 
             this.panelHorario.BackColor = System.Drawing.Color.LightBlue;
+            this.panelHorario.Controls.Add(this.lblCruceHorario);
+            this.panelHorario.Controls.Add(this.btnAgregar);
             this.panelHorario.Controls.Add(this.label11);
             this.panelHorario.Controls.Add(this.dgvHorario);
             this.panelHorario.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -436,6 +438,19 @@
             this.dgvHorario.RowTemplate.Height = 29;
             this.dgvHorario.Size = new System.Drawing.Size(485, 205);
             this.dgvHorario.TabIndex = 0;
+            // 
+            // lblCruceHorario
+            // 
+            this.lblCruceHorario.BackColor = System.Drawing.Color.Tomato;
+            this.lblCruceHorario.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblCruceHorario.ForeColor = System.Drawing.Color.White;
+            this.lblCruceHorario.Location = new System.Drawing.Point(693, 13);
+            this.lblCruceHorario.Name = "lblCruceHorario";
+            this.lblCruceHorario.Size = new System.Drawing.Size(235, 72);
+            this.lblCruceHorario.TabIndex = 36;
+            this.lblCruceHorario.Text = "EXISTE UN CRUCE DE HORARIO CON LA ASIGNATURA SELECCIONADA";
+            this.lblCruceHorario.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblCruceHorario.Visible = false;
             // 
             // FrmCUAsignatura_AL
             // 
@@ -502,5 +517,6 @@
         private Panel panelHorario;
         private DataGridView dgvHorario;
         private Label label11;
+        private Label lblCruceHorario;
     }
 }

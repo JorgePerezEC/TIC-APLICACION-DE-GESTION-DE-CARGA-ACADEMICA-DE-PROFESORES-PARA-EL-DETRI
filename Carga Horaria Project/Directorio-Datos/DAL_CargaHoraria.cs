@@ -928,6 +928,44 @@ namespace Directorio_Datos
             }
 
         }
+
+        public DataTable GetHorarioForCargaHoraria_DAL(ClsCargaHoraria _cargaHoraria)
+        {
+            try
+            {
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.Connection = ObjDataBase.sqlConexion;
+                sqlCommand.CommandText = "spGetHorarioForCargaHoraria";
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                sqlCommand.Parameters.AddWithValue("@idCargaHoraria", _cargaHoraria.IdCargaHoraria);
+                ObjDataBase.AbrirConexion();
+                leer = sqlCommand.ExecuteReader();
+                tabla.Load(leer);
+                ObjDataBase.CerrarConexion();
+                return tabla;
+            }
+            catch (SqlException ex)
+            {
+                SqlError err = ex.Errors[0];
+                string mensaje = string.Empty;
+                switch (err.Number)
+                {
+                    case 109:
+                        mensaje = "Problemas con insert"; break;
+                    case 110:
+                        mensaje = "Más problemas con insert"; break;
+                    case 113:
+                        mensaje = "Problemas con comentarios"; break;
+                    case 156:
+                        mensaje = "Error de sintaxis"; break;
+                    default:
+                        mensaje = err.ToString(); break;
+
+                }
+                return null;
+            }
+
+        }
         public DataTable MostrarAsignaturasCrgAcademica_Review_DAL(ClsCargaHoraria _cargaHoraria)
         {
             try
