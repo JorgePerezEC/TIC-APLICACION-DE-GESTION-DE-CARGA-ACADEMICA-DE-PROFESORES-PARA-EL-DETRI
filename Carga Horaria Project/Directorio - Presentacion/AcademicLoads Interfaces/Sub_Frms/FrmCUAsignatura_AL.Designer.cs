@@ -55,9 +55,10 @@
             this.label4 = new System.Windows.Forms.Label();
             this.btnAgregar = new MaterialSkin.Controls.MaterialButton();
             this.panelHorario = new System.Windows.Forms.Panel();
+            this.lblCruceHorario = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.dgvHorario = new System.Windows.Forms.DataGridView();
-            this.lblCruceHorario = new System.Windows.Forms.Label();
+            this.lblNoHorario = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.tblPanelFiltros.SuspendLayout();
@@ -262,6 +263,7 @@
             // panelGR
             // 
             this.panelGR.BackColor = System.Drawing.Color.LightBlue;
+            this.panelGR.Controls.Add(this.lblNoHorario);
             this.panelGR.Controls.Add(this.btnAddGR);
             this.panelGR.Controls.Add(this.txtCode);
             this.panelGR.Controls.Add(this.label6);
@@ -388,6 +390,7 @@
             this.btnAgregar.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnAgregar.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
             this.btnAgregar.Depth = 0;
+            this.btnAgregar.Enabled = false;
             this.btnAgregar.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnAgregar.HighEmphasis = true;
             this.btnAgregar.Icon = null;
@@ -418,6 +421,19 @@
             this.panelHorario.TabIndex = 37;
             this.panelHorario.Visible = false;
             // 
+            // lblCruceHorario
+            // 
+            this.lblCruceHorario.BackColor = System.Drawing.Color.Tomato;
+            this.lblCruceHorario.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblCruceHorario.ForeColor = System.Drawing.Color.White;
+            this.lblCruceHorario.Location = new System.Drawing.Point(693, 13);
+            this.lblCruceHorario.Name = "lblCruceHorario";
+            this.lblCruceHorario.Size = new System.Drawing.Size(235, 72);
+            this.lblCruceHorario.TabIndex = 36;
+            this.lblCruceHorario.Text = "EXISTE UN CRUCE DE HORARIO CON LA ASIGNATURA SELECCIONADA";
+            this.lblCruceHorario.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblCruceHorario.Visible = false;
+            // 
             // label11
             // 
             this.label11.AutoSize = true;
@@ -439,18 +455,17 @@
             this.dgvHorario.Size = new System.Drawing.Size(485, 205);
             this.dgvHorario.TabIndex = 0;
             // 
-            // lblCruceHorario
+            // lblNoHorario
             // 
-            this.lblCruceHorario.BackColor = System.Drawing.Color.Tomato;
-            this.lblCruceHorario.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblCruceHorario.ForeColor = System.Drawing.Color.White;
-            this.lblCruceHorario.Location = new System.Drawing.Point(693, 13);
-            this.lblCruceHorario.Name = "lblCruceHorario";
-            this.lblCruceHorario.Size = new System.Drawing.Size(235, 72);
-            this.lblCruceHorario.TabIndex = 36;
-            this.lblCruceHorario.Text = "EXISTE UN CRUCE DE HORARIO CON LA ASIGNATURA SELECCIONADA";
-            this.lblCruceHorario.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblCruceHorario.Visible = false;
+            this.lblNoHorario.AutoSize = true;
+            this.lblNoHorario.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblNoHorario.ForeColor = System.Drawing.Color.Red;
+            this.lblNoHorario.Location = new System.Drawing.Point(255, 165);
+            this.lblNoHorario.Name = "lblNoHorario";
+            this.lblNoHorario.Size = new System.Drawing.Size(241, 21);
+            this.lblNoHorario.TabIndex = 14;
+            this.lblNoHorario.Text = "No hay GRs con horario asignado";
+            this.lblNoHorario.Visible = false;
             // 
             // FrmCUAsignatura_AL
             // 
@@ -518,5 +533,6 @@
         private DataGridView dgvHorario;
         private Label label11;
         private Label lblCruceHorario;
+        private Label lblNoHorario;
     }
 }

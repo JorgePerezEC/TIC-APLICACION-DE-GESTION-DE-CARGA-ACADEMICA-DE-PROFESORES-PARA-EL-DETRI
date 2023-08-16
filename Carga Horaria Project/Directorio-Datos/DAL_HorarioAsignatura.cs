@@ -161,7 +161,43 @@ namespace Directorio_Datos
             {
                 ObjDataBase.CerrarConexion();
             }
+        }
 
+        public bool VerificarHorasSemanales_DAL(ClsAsignatura _asignatura, ClsGrupoAsignatura _grAsignatura)
+        {
+            try
+            {
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.Connection = ObjDataBase.sqlConexion;
+                sqlCommand.CommandText = "spVerificarHorarioWithNumHorasAsignatura";
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+
+                sqlCommand.Parameters.AddWithValue("@idGrAsig", _grAsignatura.IdGrupoAsignatura);
+                sqlCommand.Parameters.AddWithValue("@horasIngresadas", _asignatura.HorasAsignaturaSemanales);
+
+                // Agregar el parámetro de salida
+                SqlParameter outputParameter = new SqlParameter("@resultado", SqlDbType.Bit);
+                outputParameter.Direction = ParameterDirection.Output;
+                sqlCommand.Parameters.Add(outputParameter);
+
+                ObjDataBase.AbrirConexion();
+                sqlCommand.ExecuteNonQuery();
+
+                bool conflictoHorario = Convert.ToBoolean(outputParameter.Value);
+
+                return conflictoHorario;
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error" + ex.Message);
+                return true;
+
+            }
+            finally
+            {
+                ObjDataBase.CerrarConexion();
+            }
         }
         public DataTable MostrarAllRegistros()
         {

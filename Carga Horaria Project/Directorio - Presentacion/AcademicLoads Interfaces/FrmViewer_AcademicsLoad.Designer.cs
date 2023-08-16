@@ -410,9 +410,9 @@
             this.panel2.Controls.Add(this.tableLayoutPanel2);
             this.panel2.Controls.Add(this.dgvAsignaturas);
             this.panel2.Controls.Add(this.panel3);
-            this.panel2.Location = new System.Drawing.Point(33, 28);
+            this.panel2.Location = new System.Drawing.Point(17, 30);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1125, 297);
+            this.panel2.Size = new System.Drawing.Size(1156, 297);
             this.panel2.TabIndex = 3;
             // 
             // tableLayoutPanel2
@@ -426,7 +426,7 @@
             this.tableLayoutPanel2.Controls.Add(this.label4, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.txtHorasT_Semestre, 2, 1);
             this.tableLayoutPanel2.Controls.Add(this.txtHorasT_Semana, 1, 1);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(847, 53);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(863, 53);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -498,7 +498,7 @@
             this.dgvAsignaturas.Name = "dgvAsignaturas";
             this.dgvAsignaturas.RowHeadersWidth = 51;
             this.dgvAsignaturas.RowTemplate.Height = 29;
-            this.dgvAsignaturas.Size = new System.Drawing.Size(826, 229);
+            this.dgvAsignaturas.Size = new System.Drawing.Size(842, 229);
             this.dgvAsignaturas.TabIndex = 3;
             // 
             // panel3
@@ -526,9 +526,9 @@
             this.panel5.BackColor = System.Drawing.Color.SeaGreen;
             this.panel5.Controls.Add(this.dgvActividades);
             this.panel5.Controls.Add(this.panel6);
-            this.panel5.Location = new System.Drawing.Point(33, 351);
+            this.panel5.Location = new System.Drawing.Point(17, 353);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(1125, 419);
+            this.panel5.Size = new System.Drawing.Size(1156, 419);
             this.panel5.TabIndex = 4;
             // 
             // dgvActividades
@@ -538,7 +538,7 @@
             this.dgvActividades.Name = "dgvActividades";
             this.dgvActividades.RowHeadersWidth = 51;
             this.dgvActividades.RowTemplate.Height = 29;
-            this.dgvActividades.Size = new System.Drawing.Size(800, 343);
+            this.dgvActividades.Size = new System.Drawing.Size(843, 343);
             this.dgvActividades.TabIndex = 3;
             // 
             // panel6
@@ -562,7 +562,7 @@
             // 
             // panelSuperior
             // 
-            this.panelSuperior.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.panelSuperior.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(13)))), ((int)(((byte)(46)))), ((int)(((byte)(160)))));
             this.panelSuperior.Controls.Add(this.panelDocenteInfo);
             this.panelSuperior.Controls.Add(this.btnCloseWin);
             this.panelSuperior.Dock = System.Windows.Forms.DockStyle.Top;
@@ -592,7 +592,7 @@
             // 
             this.lblTipoDocente.AutoSize = true;
             this.lblTipoDocente.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblTipoDocente.ForeColor = System.Drawing.Color.DimGray;
+            this.lblTipoDocente.ForeColor = System.Drawing.Color.White;
             this.lblTipoDocente.Location = new System.Drawing.Point(237, 70);
             this.lblTipoDocente.Name = "lblTipoDocente";
             this.lblTipoDocente.Size = new System.Drawing.Size(80, 35);
@@ -604,7 +604,7 @@
             this.label17.AutoSize = true;
             this.label17.BackColor = System.Drawing.Color.Transparent;
             this.label17.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label17.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.label17.ForeColor = System.Drawing.Color.White;
             this.label17.Location = new System.Drawing.Point(3, 67);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(240, 38);
@@ -615,7 +615,7 @@
             // 
             this.lblHorasExigibles.AutoSize = true;
             this.lblHorasExigibles.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblHorasExigibles.ForeColor = System.Drawing.Color.DimGray;
+            this.lblHorasExigibles.ForeColor = System.Drawing.Color.White;
             this.lblHorasExigibles.Location = new System.Drawing.Point(222, 105);
             this.lblHorasExigibles.Name = "lblHorasExigibles";
             this.lblHorasExigibles.Size = new System.Drawing.Size(80, 35);
@@ -626,7 +626,7 @@
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label16.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.label16.ForeColor = System.Drawing.Color.White;
             this.label16.Location = new System.Drawing.Point(0, 102);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(224, 38);
@@ -637,7 +637,7 @@
             // 
             this.lblSemestre.AutoSize = true;
             this.lblSemestre.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblSemestre.ForeColor = System.Drawing.Color.DimGray;
+            this.lblSemestre.ForeColor = System.Drawing.Color.White;
             this.lblSemestre.Location = new System.Drawing.Point(144, 35);
             this.lblSemestre.Name = "lblSemestre";
             this.lblSemestre.Size = new System.Drawing.Size(80, 35);
@@ -648,7 +648,7 @@
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label15.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.label15.ForeColor = System.Drawing.Color.White;
             this.label15.Location = new System.Drawing.Point(3, 33);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(146, 38);
@@ -659,7 +659,7 @@
             // 
             this.lblDocenteName.AutoSize = true;
             this.lblDocenteName.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblDocenteName.ForeColor = System.Drawing.Color.DimGray;
+            this.lblDocenteName.ForeColor = System.Drawing.Color.White;
             this.lblDocenteName.Location = new System.Drawing.Point(132, 3);
             this.lblDocenteName.Name = "lblDocenteName";
             this.lblDocenteName.Size = new System.Drawing.Size(80, 35);
@@ -670,7 +670,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.label9.ForeColor = System.Drawing.Color.White;
             this.label9.Location = new System.Drawing.Point(3, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(142, 38);

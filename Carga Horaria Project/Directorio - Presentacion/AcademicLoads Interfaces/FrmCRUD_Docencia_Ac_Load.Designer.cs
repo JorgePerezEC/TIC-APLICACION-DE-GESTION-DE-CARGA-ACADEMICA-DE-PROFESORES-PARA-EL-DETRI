@@ -63,7 +63,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label3.ForeColor = System.Drawing.Color.Transparent;
-            this.label3.Location = new System.Drawing.Point(988, 36);
+            this.label3.Location = new System.Drawing.Point(950, 36);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(368, 31);
             this.label3.TabIndex = 2;
@@ -74,7 +74,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label2.ForeColor = System.Drawing.Color.Transparent;
-            this.label2.Location = new System.Drawing.Point(28, 36);
+            this.label2.Location = new System.Drawing.Point(18, 36);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(384, 31);
             this.label2.TabIndex = 1;
@@ -83,11 +83,11 @@
             // dgLstRegistrosF11
             // 
             this.dgLstRegistrosF11.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgLstRegistrosF11.Location = new System.Drawing.Point(988, 70);
+            this.dgLstRegistrosF11.Location = new System.Drawing.Point(950, 70);
             this.dgLstRegistrosF11.Name = "dgLstRegistrosF11";
             this.dgLstRegistrosF11.RowHeadersWidth = 51;
             this.dgLstRegistrosF11.RowTemplate.Height = 29;
-            this.dgLstRegistrosF11.Size = new System.Drawing.Size(668, 330);
+            this.dgLstRegistrosF11.Size = new System.Drawing.Size(688, 330);
             this.dgLstRegistrosF11.TabIndex = 1;
             this.dgLstRegistrosF11.TabStop = false;
             this.dgLstRegistrosF11.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgLstRegistrosF11_CellContentClick);
@@ -95,11 +95,11 @@
             // dgLstRegistrosD11
             // 
             this.dgLstRegistrosD11.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgLstRegistrosD11.Location = new System.Drawing.Point(28, 70);
+            this.dgLstRegistrosD11.Location = new System.Drawing.Point(18, 70);
             this.dgLstRegistrosD11.Name = "dgLstRegistrosD11";
             this.dgLstRegistrosD11.RowHeadersWidth = 51;
             this.dgLstRegistrosD11.RowTemplate.Height = 29;
-            this.dgLstRegistrosD11.Size = new System.Drawing.Size(931, 330);
+            this.dgLstRegistrosD11.Size = new System.Drawing.Size(926, 330);
             this.dgLstRegistrosD11.TabIndex = 0;
             this.dgLstRegistrosD11.TabStop = false;
             this.dgLstRegistrosD11.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgLstRegistrosD11_CellContentClick);

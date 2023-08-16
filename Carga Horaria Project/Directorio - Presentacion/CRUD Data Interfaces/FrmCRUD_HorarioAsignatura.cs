@@ -11,10 +11,13 @@ namespace Directorio___Presentacion.CRUD_Interfaces
     {
         private CN_HorarioAsignatura objetoCNegocio = new CN_HorarioAsignatura();
         CN_Semestre objSemestre_N = new CN_Semestre();
+        CN_Asignatura objCNegocioAsignatura = new CN_Asignatura();
 
         private string? idAsignatura = null;
         private string? idHorario = null;
         private bool Editar = false;
+        private int horasSemanalesAsignatura;
+        private int horasSemanalesDB = 0;
 
         MaterialSkinManager TManager = MaterialSkinManager.Instance;
 
@@ -71,10 +74,10 @@ namespace Directorio___Presentacion.CRUD_Interfaces
                     lblGrupos.Visible = true;
                     cmbGR.Visible = true;
                     CN_GrAsignatura objetoGrNegocio = new CN_GrAsignatura();
-                    cmbGR.DataSource = objetoGrNegocio.MostrarGruposPorAsignatura_Negocio(selectedValueAsInt.ToString());
+                    cmbGR.DataSource = objetoGrNegocio.MostrarGruposPorAsignaturaCmb_Negocio(selectedValueAsInt.ToString());
                     cmbGR.DisplayMember = "Grupos";
                     cmbGR.ValueMember = "ID";
-                    //cmbGR.SelectedIndex = 0;
+                    cmbGR.SelectedIndex = 0;
                 }
             }
         }
@@ -89,7 +92,11 @@ namespace Directorio___Presentacion.CRUD_Interfaces
             {
                 if (int.TryParse(cmbGR.SelectedValue.ToString(), out int selectedValueAsInt) && selectedValueAsInt > 0)
                 {
+                    btnGuardar.Enabled = true;
                     tblPanelHorario.Visible = true;
+                    tblHoras.Visible = true;
+                    horasSemanalesDB = objCNegocioAsignatura.GetHorasSemanlAsignatura_Negocio(cmbAsignaturas.SelectedValue.ToString());
+                    lblHorasCorrespondientes.Text = horasSemanalesDB.ToString();
                     FormatosDateTimePickersGral();
                     ClearCheckBoxes();
                     DataTable dtHorarios = objetoCNegocio.GetHorariosByAsignaturaGR_Negocio(cmbSemestre.SelectedValue.ToString(), cmbGR.SelectedValue.ToString());
@@ -186,23 +193,80 @@ namespace Directorio___Presentacion.CRUD_Interfaces
         {
             this.Close();
         }
+
+        private void VerificarHorasSemanales()
+        {
+            horasSemanalesAsignatura = 0;
+            // Calcular las horas semanales sumando las diferencias de tiempo para cada día seleccionado
+            if (cbLun.Checked)
+            {
+                TimeSpan diffLunes = dtLunesF.Value - dtLunesI.Value;
+                horasSemanalesAsignatura += (int)diffLunes.TotalHours;
+            }
+
+            if (cbMar.Checked)
+            {
+                TimeSpan diffMartes = dtMartesF.Value - dtMartesI.Value;
+                horasSemanalesAsignatura += (int)diffMartes.TotalHours;
+            }
+            if (cbMie.Checked)
+            {
+                TimeSpan diffMiercoles = dtMieF.Value - dtMieI.Value;
+                horasSemanalesAsignatura += (int)diffMiercoles.TotalHours;
+            }
+
+            if (cbJue.Checked)
+            {
+                TimeSpan diffJueves = dtJueF.Value - dtJueI.Value;
+                horasSemanalesAsignatura += (int)diffJueves.TotalHours;
+            }
+
+            if (cbVie.Checked)
+            {
+                TimeSpan diffViernes = dtVieF.Value - dtVieI.Value;
+                horasSemanalesAsignatura += (int)diffViernes.TotalHours;
+            }
+
+            if (cbSab.Checked)
+            {
+                TimeSpan diffSabado = dtSabF.Value - dtSabI.Value;
+                horasSemanalesAsignatura += (int)diffSabado.TotalHours;
+            }
+
+            if (cbDom.Checked)
+            {
+                TimeSpan diffDomingo = dtDomF.Value - dtDomI.Value;
+                horasSemanalesAsignatura += (int)diffDomingo.TotalHours;
+            }
+            lblHorasIngresadas.Text = horasSemanalesAsignatura.ToString();
+        }
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            if (!Editar)
+            try
             {
-                try
-                {
-                    //int cmbValueAsig = Convert.ToInt32(cmbAsignaturas.SelectedValue);
-                    int cmbValueGrupo = Convert.ToInt32(cmbGR.SelectedValue);
-                    bool exito = false;
-                    bool exito2 = false;
-                    bool exito3 = false;
-                    bool exito4 = false;
-                    bool exito5 = false;
-                    bool exito6 = false;
-                    bool exito7 = false;
+                //int cmbValueAsig = Convert.ToInt32(cmbAsignaturas.SelectedValue);
+                int cmbValueGrupo = Convert.ToInt32(cmbGR.SelectedValue);
+                bool cumpleHorasSemanales = false;
+                bool exito = false;
+                bool exito2 = false;
+                bool exito3 = false;
+                bool exito4 = false;
+                bool exito5 = false;
+                bool exito6 = false;
+                bool exito7 = false;
 
-                    //bool exito = objetoCNegocio.CreateHorariosNegocio(cmbSemestre.SelectedValue.ToString(), cmbValueGrupo.ToString(),dtHoraInicio.Text, dtHoraFin.Text, cmbDay.Text);
+
+                VerificarHorasSemanales();
+
+                if (horasSemanalesAsignatura > 0)
+                {
+                    CN_HorarioAsignatura objetoCNegocioV = new CN_HorarioAsignatura();
+                    cumpleHorasSemanales = objetoCNegocioV.VerificarHorasSemanales_Negocio(cmbGR.SelectedValue.ToString(), horasSemanalesAsignatura.ToString());
+                }
+
+
+                if (cumpleHorasSemanales)
+                {
                     if (cbLun.Checked) 
                     {
                         //MessageBox.Show(cmbSemestre.SelectedValue.ToString() + " " + cmbValueGrupo.ToString() + " " + dtLunesI.Text + " " + dtLunesF.Text + " " + cmbDay.Text);
@@ -242,22 +306,28 @@ namespace Directorio___Presentacion.CRUD_Interfaces
 
                     if (exito || exito2 || exito3 || exito4 || exito5 || exito6 || exito7)
                     {
-                        //MessageBox.Show("Horario/s agregado correctamente");
+                        MessageBox.Show("Horario agregado correctamente");
                         //MostrarHorarios();
+                        btnGuardar.Enabled = false;
                     }
                     else
                     {
                         MessageBox.Show("El Horario/s ingresado posee un conflicto de cruce de horario");
                         return;
                     }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Excepción: No se pudo registrar el Horario. Motivo: " + ex.Message);
-                }
 
+                }
+                else
+                {
+                    MessageBox.Show("El horario no cumple con las horas semanles correspondientes a la asignatura seleccionada.");
+                    return;
+                }
+                //bool exito = objetoCNegocio.CreateHorariosNegocio(cmbSemestre.SelectedValue.ToString(), cmbValueGrupo.ToString(),dtHoraInicio.Text, dtHoraFin.Text, cmbDay.Text);
             }
-            ClearTxtBox();
+            catch (Exception ex)
+            {
+                MessageBox.Show("Excepción: No se pudo registrar el Horario. Motivo: " + ex.Message);
+            }
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -331,6 +401,7 @@ namespace Directorio___Presentacion.CRUD_Interfaces
 
         private void cbLun_CheckedChanged(object sender, EventArgs e)
         {
+            VerificarHorasSemanales();
             if (cbLun.Checked)
             {
                 dtLunesI.Enabled = true;
@@ -341,11 +412,13 @@ namespace Directorio___Presentacion.CRUD_Interfaces
                 dtLunesI.Enabled = false;
                 dtLunesF.Enabled = false;
                 FormatosDateTimePickersGral();
+                VerificarHorasSemanales();
             }
         }
 
         private void cbMar_CheckedChanged(object sender, EventArgs e)
         {
+            VerificarHorasSemanales();
             if (cbMar.Checked)
             {
                 dtMartesI.Enabled = true;
@@ -361,6 +434,7 @@ namespace Directorio___Presentacion.CRUD_Interfaces
 
         private void cbMie_CheckedChanged(object sender, EventArgs e)
         {
+            VerificarHorasSemanales();
             if (cbMie.Checked)
             {
                 dtMieI.Enabled = true;
@@ -376,6 +450,7 @@ namespace Directorio___Presentacion.CRUD_Interfaces
 
         private void cbJue_CheckedChanged(object sender, EventArgs e)
         {
+            VerificarHorasSemanales();
             if (cbJue.Checked)
             {
                 dtJueI.Enabled = true;
@@ -391,6 +466,7 @@ namespace Directorio___Presentacion.CRUD_Interfaces
 
         private void cbVie_CheckedChanged(object sender, EventArgs e)
         {
+            VerificarHorasSemanales();
             if (cbVie.Checked)
             {
                 dtVieI.Enabled = true;
@@ -406,6 +482,7 @@ namespace Directorio___Presentacion.CRUD_Interfaces
 
         private void cbSab_CheckedChanged(object sender, EventArgs e)
         {
+            VerificarHorasSemanales();
             if (cbSab.Checked)
             {
                 dtSabF.Enabled = true;
@@ -421,6 +498,7 @@ namespace Directorio___Presentacion.CRUD_Interfaces
 
         private void cbDom_CheckedChanged(object sender, EventArgs e)
         {
+            VerificarHorasSemanales();
             if (cbDom.Checked)
             {
                 dtDomI.Enabled = true;
@@ -504,8 +582,12 @@ namespace Directorio___Presentacion.CRUD_Interfaces
             }
         }
 
+
         #endregion
 
-        
+        private void dtLunesF_ValueChanged(object sender, EventArgs e)
+        {
+            VerificarHorasSemanales();
+        }
     }
 }

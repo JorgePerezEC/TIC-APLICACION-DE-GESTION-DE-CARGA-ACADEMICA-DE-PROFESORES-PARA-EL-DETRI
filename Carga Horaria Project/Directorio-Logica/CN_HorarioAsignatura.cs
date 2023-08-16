@@ -161,6 +161,31 @@ namespace Directorio_Logica
             }
 
         }
+        public bool VerificarHorasSemanales_Negocio( string idGrAsig, string horasAsignatura)
+        {
+            try
+            {
+                 ClsGrupoAsignatura ObjGrupoAsig = new ClsGrupoAsignatura()
+                {
+                    IdGrupoAsignatura = Convert.ToInt32(idGrAsig)
+                };
+                ClsAsignatura ObjAsignatura = new ClsAsignatura()
+                {
+                    HorasAsignaturaSemanales = Convert.ToInt32(horasAsignatura)
+                };
+                bool resul = objetoCData.VerificarHorasSemanales_DAL(ObjAsignatura, ObjGrupoAsig);
+
+                return resul;
+
+            }
+            catch (System.Data.SqlClient.SqlException sqlException)
+            {
+                System.Windows.Forms.MessageBox.Show(sqlException.Message); ;
+                return false;
+
+            }
+        }
 
     }
+
 }

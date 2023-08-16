@@ -225,5 +225,48 @@ namespace Directorio_Datos
             ObjDataBase.CerrarConexion();
             return tabla;
         }
+
+        public int GetHorasSemanlAsignatura_DAL(ClsAsignatura _asignatura)
+        {
+            ManejadorDB ObjDataBaseL = new ManejadorDB();
+            try
+            {
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.Connection = ObjDataBaseL.sqlConexion;
+                sqlCommand.CommandText = "spGetHoraAsignatura";
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                sqlCommand.Parameters.AddWithValue("@idAsignatura", _asignatura.IdAsignatura);
+
+                ObjDataBaseL.AbrirConexion();
+                int horasSemanales = (int)sqlCommand.ExecuteScalar();
+
+                return horasSemanales;
+
+            }
+            catch (SqlException ex)
+            {
+                SqlError err = ex.Errors[0];
+                string mensaje = string.Empty;
+                switch (err.Number)
+                {
+                    case 109:
+                        mensaje = "Problemas con insert"; break;
+                    case 110:
+                        mensaje = "Más problemas con insert"; break;
+                    case 113:
+                        mensaje = "Problemas con comentarios"; break;
+                    case 156:
+                        mensaje = "Error de sintaxis"; break;
+                    default:
+                        mensaje = err.ToString(); break;
+
+                }
+                return -1;
+            }
+            finally
+            {
+                ObjDataBaseL.CerrarConexion();
+            }
+        }
     }
 }

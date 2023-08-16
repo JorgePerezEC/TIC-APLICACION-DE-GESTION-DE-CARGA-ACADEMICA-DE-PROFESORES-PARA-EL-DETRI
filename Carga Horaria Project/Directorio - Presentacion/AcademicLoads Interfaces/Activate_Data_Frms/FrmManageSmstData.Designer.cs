@@ -427,7 +427,7 @@
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label10.ForeColor = System.Drawing.Color.White;
-            this.label10.Location = new System.Drawing.Point(43, 28);
+            this.label10.Location = new System.Drawing.Point(20, 28);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(203, 28);
             this.label10.TabIndex = 14;
@@ -440,7 +440,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtFiltro.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.txtFiltro.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.txtFiltro.Location = new System.Drawing.Point(261, 26);
+            this.txtFiltro.Location = new System.Drawing.Point(238, 26);
             this.txtFiltro.Name = "txtFiltro";
             this.txtFiltro.PlaceholderText = "Docente ...";
             this.txtFiltro.Size = new System.Drawing.Size(293, 30);
@@ -453,7 +453,7 @@
             this.dgvDocenteSemestre.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(13)))), ((int)(((byte)(76)))), ((int)(((byte)(146)))));
             this.dgvDocenteSemestre.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvDocenteSemestre.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvDocenteSemestre.Location = new System.Drawing.Point(43, 84);
+            this.dgvDocenteSemestre.Location = new System.Drawing.Point(20, 84);
             this.dgvDocenteSemestre.Name = "dgvDocenteSemestre";
             this.dgvDocenteSemestre.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
             this.dgvDocenteSemestre.RowTemplate.Height = 29;
@@ -461,7 +461,8 @@
             this.dgvDocenteSemestre.Size = new System.Drawing.Size(1249, 701);
             this.dgvDocenteSemestre.TabIndex = 7;
             this.dgvDocenteSemestre.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDocenteSemestre_CellContentClick);
-            this.dgvDocenteSemestre.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgvDocenteSemestre_CellPainting);
+            this.dgvDocenteSemestre.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvDocenteSemestre_CellFormatting);
+            this.dgvDocenteSemestre.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDocenteSemestre_CellValueChanged);
             // 
             // panel1
             // 

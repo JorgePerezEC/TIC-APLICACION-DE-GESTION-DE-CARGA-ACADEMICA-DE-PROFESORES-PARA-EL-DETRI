@@ -29,6 +29,8 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Activate_Data_Frms
         public FrmManageSmstData()
         {
             InitializeComponent();
+            dgvDocenteSemestre.CellFormatting += dgvDocenteSemestre_CellFormatting;
+
         }
 
         private void FrmManageSmstData_Load(object sender, EventArgs e)
@@ -36,6 +38,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Activate_Data_Frms
             panelTpDocente.Visible = false;
             //panelAdminDocentes.Visible = false;
             ListarSemestres();
+            
         }
 
         #region LOAD DATA
@@ -91,8 +94,30 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Activate_Data_Frms
                 dgvDocenteSemestre.Columns[3].Visible = false;
                 clsStyles.tableActivateDocentesStyle(dgvDocenteSemestre);
                 dgvDocenteSemestre.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
-                dgvDocenteSemestre.CellPainting += dgvDocenteSemestre_CellPainting;
+                dgvDocenteSemestre.SelectionMode = DataGridViewSelectionMode.CellSelect;
 
+            }
+            UpdateCheckboxCellStyles();
+        }
+
+        private void UpdateCheckboxCellStyles()
+        {
+            foreach (DataGridViewRow row in dgvDocenteSemestre.Rows)
+            {
+                foreach (DataGridViewCell cell in row.Cells)
+                {
+                    if (cell.OwningColumn is DataGridViewCheckBoxColumn && cell.Value is bool)
+                    {
+                        if ((bool)cell.Value)
+                        {
+                            cell.Style.BackColor = Color.Yellow; // Cambiar el color de fondo a amarillo
+                        }
+                        else
+                        {
+                            cell.Style.BackColor = dgvDocenteSemestre.DefaultCellStyle.BackColor; // Restaurar el color de fondo predeterminado
+                        }
+                    }
+                }
             }
         }
 
@@ -183,7 +208,6 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Activate_Data_Frms
             columnaNA.Width = 30;
             dgvDocenteSemestre.Columns.Add(columnaNA);
 
-            dgvDocenteSemestre.CellPainting += dgvDocenteSemestre_CellPainting;
         }
 
         private void dgvDocenteSemestre_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -257,24 +281,6 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Activate_Data_Frms
             }
         }
 
-        private void dgvDocenteSemestre_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
-        {
-            if (e.ColumnIndex >= 0 && e.RowIndex >= 0 && dgvDocenteSemestre.Columns[e.ColumnIndex] is DataGridViewCheckBoxColumn)
-            {
-                e.PaintBackground(e.CellBounds, true);
-
-                var checkboxSize = 20; // Tamaño deseado para el checkbox
-
-                var checkboxBounds = new Rectangle(
-                    e.CellBounds.X + (e.CellBounds.Width - checkboxSize) / 2,
-                    e.CellBounds.Y + (e.CellBounds.Height - checkboxSize) / 2,
-                    checkboxSize, checkboxSize);
-
-                e.PaintContent(checkboxBounds);
-
-                e.Handled = true;
-            }
-        }
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
@@ -371,6 +377,47 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Activate_Data_Frms
 
             e.KeyChar = tecla;
             e.Handled = false;
+        }
+
+        private void dgvDocenteSemestre_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            //if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            //{
+            //    DataGridViewCell cell = dgvDocenteSemestre.Rows[e.RowIndex].Cells[e.ColumnIndex];
+
+            //    if (cell.OwningColumn is DataGridViewCheckBoxColumn && cell.Value is bool)
+            //    {
+            //        if ((bool)cell.Value)
+            //        {
+            //            cell.Style.BackColor = Color.Yellow; // Cambiar el color de fondo a amarillo
+            //        }
+            //        else
+            //        {
+            //            cell.Style.BackColor = Color.Transparent; // Restaurar el color de fondo predeterminado
+            //        }
+            //    }
+            //}
+            UpdateCheckboxCellStyles();
+        }
+
+        private void dgvDocenteSemestre_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            {
+                DataGridViewCell cell = dgvDocenteSemestre.Rows[e.RowIndex].Cells[e.ColumnIndex];
+
+                if (cell.OwningColumn is DataGridViewCheckBoxColumn && cell.Value is bool)
+                {
+                    if ((bool)cell.Value)
+                    {
+                        e.CellStyle.BackColor = Color.Yellow; // Cambiar el color de fondo a amarillo
+                    }
+                    else
+                    {
+                        e.CellStyle.BackColor = Color.Transparent; // Restaurar el color de fondo predeterminado
+                    }
+                }
+            }
         }
     }
 }

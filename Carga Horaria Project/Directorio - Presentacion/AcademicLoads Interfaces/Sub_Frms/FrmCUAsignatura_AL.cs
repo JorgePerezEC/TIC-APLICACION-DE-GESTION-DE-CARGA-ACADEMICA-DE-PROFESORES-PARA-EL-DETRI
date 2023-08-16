@@ -27,6 +27,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
         private int idSemestreLocal;
         private string idAsigCarga;
         private int idGrAsignatura;
+        private DataTable dtGrs;
         private DataTable LstAsignaturas;
         private DataTable LstAsignaturasFiltered;
         //Variables to edit
@@ -184,18 +185,42 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
                 cmbGR.Visible = true;
 
                 CN_GrAsignatura objetoGrNegocio = new CN_GrAsignatura();
-                cmbGR.DataSource = objetoGrNegocio.MostrarGruposPorAsignaturaWHorario_Negocio(idSemestreLocal.ToString(),cmbAsignatura.SelectedValue.ToString());
+                dtGrs = objetoGrNegocio.MostrarGruposPorAsignaturaWHorario_Negocio(idSemestreLocal.ToString(),cmbAsignatura.SelectedValue.ToString());
+                cmbGR.DataSource = dtGrs;
                 cmbGR.DisplayMember = "Grupos";
                 cmbGR.ValueMember = "ID";
 
                 txtNivel.Text = objetoGrNegocio.GetLvlAsignatura_Negocio(cmbAsignatura.SelectedValue.ToString());
                 txtType.Text = objetoGrNegocio.GetTypeAsigByAsig_Negocio(cmbAsignatura.SelectedValue.ToString());
                 txtCode.Text = objetoGrNegocio.GetCodeAsigByAsig_Negocio(cmbAsignatura.SelectedValue.ToString());
-                if (NewGr)
+
+                if (dtGrs.Rows.Count > 0)
                 {
-                    cmbGR.SelectedIndex = cmbGR.Items.Count - 1;
+                    lblNoHorario.Visible = false;
+                    dgvHorario.Visible = true;
+                    
+                    if (NewGr)
+                    {
+                        cmbGR.SelectedIndex = cmbGR.Items.Count - 1;
+                    }
+                    btnAddGR.Enabled = true;
                 }
+                else
+                {
+                    //clearData();
+                    panelHorario.Visible = false;
+                    lblNoHorario.Visible = true;
+                }
+
             }
+        }
+        private void clearData()
+        {
+            panelHorario.Visible = false;
+            txtCode.Text = string.Empty;
+            txtNivel.Text= string.Empty;
+            txtType.Text = string.Empty;
+            dgvHorario.Visible = false;
         }
         #endregion
 
@@ -204,23 +229,42 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
             if (cmbAsignatura.SelectedIndex > -1 && cmbAsignatura.SelectedValue != null)
             {
                 if (int.TryParse(cmbGR.SelectedValue.ToString(), out int selectedValueAsInt) && selectedValueAsInt > 0)
-                { 
-                    panelHorario.Visible = true;
-                    CN_HorarioAsignatura objetoCNegocio = new CN_HorarioAsignatura();
-                    DataTable dtHorarios = objetoCNegocio.GetHorariosByAsignaturaGRView_Negocio(idSemestreLocal.ToString(), cmbGR.SelectedValue.ToString());
-                    dgvHorario.DataSource = dtHorarios;
-
-                    CN_HorarioAsignatura objetoCNegocio2 = new CN_HorarioAsignatura();
-                    isCruceHorario = objetoCNegocio2.VerificarCruceHorario_Negocio(idAcLoad.ToString(),cmbGR.SelectedValue.ToString());
-                    if (isCruceHorario)
+                {
+                    if (dtGrs.Rows.Count > 0)
                     {
-                        lblCruceHorario.Visible = true;
-                        btnAgregar.Enabled = false;
+                        panelHorario.Visible = true;
+                        CN_HorarioAsignatura objetoCNegocio = new CN_HorarioAsignatura();
+                        DataTable dtHorarios = objetoCNegocio.GetHorariosByAsignaturaGRView_Negocio(idSemestreLocal.ToString(), cmbGR.SelectedValue.ToString());
+                        dgvHorario.DataSource = dtHorarios;
+                        dgvHorario.Columns[3].Visible = false;
+                        dgvHorario.Columns[4].Visible = false;
+                        dgvHorario.Columns[5].Visible = false;
+                        DataTable dtHorariosCarga = new DataTable();
+
+                        CN_HorarioAsignatura objetoCNegocio2 = new CN_HorarioAsignatura();
+
+                        FrmCreate_AcademicLoad frmAcademicLoad = Application.OpenForms["FrmCreate_AcademicLoad"] as FrmCreate_AcademicLoad;
+                        FrmCRUD_Asignaturas_Ac_Load frmCRUD = Application.OpenForms["FrmCRUD_Asignaturas_Ac_Load"] as FrmCRUD_Asignaturas_Ac_Load;
+                        if (frmCRUD != null)
+                        {
+                            dtHorariosCarga = frmCRUD.DtHorario;
+                        }
+
+                        //isCruceHorario = objetoCNegocio2.VerificarCruceHorario_Negocio(idAcLoad.ToString(),cmbGR.SelectedValue.ToString());
+                        if (VerificarCruceHorarios(dtHorarios, dtHorariosCarga))
+                        {
+                            lblCruceHorario.Visible = true;
+                            btnAgregar.Enabled = false;
+                        }
+                        else
+                        {
+                            lblCruceHorario.Visible = false;
+                            btnAgregar.Enabled = true;
+                        }
                     }
                     else
                     {
-                        lblCruceHorario.Visible = false;
-                        btnAgregar.Enabled = true;
+                        clearData();
                     }
                     //MessageBox.Show(isCruceHorario.ToString(), "VERIFICAR CRUCE HORARIO");
                     //spVerificarConflictoHorario
@@ -228,13 +272,40 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
             }
         }
 
+        private bool VerificarCruceHorarios(DataTable dtHorarios, DataTable dtHorariosCarga)
+        {
+            foreach (DataRow rowHorariosCarga in dtHorariosCarga.Rows)
+            {
+                foreach (DataRow rowHorarios in dtHorarios.Rows)
+                {
+                    string diaHorariosCarga = rowHorariosCarga["dia"].ToString();
+                    TimeSpan horaInicioHorariosCarga = TimeSpan.Parse(rowHorariosCarga["horaInicio"].ToString());
+                    TimeSpan horaFinHorariosCarga = TimeSpan.Parse(rowHorariosCarga["horaFin"].ToString());
+
+                    string diaHorarios = rowHorarios["dia"].ToString();
+                    TimeSpan horaInicioHorarios = TimeSpan.Parse(rowHorarios["horaInicio"].ToString());
+                    TimeSpan horaFinHorarios = TimeSpan.Parse(rowHorarios["horaFin"].ToString());
+
+                    if (diaHorariosCarga == diaHorarios &&
+                        ((horaInicioHorariosCarga >= horaInicioHorarios && horaInicioHorariosCarga < horaFinHorarios) ||
+                         (horaFinHorariosCarga > horaInicioHorarios && horaFinHorariosCarga <= horaFinHorarios)))
+                    {
+                        // Hay un cruce de horarios
+                        return true;
+                    }
+                }
+            }
+
+            // No hay cruces de horarios
+            return false;
+        }
+
+
         private void cmbAsignatura_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cmbAsignatura.SelectedIndex > -1 && cmbAsignatura.SelectedValue != null)
             {
                 ListarGruposAsignatura(false);
-                btnAgregar.Enabled = true;
-                btnAddGR.Enabled = true;
             }
         }
 
@@ -268,8 +339,11 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
 
         private void btnAddGR_Click(object sender, EventArgs e)
         {
-            Frm_CreateNewAsignatura_Modal frmCreateAsig = new Frm_CreateNewAsignatura_Modal(cmbAsignatura.SelectedValue.ToString(), idSemestreLocal);
-            frmCreateAsig.ShowDialog();
+            if (cmbAsignatura.SelectedIndex > -1 && cmbAsignatura.SelectedValue != null)
+            {
+                Frm_CreateNewAsignatura_Modal frmCreateAsig = new Frm_CreateNewAsignatura_Modal(cmbAsignatura.SelectedValue.ToString(), idSemestreLocal);
+                frmCreateAsig.ShowDialog();
+            }
         }
         private void ListarCarreras()
         {

@@ -80,6 +80,15 @@ namespace Directorio_Logica
             tabla = objetoCData.MostrarRegistrosAsignaturaWithOutDocenteByIdSemestre(objSemestre);
             return tabla;
         }
+        public int GetHorasSemanlAsignatura_Negocio(string idAsignatura)
+        {
+            ClsAsignatura ObjAsig = new ClsAsignatura()
+            {
+                IdAsignatura = Convert.ToInt32(idAsignatura)
+            };
+            int horasSemanalesActividad = objetoCData.GetHorasSemanlAsignatura_DAL(ObjAsig);
+            return horasSemanalesActividad;
+        }
 
         #region CRUD Methods
         public bool CreateAsignaturaNeg(string idCarrera,string nameAsig, string tpAsig, string cod, string hTot, string hSem, string lvlAsig)

@@ -8,15 +8,15 @@
 --------------------------------------------
 USE master
 GO
-IF EXISTS (SELECT name FROM sys.databases WHERE name = 'dbCargaHorariaAgo2')
+IF EXISTS (SELECT name FROM sys.databases WHERE name = 'dbCargaHorariaAgo15')
 BEGIN
-    DROP DATABASE dbCargaHorariaAgo2;
+    DROP DATABASE dbCargaHorariaAgo15;
 END
 GO
 PRINT 'Creating DB';
-CREATE DATABASE dbCargaHorariaAgo2;
+CREATE DATABASE dbCargaHorariaAgo15;
 GO
-USE dbCargaHorariaAgo2;
+USE dbCargaHorariaAgo15;
 
 -----------------------------------------
 -- Table Creation Section
@@ -464,19 +464,51 @@ AS
 	END
 GO
 --SP to create one row from tblGrAsignatura and get those id row
-CREATE PROCEDURE [dbo].[spAddGrAsignaturaOut]
+CREATE OR ALTER PROCEDURE [dbo].[spAddGrAsignaturaOut]
 	@idAsig int,
 	@Gr varchar(20),
 	@InsertedID int OUTPUT
 AS
 BEGIN 
+	-- Verificar si ya existe un registro con el mismo grupoAsignatura
+    IF EXISTS (SELECT 1 FROM tblGrAsignatura WHERE grupoAsignatura = @Gr AND idAsignatura = @idAsig)
+    BEGIN
+        SET @InsertedID = -1; -- Indicar que ya existe un registro con el mismo grupoAsignatura
+        RETURN; -- Salir del procedimiento sin realizar la inserción
+    END
+
 	INSERT INTO tblGrAsignatura(idAsignatura, grupoAsignatura)
 	VALUES (@idAsig, @Gr);
 
 	SET @InsertedID = SCOPE_IDENTITY();
 END
 GO
+-- Stored Procedure to create one row from "tblHorarioGrAsig"
+CREATE OR ALTER PROCEDURE [dbo].[spVerificarHorarioWithNumHorasAsignatura]
+    @idGrAsig			int,
+    @horasIngresadas	int,
+    @resultado			bit OUTPUT
+AS
+BEGIN
+	DECLARE @horasSemanalesAsignatura int
+    SET @resultado = 0 -- Inicializar con valor "False" (Error)
 
+	SELECT @horasSemanalesAsignatura = horasAsignaturaSemanales
+	FROM tblAsignatura A
+	INNER JOIN tblGrAsignatura GA ON A.idAsignatura = GA.idAsignatura
+	WHERE GA.idGrAsig = @idGrAsig
+
+	--Verificar si numero de horas del horario ingresado cumple con el numero de horas registradas
+	IF @horasIngresadas = @horasSemanalesAsignatura
+	BEGIN
+		SET @resultado = 1 -- Cambiar a valor "True" (Éxito)
+	END
+	ELSE
+	BEGIN
+		RETURN;
+	END
+END
+GO
 -- Stored Procedure to create one row from "tblHorarioGrAsig"
 CREATE OR ALTER PROCEDURE [dbo].[spAddHorarioAsig]
     @idSemestre int,
@@ -488,47 +520,48 @@ CREATE OR ALTER PROCEDURE [dbo].[spAddHorarioAsig]
 AS
 BEGIN
     DECLARE @idSemestreGrAsignatura int
-
     SET @resultado = 0 -- Inicializar con valor "False" (Error)
-
-    -- Verificar si hay conflicto de horario
-    IF NOT EXISTS (
-        SELECT 1
-        FROM tblHorarioGrAsig HGA
+	
+	---------------------------------------------------------
+	-- Verificar si hay conflicto de horario
+	IF NOT EXISTS (
+		SELECT 1
+		FROM tblHorarioGrAsig HGA
 		INNER JOIN tblSemestreGrAsignatura SGA ON HGA.idSemestreGrAsignatura = SGA.idSemestreGrAsignatura
-        WHERE SGA.idGrAsig = @idGrAsig AND HGA.isActive = 1
-            AND idDiaSemana = @dia
-            AND (
-                (@horaInicio >= horaInicio AND @horaInicio < horaFin) OR
-                (@horaFin > horaInicio AND @horaFin <= horaFin) OR
-                (@horaInicio <= horaInicio AND @horaFin >= horaFin)
-            )
-    )
-    BEGIN
-        -- Verificar si ya existe un registro con el mismo idSemestre e idGrAsig
-        SELECT @idSemestreGrAsignatura = idSemestreGrAsignatura
-        FROM tblSemestreGrAsignatura
-        WHERE idSemestre = @idSemestre AND idGrAsig = @idGrAsig
+		WHERE SGA.idGrAsig = @idGrAsig AND HGA.isActive = 1
+			AND idDiaSemana = @dia
+			AND (
+				(@horaInicio >= horaInicio AND @horaInicio < horaFin) OR
+				(@horaFin > horaInicio AND @horaFin <= horaFin) OR
+				(@horaInicio <= horaInicio AND @horaFin >= horaFin)
+			)
+	)
+	BEGIN
+		-- Verificar si ya existe un registro con el mismo idSemestre e idGrAsig
+		SELECT @idSemestreGrAsignatura = idSemestreGrAsignatura
+		FROM tblSemestreGrAsignatura
+		WHERE idSemestre = @idSemestre AND idGrAsig = @idGrAsig
 
-        IF @idSemestreGrAsignatura IS NULL
-        BEGIN
-            -- Insertar en tblSemestreGrAsignatura solo si no existe
-            INSERT INTO tblSemestreGrAsignatura (idSemestre, idGrAsig, isActive)
-            VALUES (@idSemestre, @idGrAsig, 1)
+		IF @idSemestreGrAsignatura IS NULL
+		BEGIN
+			-- Insertar en tblSemestreGrAsignatura solo si no existe
+			INSERT INTO tblSemestreGrAsignatura (idSemestre, idGrAsig, isActive)
+			VALUES (@idSemestre, @idGrAsig, 1)
         
-            SET @idSemestreGrAsignatura = SCOPE_IDENTITY() -- Obtener el ID recién insertado
-        END
+			SET @idSemestreGrAsignatura = SCOPE_IDENTITY() -- Obtener el ID recién insertado
+		END
 
-        -- Insertar en tblHorarioGrAsig usando el ID de tblSemestreGrAsignatura
-        INSERT INTO tblHorarioGrAsig (idSemestreGrAsignatura, horaInicio, horaFin, idDiaSemana, isActive)
-        VALUES (@idSemestreGrAsignatura, @horaInicio, @horaFin, @dia, 1)
+		-- Insertar en tblHorarioGrAsig usando el ID de tblSemestreGrAsignatura
+		INSERT INTO tblHorarioGrAsig (idSemestreGrAsignatura, horaInicio, horaFin, idDiaSemana, isActive)
+		VALUES (@idSemestreGrAsignatura, @horaInicio, @horaFin, @dia, 1)
         
-        SET @resultado = 1 -- Cambiar a valor "True" (Éxito)
-    END
-    ELSE
-    BEGIN
-        SET @resultado = 0 -- Mantener valor "False" (Error)
-    END
+		SET @resultado = 1 -- Cambiar a valor "True" (Éxito)
+	END
+	ELSE
+	BEGIN
+		SET @resultado = 0 -- Mantener valor "False" (Error)
+	END
+	---------------------------------------------------------
 END
 GO
 -- Stored Procedure to create one row from "tblHorarioGrAsig" Version2
@@ -806,7 +839,7 @@ BEGIN
         BEGIN
             SELECT DD.dia AS 'DÍA DE LA SEMANA',
 			ISNULL(CONVERT(VARCHAR(5), horaInicio, 108), 'N/A') AS 'HORA INICIO', 
-            ISNULL(CONVERT(VARCHAR(5), horaFin, 108), 'N/A') AS 'HORA FIN'
+            ISNULL(CONVERT(VARCHAR(5), horaFin, 108), 'N/A') AS 'HORA FIN', horaInicio, horaFin,DD.dia
 			FROM tblHorarioGrAsig HGA
 			INNER JOIN tblDiaSemana DD ON HGA.idDiaSemana = DD.idDiaSemana
 			WHERE idSemestreGrAsignatura = @idSemestreGrAsignatura
@@ -830,15 +863,15 @@ BEGIN
     FROM tblAsigCrgHoraria ACH
     WHERE ACH.idCrgHoraria = @idCargaHoraria;
 
-    SELECT CONCAT(CONVERT(NVARCHAR(5), h.horaInicio, 108), ' - ', CONVERT(NVARCHAR(5), h.horaFin, 108)) AS HORA, 
-           CONCAT(g.grupoAsignatura,'-',A.nombreAsignatura) AS ASIGNATURA, ds.dia AS DÍA
+    SELECT CONCAT(CONVERT(NVARCHAR(5), h.horaInicio, 108), ' - ', CONVERT(NVARCHAR(5), h.horaFin, 108)) AS HORA, ds.dia AS DÍA, 
+           CONCAT(g.grupoAsignatura,'-',A.nombreAsignatura) AS ASIGNATURA, h.horaInicio, h.horaFin, ds.dia
     FROM tblHorarioGrAsig h
     INNER JOIN tblDiaSemana ds ON h.idDiaSemana = ds.idDiaSemana
     INNER JOIN tblSemestreGrAsignatura sg ON h.idSemestreGrAsignatura = sg.idSemestreGrAsignatura
     INNER JOIN tblGrAsignatura g ON sg.idGrAsig = g.idGrAsig
     INNER JOIN tblAsignatura A ON g.idAsignatura = A.idAsignatura
     WHERE h.isActive = 1 and sg.idSemestre = @idSemestre and sg.idGrAsig IN (SELECT idGrAsig FROM #LstidGRAsig)
-    ORDER BY HORA ASC;
+    ORDER BY DÍA,HORA ASC;
 
     DROP TABLE #LstidGRAsig;
 END;
@@ -959,6 +992,16 @@ BEGIN
     SELECT cantHoraSemana AS 'Horas'
     FROM   tblActividad
 	WHERE idActividad = @idActividad
+END
+GO
+--SP TO GET HORAS SEMANALES FOR ASIGNATURA
+CREATE OR ALTER PROCEDURE [dbo].[spGetHoraAsignatura]
+@idAsignatura int
+AS 
+BEGIN 
+    SELECT horasAsignaturaSemanales
+    FROM   tblAsignatura
+	WHERE idAsignatura = @idAsignatura
 END
 GO
 -- Stored Procedure to Get Activity Total Hours from  "tblActividad" based on idActividad
@@ -1622,6 +1665,22 @@ BEGIN
     )
 END
 GO
+-- Stored Procedure to Read All Groups by IdAsignatura from  "tblAsignatura"
+IF OBJECT_ID('spReadAllGroupsByAsigCmb') IS NOT NULL
+BEGIN 
+    DROP PROC [dbo].[spReadAllGroupsByAsigCmb]
+END 
+GO
+CREATE OR ALTER PROC [dbo].[spReadAllGroupsByAsigCmb]
+	@idAsignatura int
+AS 
+BEGIN 
+    SELECT gr.idGrAsig AS ID, gr.grupoAsignatura AS Grupos
+    FROM tblGrAsignatura gr
+    INNER JOIN tblAsignatura asg ON gr.idAsignatura = asg.idAsignatura
+    WHERE asg.idAsignatura = @idAsignatura
+END
+GO
 CREATE OR ALTER PROC [dbo].[spReadAllGroupsByAsigWithHorario]
 	@idAsignatura varchar(150),
 	@idSemestre int
@@ -1631,7 +1690,7 @@ BEGIN
     FROM tblGrAsignatura gr
     INNER JOIN tblAsignatura asg ON gr.idAsignatura = asg.idAsignatura
 	INNER JOIN tblSemestreGrAsignatura SGA ON gr.idGrAsig = SGA.idGrAsig
-    WHERE asg.idAsignatura = @idAsignatura
+    WHERE asg.idAsignatura = @idAsignatura AND SGA.idSemestre = @idSemestre
     AND NOT EXISTS (
         SELECT 1
         FROM tblAsigCrgHoraria ash
@@ -2123,6 +2182,98 @@ BEGIN
     END
 END
 GO
+CREATE OR ALTER PROCEDURE spCopyAllDataBetweenSemestres
+    @idSemestreExistente INT,
+    @idSemestreNuevo INT,
+    @CopiaExitosa BIT OUTPUT
+AS
+BEGIN
+    --SET NOCOUNT ON;
+    DECLARE @TransactionName NVARCHAR(20) = 'CopySemestreData';
+
+    BEGIN TRY
+        BEGIN TRANSACTION @TransactionName;
+
+        -- Copiar información de tblSemestreTpDocente
+        --INSERT INTO tblSemestreTpDocente (idTipoDoc, idSemestre, idDocente, numHorasSemestrales, estadoSemestreDoc)
+        --SELECT idTipoDoc, @idSemestreNuevo, idDocente, numHorasSemestrales, estadoSemestreDoc
+        --FROM tblSemestreTpDocente
+        --WHERE idSemestre = @idSemestreExistente;
+		PRINT 'INSERT INTO tblSemestreGrAsignatura'
+        -- Copiar información de tblSemestreGrAsignatura
+        INSERT INTO tblSemestreGrAsignatura (idSemestre, idGrAsig, isActive)
+        SELECT @idSemestreNuevo, idGrAsig, isActive
+        FROM tblSemestreGrAsignatura
+        WHERE idSemestre = @idSemestreExistente;
+		PRINT 'INSERT INTO tblSemestreAsignatura '
+        -- Copiar información de tblSemestreAsignatura
+        INSERT INTO tblSemestreAsignatura (idSemestre, idAsignatura, isActive)
+        SELECT @idSemestreNuevo, idAsignatura, isActive
+        FROM tblSemestreAsignatura
+        WHERE idSemestre = @idSemestreExistente;
+		PRINT 'INSERT INTO tblTipoDocenteSemestre '
+        -- Copiar información de tblTipoDocenteSemestre
+        INSERT INTO tblTipoDocenteSemestre (idTipoDocente, idSemestre, numHorasSemestrales)
+        SELECT idTipoDocente, @idSemestreNuevo, numHorasSemestrales
+        FROM tblTipoDocenteSemestre
+        WHERE idSemestre = @idSemestreExistente;
+
+		PRINT 'INSERT INTO tblCargaHoraria '
+        -- Copiar información de tblCargaHoraria
+        INSERT INTO tblCargaHoraria (idDocente, idSemestre)
+        SELECT idDocente, @idSemestreNuevo
+        FROM tblCargaHoraria
+        WHERE idSemestre = @idSemestreExistente;
+
+		PRINT 'DECLARE TABLES '
+		-- Obtener el mapeo de idCargaHoraria entre el semestre existente y el nuevo
+		DECLARE @CrgHorariaMapping TABLE (IdCrgHorariaExistente INT, IdCrgHorariaNuevo INT);
+		INSERT INTO @CrgHorariaMapping (IdCrgHorariaExistente, IdCrgHorariaNuevo)
+		SELECT idCargaHoraria, SCOPE_IDENTITY()  -- Obtener el nuevo idCargaHoraria generado
+		FROM tblCargaHoraria
+		WHERE idSemestre = @idSemestreExistente;
+
+		-- Copiar información de tblAsigCrgHoraria usando el mapeo
+		INSERT INTO tblAsigCrgHoraria (idCrgHoraria, idGrAsig, estadoAsigCrgDocencia)
+		SELECT cm.IdCrgHorariaNuevo, ach.idGrAsig, ach.estadoAsigCrgDocencia
+		FROM tblAsigCrgHoraria ach
+		INNER JOIN @CrgHorariaMapping cm ON ach.idCrgHoraria = cm.IdCrgHorariaExistente;
+
+		-- Copiar información de tblActividadCargas usando el mapeo
+		INSERT INTO tblActividadCargas (idCrgHoraria, idActividad, horasSemana, horaTotal, estadoActivCrgDocencia)
+		SELECT cm.IdCrgHorariaNuevo, ac.idActividad, ac.horasSemana, ac.horaTotal, ac.estadoActivCrgDocencia
+		FROM tblActividadCargas ac
+		INNER JOIN @CrgHorariaMapping cm ON ac.idCrgHoraria = cm.IdCrgHorariaExistente;
+
+		-- Obtener los nuevos valores de idSemestreGrAsignatura
+        DECLARE @IdSemestreGrAsignaturaExistente INT, @IdSemestreGrAsignaturaNuevo INT;
+        SELECT @IdSemestreGrAsignaturaExistente = idSemestreGrAsignatura
+        FROM tblSemestreGrAsignatura
+        WHERE idSemestre = @idSemestreExistente;
+
+		SELECT @IdSemestreGrAsignaturaNuevo = idSemestreGrAsignatura
+        FROM tblSemestreGrAsignatura
+        WHERE idSemestre = @idSemestreNuevo;
+
+
+        -- Copiar información de tblHorarioGrAsig
+        INSERT INTO tblHorarioGrAsig (idSemestreGrAsignatura, horaInicio, horaFin, idDiaSemana, isActive)
+        SELECT @IdSemestreGrAsignaturaNuevo, horaInicio, horaFin, idDiaSemana, isActive
+        FROM tblHorarioGrAsig
+        WHERE idSemestreGrAsignatura = @IdSemestreGrAsignaturaExistente;
+
+        -- Commit la transacción si todo se realizó exitosamente
+        SET @CopiaExitosa = 1;
+        COMMIT TRANSACTION @TransactionName;
+    END TRY
+    BEGIN CATCH
+        -- Rollback en caso de error
+        SET @CopiaExitosa = 0;
+        ROLLBACK TRANSACTION @TransactionName;
+		PRINT 'Error in transaction ' + @TransactionName + ': ' + ERROR_MESSAGE();
+    END CATCH;
+END;
+GO
 -- Stored Procedure to copy data from other semester to another semester into "tblSemestreTpDocente"
 CREATE OR ALTER PROCEDURE [dbo].[spCopiarRegistrosHorasExigibles]
     @idSemestreActual int,
@@ -2297,6 +2448,12 @@ AS
 BEGIN 
 	SELECT ac.idActivCrgs AS ID, ta.nombreTpAct AS TIPO,a.nombreActividad AS 'ACTIVIDAD'
 	, CONCAT(d.apellido1Docente, ' ', d.apellido2Docente, ' ', d.nombre1Docente, ' ', d.nombre2Docente) AS 'DOCENTE ASIGNADO', 
+	CAST(
+    CASE
+        WHEN ac.horasSemana = 0 THEN ac.horaTotal / s.numSemanasClase
+        ELSE ac.horasSemana
+    END AS INT
+) AS 'HORAS SEMANALES',
 	(CASE WHEN ac.horaTotal = 0 THEN ac.horasSemana * s.numSemanasClase * 2 WHEN ac.horasSemana = 0 THEN ac.horaTotal  ELSE 0 END) AS 'HORAS TOTALES'
 	FROM tblActividadCargas ac
 	LEFT JOIN tblCargaHoraria ch ON ac.idCrgHoraria = ch.idCargaHoraria
@@ -2304,7 +2461,7 @@ BEGIN
 	INNER JOIN tblTipoActividad ta ON a.idTpAct_f = ta.idTpAct
 	INNER JOIN tblDocente d ON ch.idDocente = d.idDocente
 	INNER JOIN tblSemestre s ON ch.idSemestre = s.idSemestre
-	WHERE ch.idSemestre = @idSemestre
+	WHERE ch.idSemestre = 1--@idSemestre
 	AND (a.idTpAct_f = 3 OR a.idTpAct_f = 4)
 	ORDER BY TIPO
 END
@@ -2347,17 +2504,20 @@ CREATE OR ALTER PROCEDURE [dbo].[spGetAsignaturaGrBySemestreWithOutDocente_Repor
 AS 
 BEGIN 
     SELECT a.idAsignatura AS ID, a.codigoAsignatura AS CÓDIGO, ga.grupoAsignatura AS GRUPO, a.nombreAsignatura AS ASGINATURA, a.tipoAsignatura AS TIPO
-FROM tblAsignatura a
-INNER JOIN tblGrAsignatura ga ON a.idAsignatura = ga.idAsignatura
-WHERE a.idAsignatura IN (
-    SELECT sa.idAsignatura
-    FROM tblSemestreAsignatura sa
-    WHERE sa.isActive = 1 AND sa.idSemestre = @idSemestre
-) AND ga.idGrAsig NOT IN (
-    SELECT ach.idGrAsig
-    FROM tblAsigCrgHoraria ach
-)
-ORDER BY ASGINATURA ASC
+	FROM tblAsignatura a
+	INNER JOIN tblGrAsignatura ga ON a.idAsignatura = ga.idAsignatura
+	WHERE a.idAsignatura IN (
+		SELECT sa.idAsignatura
+		FROM tblSemestreAsignatura sa
+		WHERE sa.isActive = 1 AND sa.idSemestre = @idSemestre
+	) AND ga.idGrAsig NOT IN (
+		SELECT ach.idGrAsig
+		FROM tblAsigCrgHoraria ach
+	) AND ga.idGrAsig IN (
+		SELECT SGA.idGrAsig
+		FROM tblSemestreGrAsignatura SGA
+		WHERE SGA.idSemestre = @idSemestre and SGA.isActive = 1)
+	ORDER BY ASGINATURA ASC
 END
 GO
 

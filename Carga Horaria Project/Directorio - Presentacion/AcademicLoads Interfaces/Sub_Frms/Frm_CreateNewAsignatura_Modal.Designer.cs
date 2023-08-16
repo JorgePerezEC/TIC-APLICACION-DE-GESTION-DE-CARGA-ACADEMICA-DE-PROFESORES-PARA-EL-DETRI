@@ -30,6 +30,8 @@
         {
             this.panelCreate = new System.Windows.Forms.Panel();
             this.panelSaveGR2 = new System.Windows.Forms.Panel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.lstBoxGrupos = new System.Windows.Forms.ListBox();
             this.panelSaveGR = new System.Windows.Forms.Panel();
             this.btnGuardar = new MaterialSkin.Controls.MaterialButton();
             this.btnClose = new MaterialSkin.Controls.MaterialButton();
@@ -38,6 +40,11 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.panelCreateHorario = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.label10 = new System.Windows.Forms.Label();
+            this.lblHorasIngresadas = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.lblHorasCorrespondientes = new System.Windows.Forms.Label();
             this.btnCancelarH = new MaterialSkin.Controls.MaterialButton();
             this.btnSaveHorario = new MaterialSkin.Controls.MaterialButton();
             this.tblPanelHorario = new System.Windows.Forms.TableLayoutPanel();
@@ -69,6 +76,7 @@
             this.panelSaveGR2.SuspendLayout();
             this.panelSaveGR.SuspendLayout();
             this.panelCreateHorario.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             this.tblPanelHorario.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -85,6 +93,8 @@
             // 
             // panelSaveGR2
             // 
+            this.panelSaveGR2.Controls.Add(this.label4);
+            this.panelSaveGR2.Controls.Add(this.lstBoxGrupos);
             this.panelSaveGR2.Controls.Add(this.panelSaveGR);
             this.panelSaveGR2.Controls.Add(this.cmbGR);
             this.panelSaveGR2.Controls.Add(this.cmbAsignaturas);
@@ -96,13 +106,34 @@
             this.panelSaveGR2.Size = new System.Drawing.Size(804, 233);
             this.panelSaveGR2.TabIndex = 25;
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft YaHei", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label4.Location = new System.Drawing.Point(354, 74);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(197, 23);
+            this.label4.TabIndex = 26;
+            this.label4.Text = "Lista de GRs existentes";
+            // 
+            // lstBoxGrupos
+            // 
+            this.lstBoxGrupos.BackColor = System.Drawing.SystemColors.MenuBar;
+            this.lstBoxGrupos.Enabled = false;
+            this.lstBoxGrupos.FormattingEnabled = true;
+            this.lstBoxGrupos.ItemHeight = 20;
+            this.lstBoxGrupos.Location = new System.Drawing.Point(557, 64);
+            this.lstBoxGrupos.Name = "lstBoxGrupos";
+            this.lstBoxGrupos.Size = new System.Drawing.Size(150, 124);
+            this.lstBoxGrupos.TabIndex = 25;
+            // 
             // panelSaveGR
             // 
             this.panelSaveGR.Controls.Add(this.btnGuardar);
             this.panelSaveGR.Controls.Add(this.btnClose);
             this.panelSaveGR.Location = new System.Drawing.Point(29, 108);
             this.panelSaveGR.Name = "panelSaveGR";
-            this.panelSaveGR.Size = new System.Drawing.Size(314, 96);
+            this.panelSaveGR.Size = new System.Drawing.Size(295, 96);
             this.panelSaveGR.TabIndex = 24;
             // 
             // btnGuardar
@@ -136,7 +167,7 @@
             this.btnClose.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnClose.HighEmphasis = true;
             this.btnClose.Icon = null;
-            this.btnClose.Location = new System.Drawing.Point(182, 26);
+            this.btnClose.Location = new System.Drawing.Point(150, 26);
             this.btnClose.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnClose.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnClose.Name = "btnClose";
@@ -211,6 +242,7 @@
             this.cmbAsignaturas.Name = "cmbAsignaturas";
             this.cmbAsignaturas.Size = new System.Drawing.Size(511, 28);
             this.cmbAsignaturas.TabIndex = 1;
+            this.cmbAsignaturas.SelectedIndexChanged += new System.EventHandler(this.cmbAsignaturas_SelectedIndexChanged);
             // 
             // label3
             // 
@@ -234,6 +266,7 @@
             // 
             // panelCreateHorario
             // 
+            this.panelCreateHorario.Controls.Add(this.tableLayoutPanel1);
             this.panelCreateHorario.Controls.Add(this.btnCancelarH);
             this.panelCreateHorario.Controls.Add(this.btnSaveHorario);
             this.panelCreateHorario.Controls.Add(this.tblPanelHorario);
@@ -243,6 +276,85 @@
             this.panelCreateHorario.Size = new System.Drawing.Size(804, 398);
             this.panelCreateHorario.TabIndex = 24;
             this.panelCreateHorario.Visible = false;
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 75F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.Controls.Add(this.label10, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.lblHorasIngresadas, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.label5, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.lblHorasCorrespondientes, 1, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(531, 167);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(261, 110);
+            this.tableLayoutPanel1.TabIndex = 36;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.BackColor = System.Drawing.Color.MediumPurple;
+            this.label10.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label10.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label10.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.label10.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label10.ForeColor = System.Drawing.Color.White;
+            this.label10.Location = new System.Drawing.Point(3, 55);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(189, 55);
+            this.label10.TabIndex = 3;
+            this.label10.Text = "Horas Semanales ingresadas";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblHorasIngresadas
+            // 
+            this.lblHorasIngresadas.AutoSize = true;
+            this.lblHorasIngresadas.BackColor = System.Drawing.Color.Honeydew;
+            this.lblHorasIngresadas.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblHorasIngresadas.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblHorasIngresadas.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.lblHorasIngresadas.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblHorasIngresadas.Location = new System.Drawing.Point(198, 55);
+            this.lblHorasIngresadas.Name = "lblHorasIngresadas";
+            this.lblHorasIngresadas.Size = new System.Drawing.Size(60, 55);
+            this.lblHorasIngresadas.TabIndex = 1;
+            this.lblHorasIngresadas.Text = "0";
+            this.lblHorasIngresadas.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.BackColor = System.Drawing.Color.MediumPurple;
+            this.label5.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label5.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.label5.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label5.ForeColor = System.Drawing.Color.White;
+            this.label5.Location = new System.Drawing.Point(3, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(189, 55);
+            this.label5.TabIndex = 0;
+            this.label5.Text = "Horas Semanales correspondientes";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblHorasCorrespondientes
+            // 
+            this.lblHorasCorrespondientes.AutoSize = true;
+            this.lblHorasCorrespondientes.BackColor = System.Drawing.Color.Honeydew;
+            this.lblHorasCorrespondientes.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblHorasCorrespondientes.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblHorasCorrespondientes.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.lblHorasCorrespondientes.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblHorasCorrespondientes.Location = new System.Drawing.Point(198, 0);
+            this.lblHorasCorrespondientes.Name = "lblHorasCorrespondientes";
+            this.lblHorasCorrespondientes.Size = new System.Drawing.Size(60, 55);
+            this.lblHorasCorrespondientes.TabIndex = 2;
+            this.lblHorasCorrespondientes.Text = "0";
+            this.lblHorasCorrespondientes.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnCancelarH
             // 
@@ -474,6 +586,7 @@
             this.dtDomF.Size = new System.Drawing.Size(138, 36);
             this.dtDomF.TabIndex = 36;
             this.dtDomF.Value = new System.DateTime(2023, 2, 7, 0, 0, 0, 0);
+            this.dtDomF.ValueChanged += new System.EventHandler(this.dtLunesF_ValueChanged);
             // 
             // dtDomI
             // 
@@ -507,6 +620,7 @@
             this.dtSabF.Size = new System.Drawing.Size(138, 36);
             this.dtSabF.TabIndex = 35;
             this.dtSabF.Value = new System.DateTime(2023, 2, 7, 0, 0, 0, 0);
+            this.dtSabF.ValueChanged += new System.EventHandler(this.dtLunesF_ValueChanged);
             // 
             // dtSabI
             // 
@@ -540,6 +654,7 @@
             this.dtVieF.Size = new System.Drawing.Size(138, 36);
             this.dtVieF.TabIndex = 34;
             this.dtVieF.Value = new System.DateTime(2023, 2, 7, 0, 0, 0, 0);
+            this.dtVieF.ValueChanged += new System.EventHandler(this.dtLunesF_ValueChanged);
             // 
             // dtVieI
             // 
@@ -573,6 +688,7 @@
             this.dtJueF.Size = new System.Drawing.Size(138, 36);
             this.dtJueF.TabIndex = 33;
             this.dtJueF.Value = new System.DateTime(2023, 2, 7, 0, 0, 0, 0);
+            this.dtJueF.ValueChanged += new System.EventHandler(this.dtLunesF_ValueChanged);
             // 
             // dtJueI
             // 
@@ -606,6 +722,7 @@
             this.dtMieF.Size = new System.Drawing.Size(138, 36);
             this.dtMieF.TabIndex = 32;
             this.dtMieF.Value = new System.DateTime(2023, 2, 7, 0, 0, 0, 0);
+            this.dtMieF.ValueChanged += new System.EventHandler(this.dtLunesF_ValueChanged);
             // 
             // dtMieI
             // 
@@ -639,6 +756,7 @@
             this.dtMartesF.Size = new System.Drawing.Size(138, 36);
             this.dtMartesF.TabIndex = 31;
             this.dtMartesF.Value = new System.DateTime(2023, 2, 7, 0, 0, 0, 0);
+            this.dtMartesF.ValueChanged += new System.EventHandler(this.dtLunesF_ValueChanged);
             // 
             // dtLunesF
             // 
@@ -655,6 +773,7 @@
             this.dtLunesF.Size = new System.Drawing.Size(138, 36);
             this.dtLunesF.TabIndex = 30;
             this.dtLunesF.Value = new System.DateTime(2023, 2, 7, 0, 0, 0, 0);
+            this.dtLunesF.ValueChanged += new System.EventHandler(this.dtLunesF_ValueChanged);
             // 
             // dtLunesI
             // 
@@ -771,6 +890,8 @@
             this.panelSaveGR2.PerformLayout();
             this.panelSaveGR.ResumeLayout(false);
             this.panelCreateHorario.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.tblPanelHorario.ResumeLayout(false);
             this.tblPanelHorario.PerformLayout();
             this.ResumeLayout(false);
@@ -816,5 +937,12 @@
         private MaterialSkin.Controls.MaterialButton btnGuardar;
         private MaterialSkin.Controls.MaterialButton btnCancelarH;
         private MaterialSkin.Controls.MaterialButton btnSaveHorario;
+        private ListBox lstBoxGrupos;
+        private Label label4;
+        private TableLayoutPanel tableLayoutPanel1;
+        private Label label5;
+        private Label label10;
+        private Label lblHorasIngresadas;
+        private Label lblHorasCorrespondientes;
     }
 }

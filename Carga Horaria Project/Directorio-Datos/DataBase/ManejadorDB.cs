@@ -15,7 +15,7 @@ namespace Directorio_Datos.DataBase
     public class ManejadorDB
     {
 
-        private static string dbName = "dbCargaHorariaAgo2"; //dbCargaHorariaJune
+        private static string dbName = "dbCargaHorariaAgo15"; //dbCargaHorariaJune
         private static string pcName = "ASUS-GEORGE-AMA";
         public SqlConnection sqlConexion = new SqlConnection(@"Data Source=" + pcName + "\\SQLEXPRESS;Initial Catalog=" + dbName + ";Integrated Security=True;MultipleActiveResultSets=True");
         //private string connectionString = ConfigurationManager.ConnectionStrings["MyDatabaseConnection"].ConnectionString;

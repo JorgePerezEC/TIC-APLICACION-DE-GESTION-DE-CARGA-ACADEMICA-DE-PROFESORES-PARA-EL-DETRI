@@ -30,6 +30,17 @@ namespace Directorio_Logica
             return tabla;
         }
 
+        public DataTable MostrarGruposPorAsignaturaCmb_Negocio(string idAsignatura)
+        {
+            DataTable tabla = new DataTable();
+            ClsAsignatura objAsig = new ClsAsignatura()
+            {
+                IdAsignatura = Convert.ToInt32(idAsignatura),
+            };
+            tabla = objetoCData.MostrarGruposPorAsignaturaCmb_DAL(objAsig);
+            return tabla;
+        }
+
         public DataTable MostrarGruposPorAsignaturaWHorario_Negocio(string idSemestre ,string idAsignatura)
         {
             DataTable tabla = new DataTable();

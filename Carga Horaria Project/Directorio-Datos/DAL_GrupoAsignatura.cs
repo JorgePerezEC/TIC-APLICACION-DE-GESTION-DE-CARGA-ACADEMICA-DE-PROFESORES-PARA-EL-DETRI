@@ -176,13 +176,27 @@ namespace Directorio_Datos
             ObjDataBase.CerrarConexion();
             return tabla;
         }
+        public DataTable MostrarGruposPorAsignaturaCmb_DAL(ClsAsignatura _objAsignatura)
+        {
+            SqlCommand comando = new SqlCommand();
+            comando.Connection = ObjDataBase.sqlConexion;
+            comando.CommandText = "spReadAllGroupsByAsigCmb";
+            comando.CommandType = CommandType.StoredProcedure;
+
+            comando.Parameters.AddWithValue("@idAsignatura", _objAsignatura.IdAsignatura);
+
+            ObjDataBase.AbrirConexion();
+            leer = comando.ExecuteReader();
+            tabla.Load(leer);
+            ObjDataBase.CerrarConexion();
+            return tabla;
+        }
         public DataTable MostrarGruposPorAsignaturaWHorario_DAL(ClsAsignatura _objAsignatura, ClsSemestre _objSemestre)
         {
             SqlCommand comando = new SqlCommand();
             comando.Connection = ObjDataBase.sqlConexion;
             comando.CommandText = "spReadAllGroupsByAsigWithHorario";
             comando.CommandType = CommandType.StoredProcedure;
-
 
             comando.Parameters.AddWithValue("@idAsignatura", _objAsignatura.IdAsignatura);
             comando.Parameters.AddWithValue("@idSemestre", _objSemestre.IdSemestre);

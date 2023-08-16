@@ -290,5 +290,12 @@ namespace Directorio___Presentacion
         {
             lblAutores.ForeColor = Color.White;
         }
+
+        private void btnCopiarDatos_Click(object sender, EventArgs e)
+        {
+            openChildForm(new FrmCopyData());
+            hideSubMenu();
+            hideSubMenu2();
+        }
     }
 }

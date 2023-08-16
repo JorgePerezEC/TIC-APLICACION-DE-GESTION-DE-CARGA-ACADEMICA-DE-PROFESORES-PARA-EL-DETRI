@@ -27,10 +27,13 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
         private static string AsignaturaName;
         private static string GrName;
         private static int idAsigCarga;
+        private DataTable dtHorario;
 
         private FrmCUAsignatura_AL childAsigFrm;
         private FrmCreate_AcademicLoad _frmAcademicLoad;
         private FrmCRUD_Asignaturas_Ac_Load _frmCRUD;
+
+        public DataTable DtHorario { get => dtHorario; set => dtHorario = value; }
 
         public FrmCRUD_Asignaturas_Ac_Load(int idAcLoad, int idSemestre)
         {
@@ -58,7 +61,16 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
             }
 
             CN_CargaHoraria objetoCNegocio2 = new CN_CargaHoraria();
-            dgvHorario.DataSource = objetoCNegocio2.GetHorarioForCargaHoraria_Negocio(idAcLoadLocal.ToString());
+            DtHorario = objetoCNegocio2.GetHorarioForCargaHoraria_Negocio(idAcLoadLocal.ToString());
+            dgvHorario.DataSource = DtHorario;
+            dgvHorario.Columns[3].Visible = false;
+            dgvHorario.Columns[4].Visible = false;
+            dgvHorario.Columns[5].Visible = false;
+        }
+
+        public DataTable GetHorario()
+        {
+            return DtHorario;
         }
 
         private void btnAddAsignatura_Click(object sender, EventArgs e)
