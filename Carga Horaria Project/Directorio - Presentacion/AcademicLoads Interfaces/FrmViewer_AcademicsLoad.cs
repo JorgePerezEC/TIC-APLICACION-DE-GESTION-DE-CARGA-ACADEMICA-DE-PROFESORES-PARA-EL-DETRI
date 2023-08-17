@@ -76,6 +76,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
             ListarSemestres();
             cmbSemestre.SelectedValue = -1;
             cmbSemestre.SelectedIndex = -1;
+            this.KeyDown += btnPrint_KeyDown;
         }
 
         private void ListarSemestres()
@@ -211,6 +212,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
         private void cmbSemestre_SelectedIndexChanged(object sender, EventArgs e)
         {
             panelDocenteInfo.Visible = false;
+            panelTotales.Visible = false;
             panelMain.Visible = false;
             tvDocentesLst.Nodes.Clear();
             count++;
@@ -549,8 +551,13 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
             }
         }
 
-
-
-        
+        private void btnPrint_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.P)
+            {
+                // Llamar a btnPrint_Click para ejecutar la misma lógica
+                btnPrint_Click(btnPrint, EventArgs.Empty);
+            }
+        }
     }
 }

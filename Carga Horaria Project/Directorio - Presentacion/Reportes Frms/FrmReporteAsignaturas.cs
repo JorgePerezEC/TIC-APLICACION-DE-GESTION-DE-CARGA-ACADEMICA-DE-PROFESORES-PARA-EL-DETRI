@@ -37,6 +37,10 @@ namespace Directorio___Presentacion.Reportes_Frms
         private void cmbSemestre_SelectedIndexChanged(object sender, EventArgs e)
         {
             MostrarAsignaturas();
+            if (rbGRNoAsignados.Checked)
+            {
+                rbGRAsignados.Checked = true;
+            }
         }
         private void ListarSemestres()
         {
@@ -75,8 +79,7 @@ namespace Directorio___Presentacion.Reportes_Frms
             }
         }
         private void LimpiarTabla()
-        {
-            dgvReporte.DataSource = null;
+        {            dgvReporte.DataSource = null;
             dgvReporte.Rows.Clear();
             dgvReporte.Columns.Clear();
         }

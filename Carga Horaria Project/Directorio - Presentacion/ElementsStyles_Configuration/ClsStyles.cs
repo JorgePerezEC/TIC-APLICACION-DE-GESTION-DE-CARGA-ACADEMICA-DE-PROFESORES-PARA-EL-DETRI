@@ -61,6 +61,43 @@ namespace Directorio___Presentacion.ElementsStyles_Configuration
 
             dgTable.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
         }
+
+        public void tableDocenciaActividadesStyle(DataGridView dgTable)
+        {
+            dgTable.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgTable.AllowDrop = false;
+            dgTable.AllowUserToAddRows = false;
+            dgTable.AllowUserToDeleteRows = false;
+            dgTable.ReadOnly = true;
+            dgTable.AllowUserToResizeColumns = false;
+            dgTable.EnableHeadersVisualStyles = false;
+            dgTable.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dgTable.BorderStyle = BorderStyle.None;
+            dgTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            dgTable.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
+            dgTable.ColumnHeadersHeight = 50;
+            dgTable.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            //dgTable.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.EnableResizing;
+            dgTable.RowHeadersDefaultCellStyle.BackColor = MyBlueColor;
+            dgTable.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            dgTable.RowHeadersVisible = false;
+            dgTable.RowHeadersWidth = 60;
+
+
+            //Table Color define
+            dgTable.BackgroundColor = MyBlueColor;
+            dgTable.RowsDefaultCellStyle.BackColor = MyBlueColor;
+            dgTable.RowsDefaultCellStyle.ForeColor = MyWhiteColor;
+            dgTable.RowsDefaultCellStyle.SelectionBackColor = SelectedColorRowB;
+            dgTable.RowsDefaultCellStyle.SelectionForeColor = SelectedColorRowText;
+
+            dgTable.ColumnHeadersDefaultCellStyle.BackColor = HeaderBk;
+            dgTable.ColumnHeadersDefaultCellStyle.ForeColor = MyWhiteColor;
+            dgTable.ColumnHeadersDefaultCellStyle.SelectionBackColor = HeaderBk;
+            dgTable.ColumnHeadersDefaultCellStyle.Font = new Font("Tahoma", 9.75F, FontStyle.Bold); ;
+
+            dgTable.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+        }
         public void tableActivateDocentesStyle(DataGridView dgTable)
         {
             dgTable.SelectionMode = DataGridViewSelectionMode.FullRowSelect;

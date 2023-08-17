@@ -237,5 +237,78 @@ namespace Directorio_Datos
                 ObjDataBase.CerrarConexion();
             }
         }
+
+        public bool CopyHorariosEntreSemestres_DAL(ClsSemestre _semestre1, ClsSemestre _semestre2)
+        {
+            try
+            {
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.Connection = ObjDataBase.sqlConexion;
+                sqlCommand.CommandText = "spCopySemestreHorarios";
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+
+                sqlCommand.Parameters.AddWithValue("@idSemestreExistente", _semestre1.IdSemestre);
+                sqlCommand.Parameters.AddWithValue("@idSemestreNuevo", _semestre2.IdSemestre);
+
+                // Agregar el parámetro de salida
+                SqlParameter outputParameter = new SqlParameter("@CopiaExitosa", SqlDbType.Bit);
+                outputParameter.Direction = ParameterDirection.Output;
+                sqlCommand.Parameters.Add(outputParameter);
+
+                ObjDataBase.AbrirConexion();
+                sqlCommand.ExecuteNonQuery();
+
+                bool copiaExitosa = Convert.ToBoolean(outputParameter.Value);
+
+                return copiaExitosa;
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error" + ex.Message);
+                return true;
+
+            }
+            finally
+            {
+                ObjDataBase.CerrarConexion();
+            }
+        }
+        public bool CopyCargasEntreSemestres_DAL(ClsSemestre _semestre1, ClsSemestre _semestre2)
+        {
+            try
+            {
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.Connection = ObjDataBase.sqlConexion;
+                sqlCommand.CommandText = "spCopySemestreCargas";
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+
+                sqlCommand.Parameters.AddWithValue("@idSemestreExistente", _semestre1.IdSemestre);
+                sqlCommand.Parameters.AddWithValue("@idSemestreNuevo", _semestre2.IdSemestre);
+
+                // Agregar el parámetro de salida
+                SqlParameter outputParameter = new SqlParameter("@CopiaExitosa", SqlDbType.Bit);
+                outputParameter.Direction = ParameterDirection.Output;
+                sqlCommand.Parameters.Add(outputParameter);
+
+                ObjDataBase.AbrirConexion();
+                sqlCommand.ExecuteNonQuery();
+
+                bool copiaExitosa = Convert.ToBoolean(outputParameter.Value);
+
+                return copiaExitosa;
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error" + ex.Message);
+                return true;
+
+            }
+            finally
+            {
+                ObjDataBase.CerrarConexion();
+            }
+        }
     }
 }

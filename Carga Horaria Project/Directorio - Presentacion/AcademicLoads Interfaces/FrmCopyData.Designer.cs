@@ -29,8 +29,11 @@
         private void InitializeComponent()
         {
             this.panelCreate = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.lblResulCargas = new System.Windows.Forms.Label();
+            this.lblResulHorarios = new System.Windows.Forms.Label();
             this.lblNota = new System.Windows.Forms.Label();
-            this.btnCopyInfo = new MaterialSkin.Controls.MaterialButton();
+            this.btnCopiarInfo = new MaterialSkin.Controls.MaterialButton();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.cmbSemestreACopiar = new System.Windows.Forms.ComboBox();
             this.cmbSemestreAPegar = new System.Windows.Forms.ComboBox();
@@ -39,7 +42,12 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnCloseWin = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.cbCopiarHorarios = new MaterialSkin.Controls.MaterialCheckbox();
+            this.cbCopiarCargasHorarias = new MaterialSkin.Controls.MaterialCheckbox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.panelCreate.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -47,14 +55,64 @@
             // panelCreate
             // 
             this.panelCreate.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.panelCreate.Controls.Add(this.tableLayoutPanel2);
             this.panelCreate.Controls.Add(this.lblNota);
-            this.panelCreate.Controls.Add(this.btnCopyInfo);
+            this.panelCreate.Controls.Add(this.btnCopiarInfo);
             this.panelCreate.Controls.Add(this.tableLayoutPanel1);
             this.panelCreate.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelCreate.Location = new System.Drawing.Point(0, 95);
             this.panelCreate.Name = "panelCreate";
             this.panelCreate.Size = new System.Drawing.Size(1550, 347);
             this.panelCreate.TabIndex = 11;
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.BackColor = System.Drawing.Color.LightGray;
+            this.tableLayoutPanel2.ColumnCount = 3;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.tableLayoutPanel2.Controls.Add(this.label5, 1, 1);
+            this.tableLayoutPanel2.Controls.Add(this.cbCopiarCargasHorarias, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.cbCopiarHorarios, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.lblResulHorarios, 2, 0);
+            this.tableLayoutPanel2.Controls.Add(this.lblResulCargas, 2, 1);
+            this.tableLayoutPanel2.Controls.Add(this.label3, 1, 0);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(764, 29);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 2;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(395, 88);
+            this.tableLayoutPanel2.TabIndex = 28;
+            // 
+            // lblResulCargas
+            // 
+            this.lblResulCargas.AutoSize = true;
+            this.lblResulCargas.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.lblResulCargas.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblResulCargas.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblResulCargas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblResulCargas.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblResulCargas.Location = new System.Drawing.Point(279, 44);
+            this.lblResulCargas.Name = "lblResulCargas";
+            this.lblResulCargas.Size = new System.Drawing.Size(113, 44);
+            this.lblResulCargas.TabIndex = 5;
+            this.lblResulCargas.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblResulHorarios
+            // 
+            this.lblResulHorarios.AutoSize = true;
+            this.lblResulHorarios.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.lblResulHorarios.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblResulHorarios.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblResulHorarios.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblResulHorarios.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblResulHorarios.Location = new System.Drawing.Point(279, 0);
+            this.lblResulHorarios.Name = "lblResulHorarios";
+            this.lblResulHorarios.Size = new System.Drawing.Size(113, 44);
+            this.lblResulHorarios.TabIndex = 4;
+            this.lblResulHorarios.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblNota
             // 
@@ -69,27 +127,27 @@
     "mación previamente agregada.";
             this.lblNota.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // btnCopyInfo
+            // btnCopiarInfo
             // 
-            this.btnCopyInfo.AutoSize = false;
-            this.btnCopyInfo.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnCopyInfo.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            this.btnCopyInfo.Depth = 0;
-            this.btnCopyInfo.Enabled = false;
-            this.btnCopyInfo.HighEmphasis = true;
-            this.btnCopyInfo.Icon = null;
-            this.btnCopyInfo.Location = new System.Drawing.Point(782, 26);
-            this.btnCopyInfo.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.btnCopyInfo.MouseState = MaterialSkin.MouseState.HOVER;
-            this.btnCopyInfo.Name = "btnCopyInfo";
-            this.btnCopyInfo.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.btnCopyInfo.Size = new System.Drawing.Size(124, 45);
-            this.btnCopyInfo.TabIndex = 26;
-            this.btnCopyInfo.Text = "COPIAR INFORMACIÓN";
-            this.btnCopyInfo.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.btnCopyInfo.UseAccentColor = false;
-            this.btnCopyInfo.UseVisualStyleBackColor = true;
-            this.btnCopyInfo.Click += new System.EventHandler(this.btnCopyInfo_Click);
+            this.btnCopiarInfo.AutoSize = false;
+            this.btnCopiarInfo.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnCopiarInfo.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.btnCopiarInfo.Depth = 0;
+            this.btnCopiarInfo.Enabled = false;
+            this.btnCopiarInfo.HighEmphasis = true;
+            this.btnCopiarInfo.Icon = null;
+            this.btnCopiarInfo.Location = new System.Drawing.Point(1237, 103);
+            this.btnCopiarInfo.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnCopiarInfo.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnCopiarInfo.Name = "btnCopiarInfo";
+            this.btnCopiarInfo.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.btnCopiarInfo.Size = new System.Drawing.Size(127, 57);
+            this.btnCopiarInfo.TabIndex = 1;
+            this.btnCopiarInfo.Text = "COPIAR INFORMACIÓN";
+            this.btnCopiarInfo.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnCopiarInfo.UseAccentColor = false;
+            this.btnCopiarInfo.UseVisualStyleBackColor = true;
+            this.btnCopiarInfo.Click += new System.EventHandler(this.btnCopiarInfo_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -197,6 +255,60 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "TRANSFERIR INFORMACIÓN ENTRE SEMESTRES";
             // 
+            // cbCopiarHorarios
+            // 
+            this.cbCopiarHorarios.AutoSize = true;
+            this.cbCopiarHorarios.Depth = 0;
+            this.cbCopiarHorarios.Location = new System.Drawing.Point(0, 0);
+            this.cbCopiarHorarios.Margin = new System.Windows.Forms.Padding(0);
+            this.cbCopiarHorarios.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.cbCopiarHorarios.MouseState = MaterialSkin.MouseState.HOVER;
+            this.cbCopiarHorarios.Name = "cbCopiarHorarios";
+            this.cbCopiarHorarios.ReadOnly = false;
+            this.cbCopiarHorarios.Ripple = true;
+            this.cbCopiarHorarios.Size = new System.Drawing.Size(35, 37);
+            this.cbCopiarHorarios.TabIndex = 29;
+            this.cbCopiarHorarios.UseVisualStyleBackColor = true;
+            // 
+            // cbCopiarCargasHorarias
+            // 
+            this.cbCopiarCargasHorarias.AutoSize = true;
+            this.cbCopiarCargasHorarias.Depth = 0;
+            this.cbCopiarCargasHorarias.Location = new System.Drawing.Point(0, 44);
+            this.cbCopiarCargasHorarias.Margin = new System.Windows.Forms.Padding(0);
+            this.cbCopiarCargasHorarias.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.cbCopiarCargasHorarias.MouseState = MaterialSkin.MouseState.HOVER;
+            this.cbCopiarCargasHorarias.Name = "cbCopiarCargasHorarias";
+            this.cbCopiarCargasHorarias.ReadOnly = false;
+            this.cbCopiarCargasHorarias.Ripple = true;
+            this.cbCopiarCargasHorarias.Size = new System.Drawing.Size(35, 37);
+            this.cbCopiarCargasHorarias.TabIndex = 30;
+            this.cbCopiarCargasHorarias.UseVisualStyleBackColor = true;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label3.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label3.Location = new System.Drawing.Point(42, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(231, 44);
+            this.label3.TabIndex = 31;
+            this.label3.Text = "Copiar Horarios";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label5.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label5.Location = new System.Drawing.Point(42, 44);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(231, 44);
+            this.label5.TabIndex = 32;
+            this.label5.Text = "Copiar Cargas Horarias";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // FrmCopyData
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -210,6 +322,8 @@
             this.Text = "FrmCopyData";
             this.Load += new System.EventHandler(this.FrmCopyData_Load);
             this.panelCreate.ResumeLayout(false);
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel2.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -230,6 +344,13 @@
         private Label label4;
         private Label label2;
         private Label lblNota;
-        private MaterialSkin.Controls.MaterialButton btnCopyInfo;
+        private TableLayoutPanel tableLayoutPanel2;
+        private Label lblResulCargas;
+        private MaterialSkin.Controls.MaterialButton btnCopiarInfo;
+        private Label lblResulHorarios;
+        private Label label5;
+        private MaterialSkin.Controls.MaterialCheckbox cbCopiarCargasHorarias;
+        private MaterialSkin.Controls.MaterialCheckbox cbCopiarHorarios;
+        private Label label3;
     }
 }

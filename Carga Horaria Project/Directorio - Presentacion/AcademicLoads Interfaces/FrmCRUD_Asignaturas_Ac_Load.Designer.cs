@@ -111,7 +111,7 @@
             this.panel4.Controls.Add(this.label3);
             this.panel4.Location = new System.Drawing.Point(1097, 6);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(563, 505);
+            this.panel4.Size = new System.Drawing.Size(563, 623);
             this.panel4.TabIndex = 3;
             // 
             // dgvHorario
@@ -121,7 +121,7 @@
             this.dgvHorario.Name = "dgvHorario";
             this.dgvHorario.RowHeadersWidth = 51;
             this.dgvHorario.RowTemplate.Height = 29;
-            this.dgvHorario.Size = new System.Drawing.Size(493, 333);
+            this.dgvHorario.Size = new System.Drawing.Size(493, 559);
             this.dgvHorario.TabIndex = 5;
             // 
             // label3
@@ -154,7 +154,7 @@
             this.dgLstRegistros.Name = "dgLstRegistros";
             this.dgLstRegistros.RowHeadersWidth = 51;
             this.dgLstRegistros.RowTemplate.Height = 29;
-            this.dgLstRegistros.Size = new System.Drawing.Size(1064, 460);
+            this.dgLstRegistros.Size = new System.Drawing.Size(1064, 559);
             this.dgLstRegistros.TabIndex = 0;
             this.dgLstRegistros.TabStop = false;
             this.dgLstRegistros.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgLstRegistros_CellContentClick);

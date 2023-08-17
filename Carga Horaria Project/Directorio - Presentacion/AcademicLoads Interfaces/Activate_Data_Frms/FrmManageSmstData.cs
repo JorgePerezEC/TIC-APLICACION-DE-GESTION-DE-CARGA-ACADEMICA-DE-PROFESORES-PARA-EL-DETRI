@@ -97,7 +97,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Activate_Data_Frms
                 dgvDocenteSemestre.SelectionMode = DataGridViewSelectionMode.CellSelect;
 
             }
-            UpdateCheckboxCellStyles();
+            //UpdateCheckboxCellStyles();
         }
 
         private void UpdateCheckboxCellStyles()
@@ -397,7 +397,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Activate_Data_Frms
             //        }
             //    }
             //}
-            UpdateCheckboxCellStyles();
+            //UpdateCheckboxCellStyles();
         }
 
         private void dgvDocenteSemestre_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)

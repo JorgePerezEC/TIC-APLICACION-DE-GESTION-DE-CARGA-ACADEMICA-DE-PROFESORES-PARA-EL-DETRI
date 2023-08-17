@@ -37,7 +37,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
         {
             InitializeComponent();
             
-            tableStyle.tableStyle(dgLstRegistrosD11);
+            
             tableStyle.tableStyle(dgLstRegistrosF11);
             idAcLoadLocal = idAcLoad;
             
@@ -55,6 +55,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
             dgLstRegistrosD11.DataSource = null;
             dgLstRegistrosD11.DataSource = objetoCNegocio.LoadActividadesD11_Negocio(idAcLoadLocal.ToString());
             dgLstRegistrosD11.Columns[0].Visible = false;
+
             //dgLstRegistrosD11.Columns[3].Visible = false;
 
             if (countBtnsD < 1)
@@ -76,6 +77,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
                 AddBtnsIntoDataGridViewF11();
                 dgLstRegistrosF11.AutoGenerateColumns = false;
             }
+            tableStyle.tableDocenciaActividadesStyle(dgLstRegistrosD11);
         }
 
         private void btnAddActividadD11_Click(object sender, EventArgs e)

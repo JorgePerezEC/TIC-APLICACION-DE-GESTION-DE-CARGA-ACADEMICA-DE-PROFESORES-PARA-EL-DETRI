@@ -56,6 +56,22 @@ namespace Directorio_Logica
             return tabla;
         }
 
+        public DataTable MostrarAllGruposPorAsignaturaBySemestre_Negocio(string idSemestre, string idAsignatura)
+        {
+            DataTable tabla = new DataTable();
+            ClsAsignatura objAsig = new ClsAsignatura()
+            {
+                IdAsignatura = Convert.ToInt32(idAsignatura),
+            };
+            ClsSemestre objSemestre = new ClsSemestre()
+            {
+                IdSemestre = Convert.ToInt32(idSemestre),
+            };
+            tabla = objetoCData.MostrarAllGruposPorAsignaturaBySemestre_DAL(objAsig, objSemestre);
+            return tabla;
+        }
+
+
         #region CRUD Methods
         public bool CreateGruposNeg(string idAsig, string nameGr)
         {
@@ -95,6 +111,27 @@ namespace Directorio_Logica
             {
                 Console.WriteLine("Error" + ex.Message);
                 return 0;
+            }
+
+        }
+
+        public bool VerificarGRexistente_Negoco(string idAsig, string nameGr)
+        {
+            try
+            {
+                ClsGrupoAsignatura ObjGrupoAsig = new ClsGrupoAsignatura()
+                {
+                    IdAsignatura = Convert.ToInt32(idAsig),
+                    NombreGrupo = nameGr
+                };
+                bool resul = objetoCData.VerificarGRexistente_DAL(ObjGrupoAsig);
+
+                return resul;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error" + ex.Message);
+                return false;
             }
 
         }

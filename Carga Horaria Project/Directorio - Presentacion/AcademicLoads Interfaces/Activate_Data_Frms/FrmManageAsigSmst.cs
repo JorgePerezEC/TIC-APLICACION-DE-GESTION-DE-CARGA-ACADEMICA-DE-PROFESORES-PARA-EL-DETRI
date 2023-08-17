@@ -18,13 +18,9 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Activate_Data_Frms
         #region Define Variables
         CN_Semestre objSemestre_N = new CN_Semestre();
         private CN_Semestre objSemestre_Neg;
-        CN_Docente objDocente_N = new CN_Docente();
-        CN_TipoDocente objTpDocente = new CN_TipoDocente();
         private ClsStyles clsStyles = new ClsStyles();
 
-        private bool Editar = false;
         private DataTable dtAsignaturas;
-        private int idTipoDocente = 7;
         #endregion
 
         public FrmManageAsigSmst()
@@ -140,18 +136,10 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Activate_Data_Frms
         }
         private DataTable FiltrarDataTable(DataTable dataTable, string filtro)
         {
-            // Crear un nuevo DataTable para almacenar los datos filtrados
             DataTable dataTableFiltrado = dataTable.Clone();
 
-            // Filtrar los datos del DataTable en función del texto ingresado
             foreach (DataRow row in dataTable.Rows)
             {
-                // Verificar si alguna columna del DataRow contiene el texto de filtro
-                //if (row.ItemArray.Any(field => CompareStrings(field.ToString(), filtro)))
-                //{
-                //    // Copiar la fila filtrada al nuevo DataTable
-                //    dataTableFiltrado.ImportRow(row);
-                //}
                 if (row.ItemArray.Any(field => field.ToString().IndexOf(filtro, StringComparison.OrdinalIgnoreCase) >= 0))
                 {
                     // Copiar la fila filtrada al nuevo DataTable
@@ -161,34 +149,6 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Activate_Data_Frms
 
             return dataTableFiltrado;
         }
-
-        //private bool CompareStrings(string str1, string str2)
-        //{
-        //    // Normalizar los caracteres de las cadenas de texto sin tildes
-        //    string normalizedStr1 = RemoveDiacritics(str1);
-        //    string normalizedStr2 = RemoveDiacritics(str2);
-
-        //    // Realizar la comparación de texto sin tildes
-        //    return string.Equals(normalizedStr1.ToLower(), normalizedStr2.ToLower(), StringComparison.OrdinalIgnoreCase);
-
-        //}
-
-        //private string RemoveDiacritics(string text)
-        //{
-        //    string normalizedText = text.Normalize(NormalizationForm.FormD);
-        //    StringBuilder stringBuilder = new StringBuilder();
-
-        //    foreach (char c in normalizedText)
-        //    {
-        //        UnicodeCategory unicodeCategory = CharUnicodeInfo.GetUnicodeCategory(c);
-        //        if (unicodeCategory != UnicodeCategory.NonSpacingMark)
-        //        {
-        //            stringBuilder.Append(c);
-        //        }
-        //    }
-
-        //    return stringBuilder.ToString().Normalize(NormalizationForm.FormC);
-        //}
 
         private void txtFiltro_KeyPress(object sender, KeyPressEventArgs e)
         {

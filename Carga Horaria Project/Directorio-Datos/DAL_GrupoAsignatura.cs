@@ -207,6 +207,22 @@ namespace Directorio_Datos
             ObjDataBase.CerrarConexion();
             return tabla;
         }
+        public DataTable MostrarAllGruposPorAsignaturaBySemestre_DAL(ClsAsignatura _objAsignatura, ClsSemestre _objSemestre)
+        {
+            SqlCommand comando = new SqlCommand();
+            comando.Connection = ObjDataBase.sqlConexion;
+            comando.CommandText = "spReadAllGroupsByAsigBySemestreCmb";
+            comando.CommandType = CommandType.StoredProcedure;
+
+            comando.Parameters.AddWithValue("@idAsignatura", _objAsignatura.IdAsignatura);
+            comando.Parameters.AddWithValue("@idSemestre", _objSemestre.IdSemestre);
+
+            ObjDataBase.AbrirConexion();
+            leer = comando.ExecuteReader();
+            tabla.Load(leer);
+            ObjDataBase.CerrarConexion();
+            return tabla;
+        }
         public int GetIdGrAsignaturaDAL(ClsGrupoAsignatura _grAsignatura)
         {
             ManejadorDB ObjDataBaseL = new ManejadorDB();
@@ -291,6 +307,42 @@ namespace Directorio_Datos
             {
                 ObjDataBaseL.CerrarConexion();
             }
+        }
+
+        public bool VerificarGRexistente_DAL(ClsGrupoAsignatura _grAsignatura)
+        {
+            try
+            {
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.Connection = ObjDataBase.sqlConexion;
+                sqlCommand.CommandText = "spVerificarGRexistente";
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+
+                sqlCommand.Parameters.AddWithValue("@idAsig", _grAsignatura.IdAsignatura);
+                sqlCommand.Parameters.AddWithValue("@Gr", _grAsignatura.NombreGrupo);
+
+                SqlParameter insertedIdParam = sqlCommand.Parameters.Add("@existeGR", SqlDbType.Int);
+                insertedIdParam.Direction = ParameterDirection.Output;
+
+                ObjDataBase.AbrirConexion();
+                sqlCommand.ExecuteNonQuery();
+
+                bool resul = (bool)insertedIdParam.Value;
+
+                return resul;
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error" + ex.Message);
+                return false;
+
+            }
+            finally
+            {
+                ObjDataBase.CerrarConexion();
+            }
+
         }
         public string GetTypeAsigByAsig_DAL(ClsAsignatura _asignatura)
         {

@@ -337,7 +337,7 @@
             this.dgLstSemestres.RowHeadersWidth = 51;
             this.dgLstSemestres.RowTemplate.Height = 29;
             this.dgLstSemestres.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgLstSemestres.Size = new System.Drawing.Size(1090, 228);
+            this.dgLstSemestres.Size = new System.Drawing.Size(1090, 381);
             this.dgLstSemestres.TabIndex = 6;
             // 
             // label9

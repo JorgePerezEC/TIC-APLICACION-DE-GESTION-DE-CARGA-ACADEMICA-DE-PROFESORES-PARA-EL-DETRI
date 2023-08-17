@@ -25,6 +25,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
         private int idGrCreated;
         private int horasSemanalesAsignatura = 0;
         private int horasSemanalesDB = 0;
+        private bool GRisNew;
 
         public Frm_CreateNewAsignatura_Modal(string asignaturaId, int idSemestre)
         {
@@ -63,6 +64,15 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
                 return;
             }
             int cmbValue = Convert.ToInt32(cmbAsignaturas.SelectedValue);
+            GRisNew = objetoCNegocio.VerificarGRexistente_Negoco(cmbValue.ToString(), cmbGR.Text);
+            if (GRisNew)
+            {
+                MessageBox.Show("GR creado. Agregue ahora un horario para el GR creado.");
+            }
+            else
+            {
+                MessageBox.Show("GR existente, puede modificar el horario a continuación.");
+            }
             idGrCreated = objetoCNegocio.CreateGruposOutNeg(cmbValue.ToString(), cmbGR.Text);
             if (idGrCreated != -1)
             {
@@ -70,8 +80,67 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
                 panelCreateHorario.Visible = true;
                 horasSemanalesDB = objCNegocioAsignatura.GetHorasSemanlAsignatura_Negocio(IdAsignatura);
                 lblHorasCorrespondientes.Text = horasSemanalesDB.ToString();
+                CN_HorarioAsignatura objetoCNegocio = new CN_HorarioAsignatura();
+                DataTable dtHorarios = objetoCNegocio.GetHorariosByAsignaturaGR_Negocio(idSemestreLocal, cmbGR.SelectedValue.ToString());
+
+                if (dtHorarios != null && dtHorarios.Rows.Count > 0)
+                {
+                    foreach (DataRow row in dtHorarios.Rows)
+                    {
+                        int idDiaSemana = Convert.ToInt32(row["idDiaSemana"]);
+                        string horaInicio = Convert.ToString(row["horaInicio"]);
+                        string horaFin = Convert.ToString(row["horaFin"]);
+
+                        // Activa el checkbox correspondiente según el idDiaSemana
+                        switch (idDiaSemana)
+                        {
+                            case 1: // Lunes
+                                cbLun.Checked = true;
+                                dtLunesI.Text = horaInicio;
+                                dtLunesF.Text = horaFin;
+                                break;
+                            case 2: // Martes
+                                cbMar.Checked = true;
+                                dtMartesI.Text = horaInicio;
+                                dtMartesF.Text = horaFin;
+                                break;
+                            case 3: // Miércoles
+                                cbMie.Checked = true;
+                                dtMieI.Text = horaInicio;
+                                dtMieF.Text = horaFin;
+                                break;
+                            case 4: // Jueves
+                                cbJue.Checked = true;
+                                dtJueI.Text = horaInicio;
+                                dtJueF.Text = horaFin;
+                                break;
+                            case 5: // Viernes
+                                cbVie.Checked = true;
+                                dtVieI.Text = horaInicio;
+                                dtVieF.Text = horaFin;
+                                break;
+                            case 6: // Sábado
+                                cbSab.Checked = true;
+                                dtSabI.Text = horaInicio;
+                                dtSabF.Text = horaFin;
+                                break;
+                            case 7: // Domingo
+                                cbDom.Checked = true;
+                                dtDomI.Text = horaInicio;
+                                dtDomF.Text = horaFin;
+                                break;
+                        }
+                    }
+
+
+                    dtHorarios.Clear();
+                }
+                else
+                {
+                    FormatosDateTimePickersGral();
+                }
             }
-            else { MessageBox.Show("No se pueden ingresar grupos de asignaturas duplicados."); }
+            else { MessageBox.Show("Ocurrio un error al crear el GR."); }
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -236,7 +305,10 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
 
         private void btnCancelarH_Click(object sender, EventArgs e)
         {
-            objetoCNegocio.DeleteGruposNeg(idGrCreated.ToString());
+            if (GRisNew)
+            {
+                objetoCNegocio.DeleteGruposNeg(idGrCreated.ToString());
+            }
             this.Close();
         }
 
@@ -490,13 +562,11 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
         {
             if (cmbAsignaturas.SelectedIndex > -1)
             {
-
-                CN_GrAsignatura objetoGrNegocio = new CN_GrAsignatura();
-                lstBoxGrupos.DataSource = objetoGrNegocio.MostrarGruposPorAsignaturaWHorario_Negocio(idSemestreLocal.ToString(), IdAsignatura);
-                lstBoxGrupos.DisplayMember = "Grupos";
-                lstBoxGrupos.ValueMember = "ID";
-                lstBoxGrupos.SelectedIndex = -1;
-                lstBoxGrupos.Refresh();
+                CN_GrAsignatura objetoGrNegocio2 = new CN_GrAsignatura();
+                DataTable dtGrsCmb = objetoGrNegocio2.MostrarAllGruposPorAsignaturaBySemestre_Negocio(idSemestreLocal.ToString(), IdAsignatura);
+                cmbGR.DataSource = dtGrsCmb;
+                cmbGR.DisplayMember = "Grupos";
+                cmbGR.ValueMember = "ID";
             }
         }
 

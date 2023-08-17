@@ -304,6 +304,7 @@
             this.btnPrint.Text = "Exportar PDF";
             this.btnPrint.UseVisualStyleBackColor = false;
             this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
+            this.btnPrint.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnPrint_KeyDown);
             // 
             // panel8
             // 

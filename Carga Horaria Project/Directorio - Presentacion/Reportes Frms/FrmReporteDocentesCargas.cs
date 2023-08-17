@@ -91,6 +91,7 @@ namespace Directorio___Presentacion.Reportes_Frms
                 dgvReporteCargasDocentes.Columns[3].Visible = false;
                 dgvReporteCargasDocentes.ClearSelection();
             }
+            rbNoFilter.Checked = true;
         }
 
         private void dgvReporteCargasDocentes_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)

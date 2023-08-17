@@ -473,7 +473,7 @@ BEGIN
 	-- Verificar si ya existe un registro con el mismo grupoAsignatura
     IF EXISTS (SELECT 1 FROM tblGrAsignatura WHERE grupoAsignatura = @Gr AND idAsignatura = @idAsig)
     BEGIN
-        SET @InsertedID = -1; -- Indicar que ya existe un registro con el mismo grupoAsignatura
+        SELECT @InsertedID = idGrAsig FROM tblGrAsignatura WHERE grupoAsignatura = @Gr AND idAsignatura = @idAsig; -- Indicar que ya existe un registro con el mismo grupoAsignatura
         RETURN; -- Salir del procedimiento sin realizar la inserción
     END
 
@@ -481,6 +481,25 @@ BEGIN
 	VALUES (@idAsig, @Gr);
 
 	SET @InsertedID = SCOPE_IDENTITY();
+END
+GO
+--SP to verificar si existe GR en tblGrAsignatura
+CREATE OR ALTER PROCEDURE [dbo].[spVerificarGRexistente]
+	@idAsig int,
+	@Gr varchar(20),
+	@existeGR bit OUTPUT
+AS
+BEGIN 
+	-- Verificar si ya existe un registro con el mismo grupoAsignatura
+    IF EXISTS (SELECT 1 FROM tblGrAsignatura WHERE grupoAsignatura = @Gr AND idAsignatura = @idAsig)
+    BEGIN
+        SET @existeGR = 1; -- Indicar que ya existe un registro con el mismo grupoAsignatura
+        RETURN; -- Salir del procedimiento sin realizar la inserción
+    END
+	ELSE
+	BEGIN
+		SET @existeGR = 0; 
+	END
 END
 GO
 -- Stored Procedure to create one row from "tblHorarioGrAsig"
@@ -1681,6 +1700,17 @@ BEGIN
     WHERE asg.idAsignatura = @idAsignatura
 END
 GO
+CREATE OR ALTER PROC [dbo].[spReadAllGroupsByAsigBySemestreCmb]
+	@idAsignatura	int,
+	@idSemestre		int
+AS 
+BEGIN 
+    SELECT gr.idGrAsig AS ID, gr.grupoAsignatura AS Grupos
+    FROM tblGrAsignatura gr
+    INNER JOIN tblAsignatura asg ON gr.idAsignatura = asg.idAsignatura
+    WHERE asg.idAsignatura = @idAsignatura
+END
+GO
 CREATE OR ALTER PROC [dbo].[spReadAllGroupsByAsigWithHorario]
 	@idAsignatura varchar(150),
 	@idSemestre int
@@ -2182,7 +2212,7 @@ BEGIN
     END
 END
 GO
-CREATE OR ALTER PROCEDURE spCopyAllDataBetweenSemestres
+CREATE OR ALTER PROCEDURE spCopySemestreHorarios
     @idSemestreExistente INT,
     @idSemestreNuevo INT,
     @CopiaExitosa BIT OUTPUT
@@ -2194,73 +2224,87 @@ BEGIN
     BEGIN TRY
         BEGIN TRANSACTION @TransactionName;
 
-        -- Copiar información de tblSemestreTpDocente
-        --INSERT INTO tblSemestreTpDocente (idTipoDoc, idSemestre, idDocente, numHorasSemestrales, estadoSemestreDoc)
-        --SELECT idTipoDoc, @idSemestreNuevo, idDocente, numHorasSemestrales, estadoSemestreDoc
-        --FROM tblSemestreTpDocente
-        --WHERE idSemestre = @idSemestreExistente;
-		PRINT 'INSERT INTO tblSemestreGrAsignatura'
-        -- Copiar información de tblSemestreGrAsignatura
-        INSERT INTO tblSemestreGrAsignatura (idSemestre, idGrAsig, isActive)
-        SELECT @idSemestreNuevo, idGrAsig, isActive
-        FROM tblSemestreGrAsignatura
-        WHERE idSemestre = @idSemestreExistente;
-		PRINT 'INSERT INTO tblSemestreAsignatura '
-        -- Copiar información de tblSemestreAsignatura
-        INSERT INTO tblSemestreAsignatura (idSemestre, idAsignatura, isActive)
-        SELECT @idSemestreNuevo, idAsignatura, isActive
-        FROM tblSemestreAsignatura
-        WHERE idSemestre = @idSemestreExistente;
-		PRINT 'INSERT INTO tblTipoDocenteSemestre '
-        -- Copiar información de tblTipoDocenteSemestre
-        INSERT INTO tblTipoDocenteSemestre (idTipoDocente, idSemestre, numHorasSemestrales)
-        SELECT idTipoDocente, @idSemestreNuevo, numHorasSemestrales
-        FROM tblTipoDocenteSemestre
-        WHERE idSemestre = @idSemestreExistente;
+		INSERT INTO tblSemestreGrAsignatura (idSemestre, idGrAsig, isActive)
+		SELECT @idSemestreNuevo, idGrAsig, isActive
+		FROM tblSemestreGrAsignatura
+		WHERE idSemestre = @idSemestreExistente;
 
-		PRINT 'INSERT INTO tblCargaHoraria '
-        -- Copiar información de tblCargaHoraria
-        INSERT INTO tblCargaHoraria (idDocente, idSemestre)
-        SELECT idDocente, @idSemestreNuevo
-        FROM tblCargaHoraria
-        WHERE idSemestre = @idSemestreExistente;
+		INSERT INTO tblHorarioGrAsig(idSemestreGrAsignatura, horaInicio, horaFin, idDiaSemana, isActive)
+		SELECT new_t1.idSemestreGrAsignatura, t2.horaInicio, t2.horaFin, t2.idDiaSemana, t2.isActive
+		FROM tblSemestreGrAsignatura AS t1
+		JOIN tblSemestreGrAsignatura AS new_t1 ON t1.idSemestre = @idSemestreExistente AND new_t1.idSemestre = @idSemestreNuevo AND t1.idGrAsig = new_t1.idGrAsig -- Aquí se igualan los idGrAsig también
+		JOIN tblHorarioGrAsig AS t2 ON t1.idSemestreGrAsignatura = t2.idSemestreGrAsignatura
+		WHERE t1.idSemestre = @idSemestreExistente;
 
-		PRINT 'DECLARE TABLES '
-		-- Obtener el mapeo de idCargaHoraria entre el semestre existente y el nuevo
-		DECLARE @CrgHorariaMapping TABLE (IdCrgHorariaExistente INT, IdCrgHorariaNuevo INT);
-		INSERT INTO @CrgHorariaMapping (IdCrgHorariaExistente, IdCrgHorariaNuevo)
-		SELECT idCargaHoraria, SCOPE_IDENTITY()  -- Obtener el nuevo idCargaHoraria generado
+        -- Commit la transacción si todo se realizó exitosamente
+        SET @CopiaExitosa = 1;
+        COMMIT TRANSACTION @TransactionName;
+    END TRY
+    BEGIN CATCH
+        -- Rollback en caso de error
+        SET @CopiaExitosa = 0;
+        ROLLBACK TRANSACTION @TransactionName;
+		PRINT 'Error in transaction ' + @TransactionName + ': ' + ERROR_MESSAGE();
+    END CATCH;
+END;
+GO
+CREATE OR ALTER PROCEDURE spCopySemestreCargas
+    @idSemestreExistente INT,
+    @idSemestreNuevo INT,
+    @CopiaExitosa BIT OUTPUT
+AS
+BEGIN
+    --SET NOCOUNT ON;
+    DECLARE @TransactionName NVARCHAR(20) = 'CopySemestreCargasData';
+
+    BEGIN TRY
+        BEGIN TRANSACTION @TransactionName;
+
+		INSERT INTO tblCargaHoraria(idDocente, idSemestre)
+		SELECT idDocente,@idSemestreNuevo
 		FROM tblCargaHoraria
 		WHERE idSemestre = @idSemestreExistente;
 
-		-- Copiar información de tblAsigCrgHoraria usando el mapeo
-		INSERT INTO tblAsigCrgHoraria (idCrgHoraria, idGrAsig, estadoAsigCrgDocencia)
-		SELECT cm.IdCrgHorariaNuevo, ach.idGrAsig, ach.estadoAsigCrgDocencia
-		FROM tblAsigCrgHoraria ach
-		INNER JOIN @CrgHorariaMapping cm ON ach.idCrgHoraria = cm.IdCrgHorariaExistente;
+		-- Eliminar registros existentes en tblSemestreTpDocente creados por defecto por el trigger para el nuevo semestre
+		DELETE FROM tblSemestreTpDocente
+		WHERE idSemestre = @idSemestreNuevo
 
-		-- Copiar información de tblActividadCargas usando el mapeo
-		INSERT INTO tblActividadCargas (idCrgHoraria, idActividad, horasSemana, horaTotal, estadoActivCrgDocencia)
-		SELECT cm.IdCrgHorariaNuevo, ac.idActividad, ac.horasSemana, ac.horaTotal, ac.estadoActivCrgDocencia
-		FROM tblActividadCargas ac
-		INNER JOIN @CrgHorariaMapping cm ON ac.idCrgHoraria = cm.IdCrgHorariaExistente;
+		INSERT INTO tblSemestreTpDocente(idTipoDoc, idSemestre, idDocente, numHorasSemestrales, estadoSemestreDoc)
+		SELECT idTipoDoc,@idSemestreNuevo, idDocente, numHorasSemestrales, estadoSemestreDoc
+		FROM tblSemestreTpDocente
+		WHERE idSemestre = @idSemestreExistente;
 
-		-- Obtener los nuevos valores de idSemestreGrAsignatura
-        DECLARE @IdSemestreGrAsignaturaExistente INT, @IdSemestreGrAsignaturaNuevo INT;
-        SELECT @IdSemestreGrAsignaturaExistente = idSemestreGrAsignatura
-        FROM tblSemestreGrAsignatura
-        WHERE idSemestre = @idSemestreExistente;
+		DELETE FROM tblSemestreAsignatura
+		WHERE idSemestre = @idSemestreNuevo
 
-		SELECT @IdSemestreGrAsignaturaNuevo = idSemestreGrAsignatura
-        FROM tblSemestreGrAsignatura
-        WHERE idSemestre = @idSemestreNuevo;
+		INSERT INTO tblSemestreAsignatura(idSemestre, idAsignatura, isActive)
+		SELECT @idSemestreNuevo, idAsignatura, isActive
+		FROM tblSemestreAsignatura
+		WHERE idSemestre = @idSemestreExistente;
 
+		INSERT INTO tblAsigCrgHoraria(idCrgHoraria, idGrAsig, estadoAsigCrgDocencia)
+		SELECT new_t1.idCargaHoraria, t2.idGrAsig, t2.estadoAsigCrgDocencia
+		FROM tblCargaHoraria AS t1
+		JOIN tblCargaHoraria AS new_t1 ON t1.idSemestre = @idSemestreExistente AND new_t1.idSemestre = @idSemestreNuevo AND t1.idDocente = new_t1.idDocente -- Aquí se igualan los idDocnete también
+		JOIN tblAsigCrgHoraria AS t2 ON t1.idCargaHoraria = t2.idCrgHoraria
+		WHERE t1.idSemestre = @idSemestreExistente;
 
-        -- Copiar información de tblHorarioGrAsig
-        INSERT INTO tblHorarioGrAsig (idSemestreGrAsignatura, horaInicio, horaFin, idDiaSemana, isActive)
-        SELECT @IdSemestreGrAsignaturaNuevo, horaInicio, horaFin, idDiaSemana, isActive
-        FROM tblHorarioGrAsig
-        WHERE idSemestreGrAsignatura = @IdSemestreGrAsignaturaExistente;
+		-- Eliminar registros existentes en tblActividadCargas para el nuevo semestre
+		DELETE FROM tblActividadCargas
+		WHERE idCrgHoraria IN (
+			SELECT new_t1.idCargaHoraria
+			FROM tblCargaHoraria AS t1
+			JOIN tblCargaHoraria AS new_t1 ON t1.idSemestre = @idSemestreExistente AND new_t1.idSemestre = @idSemestreNuevo AND t1.idDocente = new_t1.idDocente
+			WHERE t1.idSemestre = @idSemestreExistente
+		);
+
+		INSERT INTO tblActividadCargas(idCrgHoraria, idActividad, horasSemana, horaTotal, estadoActivCrgDocencia)
+		SELECT new_t1.idCargaHoraria, t2.idActividad, t2.horasSemana, t2.horaTotal, t2.estadoActivCrgDocencia
+		FROM tblCargaHoraria AS t1
+		JOIN tblCargaHoraria AS new_t1 ON t1.idSemestre = @idSemestreExistente AND new_t1.idSemestre = @idSemestreNuevo AND t1.idDocente = new_t1.idDocente -- Aquí se igualan los idDocnete también
+		JOIN tblActividadCargas AS t2 ON t1.idCargaHoraria = t2.idCrgHoraria
+		WHERE t1.idSemestre = @idSemestreExistente;
+
 
         -- Commit la transacción si todo se realizó exitosamente
         SET @CopiaExitosa = 1;
@@ -2698,7 +2742,7 @@ BEGIN
     
     -- Insertar los docentes en tblSemestreTpDocente solo si no existen previamente para el semestre
     INSERT INTO tblSemestreTpDocente (idTipoDoc, idSemestre, idDocente, numHorasSemestrales, estadoSemestreDoc)
-    SELECT 
+    SELECT
         1,
         @idSemestre,
         d.idDocente,

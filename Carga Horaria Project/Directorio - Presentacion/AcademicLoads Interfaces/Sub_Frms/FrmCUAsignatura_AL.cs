@@ -58,7 +58,6 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
         {
             tableStyle.tableStyle(dgvHorario);
             dgvHorario.BackgroundColor= Color.LightBlue;
-            cmbCarreras.Focus();
             ListarCarreras();
             rbTodo.Checked= true;
             if (EditarL)

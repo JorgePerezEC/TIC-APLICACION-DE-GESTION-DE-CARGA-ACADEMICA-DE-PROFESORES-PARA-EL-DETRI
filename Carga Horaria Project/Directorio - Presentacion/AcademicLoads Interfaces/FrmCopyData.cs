@@ -63,12 +63,14 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
         {
             if (cmbSemestreAPegar.SelectedIndex > -1 && cmbSemestreAPegar.SelectedValue != null && cmbSemestreACopiar.SelectedIndex > -1 && cmbSemestreACopiar.SelectedValue != null)
             {
-                btnCopyInfo.Enabled = true;
+                btnCopiarInfo.Enabled = true;
 
             }            
         }
 
-        private void btnCopyInfo_Click(object sender, EventArgs e)
+        
+
+        private void btnCopiarInfo_Click(object sender, EventArgs e)
         {
             CN_Semestre objetoSemestreCNegocio = new CN_Semestre();
 
@@ -76,27 +78,81 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
             {
                 if (int.TryParse(cmbSemestreACopiar.SelectedValue.ToString(), out int selectedValueAsInt) && selectedValueAsInt > 0 && int.TryParse(cmbSemestreAPegar.SelectedValue.ToString(), out int selectedValuePAsInt) && selectedValueAsInt > 0)
                 {
-                    if (cmbSemestreACopiar.SelectedValue == cmbSemestreAPegar.SelectedValue)
+                    if (cmbSemestreACopiar.SelectedIndex == cmbSemestreAPegar.SelectedIndex)
                     {
                         MessageBox.Show("Seleccione semestres diferentes para continuar.");
                         return;
                     }
-                    bool resul = objetoSemestreCNegocio.CopyAllDataSemestres_Negocio(cmbSemestreACopiar.SelectedValue.ToString(), cmbSemestreAPegar.SelectedValue.ToString());
 
-                    if (resul)
+                    if (cbCopiarHorarios.Checked)
                     {
-                        btnCopyInfo.Enabled = false;
-                        MessageBox.Show("Información copiada exitosamente.");
-                        clearData();
+                        bool resul = objetoSemestreCNegocio.CopyHorariosEntreSemestres_Negocio(cmbSemestreACopiar.SelectedValue.ToString(), cmbSemestreAPegar.SelectedValue.ToString());
+
+                        if (resul)
+                        {
+                            btnCopiarInfo.Enabled = false;
+                            MessageBox.Show("Horarios copiados de forma exitosa.");
+                            lblResulHorarios.Text = "EXITO";
+                            lblResulHorarios.BackColor= Color.Green;
+                            if (cbCopiarCargasHorarias.Checked)
+                            {
+                                bool resulCargas = objetoSemestreCNegocio.CopyCargasEntreSemestres_Negocio(cmbSemestreACopiar.SelectedValue.ToString(), cmbSemestreAPegar.SelectedValue.ToString());
+
+                                if (resulCargas)
+                                {
+                                    btnCopiarInfo.Enabled = false;
+                                    MessageBox.Show("Cargas Académicas copiadas de forma exitosa.");
+                                    cmbSemestreACopiar.Enabled= false;
+                                    cmbSemestreAPegar.Enabled= false;
+                                    lblResulCargas.Text = "EXITO";
+                                    lblResulCargas.BackColor = Color.LightGreen;
+                                    //clearData();
+                                }
+                                else
+                                {
+                                    MessageBox.Show("No se puedo copiar la información.");
+                                    btnCopiarInfo.Enabled = true;
+                                    lblResulCargas.Text = "ERROR";
+                                    lblResulCargas.BackColor = Color.Red;
+                                    return;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("No se puedo copiar la información.");
+                            btnCopiarInfo.Enabled = true;
+                            lblResulHorarios.Text = "ERROR";
+                            lblResulHorarios.BackColor = Color.Red;
+                            return;
+                        }
                     }
-                    else
+
+                    if (cbCopiarCargasHorarias.Checked && !cbCopiarHorarios.Checked)
                     {
-                        MessageBox.Show("No se puedo copiar la información.");
-                        btnCopyInfo.Enabled = true;
+                        bool resulCargas = objetoSemestreCNegocio.CopyCargasEntreSemestres_Negocio(cmbSemestreACopiar.SelectedValue.ToString(), cmbSemestreAPegar.SelectedValue.ToString());
+
+                        if (resulCargas)
+                        {
+                            btnCopiarInfo.Enabled = false;
+                            MessageBox.Show("Cargas Académicas copiadas de forma exitosa.");
+                            cmbSemestreACopiar.Enabled = false;
+                            cmbSemestreAPegar.Enabled = false;
+                            lblResulCargas.Text = "EXITO";
+                            lblResulCargas.BackColor = Color.LightGreen;
+                            //clearData();
+                        }
+                        else
+                        {
+                            MessageBox.Show("No se puedo copiar la información.");
+                            btnCopiarInfo.Enabled = true;
+                            lblResulCargas.Text = "ERROR";
+                            lblResulCargas.BackColor = Color.Red;
+                            return;
+                        }
                     }
                 }
             }
-            
         }
 
     }

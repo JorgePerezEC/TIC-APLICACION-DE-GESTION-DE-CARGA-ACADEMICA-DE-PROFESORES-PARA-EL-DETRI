@@ -30,8 +30,6 @@
         {
             this.panelCreate = new System.Windows.Forms.Panel();
             this.panelSaveGR2 = new System.Windows.Forms.Panel();
-            this.label4 = new System.Windows.Forms.Label();
-            this.lstBoxGrupos = new System.Windows.Forms.ListBox();
             this.panelSaveGR = new System.Windows.Forms.Panel();
             this.btnGuardar = new MaterialSkin.Controls.MaterialButton();
             this.btnClose = new MaterialSkin.Controls.MaterialButton();
@@ -93,8 +91,6 @@
             // 
             // panelSaveGR2
             // 
-            this.panelSaveGR2.Controls.Add(this.label4);
-            this.panelSaveGR2.Controls.Add(this.lstBoxGrupos);
             this.panelSaveGR2.Controls.Add(this.panelSaveGR);
             this.panelSaveGR2.Controls.Add(this.cmbGR);
             this.panelSaveGR2.Controls.Add(this.cmbAsignaturas);
@@ -105,27 +101,6 @@
             this.panelSaveGR2.Name = "panelSaveGR2";
             this.panelSaveGR2.Size = new System.Drawing.Size(804, 233);
             this.panelSaveGR2.TabIndex = 25;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft YaHei", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label4.Location = new System.Drawing.Point(354, 74);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(197, 23);
-            this.label4.TabIndex = 26;
-            this.label4.Text = "Lista de GRs existentes";
-            // 
-            // lstBoxGrupos
-            // 
-            this.lstBoxGrupos.BackColor = System.Drawing.SystemColors.MenuBar;
-            this.lstBoxGrupos.Enabled = false;
-            this.lstBoxGrupos.FormattingEnabled = true;
-            this.lstBoxGrupos.ItemHeight = 20;
-            this.lstBoxGrupos.Location = new System.Drawing.Point(557, 64);
-            this.lstBoxGrupos.Name = "lstBoxGrupos";
-            this.lstBoxGrupos.Size = new System.Drawing.Size(150, 124);
-            this.lstBoxGrupos.TabIndex = 25;
             // 
             // panelSaveGR
             // 
@@ -365,7 +340,7 @@
             this.btnCancelarH.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnCancelarH.HighEmphasis = true;
             this.btnCancelarH.Icon = null;
-            this.btnCancelarH.Location = new System.Drawing.Point(568, 86);
+            this.btnCancelarH.Location = new System.Drawing.Point(595, 86);
             this.btnCancelarH.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnCancelarH.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnCancelarH.Name = "btnCancelarH";
@@ -387,7 +362,7 @@
             this.btnSaveHorario.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnSaveHorario.HighEmphasis = true;
             this.btnSaveHorario.Icon = null;
-            this.btnSaveHorario.Location = new System.Drawing.Point(568, 29);
+            this.btnSaveHorario.Location = new System.Drawing.Point(595, 29);
             this.btnSaveHorario.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnSaveHorario.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnSaveHorario.Name = "btnSaveHorario";
@@ -937,8 +912,6 @@
         private MaterialSkin.Controls.MaterialButton btnGuardar;
         private MaterialSkin.Controls.MaterialButton btnCancelarH;
         private MaterialSkin.Controls.MaterialButton btnSaveHorario;
-        private ListBox lstBoxGrupos;
-        private Label label4;
         private TableLayoutPanel tableLayoutPanel1;
         private Label label5;
         private Label label10;

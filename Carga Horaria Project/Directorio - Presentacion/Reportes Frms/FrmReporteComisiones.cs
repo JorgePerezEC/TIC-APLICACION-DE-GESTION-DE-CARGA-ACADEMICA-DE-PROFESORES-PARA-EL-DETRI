@@ -52,6 +52,7 @@ namespace Directorio___Presentacion.Reportes_Frms
         private void cmbSemestre_SelectedIndexChanged(object sender, EventArgs e)
         {
             MostrarActividades();
+            rbNoFilter.Checked = true;
         }
         private void MostrarActividades()
         {

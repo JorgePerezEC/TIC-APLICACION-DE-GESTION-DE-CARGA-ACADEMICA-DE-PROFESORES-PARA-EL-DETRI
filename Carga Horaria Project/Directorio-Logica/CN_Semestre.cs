@@ -197,5 +197,60 @@ namespace Directorio_Logica
             }
 
         }
+
+        public bool CopyHorariosEntreSemestres_Negocio(string idSemestreOld, string idSemestreNew)
+        {
+            try
+            {
+
+                ClsSemestre ObjSemestre = new ClsSemestre()
+                {
+                    IdSemestre = Convert.ToInt32(idSemestreOld),
+                };
+                ClsSemestre ObjSemestre2 = new ClsSemestre()
+                {
+                    IdSemestre = Convert.ToInt32(idSemestreNew)
+                };
+
+                bool resul = objetoCData.CopyHorariosEntreSemestres_DAL(ObjSemestre, ObjSemestre2);
+
+                return resul;
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error" + ex.Message);
+                return false;
+
+            }
+
+        }
+        public bool CopyCargasEntreSemestres_Negocio(string idSemestreOld, string idSemestreNew)
+        {
+            try
+            {
+
+                ClsSemestre ObjSemestre = new ClsSemestre()
+                {
+                    IdSemestre = Convert.ToInt32(idSemestreOld),
+                };
+                ClsSemestre ObjSemestre2 = new ClsSemestre()
+                {
+                    IdSemestre = Convert.ToInt32(idSemestreNew)
+                };
+
+                bool resul = objetoCData.CopyCargasEntreSemestres_DAL(ObjSemestre, ObjSemestre2);
+
+                return resul;
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error" + ex.Message);
+                return false;
+
+            }
+
+        }
     }
 }
