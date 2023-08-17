@@ -120,7 +120,7 @@ namespace Directorio___Presentacion.CRUD_Interfaces
                     MessageBox.Show("Semestre insertado correctamente");
                     MostrarSemestres();
                     ClearTxtBox();
-
+                    panelNewSemestre.Visible = false;
                 }
                 catch (Exception ex)
                 {

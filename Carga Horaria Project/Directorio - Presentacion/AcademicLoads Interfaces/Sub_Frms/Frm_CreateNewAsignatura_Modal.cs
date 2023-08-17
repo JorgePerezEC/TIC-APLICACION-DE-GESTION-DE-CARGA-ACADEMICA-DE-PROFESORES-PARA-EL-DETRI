@@ -279,7 +279,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
                     }
                     else
                     {
-                        MessageBox.Show("El Horario/s ingresado posee un conflicto con el número de horas semanales posibles o existe un cruce de horario");
+                        MessageBox.Show("El Horario/s ingresado posee un conflicto con el número de horas semanales posibles o existe un cruce de horario", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
 

@@ -80,7 +80,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
                 {
                     if (cmbSemestreACopiar.SelectedIndex == cmbSemestreAPegar.SelectedIndex)
                     {
-                        MessageBox.Show("Seleccione semestres diferentes para continuar.");
+                        MessageBox.Show("Seleccione semestres diferentes para continuar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
 
@@ -91,9 +91,9 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
                         if (resul)
                         {
                             btnCopiarInfo.Enabled = false;
-                            MessageBox.Show("Horarios copiados de forma exitosa.");
+                            MessageBox.Show("Horarios copiados de forma exitosa.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             lblResulHorarios.Text = "EXITO";
-                            lblResulHorarios.BackColor= Color.Green;
+                            lblResulHorarios.BackColor= Color.LightGreen;
                             if (cbCopiarCargasHorarias.Checked)
                             {
                                 bool resulCargas = objetoSemestreCNegocio.CopyCargasEntreSemestres_Negocio(cmbSemestreACopiar.SelectedValue.ToString(), cmbSemestreAPegar.SelectedValue.ToString());
@@ -101,7 +101,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
                                 if (resulCargas)
                                 {
                                     btnCopiarInfo.Enabled = false;
-                                    MessageBox.Show("Cargas Académicas copiadas de forma exitosa.");
+                                    MessageBox.Show("Cargas Académicas copiadas de forma exitosa.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                     cmbSemestreACopiar.Enabled= false;
                                     cmbSemestreAPegar.Enabled= false;
                                     lblResulCargas.Text = "EXITO";
@@ -135,7 +135,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
                         if (resulCargas)
                         {
                             btnCopiarInfo.Enabled = false;
-                            MessageBox.Show("Cargas Académicas copiadas de forma exitosa.");
+                            MessageBox.Show("Cargas Académicas copiadas de forma exitosa.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             cmbSemestreACopiar.Enabled = false;
                             cmbSemestreAPegar.Enabled = false;
                             lblResulCargas.Text = "EXITO";

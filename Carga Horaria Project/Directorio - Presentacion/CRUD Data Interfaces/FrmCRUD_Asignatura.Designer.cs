@@ -220,6 +220,7 @@
             this.txtHSemanales.PlaceholderText = "Ingrese las horas semanales de la asignatura";
             this.txtHSemanales.Size = new System.Drawing.Size(366, 27);
             this.txtHSemanales.TabIndex = 7;
+            this.txtHSemanales.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtHTotales_KeyPress);
             // 
             // btnGuardar
             // 
@@ -266,6 +267,7 @@
             this.txtHTotales.PlaceholderText = "Ingrese el pensum de la carrera";
             this.txtHTotales.Size = new System.Drawing.Size(366, 27);
             this.txtHTotales.TabIndex = 6;
+            this.txtHTotales.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtHTotales_KeyPress);
             // 
             // txtCodigo
             // 

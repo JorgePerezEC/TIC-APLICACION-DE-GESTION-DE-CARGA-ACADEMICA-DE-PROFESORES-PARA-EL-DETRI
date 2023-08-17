@@ -212,6 +212,11 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
                         {
                             if (cboxHorasTotales.Checked)
                             {
+                                if (string.IsNullOrWhiteSpace(txtHorasTotales.Text))
+                                {
+                                    MessageBox.Show("El campo horas de actividad no puede estar vacío.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    return;
+                                }
                                 objetoNegocioCargaHoraria.Create_ActividadCargaHoraria_Negocio(idAcLoad.ToString(), cmbValueActiv.ToString(), "0", txtHorasTotales.Text);
                                 //MessageBox.Show("Actividad agregada correctamente a la carga académica. ");
                                 this.Close();
@@ -219,6 +224,11 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
                             }
                             else
                             {
+                                if (string.IsNullOrWhiteSpace(txtHorasActividad.Text))
+                                {
+                                    MessageBox.Show("El campo horas de actividad no puede estar vacío.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    return;
+                                }
                                 objetoNegocioCargaHoraria.Create_ActividadCargaHoraria_Negocio(idAcLoad.ToString(), cmbValueActiv.ToString(), txtHorasActividad.Text, "0");
                                 //MessageBox.Show("Actividad agregada correctamente a la carga académica. ");
                                 this.Close();

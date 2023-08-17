@@ -53,19 +53,30 @@ namespace Directorio___Presentacion.CRUD_Interfaces
         #region Clicks Events
         private void btnGuardar_Click(object sender, EventArgs e)
         {
+            if (cmbDepartamentos.SelectedIndex == -1)
+            {
+                MessageBox.Show("Debe seleccionar un Departamento para completar el registro.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (txtCodigo.Text == string.Empty || txtPensum.Text == string.Empty || txtNameCarreer.Text == string.Empty)
+            {
+                MessageBox.Show("Debe completar todos los campos de texto para completar el registro.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             if (Editar == false)
             {
                 try
                 {
                     int cmbValue = Convert.ToInt32(cmbDepartamentos.SelectedValue);
                     objetoCNegocio.CreateCarreraNeg(cmbValue.ToString(), txtNameCarreer.Text, txtCodigo.Text, txtPensum.Text);
-                    MessageBox.Show("Carrera insertadada correctamente");
+                    MessageBox.Show("Carrera insertadada correctamente", "CARRERA REGISTRADA", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     MostrarCarreras();
+                    panelCreate.Visible = false;
                     //ClearTxtBox();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Excepción: No se pudo registrar la Carrera. Motivo: " + ex.Message);
+                    MessageBox.Show("Excepción: No se pudo registrar la Carrera. Motivo: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
             }
@@ -75,14 +86,14 @@ namespace Directorio___Presentacion.CRUD_Interfaces
                 {
                     int cmbValue = Convert.ToInt32(cmbDepartamentos.SelectedValue);
                     objetoCNegocio.UpdateCarreraNeg(idCarrera, cmbValue.ToString(), txtNameCarreer.Text, txtCodigo.Text, txtPensum.Text);
-                    MessageBox.Show("Carrera actualizada correctamente");
+                    MessageBox.Show("Carrera actualizada correctamente", "CARRERA ACTULIZADA", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     MostrarCarreras();
                     Editar = false;
                     //ClearTxtBox();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error: " + ex.Message);
+                    MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             panelCreate.Visible = false;
@@ -111,13 +122,13 @@ namespace Directorio___Presentacion.CRUD_Interfaces
                 }
                 else
                 {
-                    MessageBox.Show("Por favor, seleccione el registro que desee editar.");
+                    MessageBox.Show("Por favor, seleccione el registro que desee editar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
 
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Excepción: No se pudo actualizar el Tipo de Actividad seleccionado. Motivo: " + ex.Message);
+                MessageBox.Show("Excepción: No se pudo actualizar la Carrera seleccionado. Motivo: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -136,13 +147,13 @@ namespace Directorio___Presentacion.CRUD_Interfaces
                 }
                 else
                 {
-                    MessageBox.Show("Por favor, seleccione el registro que desee eliminar.");
+                    MessageBox.Show("Por favor, seleccione el registro que desee eliminar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
 
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Excepción: No se pudo eliminar la Carrera seleccionada. Motivo: " + ex.Message);
+                MessageBox.Show("Excepción: No se pudo eliminar la Carrera seleccionada. Motivo: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

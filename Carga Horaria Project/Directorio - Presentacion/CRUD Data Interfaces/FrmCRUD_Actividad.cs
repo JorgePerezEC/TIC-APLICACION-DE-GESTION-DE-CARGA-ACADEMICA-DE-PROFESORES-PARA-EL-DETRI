@@ -44,6 +44,22 @@ namespace Directorio___Presentacion
         #region Clicks Events
         private void btnGuardar_Click(object sender, EventArgs e)
         {
+            if (cmbTpActiv.SelectedIndex == -1)
+            {
+                MessageBox.Show("Debe seleccionar un tipo de actividad para completar el registro.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (txtNameActividad.Text == string.Empty)
+            {
+                MessageBox.Show("Debe completar el nombre de la actividad para completar el registro.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if ((ckboxTotal.Checked && txtHorasTotales.Text == string.Empty) ||(ckboxSemanal.Checked && txtHorasSemanales.Text == string.Empty))
+            {
+                MessageBox.Show("Debe ingresar las horas de la actividad para completar el registro.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             if (Editar == false)
             {
                 try
@@ -51,13 +67,13 @@ namespace Directorio___Presentacion
                     int cmbValue = Convert.ToInt32(cmbTpActiv.SelectedValue);
                     
                     objetoCNegocio.CreateActividadNeg(cmbValue.ToString(), txtNameActividad.Text, txtHorasSemanales.Text,txtHorasTotales.Text);
-                    MessageBox.Show("Actividad insertadada correctamente");
+                    MessageBox.Show("Actividad insertadada correctamente", "ACTIVIDAD REGISTRADA", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     MostrarActividades();
                     //ClearTxtBox();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Excepción: No se pudo registrar la Actividad. Motivo: " + ex.Message);
+                    MessageBox.Show("Excepción: No se pudo registrar la Actividad. Motivo: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
             }
@@ -67,14 +83,14 @@ namespace Directorio___Presentacion
                 {
                     int cmbValue = Convert.ToInt32(cmbTpActiv.SelectedValue);
                     objetoCNegocio.UpdateActividadNeg(idActividad, cmbValue.ToString(), txtNameActividad.Text, txtHorasSemanales.Text, txtHorasTotales.Text);
-                    MessageBox.Show("Actividad actualizada correctamente");
+                    MessageBox.Show("Actividad actualizada correctamente", "ACTIVIDAD ACTUALIZADA", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     MostrarActividades();
                     Editar = false;
                     //ClearTxtBox();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error: " + ex.Message);
+                    MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             panelCreate.Visible = false;
@@ -83,6 +99,7 @@ namespace Directorio___Presentacion
         private void btnNew_Click(object sender, EventArgs e)
         {
             panelCreate.Visible = true;
+            ckboxSemanal.Checked = true;
         }
 
         private void btnCloseWin_Click(object sender, EventArgs e)
@@ -106,13 +123,13 @@ namespace Directorio___Presentacion
                 }
                 else
                 {
-                    MessageBox.Show("Por favor, seleccione el registro que desee editar.");
+                    MessageBox.Show("Por favor, seleccione el registro que desee editar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
 
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Excepción: No se pudo actualizar el Tipo de Actividad seleccionado. Motivo: " + ex.Message);
+                MessageBox.Show("Excepción: No se pudo actualizar la Actividad seleccionado. Motivo: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -124,19 +141,19 @@ namespace Directorio___Presentacion
                 {
                     idActividad = dgLstRegistros.CurrentRow.Cells[0].Value.ToString()!;
                     objetoCNegocio.DeleteActividadNeg(idActividad);
-                    MessageBox.Show("Carrera eliminada correctamente");
+                    MessageBox.Show("Actividad eliminada correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     MostrarActividades();
                     //ClearTxtBox();
                 }
                 else
                 {
-                    MessageBox.Show("Por favor, seleccione el registro que desee eliminar.");
+                    MessageBox.Show("Por favor, seleccione el registro que desee eliminar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
 
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Excepción: No se pudo eliminar la Carrera seleccionada. Motivo: " + ex.Message);
+                MessageBox.Show("Excepción: No se pudo eliminar la Actividad seleccionada. Motivo: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         #endregion
@@ -162,6 +179,14 @@ namespace Directorio___Presentacion
                 txtHorasSemanales.Text = "0";
                 txtHorasSemanales.Enabled = false;
                 txtHorasTotales.Enabled = true;
+            }
+        }
+
+        private void txtHorasSemanales_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true; // Ignorar el carácter ingresado si no es un número ni una tecla de control
             }
         }
     }

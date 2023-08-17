@@ -44,6 +44,16 @@ namespace Directorio___Presentacion.CRUD_Interfaces
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
+            if (txtNameTpAct.Text == string.Empty)
+            {
+                MessageBox.Show("Debe ingresar el nombre del tipo de actividad para completar el registro.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (txtDescripcion.Text == string.Empty)
+            {
+                MessageBox.Show("Debe completar la descripción del tipo de actividad para completar el registro.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             if (Editar == false)
             {
                 try

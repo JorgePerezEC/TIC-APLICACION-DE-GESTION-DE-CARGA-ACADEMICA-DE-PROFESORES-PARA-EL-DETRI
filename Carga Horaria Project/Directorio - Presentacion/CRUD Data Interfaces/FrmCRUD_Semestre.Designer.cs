@@ -282,7 +282,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 273);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1394, 498);
+            this.panel2.Size = new System.Drawing.Size(1394, 661);
             this.panel2.TabIndex = 1;
             // 
             // btnEliminar
@@ -337,7 +337,7 @@
             this.dgLstSemestres.RowHeadersWidth = 51;
             this.dgLstSemestres.RowTemplate.Height = 29;
             this.dgLstSemestres.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgLstSemestres.Size = new System.Drawing.Size(1090, 381);
+            this.dgLstSemestres.Size = new System.Drawing.Size(1090, 441);
             this.dgLstSemestres.TabIndex = 6;
             // 
             // label9
@@ -355,7 +355,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1394, 771);
+            this.ClientSize = new System.Drawing.Size(1394, 934);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panelNewSemestre);
             this.Controls.Add(this.panel1);

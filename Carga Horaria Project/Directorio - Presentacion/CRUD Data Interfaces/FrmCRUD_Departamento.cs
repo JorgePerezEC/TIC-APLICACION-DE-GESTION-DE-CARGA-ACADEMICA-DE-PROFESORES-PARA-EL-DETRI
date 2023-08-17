@@ -56,13 +56,13 @@ namespace Directorio___Presentacion.CRUD_Data_Interfaces
                     {
                         if (ComprobarFormatoEmail(txtEmailDepa.Text) == false)
                         {
-                            MessageBox.Show("Email inválido.");
+                            MessageBox.Show("El Email ** " + txtEmailDepa.Text + " ** ingresado es inválido.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
                         else
                         {
                             objetoCNegocio.CreateDepartamentoN(txtNameDepa.Text, txtEmailDepa.Text);
                             //objetoCNegocio.CreateDepartamentoNEntity(ObjDepartamento);
-                            MessageBox.Show("Departamento insertado correctamente");
+                            MessageBox.Show("Departamento insertado correctamente", "DEPARTAMENTO REGISTRADO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             panelCreate.Visible = false;
                             MostrarDepartamentos();
                             ClearTxtBox();
@@ -71,7 +71,7 @@ namespace Directorio___Presentacion.CRUD_Data_Interfaces
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Excepción: No se pudo registrar el Departamento. Motivo: " + ex.Message);
+                    MessageBox.Show("Excepción: No se pudo registrar el Departamento. Motivo: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
             }
@@ -83,12 +83,12 @@ namespace Directorio___Presentacion.CRUD_Data_Interfaces
                     {
                         if (ComprobarFormatoEmail(txtEmailDepa.Text) == false)
                         {
-                            MessageBox.Show("Email inválido.");
+                            MessageBox.Show("El Email ** "+ txtEmailDepa.Text + " ** ingresado es inválido.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
                         else
                         {
                             objetoCNegocio.UpdateDepartamentoN(idDepartamento, txtNameDepa.Text, txtEmailDepa.Text);
-                            MessageBox.Show("Departamento actualizado correctamente");
+                            MessageBox.Show("Departamento actualizado correctamente", "DEPARTAMENTO ACTUALIZADO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             panelCreate.Visible = false;
                             MostrarDepartamentos();
                             Editar = false;
@@ -99,7 +99,7 @@ namespace Directorio___Presentacion.CRUD_Data_Interfaces
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error: " + ex.Message);
+                    MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -131,13 +131,13 @@ namespace Directorio___Presentacion.CRUD_Data_Interfaces
                 }
                 else
                 {
-                    MessageBox.Show("Por favor, seleccione el registro que desee editar.");
+                    MessageBox.Show("Por favor, seleccione el registro que desee editar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
 
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Excepción: No se pudo actualizar el Departamento seleccionado. Motivo: " + ex.Message);
+                MessageBox.Show("Excepción: No se pudo actualizar el Departamento seleccionado. Motivo: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -157,13 +157,13 @@ namespace Directorio___Presentacion.CRUD_Data_Interfaces
                 }
                 else
                 {
-                    MessageBox.Show("Por favor, seleccione el registro que desee eliminar.");
+                    MessageBox.Show("Por favor, seleccione el registro que desee eliminar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
 
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Excepción: No se pudo eliminar el Departamento seleccionado. Motivo: " + ex.Message);
+                MessageBox.Show("Excepción: No se pudo eliminar el Departamento seleccionado. Motivo: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         #endregion
@@ -173,6 +173,7 @@ namespace Directorio___Presentacion.CRUD_Data_Interfaces
         {
             txtNameDepa.Text = string.Empty;
             txtEmailDepa.Text = string.Empty;
+            panelCreate.Visible = false;
         }
         private bool VerificacionCampos()
         {

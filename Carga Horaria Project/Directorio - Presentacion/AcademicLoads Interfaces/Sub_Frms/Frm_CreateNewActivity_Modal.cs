@@ -108,6 +108,16 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
                     MessageBox.Show("Debe ingresar el nombre de la actividad para completar el registro.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
+                if (string.IsNullOrWhiteSpace(txtHorasTotales.Text) && ckboxTotal.Checked)
+                {
+                    MessageBox.Show("El campo horas de actividad no puede estar vacío.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                if (string.IsNullOrWhiteSpace(txtHorasSemanales.Text) && ckboxSemanal.Checked)
+                {
+                    MessageBox.Show("El campo horas de actividad no puede estar vacío.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
                 int cmbValue = Convert.ToInt32(cmbTpActiv.SelectedValue);
 
                 objetoCNegocio.CreateActividadNeg(cmbValue.ToString(), txtNameActividad.Text, txtHorasSemanales.Text, txtHorasTotales.Text);

@@ -58,18 +58,20 @@ namespace Directorio___Presentacion.CRUD_Interfaces
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
+            ValidarCampos();
             if (Editar == false)
             {
                 try
                 {
                     objetoCNegocio.CreateAsignaturaNeg(cmbCarrera.SelectedValue.ToString(),txtNombreAsignatura.Text, txtTipoAsignatura.Text, txtCodigo.Text, txtHTotales.Text, txtHSemanales.Text, txtNivel.Text);
-                    MessageBox.Show("Carrera insertadada correctamente");
+                    MessageBox.Show("Asignatura insertadada correctamente", "ASIGANTURA REGISTRADA", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     MostrarAsignaturas();
+                    panelCreate.Visible= false;
                     //ClearTxtBox();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Excepción: No se pudo registrar la Carrera. Motivo: " + ex.Message);
+                    MessageBox.Show("Excepción: No se pudo registrar la Asignatura. Motivo: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
             }
@@ -78,17 +80,31 @@ namespace Directorio___Presentacion.CRUD_Interfaces
                 try
                 {
                     objetoCNegocio.UpdateAsignaturaNeg(idAsignatura,cmbCarrera.SelectedValue.ToString(), txtNombreAsignatura.Text, txtTipoAsignatura.Text, txtCodigo.Text, txtHTotales.Text, txtHSemanales.Text, txtNivel.Text);
-                    MessageBox.Show("Carrera actualizada correctamente");
+                    MessageBox.Show("Asignatura actualizada correctamente", "ASIGNATURA ACTUALIZADA", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     MostrarAsignaturas();
                     Editar = false;
                     //ClearTxtBox();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error: " + ex.Message);
+                    MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             panelCreate.Visible = false;
+        }
+
+        private void ValidarCampos()
+        {
+            if (cmbCarrera.SelectedIndex == -1)
+            {
+                MessageBox.Show("Debe seleccionar una Carrera para completar el registro.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (txtCodigo.Text == string.Empty || txtTipoAsignatura.Text == string.Empty || txtCodigo.Text == string.Empty || txtHSemanales.Text == string.Empty || txtHTotales.Text == string.Empty || txtNivel.Text == string.Empty)
+            {
+                MessageBox.Show("Debe completar todos los campos de texto para completar el registro.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
         }
 
         private void btnActualizar_Click(object sender, EventArgs e)
@@ -110,13 +126,13 @@ namespace Directorio___Presentacion.CRUD_Interfaces
                 }
                 else
                 {
-                    MessageBox.Show("Por favor, seleccione el registro que desee editar.");
+                    MessageBox.Show("Por favor, seleccione el registro que desee editar.","Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
 
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Excepción: No se pudo actualizar el Tipo de Actividad seleccionado. Motivo: " + ex.Message);
+                MessageBox.Show("Excepción: No se pudo actualizar la asignatura seleccionada. Motivo: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -128,19 +144,19 @@ namespace Directorio___Presentacion.CRUD_Interfaces
                 {
                     idAsignatura = dgLstRegistros.CurrentRow.Cells[0].Value.ToString()!;
                     objetoCNegocio.DeleteAsignaturaNeg(idAsignatura);
-                    MessageBox.Show("Carrera eliminada correctamente");
+                    MessageBox.Show("Asignatura eliminada correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     MostrarAsignaturas();
                     //ClearTxtBox();
                 }
                 else
                 {
-                    MessageBox.Show("Por favor, seleccione el registro que desee eliminar.");
+                    MessageBox.Show("Por favor, seleccione el registro que desee eliminar.","Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
 
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Excepción: No se pudo eliminar la Carrera seleccionada. Motivo: " + ex.Message);
+                MessageBox.Show("Excepción: No se pudo eliminar la Asignatura seleccionada. Motivo: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         #endregion
@@ -148,6 +164,14 @@ namespace Directorio___Presentacion.CRUD_Interfaces
         private void ntmNew_Click(object sender, EventArgs e)
         {
             panelCreate.Visible = true;
+        }
+
+        private void txtHTotales_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true; // Ignorar el carácter ingresado si no es un número ni una tecla de control
+            }
         }
     }
 }

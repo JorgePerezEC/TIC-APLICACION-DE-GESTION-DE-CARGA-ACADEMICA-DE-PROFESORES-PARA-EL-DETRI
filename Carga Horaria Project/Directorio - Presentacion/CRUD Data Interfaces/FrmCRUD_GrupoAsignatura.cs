@@ -73,13 +73,13 @@ namespace Directorio___Presentacion.CRUD_Interfaces
                 }
                 else
                 {
-                    MessageBox.Show("Por favor, seleccione el registro que desee editar.");
+                    MessageBox.Show("Por favor, seleccione el registro que desee editar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
 
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Excepción: No se pudo actualizar el GR seleccionado. Motivo: " + ex.Message);
+                MessageBox.Show("Excepción: No se pudo actualizar el GR seleccionado. Motivo: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -90,21 +90,20 @@ namespace Directorio___Presentacion.CRUD_Interfaces
                 if (dgLstRegistros.Rows.Count > 0)
                 {
                     idGrupo = dgLstRegistros.CurrentRow.Cells[0].Value.ToString()!;
-                    MessageBox.Show(idGrupo);
                     objetoCNegocio.DeleteGruposNeg(idGrupo);
-                    MessageBox.Show("Grupo de asignatura eliminado correctamente");
+                    MessageBox.Show("Grupo de asignatura eliminado correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     MostrarAllGrs();
-                    //ClearTxtBox();
+                    ClearTxtBox();
                 }
                 else
                 {
-                    MessageBox.Show("Por favor, seleccione el registro que desee eliminar.");
+                    MessageBox.Show("Por favor, seleccione el registro que desee eliminar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
 
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Excepción: No se pudo eliminar la Carrera seleccionada. Motivo: " + ex.Message);
+                MessageBox.Show("Excepción: No se pudo eliminar la Carrera seleccionada. Motivo: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -116,13 +115,13 @@ namespace Directorio___Presentacion.CRUD_Interfaces
                 {
                     int cmbValue = Convert.ToInt32(cmbAsignaturas.SelectedValue);
                     objetoCNegocio.CreateGruposNeg(cmbValue.ToString(), cmbGR.Text);
-                    MessageBox.Show("GR insertadado correctamente"+cmbGR.Text);
+                    MessageBox.Show("GR insertadado correctamente", "GRUPO REGISTRADO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     MostrarAllGrs();
-                    //ClearTxtBox();
+                    ClearTxtBox();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Excepción: No se pudo registrar el Docente. Motivo: " + ex.Message);
+                    MessageBox.Show("ERROR: No se pudo registrar el Docente. Motivo: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
             }
@@ -132,17 +131,24 @@ namespace Directorio___Presentacion.CRUD_Interfaces
                 {
                     int cmbValue = Convert.ToInt32(cmbAsignaturas.SelectedValue);
                     objetoCNegocio.UpdateGruposNeg(idGrupo, cmbValue.ToString(), cmbGR.Text);
-                    MessageBox.Show("GR actualizado correctamente");
+                    MessageBox.Show("GR actualizado correctamente", "GRUPO ACTUALIZADO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     MostrarAllGrs();
                     Editar = false;
-                    //ClearTxtBox();
+                    ClearTxtBox();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error: " + ex.Message);
+                    MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             panelCreate.Visible = false;
+        }
+
+        private void ClearTxtBox()
+        {
+            panelCreate.Visible = false;
+            cmbAsignaturas.SelectedIndex= -1;
+            cmbGR.SelectedIndex= -1;
         }
 
         #endregion

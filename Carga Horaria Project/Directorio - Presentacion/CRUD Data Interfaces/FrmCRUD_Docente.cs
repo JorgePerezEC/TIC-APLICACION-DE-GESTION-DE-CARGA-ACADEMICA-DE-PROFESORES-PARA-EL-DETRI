@@ -40,7 +40,6 @@ namespace Directorio___Presentacion.CRUD_Interfaces
         {
             CN_Docente objetoCNegocio = new CN_Docente();
             dgLstRegistros.DataSource = objetoCNegocio.MostrarDocentes();
-            Console.WriteLine($"Filas: {dgLstRegistros.RowCount}, Columnas: {dgLstRegistros.ColumnCount}");
             clsStyles.tableStyle(dgLstRegistros);
             dgLstRegistros.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
         }
@@ -75,15 +74,25 @@ namespace Directorio___Presentacion.CRUD_Interfaces
             {
                 try
                 {
+                    if (cmbDepartamentos.SelectedIndex == -1)
+                    {
+                        MessageBox.Show("Debe seleccionar un Departamento para completar el registro.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    if (txtSApellido.Text == string.Empty || txtTitulo.Text == string.Empty || txtPNombre.Text == string.Empty || txtPApellido.Text == string.Empty || txtSApellido.Text == string.Empty)
+                    {
+                        MessageBox.Show("Debe completar todos los campos de texto para completar el registro.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                     int cmbValue = Convert.ToInt32(cmbDepartamentos.SelectedValue);
                     objetoCNegocio.CreateDocenteNeg(cmbValue.ToString(), txtPNombre.Text, txtSNombre.Text, txtPApellido.Text, txtSApellido.Text, txtTitulo.Text);
-                    MessageBox.Show("Docente agregado correctamente");
+                    MessageBox.Show("Docente agregado correctamente", "DOCENTE REGISTRADO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     MostrarDocentes();
-                    //ClearTxtBox();
+                    ClearTxtBox();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Excepción: No se pudo registrar el Docente. Motivo: " + ex.Message);
+                    MessageBox.Show("Excepción: No se pudo registrar el Docente. Motivo: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
             }
@@ -93,16 +102,27 @@ namespace Directorio___Presentacion.CRUD_Interfaces
                 {
                     int cmbValue = Convert.ToInt32(cmbDepartamentos.SelectedValue);
                     objetoCNegocio.UpdateDocenteNeg(idDocente, cmbValue.ToString(), txtPNombre.Text, txtSNombre.Text, txtPApellido.Text, txtSApellido.Text, txtTitulo.Text);
-                    MessageBox.Show("Docente actualizado correctamente");
+                    MessageBox.Show("Docente actualizado correctamente", "DOCENTE ACTUALIZADO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     MostrarDocentes();
                     Editar = false;
-                    //ClearTxtBox();
+                    ClearTxtBox();
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Error: " + ex.Message);
                 }
             }
+            panelCreate.Visible = false;
+        }
+
+        private void ClearTxtBox()
+        {
+            txtTitulo.Text = string.Empty;
+            txtPApellido.Text = string.Empty;
+            txtPNombre.Text = string.Empty;
+            txtSApellido.Text = string.Empty;
+            txtSNombre.Text = string.Empty;
+            cmbDepartamentos.SelectedIndex = -1;
             panelCreate.Visible = false;
         }
 
@@ -127,13 +147,13 @@ namespace Directorio___Presentacion.CRUD_Interfaces
                 }
                 else
                 {
-                    MessageBox.Show("Por favor, seleccione el registro que desee editar.");
+                    MessageBox.Show("Por favor, seleccione el registro que desee editar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
 
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Excepción: No se pudo actualizar el Docente seleccionado. Motivo: " + ex.Message);
+                MessageBox.Show("Excepción: No se pudo actualizar el Docente seleccionado. Motivo: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -145,19 +165,19 @@ namespace Directorio___Presentacion.CRUD_Interfaces
                 {
                     idDocente = dgLstRegistros.CurrentRow.Cells[0].Value.ToString()!;
                     objetoCNegocio.DeleteDocenteNeg(idDocente);
-                    MessageBox.Show("Carrera eliminada correctamente");
+                    MessageBox.Show("Docente eliminado correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     MostrarDocentes();
-                    //ClearTxtBox();
+                    ClearTxtBox();
                 }
                 else
                 {
-                    MessageBox.Show("Por favor, seleccione el registro que desee eliminar.");
+                    MessageBox.Show("Por favor, seleccione el registro que desee eliminar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
 
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Excepción: No se pudo eliminar el Docente seleccionado. Motivo: " + ex.Message);
+                MessageBox.Show("Excepción: No se pudo eliminar el Docente seleccionado. Motivo: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         #endregion

@@ -29,10 +29,17 @@
         private void InitializeComponent()
         {
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btnEliminar = new System.Windows.Forms.Button();
             this.btnActualizar = new System.Windows.Forms.Button();
             this.dgLstRegistros = new System.Windows.Forms.DataGridView();
             this.label9 = new System.Windows.Forms.Label();
             this.panelCreate = new System.Windows.Forms.Panel();
+            this.label11 = new System.Windows.Forms.Label();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.ckboxTotal = new System.Windows.Forms.CheckBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.ckboxSemanal = new System.Windows.Forms.CheckBox();
             this.txtHorasTotales = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.txtHorasSemanales = new System.Windows.Forms.TextBox();
@@ -46,18 +53,11 @@
             this.btnNew = new System.Windows.Forms.Button();
             this.btnCloseWin = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.ckboxTotal = new System.Windows.Forms.CheckBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.ckboxSemanal = new System.Windows.Forms.CheckBox();
-            this.btnEliminar = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgLstRegistros)).BeginInit();
             this.panelCreate.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel2
@@ -72,6 +72,23 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1604, 482);
             this.panel2.TabIndex = 8;
+            // 
+            // btnEliminar
+            // 
+            this.btnEliminar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnEliminar.BackColor = System.Drawing.Color.LightBlue;
+            this.btnEliminar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnEliminar.Font = new System.Drawing.Font("Roboto Black", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnEliminar.Location = new System.Drawing.Point(576, 61);
+            this.btnEliminar.MaximumSize = new System.Drawing.Size(125, 41);
+            this.btnEliminar.Name = "btnEliminar";
+            this.btnEliminar.Size = new System.Drawing.Size(125, 38);
+            this.btnEliminar.TabIndex = 7;
+            this.btnEliminar.Text = "Eliminar";
+            this.btnEliminar.UseVisualStyleBackColor = false;
+            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
             // 
             // btnActualizar
             // 
@@ -133,6 +150,80 @@
             this.panelCreate.TabIndex = 9;
             this.panelCreate.Visible = false;
             // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft YaHei", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label11.Location = new System.Drawing.Point(625, 18);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(284, 23);
+            this.label11.TabIndex = 23;
+            this.label11.Text = "Estilo de horas para  la Actividad: ";
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 2;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 71.03825F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 28.96175F));
+            this.tableLayoutPanel2.Controls.Add(this.ckboxTotal, 1, 1);
+            this.tableLayoutPanel2.Controls.Add(this.label12, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.label13, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.ckboxSemanal, 1, 0);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(923, 17);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 2;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 49.42529F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(126, 48);
+            this.tableLayoutPanel2.TabIndex = 22;
+            // 
+            // ckboxTotal
+            // 
+            this.ckboxTotal.AutoSize = true;
+            this.ckboxTotal.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.ckboxTotal.FlatAppearance.BorderSize = 2;
+            this.ckboxTotal.Location = new System.Drawing.Point(92, 27);
+            this.ckboxTotal.Name = "ckboxTotal";
+            this.ckboxTotal.Size = new System.Drawing.Size(18, 17);
+            this.ckboxTotal.TabIndex = 4;
+            this.ckboxTotal.UseVisualStyleBackColor = true;
+            this.ckboxTotal.CheckedChanged += new System.EventHandler(this.ckboxTotal_CheckedChanged);
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label12.Font = new System.Drawing.Font("Microsoft YaHei", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label12.Location = new System.Drawing.Point(3, 24);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(83, 24);
+            this.label12.TabIndex = 2;
+            this.label12.Text = "Totales";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label13.Font = new System.Drawing.Font("Microsoft YaHei", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label13.Location = new System.Drawing.Point(3, 0);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(83, 24);
+            this.label13.TabIndex = 0;
+            this.label13.Text = "Semanales";
+            // 
+            // ckboxSemanal
+            // 
+            this.ckboxSemanal.AutoSize = true;
+            this.ckboxSemanal.Checked = true;
+            this.ckboxSemanal.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ckboxSemanal.FlatAppearance.BorderSize = 2;
+            this.ckboxSemanal.Location = new System.Drawing.Point(92, 3);
+            this.ckboxSemanal.Name = "ckboxSemanal";
+            this.ckboxSemanal.Size = new System.Drawing.Size(18, 17);
+            this.ckboxSemanal.TabIndex = 3;
+            this.ckboxSemanal.UseVisualStyleBackColor = true;
+            this.ckboxSemanal.CheckedChanged += new System.EventHandler(this.ckboxSemanal_CheckedChanged);
+            // 
             // txtHorasTotales
             // 
             this.txtHorasTotales.AllowDrop = true;
@@ -141,6 +232,7 @@
             this.txtHorasTotales.PlaceholderText = "Ingrese la duración total de la actvidad";
             this.txtHorasTotales.Size = new System.Drawing.Size(271, 27);
             this.txtHorasTotales.TabIndex = 21;
+            this.txtHorasTotales.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtHorasSemanales_KeyPress);
             // 
             // label5
             // 
@@ -160,6 +252,7 @@
             this.txtHorasSemanales.PlaceholderText = "Ingrese la duración de la actvidad";
             this.txtHorasSemanales.Size = new System.Drawing.Size(271, 27);
             this.txtHorasSemanales.TabIndex = 19;
+            this.txtHorasSemanales.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtHorasSemanales_KeyPress);
             // 
             // cmbTpActiv
             // 
@@ -304,97 +397,6 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Administrar Actividades";
             // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Microsoft YaHei", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label11.Location = new System.Drawing.Point(625, 18);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(284, 23);
-            this.label11.TabIndex = 23;
-            this.label11.Text = "Estilo de horas para  la Actividad: ";
-            // 
-            // tableLayoutPanel2
-            // 
-            this.tableLayoutPanel2.ColumnCount = 2;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 71.03825F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 28.96175F));
-            this.tableLayoutPanel2.Controls.Add(this.ckboxTotal, 1, 1);
-            this.tableLayoutPanel2.Controls.Add(this.label12, 0, 1);
-            this.tableLayoutPanel2.Controls.Add(this.label13, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.ckboxSemanal, 1, 0);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(923, 17);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 2;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 49.42529F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(126, 48);
-            this.tableLayoutPanel2.TabIndex = 22;
-            // 
-            // ckboxTotal
-            // 
-            this.ckboxTotal.AutoSize = true;
-            this.ckboxTotal.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.ckboxTotal.FlatAppearance.BorderSize = 2;
-            this.ckboxTotal.Location = new System.Drawing.Point(92, 27);
-            this.ckboxTotal.Name = "ckboxTotal";
-            this.ckboxTotal.Size = new System.Drawing.Size(18, 17);
-            this.ckboxTotal.TabIndex = 4;
-            this.ckboxTotal.UseVisualStyleBackColor = true;
-            this.ckboxTotal.CheckedChanged += new System.EventHandler(this.ckboxTotal_CheckedChanged);
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label12.Font = new System.Drawing.Font("Microsoft YaHei", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label12.Location = new System.Drawing.Point(3, 24);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(83, 24);
-            this.label12.TabIndex = 2;
-            this.label12.Text = "Totales";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label13.Font = new System.Drawing.Font("Microsoft YaHei", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label13.Location = new System.Drawing.Point(3, 0);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(83, 24);
-            this.label13.TabIndex = 0;
-            this.label13.Text = "Semanales";
-            // 
-            // ckboxSemanal
-            // 
-            this.ckboxSemanal.AutoSize = true;
-            this.ckboxSemanal.Checked = true;
-            this.ckboxSemanal.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.ckboxSemanal.FlatAppearance.BorderSize = 2;
-            this.ckboxSemanal.Location = new System.Drawing.Point(92, 3);
-            this.ckboxSemanal.Name = "ckboxSemanal";
-            this.ckboxSemanal.Size = new System.Drawing.Size(18, 17);
-            this.ckboxSemanal.TabIndex = 3;
-            this.ckboxSemanal.UseVisualStyleBackColor = true;
-            this.ckboxSemanal.CheckedChanged += new System.EventHandler(this.ckboxSemanal_CheckedChanged);
-            // 
-            // btnEliminar
-            // 
-            this.btnEliminar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnEliminar.BackColor = System.Drawing.Color.LightBlue;
-            this.btnEliminar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnEliminar.Font = new System.Drawing.Font("Roboto Black", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnEliminar.Location = new System.Drawing.Point(576, 61);
-            this.btnEliminar.MaximumSize = new System.Drawing.Size(125, 41);
-            this.btnEliminar.Name = "btnEliminar";
-            this.btnEliminar.Size = new System.Drawing.Size(125, 38);
-            this.btnEliminar.TabIndex = 7;
-            this.btnEliminar.Text = "Eliminar";
-            this.btnEliminar.UseVisualStyleBackColor = false;
-            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
-            // 
             // FrmCRUD_Actividad
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -411,10 +413,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgLstRegistros)).EndInit();
             this.panelCreate.ResumeLayout(false);
             this.panelCreate.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
