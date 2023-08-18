@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label14 = new System.Windows.Forms.Label();
+            this.txtFiltro = new System.Windows.Forms.TextBox();
             this.btnEliminar = new System.Windows.Forms.Button();
             this.btnActualizar = new System.Windows.Forms.Button();
             this.dgLstRegistros = new System.Windows.Forms.DataGridView();
@@ -62,15 +64,44 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.label14);
+            this.panel2.Controls.Add(this.txtFiltro);
             this.panel2.Controls.Add(this.btnEliminar);
             this.panel2.Controls.Add(this.btnActualizar);
             this.panel2.Controls.Add(this.dgLstRegistros);
             this.panel2.Controls.Add(this.label9);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(0, 347);
+            this.panel2.Location = new System.Drawing.Point(0, 323);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1398, 591);
+            this.panel2.Size = new System.Drawing.Size(1398, 615);
             this.panel2.TabIndex = 8;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label14.ForeColor = System.Drawing.Color.White;
+            this.label14.Location = new System.Drawing.Point(95, 128);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(75, 28);
+            this.label14.TabIndex = 16;
+            this.label14.Text = "Filtrar:";
+            this.label14.Click += new System.EventHandler(this.label14_Click);
+            // 
+            // txtFiltro
+            // 
+            this.txtFiltro.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtFiltro.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.txtFiltro.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.txtFiltro.Location = new System.Drawing.Point(176, 126);
+            this.txtFiltro.Name = "txtFiltro";
+            this.txtFiltro.PlaceholderText = "...";
+            this.txtFiltro.Size = new System.Drawing.Size(535, 30);
+            this.txtFiltro.TabIndex = 15;
+            this.txtFiltro.TextChanged += new System.EventHandler(this.txtFiltro_TextChanged);
+            this.txtFiltro.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFiltro_KeyPress);
             // 
             // btnEliminar
             // 
@@ -109,12 +140,12 @@
             // dgLstRegistros
             // 
             this.dgLstRegistros.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgLstRegistros.Location = new System.Drawing.Point(97, 132);
+            this.dgLstRegistros.Location = new System.Drawing.Point(95, 184);
             this.dgLstRegistros.Name = "dgLstRegistros";
             this.dgLstRegistros.RowHeadersWidth = 51;
             this.dgLstRegistros.RowTemplate.Height = 29;
             this.dgLstRegistros.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgLstRegistros.Size = new System.Drawing.Size(1273, 393);
+            this.dgLstRegistros.Size = new System.Drawing.Size(1273, 410);
             this.dgLstRegistros.TabIndex = 6;
             this.dgLstRegistros.TabStop = false;
             // 
@@ -148,7 +179,7 @@
             this.panelCreate.Controls.Add(this.label3);
             this.panelCreate.Controls.Add(this.label2);
             this.panelCreate.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelCreate.Location = new System.Drawing.Point(0, 127);
+            this.panelCreate.Location = new System.Drawing.Point(0, 103);
             this.panelCreate.Name = "panelCreate";
             this.panelCreate.Size = new System.Drawing.Size(1398, 220);
             this.panelCreate.TabIndex = 9;
@@ -337,7 +368,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1398, 127);
+            this.panel1.Size = new System.Drawing.Size(1398, 103);
             this.panel1.TabIndex = 7;
             // 
             // ntmNew
@@ -349,10 +380,10 @@
             this.ntmNew.FlatAppearance.BorderSize = 0;
             this.ntmNew.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ntmNew.Font = new System.Drawing.Font("Roboto Black", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.ntmNew.Location = new System.Drawing.Point(340, 47);
+            this.ntmNew.Location = new System.Drawing.Point(451, 38);
             this.ntmNew.MaximumSize = new System.Drawing.Size(125, 41);
             this.ntmNew.Name = "ntmNew";
-            this.ntmNew.Size = new System.Drawing.Size(125, 36);
+            this.ntmNew.Size = new System.Drawing.Size(125, 41);
             this.ntmNew.TabIndex = 1;
             this.ntmNew.Text = "Nuevo";
             this.ntmNew.UseVisualStyleBackColor = false;
@@ -384,10 +415,10 @@
             this.btnCloseWin.BackColor = System.Drawing.Color.LightCoral;
             this.btnCloseWin.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnCloseWin.Font = new System.Drawing.Font("Roboto Black", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnCloseWin.Location = new System.Drawing.Point(1242, 38);
+            this.btnCloseWin.Location = new System.Drawing.Point(1229, 38);
             this.btnCloseWin.MaximumSize = new System.Drawing.Size(125, 41);
             this.btnCloseWin.Name = "btnCloseWin";
-            this.btnCloseWin.Size = new System.Drawing.Size(99, 41);
+            this.btnCloseWin.Size = new System.Drawing.Size(112, 41);
             this.btnCloseWin.TabIndex = 5;
             this.btnCloseWin.Text = "Cerrar";
             this.btnCloseWin.UseVisualStyleBackColor = false;
@@ -396,12 +427,12 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Roboto Black", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(29, 47);
+            this.label1.Font = new System.Drawing.Font("Calibri", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label1.Location = new System.Drawing.Point(21, 37);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(235, 24);
+            this.label1.Size = new System.Drawing.Size(354, 35);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Administrar Asignaturas";
+            this.label1.Text = "ADMINISTRAR ASIGNATURAS";
             // 
             // FrmCRUD_Asignatura
             // 
@@ -454,5 +485,7 @@
         private Button ntmNew;
         private ComboBox cmbCarrera;
         private Label label10;
+        private Label label14;
+        private TextBox txtFiltro;
     }
 }

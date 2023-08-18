@@ -8,15 +8,15 @@
 --------------------------------------------
 USE master
 GO
-IF EXISTS (SELECT name FROM sys.databases WHERE name = 'dbCargaHorariaAgo15')
+IF EXISTS (SELECT name FROM sys.databases WHERE name = 'dbCargaHorariaTIC')
 BEGIN
-    DROP DATABASE dbCargaHorariaAgo15;
+    DROP DATABASE dbCargaHorariaTIC;
 END
 GO
 PRINT 'Creating DB';
-CREATE DATABASE dbCargaHorariaAgo15;
+CREATE DATABASE dbCargaHorariaTIC;
 GO
-USE dbCargaHorariaAgo15;
+USE dbCargaHorariaTIC;
 
 -----------------------------------------
 -- Table Creation Section
@@ -485,11 +485,12 @@ END
 GO
 --SP to verificar si existe GR en tblGrAsignatura
 CREATE OR ALTER PROCEDURE [dbo].[spVerificarGRexistente]
+--exec [spVerificarGRexistente] 98, GRD4
 	@idAsig int,
 	@Gr varchar(20),
 	@existeGR bit OUTPUT
 AS
-BEGIN 
+BEGIN
 	-- Verificar si ya existe un registro con el mismo grupoAsignatura
     IF EXISTS (SELECT 1 FROM tblGrAsignatura WHERE grupoAsignatura = @Gr AND idAsignatura = @idAsig)
     BEGIN
@@ -534,11 +535,12 @@ CREATE OR ALTER PROCEDURE [dbo].[spAddHorarioAsig]
     @idGrAsig	int,
     @horaInicio time,
     @horaFin	time,
-    @dia		int,
+    @dia		int	,
     @resultado	bit OUTPUT
 AS
 BEGIN
     DECLARE @idSemestreGrAsignatura int
+	DECLARE @idHorario int
     SET @resultado = 0 -- Inicializar con valor "False" (Error)
 	
 	---------------------------------------------------------
@@ -568,20 +570,42 @@ BEGIN
 			VALUES (@idSemestre, @idGrAsig, 1)
         
 			SET @idSemestreGrAsignatura = SCOPE_IDENTITY() -- Obtener el ID recién insertado
-		END
 
-		-- Insertar en tblHorarioGrAsig usando el ID de tblSemestreGrAsignatura
-		INSERT INTO tblHorarioGrAsig (idSemestreGrAsignatura, horaInicio, horaFin, idDiaSemana, isActive)
-		VALUES (@idSemestreGrAsignatura, @horaInicio, @horaFin, @dia, 1)
-        
+			-- Insertar en tblHorarioGrAsig usando el ID de tblSemestreGrAsignatura
+			INSERT INTO tblHorarioGrAsig (idSemestreGrAsignatura, horaInicio, horaFin, idDiaSemana, isActive)
+			VALUES (@idSemestreGrAsignatura, @horaInicio, @horaFin, @dia, 1)
+		END
+		ELSE
+        BEGIN
+			SELECT @idHorario = idHorario
+			FROM tblHorarioGrAsig
+			WHERE idSemestreGrAsignatura = @idSemestreGrAsignatura AND idDiaSemana = @dia
+
+			IF @idHorario IS NULL
+			BEGIN
+				INSERT INTO tblHorarioGrAsig (idSemestreGrAsignatura, horaInicio, horaFin, idDiaSemana, isActive)
+				VALUES (@idSemestreGrAsignatura, @horaInicio, @horaFin, @dia, 1)
+			END
+			ELSE
+			BEGIN
+				-- Actualizar en tblHorarioGrAsig usando el ID de tblSemestreGrAsignatura
+				UPDATE tblHorarioGrAsig
+				SET horaInicio = @horaInicio,
+					horaFin = @horaFin
+					--,idDiaSemana = @dia
+				WHERE idSemestreGrAsignatura = @idSemestreGrAsignatura
+					AND isActive = 1 AND idHorario = @idHorario
+			END
+        END
+
 		SET @resultado = 1 -- Cambiar a valor "True" (Éxito)
 	END
 	ELSE
 	BEGIN
 		SET @resultado = 0 -- Mantener valor "False" (Error)
 	END
-	---------------------------------------------------------
 END
+---------------------------------------------------------
 GO
 -- Stored Procedure to create one row from "tblHorarioGrAsig" Version2
 
@@ -677,6 +701,7 @@ BEGIN
     FROM   tblAsignatura a
 	INNER JOIN tblCarrera c ON a.idCarrera = c.idCarrera
 	WHERE estadoAsignatura = 1
+	ORDER BY 'Nombre de la Asignatura'
 END
 GO
 -- Stored Procedure to Read All Rows from  "tblAsignaturas" where had Groups
@@ -772,7 +797,7 @@ GO
 CREATE PROC [dbo].[spReadAllGrAsignaturas]
 AS 
 BEGIN 
-    SELECT gr.idGrAsig AS ID, asg.nombreAsignatura as Asignatura, gr.grupoAsignatura as GR
+    SELECT gr.idGrAsig AS ID, asg.nombreAsignatura as ASIGNATURA, gr.grupoAsignatura as GRUPO, asg.codigoAsignatura AS 'CÓDIGO', asg.tipoAsignatura AS TIPO
     FROM   tblGrAsignatura gr
 	INNER JOIN tblAsignatura asg ON gr.idAsignatura = asg.idAsignatura
 END
@@ -861,7 +886,7 @@ BEGIN
             ISNULL(CONVERT(VARCHAR(5), horaFin, 108), 'N/A') AS 'HORA FIN', horaInicio, horaFin,DD.dia
 			FROM tblHorarioGrAsig HGA
 			INNER JOIN tblDiaSemana DD ON HGA.idDiaSemana = DD.idDiaSemana
-			WHERE idSemestreGrAsignatura = @idSemestreGrAsignatura
+			WHERE idSemestreGrAsignatura = @idSemestreGrAsignatura AND horaInicio <> horaFin
         END
 END
 GO
@@ -889,7 +914,7 @@ BEGIN
     INNER JOIN tblSemestreGrAsignatura sg ON h.idSemestreGrAsignatura = sg.idSemestreGrAsignatura
     INNER JOIN tblGrAsignatura g ON sg.idGrAsig = g.idGrAsig
     INNER JOIN tblAsignatura A ON g.idAsignatura = A.idAsignatura
-    WHERE h.isActive = 1 and sg.idSemestre = @idSemestre and sg.idGrAsig IN (SELECT idGrAsig FROM #LstidGRAsig)
+    WHERE h.isActive = 1 and sg.idSemestre = @idSemestre and sg.idGrAsig IN (SELECT idGrAsig FROM #LstidGRAsig) AND h.horaInicio <> h.horaFin
     ORDER BY DÍA,HORA ASC;
 
     DROP TABLE #LstidGRAsig;

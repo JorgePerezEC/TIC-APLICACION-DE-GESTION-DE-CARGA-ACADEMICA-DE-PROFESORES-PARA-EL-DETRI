@@ -289,11 +289,11 @@
             // 
             this.lblTitleActividad.AutoSize = true;
             this.lblTitleActividad.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblTitleActividad.Location = new System.Drawing.Point(20, 11);
+            this.lblTitleActividad.Location = new System.Drawing.Point(23, 25);
             this.lblTitleActividad.Name = "lblTitleActividad";
-            this.lblTitleActividad.Size = new System.Drawing.Size(255, 38);
+            this.lblTitleActividad.Size = new System.Drawing.Size(308, 38);
             this.lblTitleActividad.TabIndex = 0;
-            this.lblTitleActividad.Text = "Agregar Actividad";
+            this.lblTitleActividad.Text = "AGREGAR ACTIVIDAD";
             // 
             // FrmCUActividad_AL
             // 
@@ -308,6 +308,7 @@
             this.MinimizeBox = false;
             this.Name = "FrmCUActividad_AL";
             this.ShowIcon = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Administrador de Actividades";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmCUActividad_AL_FormClosed);
             this.Load += new System.EventHandler(this.FrmCUActividad_AL_Load);

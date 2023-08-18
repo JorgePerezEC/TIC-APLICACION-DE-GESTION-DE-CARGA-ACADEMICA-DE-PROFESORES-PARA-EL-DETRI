@@ -134,7 +134,7 @@
             this.label10.Location = new System.Drawing.Point(3, 55);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(189, 55);
-            this.label10.TabIndex = 3;
+            this.label10.TabIndex = 100;
             this.label10.Text = "Horas Semanales ingresadas";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -149,7 +149,7 @@
             this.lblHorasIngresadas.Location = new System.Drawing.Point(198, 55);
             this.lblHorasIngresadas.Name = "lblHorasIngresadas";
             this.lblHorasIngresadas.Size = new System.Drawing.Size(60, 55);
-            this.lblHorasIngresadas.TabIndex = 1;
+            this.lblHorasIngresadas.TabIndex = 100;
             this.lblHorasIngresadas.Text = "0";
             this.lblHorasIngresadas.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -165,7 +165,7 @@
             this.label5.Location = new System.Drawing.Point(3, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(189, 55);
-            this.label5.TabIndex = 0;
+            this.label5.TabIndex = 100;
             this.label5.Text = "Horas Semanales correspondientes";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -180,7 +180,7 @@
             this.lblHorasCorrespondientes.Location = new System.Drawing.Point(198, 0);
             this.lblHorasCorrespondientes.Name = "lblHorasCorrespondientes";
             this.lblHorasCorrespondientes.Size = new System.Drawing.Size(60, 55);
-            this.lblHorasCorrespondientes.TabIndex = 2;
+            this.lblHorasCorrespondientes.TabIndex = 100;
             this.lblHorasCorrespondientes.Text = "0";
             this.lblHorasCorrespondientes.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -197,7 +197,7 @@
             this.btnCancelar.MaximumSize = new System.Drawing.Size(125, 41);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(125, 41);
-            this.btnCancelar.TabIndex = 31;
+            this.btnCancelar.TabIndex = 42;
             this.btnCancelar.Text = "CANCELAR";
             this.btnCancelar.UseVisualStyleBackColor = false;
             this.btnCancelar.Visible = false;
@@ -308,7 +308,7 @@
             this.cbVie.ReadOnly = false;
             this.cbVie.Ripple = true;
             this.cbVie.Size = new System.Drawing.Size(192, 40);
-            this.cbVie.TabIndex = 37;
+            this.cbVie.TabIndex = 16;
             this.cbVie.Text = "VIERNES";
             this.cbVie.UseVisualStyleBackColor = false;
             this.cbVie.CheckedChanged += new System.EventHandler(this.cbVie_CheckedChanged);
@@ -329,7 +329,7 @@
             this.cbJue.ReadOnly = false;
             this.cbJue.Ripple = true;
             this.cbJue.Size = new System.Drawing.Size(192, 40);
-            this.cbJue.TabIndex = 35;
+            this.cbJue.TabIndex = 13;
             this.cbJue.Text = "JUEVES";
             this.cbJue.UseVisualStyleBackColor = false;
             this.cbJue.CheckedChanged += new System.EventHandler(this.cbJue_CheckedChanged);
@@ -350,7 +350,7 @@
             this.cbMie.ReadOnly = false;
             this.cbMie.Ripple = true;
             this.cbMie.Size = new System.Drawing.Size(192, 40);
-            this.cbMie.TabIndex = 35;
+            this.cbMie.TabIndex = 10;
             this.cbMie.Text = "MIÉRCOLES";
             this.cbMie.UseVisualStyleBackColor = false;
             this.cbMie.CheckedChanged += new System.EventHandler(this.cbMie_CheckedChanged);
@@ -371,7 +371,7 @@
             this.cbMar.ReadOnly = false;
             this.cbMar.Ripple = true;
             this.cbMar.Size = new System.Drawing.Size(192, 40);
-            this.cbMar.TabIndex = 34;
+            this.cbMar.TabIndex = 7;
             this.cbMar.Text = "MARTES";
             this.cbMar.UseVisualStyleBackColor = false;
             this.cbMar.CheckedChanged += new System.EventHandler(this.cbMar_CheckedChanged);
@@ -389,7 +389,7 @@
             this.dtDomF.Name = "dtDomF";
             this.dtDomF.ShowUpDown = true;
             this.dtDomF.Size = new System.Drawing.Size(138, 36);
-            this.dtDomF.TabIndex = 36;
+            this.dtDomF.TabIndex = 40;
             this.dtDomF.Value = new System.DateTime(2023, 2, 7, 0, 0, 0, 0);
             this.dtDomF.ValueChanged += new System.EventHandler(this.dtLunesF_ValueChanged);
             // 
@@ -406,7 +406,7 @@
             this.dtDomI.Name = "dtDomI";
             this.dtDomI.ShowUpDown = true;
             this.dtDomI.Size = new System.Drawing.Size(138, 36);
-            this.dtDomI.TabIndex = 29;
+            this.dtDomI.TabIndex = 39;
             this.dtDomI.Value = new System.DateTime(2023, 2, 7, 0, 0, 0, 0);
             this.dtDomI.ValueChanged += new System.EventHandler(this.dtDomI_ValueChanged);
             // 
@@ -423,7 +423,7 @@
             this.dtSabF.Name = "dtSabF";
             this.dtSabF.ShowUpDown = true;
             this.dtSabF.Size = new System.Drawing.Size(138, 36);
-            this.dtSabF.TabIndex = 35;
+            this.dtSabF.TabIndex = 37;
             this.dtSabF.Value = new System.DateTime(2023, 2, 7, 0, 0, 0, 0);
             this.dtSabF.ValueChanged += new System.EventHandler(this.dtLunesF_ValueChanged);
             // 
@@ -440,7 +440,7 @@
             this.dtSabI.Name = "dtSabI";
             this.dtSabI.ShowUpDown = true;
             this.dtSabI.Size = new System.Drawing.Size(138, 36);
-            this.dtSabI.TabIndex = 29;
+            this.dtSabI.TabIndex = 36;
             this.dtSabI.Value = new System.DateTime(2023, 2, 7, 0, 0, 0, 0);
             this.dtSabI.ValueChanged += new System.EventHandler(this.dtSabI_ValueChanged);
             // 
@@ -491,7 +491,7 @@
             this.dtJueF.Name = "dtJueF";
             this.dtJueF.ShowUpDown = true;
             this.dtJueF.Size = new System.Drawing.Size(138, 36);
-            this.dtJueF.TabIndex = 33;
+            this.dtJueF.TabIndex = 15;
             this.dtJueF.Value = new System.DateTime(2023, 2, 7, 0, 0, 0, 0);
             this.dtJueF.ValueChanged += new System.EventHandler(this.dtLunesF_ValueChanged);
             // 
@@ -508,7 +508,7 @@
             this.dtJueI.Name = "dtJueI";
             this.dtJueI.ShowUpDown = true;
             this.dtJueI.Size = new System.Drawing.Size(138, 36);
-            this.dtJueI.TabIndex = 29;
+            this.dtJueI.TabIndex = 14;
             this.dtJueI.Value = new System.DateTime(2023, 2, 7, 0, 0, 0, 0);
             this.dtJueI.ValueChanged += new System.EventHandler(this.dtJueI_ValueChanged);
             // 
@@ -525,7 +525,7 @@
             this.dtMieF.Name = "dtMieF";
             this.dtMieF.ShowUpDown = true;
             this.dtMieF.Size = new System.Drawing.Size(138, 36);
-            this.dtMieF.TabIndex = 32;
+            this.dtMieF.TabIndex = 12;
             this.dtMieF.Value = new System.DateTime(2023, 2, 7, 0, 0, 0, 0);
             this.dtMieF.ValueChanged += new System.EventHandler(this.dtLunesF_ValueChanged);
             // 
@@ -542,7 +542,7 @@
             this.dtMieI.Name = "dtMieI";
             this.dtMieI.ShowUpDown = true;
             this.dtMieI.Size = new System.Drawing.Size(138, 36);
-            this.dtMieI.TabIndex = 29;
+            this.dtMieI.TabIndex = 11;
             this.dtMieI.Value = new System.DateTime(2023, 2, 7, 0, 0, 0, 0);
             this.dtMieI.ValueChanged += new System.EventHandler(this.dtMieI_ValueChanged);
             // 
@@ -559,7 +559,7 @@
             this.dtMartesF.Name = "dtMartesF";
             this.dtMartesF.ShowUpDown = true;
             this.dtMartesF.Size = new System.Drawing.Size(138, 36);
-            this.dtMartesF.TabIndex = 31;
+            this.dtMartesF.TabIndex = 9;
             this.dtMartesF.Value = new System.DateTime(2023, 2, 7, 0, 0, 0, 0);
             this.dtMartesF.ValueChanged += new System.EventHandler(this.dtLunesF_ValueChanged);
             // 
@@ -576,7 +576,7 @@
             this.dtLunesF.Name = "dtLunesF";
             this.dtLunesF.ShowUpDown = true;
             this.dtLunesF.Size = new System.Drawing.Size(138, 36);
-            this.dtLunesF.TabIndex = 30;
+            this.dtLunesF.TabIndex = 6;
             this.dtLunesF.Value = new System.DateTime(2023, 2, 7, 0, 0, 0, 0);
             this.dtLunesF.ValueChanged += new System.EventHandler(this.dtLunesF_ValueChanged);
             // 
@@ -593,7 +593,7 @@
             this.dtLunesI.Name = "dtLunesI";
             this.dtLunesI.ShowUpDown = true;
             this.dtLunesI.Size = new System.Drawing.Size(138, 36);
-            this.dtLunesI.TabIndex = 29;
+            this.dtLunesI.TabIndex = 5;
             this.dtLunesI.Value = new System.DateTime(2023, 2, 7, 0, 0, 0, 0);
             this.dtLunesI.ValueChanged += new System.EventHandler(this.dtLunesI_ValueChanged);
             // 
@@ -652,7 +652,7 @@
             this.cbLun.ReadOnly = false;
             this.cbLun.Ripple = true;
             this.cbLun.Size = new System.Drawing.Size(192, 40);
-            this.cbLun.TabIndex = 33;
+            this.cbLun.TabIndex = 4;
             this.cbLun.Text = "LUNES";
             this.cbLun.UseVisualStyleBackColor = false;
             this.cbLun.CheckedChanged += new System.EventHandler(this.cbLun_CheckedChanged);
@@ -671,7 +671,7 @@
             this.dtMartesI.Name = "dtMartesI";
             this.dtMartesI.ShowUpDown = true;
             this.dtMartesI.Size = new System.Drawing.Size(138, 36);
-            this.dtMartesI.TabIndex = 29;
+            this.dtMartesI.TabIndex = 8;
             this.dtMartesI.Value = new System.DateTime(2023, 2, 7, 0, 0, 0, 0);
             this.dtMartesI.ValueChanged += new System.EventHandler(this.dtMartesI_ValueChanged);
             // 
@@ -704,7 +704,7 @@
             this.cmbSemestre.Location = new System.Drawing.Point(181, 22);
             this.cmbSemestre.Name = "cmbSemestre";
             this.cmbSemestre.Size = new System.Drawing.Size(192, 36);
-            this.cmbSemestre.TabIndex = 27;
+            this.cmbSemestre.TabIndex = 1;
             this.cmbSemestre.SelectedIndexChanged += new System.EventHandler(this.cmbSemestre_SelectedIndexChanged);
             // 
             // label6
@@ -746,7 +746,7 @@
             this.cmbGR.Location = new System.Drawing.Point(181, 111);
             this.cmbGR.Name = "cmbGR";
             this.cmbGR.Size = new System.Drawing.Size(192, 36);
-            this.cmbGR.TabIndex = 19;
+            this.cmbGR.TabIndex = 3;
             this.cmbGR.Visible = false;
             this.cmbGR.SelectedIndexChanged += new System.EventHandler(this.cmbGR_SelectedIndexChanged);
             // 
@@ -783,7 +783,7 @@
             this.cmbAsignaturas.Location = new System.Drawing.Point(181, 70);
             this.cmbAsignaturas.Name = "cmbAsignaturas";
             this.cmbAsignaturas.Size = new System.Drawing.Size(580, 35);
-            this.cmbAsignaturas.TabIndex = 18;
+            this.cmbAsignaturas.TabIndex = 2;
             this.cmbAsignaturas.Visible = false;
             this.cmbAsignaturas.SelectedIndexChanged += new System.EventHandler(this.cmbAsignaturas_SelectedIndexChanged);
             // 
@@ -801,7 +801,7 @@
             this.btnGuardar.MaximumSize = new System.Drawing.Size(125, 41);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(125, 41);
-            this.btnGuardar.TabIndex = 5;
+            this.btnGuardar.TabIndex = 41;
             this.btnGuardar.Text = "GUARDAR";
             this.btnGuardar.UseVisualStyleBackColor = false;
             this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
@@ -852,7 +852,8 @@
             this.btnCloseWin.MaximumSize = new System.Drawing.Size(125, 41);
             this.btnCloseWin.Name = "btnCloseWin";
             this.btnCloseWin.Size = new System.Drawing.Size(125, 41);
-            this.btnCloseWin.TabIndex = 5;
+            this.btnCloseWin.TabIndex = 43;
+            this.btnCloseWin.TabStop = false;
             this.btnCloseWin.Text = "CERRAR";
             this.btnCloseWin.UseVisualStyleBackColor = false;
             this.btnCloseWin.Click += new System.EventHandler(this.btnCloseWin_Click);
@@ -863,9 +864,9 @@
             this.label1.Font = new System.Drawing.Font("Calibri", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label1.Location = new System.Drawing.Point(24, 32);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(435, 35);
+            this.label1.Size = new System.Drawing.Size(720, 35);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Administrar Horarios de Asignaturas";
+            this.label1.Text = "ADMINISTRAR HORARIOS DE ASIGNATURAS POR SEMESTRES";
             // 
             // FrmCRUD_HorarioAsignatura
             // 

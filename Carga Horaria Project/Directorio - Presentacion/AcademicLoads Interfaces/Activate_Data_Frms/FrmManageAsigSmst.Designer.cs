@@ -61,9 +61,9 @@
             this.label1.ForeColor = System.Drawing.Color.Black;
             this.label1.Location = new System.Drawing.Point(39, 18);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(641, 37);
+            this.label1.Size = new System.Drawing.Size(793, 37);
             this.label1.TabIndex = 10;
-            this.label1.Text = "Administrar Asignaturas Activas por Semestre";
+            this.label1.Text = "ADMINISTRAR ASIGNATURAS ACTIVAS POR SEMESTRE";
             // 
             // cmbSemestre
             // 
@@ -72,7 +72,7 @@
             this.cmbSemestre.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbSemestre.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmbSemestre.FormattingEnabled = true;
-            this.cmbSemestre.Location = new System.Drawing.Point(39, 109);
+            this.cmbSemestre.Location = new System.Drawing.Point(39, 111);
             this.cmbSemestre.Name = "cmbSemestre";
             this.cmbSemestre.Size = new System.Drawing.Size(151, 28);
             this.cmbSemestre.TabIndex = 3;
@@ -111,7 +111,7 @@
             this.txtFiltro.Name = "txtFiltro";
             this.txtFiltro.PlaceholderText = "Asignatura o Código...";
             this.txtFiltro.Size = new System.Drawing.Size(293, 30);
-            this.txtFiltro.TabIndex = 11;
+            this.txtFiltro.TabIndex = 4;
             this.txtFiltro.TextChanged += new System.EventHandler(this.txtFiltro_TextChanged);
             this.txtFiltro.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFiltro_KeyPress);
             // 
@@ -137,7 +137,7 @@
             this.dgvAsignaturasSemestre.RowTemplate.Height = 29;
             this.dgvAsignaturasSemestre.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvAsignaturasSemestre.Size = new System.Drawing.Size(1178, 624);
-            this.dgvAsignaturasSemestre.TabIndex = 10;
+            this.dgvAsignaturasSemestre.TabIndex = 5;
             this.dgvAsignaturasSemestre.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAsignaturasSemestre_CellContentClick);
             // 
             // FrmManageAsigSmst

@@ -45,10 +45,6 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Error_Frms
             {
                 frmAcademicLoad.Close();
             }
-            if (frmMain != null)
-            {
-                frmMain.btnAsignarHoras_Click(sender, e);
-            }
             this.Close() ;
         }
     }

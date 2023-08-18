@@ -39,6 +39,7 @@ namespace Directorio___Presentacion.CRUD_Data_Interfaces
         {
             CN_Departamento objetoCNegocio = new CN_Departamento();
             dgLstRegistros.DataSource = objetoCNegocio.MostrarDepartamentos();
+            dgLstRegistros.Columns[0].Visible = false;
         }
 
 

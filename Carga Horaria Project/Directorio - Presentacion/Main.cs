@@ -210,12 +210,6 @@ namespace Directorio___Presentacion
             hideSubMenu();
             hideSubMenu2();
         }
-        public void btnAsignarHoras_Click(object sender, EventArgs e)
-        {
-            openChildForm(new FrmCRUD_HorasExigibles());
-            hideSubMenu();
-            hideSubMenu2();
-        }
 
 
         #endregion

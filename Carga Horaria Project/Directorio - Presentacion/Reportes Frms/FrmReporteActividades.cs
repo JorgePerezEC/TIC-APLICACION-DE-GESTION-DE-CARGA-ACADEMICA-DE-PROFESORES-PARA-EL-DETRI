@@ -120,6 +120,7 @@ namespace Directorio___Presentacion.Reportes_Frms
             {
                 FiltrarYActualizarDataGrid("D11");
                 filtroText = "Actividades de Docencia D11";
+                panelLecturaDiv.Visible = false;
             }
         }
 
@@ -140,6 +141,7 @@ namespace Directorio___Presentacion.Reportes_Frms
                 MostrarActividades();
                 txtFiltro.Text = "";
                 filtroText = "Sin Filtro";
+                panelLecturaDiv.Visible = false;
             }
         }
 

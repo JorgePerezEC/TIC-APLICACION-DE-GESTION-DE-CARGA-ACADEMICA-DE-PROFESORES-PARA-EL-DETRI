@@ -47,6 +47,8 @@
             this.btnNew = new System.Windows.Forms.Button();
             this.btnCloseWin = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.txtFiltro = new System.Windows.Forms.TextBox();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgLstRegistros)).BeginInit();
             this.panelCreate.SuspendLayout();
@@ -55,6 +57,8 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.label14);
+            this.panel2.Controls.Add(this.txtFiltro);
             this.panel2.Controls.Add(this.btnEliminar);
             this.panel2.Controls.Add(this.btnActualizar);
             this.panel2.Controls.Add(this.dgLstRegistros);
@@ -102,12 +106,12 @@
             // dgLstRegistros
             // 
             this.dgLstRegistros.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgLstRegistros.Location = new System.Drawing.Point(78, 105);
+            this.dgLstRegistros.Location = new System.Drawing.Point(76, 175);
             this.dgLstRegistros.Name = "dgLstRegistros";
             this.dgLstRegistros.RowHeadersWidth = 51;
             this.dgLstRegistros.RowTemplate.Height = 29;
             this.dgLstRegistros.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgLstRegistros.Size = new System.Drawing.Size(1090, 193);
+            this.dgLstRegistros.Size = new System.Drawing.Size(1090, 275);
             this.dgLstRegistros.TabIndex = 6;
             // 
             // label9
@@ -304,12 +308,38 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Roboto Black", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label1.Font = new System.Drawing.Font("Calibri", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label1.Location = new System.Drawing.Point(23, 37);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(204, 24);
+            this.label1.Size = new System.Drawing.Size(312, 35);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Administrar Carreras";
+            this.label1.Text = "ADMINISTRAR CARRERAS";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label14.ForeColor = System.Drawing.Color.White;
+            this.label14.Location = new System.Drawing.Point(78, 116);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(75, 28);
+            this.label14.TabIndex = 18;
+            this.label14.Text = "Filtrar:";
+            // 
+            // txtFiltro
+            // 
+            this.txtFiltro.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtFiltro.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.txtFiltro.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.txtFiltro.Location = new System.Drawing.Point(159, 114);
+            this.txtFiltro.Name = "txtFiltro";
+            this.txtFiltro.PlaceholderText = "...";
+            this.txtFiltro.Size = new System.Drawing.Size(535, 30);
+            this.txtFiltro.TabIndex = 17;
+            this.txtFiltro.TextChanged += new System.EventHandler(this.txtFiltro_TextChanged);
+            this.txtFiltro.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFiltro_KeyPress);
             // 
             // FrmCRUD_Carrera
             // 
@@ -356,5 +386,7 @@
         private TextBox txtPensum;
         private TextBox txtCodigo;
         private ComboBox cmbDepartamentos;
+        private Label label14;
+        private TextBox txtFiltro;
     }
 }

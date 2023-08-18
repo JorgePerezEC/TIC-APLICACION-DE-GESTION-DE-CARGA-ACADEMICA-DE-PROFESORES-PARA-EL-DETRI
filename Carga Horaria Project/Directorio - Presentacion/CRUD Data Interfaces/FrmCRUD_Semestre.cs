@@ -22,6 +22,7 @@ namespace Directorio___Presentacion.CRUD_Interfaces
         private string? idSemestre = null;
         private bool Editar = false;
         private int selectedYearCmb;
+        private DataTable dtData;
         //private string? nameDepartamento = null;
         //private string? emailDepartamento = null;
         public FrmCRUD_Semestre()
@@ -38,7 +39,9 @@ namespace Directorio___Presentacion.CRUD_Interfaces
         private void MostrarSemestres()
         {
             DAL_Semestre objetoCNegocio = new DAL_Semestre();
-            dgLstSemestres.DataSource = objetoCNegocio.MostrarRegistros();
+            dtData = objetoCNegocio.MostrarRegistros();
+            dgLstSemestres.DataSource = dtData;
+            dgLstSemestres.Columns[0].Visible = false;
         }
         private void GetDataCmbs()
         {
@@ -223,6 +226,34 @@ namespace Directorio___Presentacion.CRUD_Interfaces
                 btnGuardar.PerformClick();
                 e.Handled = true;
             }
+        }
+
+        private void txtFiltro_TextChanged(object sender, EventArgs e)
+        {
+            string filtro = txtFiltro.Text.Trim();
+            DataTable dataTableFiltrado = FiltrarDataTable(dtData, filtro);
+            dgLstSemestres.DataSource = dataTableFiltrado;
+        }
+        private DataTable FiltrarDataTable(DataTable dataTable, string filtro)
+        {
+            DataTable dataTableFiltrado = dataTable.Clone();
+            foreach (DataRow row in dataTable.Rows)
+            {
+                if (row.ItemArray.Any(field => field.ToString().IndexOf(filtro, StringComparison.OrdinalIgnoreCase) >= 0))
+                {
+                    dataTableFiltrado.ImportRow(row);
+                }
+            }
+
+            return dataTableFiltrado;
+        }
+
+        private void txtFiltro_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char tecla = char.ToUpper(e.KeyChar);
+
+            e.KeyChar = tecla;
+            e.Handled = false;
         }
     }
 }

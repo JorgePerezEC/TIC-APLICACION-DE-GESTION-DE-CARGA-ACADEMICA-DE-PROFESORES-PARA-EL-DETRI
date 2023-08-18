@@ -30,6 +30,7 @@
         {
             this.panelCreate = new System.Windows.Forms.Panel();
             this.panelSaveGR2 = new System.Windows.Forms.Panel();
+            this.lblNoHorario = new System.Windows.Forms.Label();
             this.panelSaveGR = new System.Windows.Forms.Panel();
             this.btnGuardar = new MaterialSkin.Controls.MaterialButton();
             this.btnClose = new MaterialSkin.Controls.MaterialButton();
@@ -86,11 +87,12 @@
             this.panelCreate.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelCreate.Location = new System.Drawing.Point(0, 0);
             this.panelCreate.Name = "panelCreate";
-            this.panelCreate.Size = new System.Drawing.Size(804, 631);
+            this.panelCreate.Size = new System.Drawing.Size(804, 561);
             this.panelCreate.TabIndex = 11;
             // 
             // panelSaveGR2
             // 
+            this.panelSaveGR2.Controls.Add(this.lblNoHorario);
             this.panelSaveGR2.Controls.Add(this.panelSaveGR);
             this.panelSaveGR2.Controls.Add(this.cmbGR);
             this.panelSaveGR2.Controls.Add(this.cmbAsignaturas);
@@ -99,8 +101,20 @@
             this.panelSaveGR2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelSaveGR2.Location = new System.Drawing.Point(0, 0);
             this.panelSaveGR2.Name = "panelSaveGR2";
-            this.panelSaveGR2.Size = new System.Drawing.Size(804, 233);
+            this.panelSaveGR2.Size = new System.Drawing.Size(804, 171);
             this.panelSaveGR2.TabIndex = 25;
+            // 
+            // lblNoHorario
+            // 
+            this.lblNoHorario.AutoSize = true;
+            this.lblNoHorario.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblNoHorario.ForeColor = System.Drawing.Color.Brown;
+            this.lblNoHorario.Location = new System.Drawing.Point(310, 77);
+            this.lblNoHorario.Name = "lblNoHorario";
+            this.lblNoHorario.Size = new System.Drawing.Size(249, 21);
+            this.lblNoHorario.TabIndex = 25;
+            this.lblNoHorario.Text = "Seleccione o ingrese un GR nuevo";
+            this.lblNoHorario.Visible = false;
             // 
             // panelSaveGR
             // 
@@ -108,7 +122,7 @@
             this.panelSaveGR.Controls.Add(this.btnClose);
             this.panelSaveGR.Location = new System.Drawing.Point(29, 108);
             this.panelSaveGR.Name = "panelSaveGR";
-            this.panelSaveGR.Size = new System.Drawing.Size(295, 96);
+            this.panelSaveGR.Size = new System.Drawing.Size(433, 56);
             this.panelSaveGR.TabIndex = 24;
             // 
             // btnGuardar
@@ -120,14 +134,14 @@
             this.btnGuardar.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnGuardar.HighEmphasis = true;
             this.btnGuardar.Icon = null;
-            this.btnGuardar.Location = new System.Drawing.Point(4, 26);
+            this.btnGuardar.Location = new System.Drawing.Point(4, 6);
             this.btnGuardar.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnGuardar.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.btnGuardar.Size = new System.Drawing.Size(128, 45);
-            this.btnGuardar.TabIndex = 34;
-            this.btnGuardar.Text = "CREAR";
+            this.btnGuardar.Size = new System.Drawing.Size(196, 45);
+            this.btnGuardar.TabIndex = 2;
+            this.btnGuardar.Text = "CREAR O MODIFICAR HORARIO";
             this.btnGuardar.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             this.btnGuardar.UseAccentColor = false;
             this.btnGuardar.UseVisualStyleBackColor = true;
@@ -142,13 +156,13 @@
             this.btnClose.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnClose.HighEmphasis = true;
             this.btnClose.Icon = null;
-            this.btnClose.Location = new System.Drawing.Point(150, 26);
+            this.btnClose.Location = new System.Drawing.Point(238, 6);
             this.btnClose.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnClose.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnClose.Name = "btnClose";
             this.btnClose.NoAccentTextColor = System.Drawing.Color.Empty;
             this.btnClose.Size = new System.Drawing.Size(128, 45);
-            this.btnClose.TabIndex = 33;
+            this.btnClose.TabIndex = 3;
             this.btnClose.Text = "CANCELAR";
             this.btnClose.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             this.btnClose.UseAccentColor = false;
@@ -184,7 +198,7 @@
             this.cmbGR.Location = new System.Drawing.Point(196, 74);
             this.cmbGR.Name = "cmbGR";
             this.cmbGR.Size = new System.Drawing.Size(97, 28);
-            this.cmbGR.TabIndex = 2;
+            this.cmbGR.TabIndex = 1;
             this.cmbGR.SelectedIndexChanged += new System.EventHandler(this.cmbGR_SelectedIndexChanged);
             // 
             // cmbAsignaturas
@@ -217,6 +231,7 @@
             this.cmbAsignaturas.Name = "cmbAsignaturas";
             this.cmbAsignaturas.Size = new System.Drawing.Size(511, 28);
             this.cmbAsignaturas.TabIndex = 1;
+            this.cmbAsignaturas.TabStop = false;
             this.cmbAsignaturas.SelectedIndexChanged += new System.EventHandler(this.cmbAsignaturas_SelectedIndexChanged);
             // 
             // label3
@@ -246,9 +261,9 @@
             this.panelCreateHorario.Controls.Add(this.btnSaveHorario);
             this.panelCreateHorario.Controls.Add(this.tblPanelHorario);
             this.panelCreateHorario.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelCreateHorario.Location = new System.Drawing.Point(0, 233);
+            this.panelCreateHorario.Location = new System.Drawing.Point(0, 171);
             this.panelCreateHorario.Name = "panelCreateHorario";
-            this.panelCreateHorario.Size = new System.Drawing.Size(804, 398);
+            this.panelCreateHorario.Size = new System.Drawing.Size(804, 390);
             this.panelCreateHorario.TabIndex = 24;
             this.panelCreateHorario.Visible = false;
             // 
@@ -346,7 +361,7 @@
             this.btnCancelarH.Name = "btnCancelarH";
             this.btnCancelarH.NoAccentTextColor = System.Drawing.Color.Empty;
             this.btnCancelarH.Size = new System.Drawing.Size(128, 45);
-            this.btnCancelarH.TabIndex = 35;
+            this.btnCancelarH.TabIndex = 42;
             this.btnCancelarH.Text = "CANCELAR";
             this.btnCancelarH.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             this.btnCancelarH.UseAccentColor = false;
@@ -368,7 +383,7 @@
             this.btnSaveHorario.Name = "btnSaveHorario";
             this.btnSaveHorario.NoAccentTextColor = System.Drawing.Color.Empty;
             this.btnSaveHorario.Size = new System.Drawing.Size(128, 45);
-            this.btnSaveHorario.TabIndex = 34;
+            this.btnSaveHorario.TabIndex = 41;
             this.btnSaveHorario.Text = "GUARDAR";
             this.btnSaveHorario.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             this.btnSaveHorario.UseAccentColor = false;
@@ -478,7 +493,7 @@
             this.cbVie.ReadOnly = false;
             this.cbVie.Ripple = true;
             this.cbVie.Size = new System.Drawing.Size(192, 40);
-            this.cbVie.TabIndex = 37;
+            this.cbVie.TabIndex = 17;
             this.cbVie.Text = "VIERNES";
             this.cbVie.UseVisualStyleBackColor = false;
             this.cbVie.CheckedChanged += new System.EventHandler(this.cbVie_CheckedChanged);
@@ -499,7 +514,7 @@
             this.cbJue.ReadOnly = false;
             this.cbJue.Ripple = true;
             this.cbJue.Size = new System.Drawing.Size(192, 40);
-            this.cbJue.TabIndex = 35;
+            this.cbJue.TabIndex = 14;
             this.cbJue.Text = "JUEVES";
             this.cbJue.UseVisualStyleBackColor = false;
             this.cbJue.CheckedChanged += new System.EventHandler(this.cbJue_CheckedChanged);
@@ -520,7 +535,7 @@
             this.cbMie.ReadOnly = false;
             this.cbMie.Ripple = true;
             this.cbMie.Size = new System.Drawing.Size(192, 40);
-            this.cbMie.TabIndex = 35;
+            this.cbMie.TabIndex = 11;
             this.cbMie.Text = "MIÉRCOLES";
             this.cbMie.UseVisualStyleBackColor = false;
             this.cbMie.CheckedChanged += new System.EventHandler(this.cbMie_CheckedChanged);
@@ -541,7 +556,7 @@
             this.cbMar.ReadOnly = false;
             this.cbMar.Ripple = true;
             this.cbMar.Size = new System.Drawing.Size(192, 40);
-            this.cbMar.TabIndex = 34;
+            this.cbMar.TabIndex = 8;
             this.cbMar.Text = "MARTES";
             this.cbMar.UseVisualStyleBackColor = false;
             this.cbMar.CheckedChanged += new System.EventHandler(this.cbMar_CheckedChanged);
@@ -559,7 +574,7 @@
             this.dtDomF.Name = "dtDomF";
             this.dtDomF.ShowUpDown = true;
             this.dtDomF.Size = new System.Drawing.Size(138, 36);
-            this.dtDomF.TabIndex = 36;
+            this.dtDomF.TabIndex = 40;
             this.dtDomF.Value = new System.DateTime(2023, 2, 7, 0, 0, 0, 0);
             this.dtDomF.ValueChanged += new System.EventHandler(this.dtLunesF_ValueChanged);
             // 
@@ -576,7 +591,7 @@
             this.dtDomI.Name = "dtDomI";
             this.dtDomI.ShowUpDown = true;
             this.dtDomI.Size = new System.Drawing.Size(138, 36);
-            this.dtDomI.TabIndex = 29;
+            this.dtDomI.TabIndex = 39;
             this.dtDomI.Value = new System.DateTime(2023, 2, 7, 0, 0, 0, 0);
             this.dtDomI.ValueChanged += new System.EventHandler(this.dtDomI_ValueChanged);
             // 
@@ -593,7 +608,7 @@
             this.dtSabF.Name = "dtSabF";
             this.dtSabF.ShowUpDown = true;
             this.dtSabF.Size = new System.Drawing.Size(138, 36);
-            this.dtSabF.TabIndex = 35;
+            this.dtSabF.TabIndex = 37;
             this.dtSabF.Value = new System.DateTime(2023, 2, 7, 0, 0, 0, 0);
             this.dtSabF.ValueChanged += new System.EventHandler(this.dtLunesF_ValueChanged);
             // 
@@ -610,7 +625,7 @@
             this.dtSabI.Name = "dtSabI";
             this.dtSabI.ShowUpDown = true;
             this.dtSabI.Size = new System.Drawing.Size(138, 36);
-            this.dtSabI.TabIndex = 29;
+            this.dtSabI.TabIndex = 36;
             this.dtSabI.Value = new System.DateTime(2023, 2, 7, 0, 0, 0, 0);
             this.dtSabI.ValueChanged += new System.EventHandler(this.dtSabI_ValueChanged);
             // 
@@ -627,7 +642,7 @@
             this.dtVieF.Name = "dtVieF";
             this.dtVieF.ShowUpDown = true;
             this.dtVieF.Size = new System.Drawing.Size(138, 36);
-            this.dtVieF.TabIndex = 34;
+            this.dtVieF.TabIndex = 19;
             this.dtVieF.Value = new System.DateTime(2023, 2, 7, 0, 0, 0, 0);
             this.dtVieF.ValueChanged += new System.EventHandler(this.dtLunesF_ValueChanged);
             // 
@@ -644,7 +659,7 @@
             this.dtVieI.Name = "dtVieI";
             this.dtVieI.ShowUpDown = true;
             this.dtVieI.Size = new System.Drawing.Size(138, 36);
-            this.dtVieI.TabIndex = 29;
+            this.dtVieI.TabIndex = 18;
             this.dtVieI.Value = new System.DateTime(2023, 2, 7, 0, 0, 0, 0);
             this.dtVieI.ValueChanged += new System.EventHandler(this.dtVieI_ValueChanged);
             // 
@@ -661,7 +676,7 @@
             this.dtJueF.Name = "dtJueF";
             this.dtJueF.ShowUpDown = true;
             this.dtJueF.Size = new System.Drawing.Size(138, 36);
-            this.dtJueF.TabIndex = 33;
+            this.dtJueF.TabIndex = 16;
             this.dtJueF.Value = new System.DateTime(2023, 2, 7, 0, 0, 0, 0);
             this.dtJueF.ValueChanged += new System.EventHandler(this.dtLunesF_ValueChanged);
             // 
@@ -678,7 +693,7 @@
             this.dtJueI.Name = "dtJueI";
             this.dtJueI.ShowUpDown = true;
             this.dtJueI.Size = new System.Drawing.Size(138, 36);
-            this.dtJueI.TabIndex = 29;
+            this.dtJueI.TabIndex = 15;
             this.dtJueI.Value = new System.DateTime(2023, 2, 7, 0, 0, 0, 0);
             this.dtJueI.ValueChanged += new System.EventHandler(this.dtJueI_ValueChanged);
             // 
@@ -695,7 +710,7 @@
             this.dtMieF.Name = "dtMieF";
             this.dtMieF.ShowUpDown = true;
             this.dtMieF.Size = new System.Drawing.Size(138, 36);
-            this.dtMieF.TabIndex = 32;
+            this.dtMieF.TabIndex = 13;
             this.dtMieF.Value = new System.DateTime(2023, 2, 7, 0, 0, 0, 0);
             this.dtMieF.ValueChanged += new System.EventHandler(this.dtLunesF_ValueChanged);
             // 
@@ -712,7 +727,7 @@
             this.dtMieI.Name = "dtMieI";
             this.dtMieI.ShowUpDown = true;
             this.dtMieI.Size = new System.Drawing.Size(138, 36);
-            this.dtMieI.TabIndex = 29;
+            this.dtMieI.TabIndex = 12;
             this.dtMieI.Value = new System.DateTime(2023, 2, 7, 0, 0, 0, 0);
             this.dtMieI.ValueChanged += new System.EventHandler(this.dtMieI_ValueChanged);
             // 
@@ -729,7 +744,7 @@
             this.dtMartesF.Name = "dtMartesF";
             this.dtMartesF.ShowUpDown = true;
             this.dtMartesF.Size = new System.Drawing.Size(138, 36);
-            this.dtMartesF.TabIndex = 31;
+            this.dtMartesF.TabIndex = 10;
             this.dtMartesF.Value = new System.DateTime(2023, 2, 7, 0, 0, 0, 0);
             this.dtMartesF.ValueChanged += new System.EventHandler(this.dtLunesF_ValueChanged);
             // 
@@ -746,7 +761,7 @@
             this.dtLunesF.Name = "dtLunesF";
             this.dtLunesF.ShowUpDown = true;
             this.dtLunesF.Size = new System.Drawing.Size(138, 36);
-            this.dtLunesF.TabIndex = 30;
+            this.dtLunesF.TabIndex = 7;
             this.dtLunesF.Value = new System.DateTime(2023, 2, 7, 0, 0, 0, 0);
             this.dtLunesF.ValueChanged += new System.EventHandler(this.dtLunesF_ValueChanged);
             // 
@@ -763,7 +778,7 @@
             this.dtLunesI.Name = "dtLunesI";
             this.dtLunesI.ShowUpDown = true;
             this.dtLunesI.Size = new System.Drawing.Size(138, 36);
-            this.dtLunesI.TabIndex = 29;
+            this.dtLunesI.TabIndex = 6;
             this.dtLunesI.Value = new System.DateTime(2023, 2, 7, 0, 0, 0, 0);
             this.dtLunesI.ValueChanged += new System.EventHandler(this.dtLunesI_ValueChanged);
             // 
@@ -822,7 +837,7 @@
             this.cbLun.ReadOnly = false;
             this.cbLun.Ripple = true;
             this.cbLun.Size = new System.Drawing.Size(192, 40);
-            this.cbLun.TabIndex = 33;
+            this.cbLun.TabIndex = 4;
             this.cbLun.Text = "LUNES";
             this.cbLun.UseVisualStyleBackColor = false;
             this.cbLun.CheckedChanged += new System.EventHandler(this.cbLun_CheckedChanged);
@@ -841,7 +856,7 @@
             this.dtMartesI.Name = "dtMartesI";
             this.dtMartesI.ShowUpDown = true;
             this.dtMartesI.Size = new System.Drawing.Size(138, 36);
-            this.dtMartesI.TabIndex = 29;
+            this.dtMartesI.TabIndex = 9;
             this.dtMartesI.Value = new System.DateTime(2023, 2, 7, 0, 0, 0, 0);
             this.dtMartesI.ValueChanged += new System.EventHandler(this.dtMartesI_ValueChanged);
             // 
@@ -849,7 +864,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(804, 631);
+            this.ClientSize = new System.Drawing.Size(804, 561);
             this.Controls.Add(this.panelCreate);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -917,5 +932,6 @@
         private Label label10;
         private Label lblHorasIngresadas;
         private Label lblHorasCorrespondientes;
+        private Label lblNoHorario;
     }
 }

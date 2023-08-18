@@ -1,6 +1,6 @@
 ﻿using Directorio___Presentacion.ElementsStyles_Configuration;
 using Directorio_Logica;
-
+using System.Data;
 
 namespace Directorio___Presentacion
 {
@@ -10,6 +10,7 @@ namespace Directorio___Presentacion
         private ClsStyles clsStyles = new ClsStyles();
         private string? idActividad = null;
         private string? idDepartamento = null;
+        private DataTable dtData;
         private bool Editar = false;
 
         public FrmCRUD_Actividad()
@@ -30,7 +31,10 @@ namespace Directorio___Presentacion
         private void MostrarActividades()
         {
             CN_Actividad objetoCNegocio = new CN_Actividad();
-            dgLstRegistros.DataSource = objetoCNegocio.MostrarActividadesNeg();
+            dtData = objetoCNegocio.MostrarActividadesNeg();
+            dgLstRegistros.DataSource = dtData;
+
+            dgLstRegistros.Columns[0].Visible = false;
         }
         private void ListarTiposActividades()
         {
@@ -188,6 +192,33 @@ namespace Directorio___Presentacion
             {
                 e.Handled = true; // Ignorar el carácter ingresado si no es un número ni una tecla de control
             }
+        }
+        private void txtFiltro_TextChanged(object sender, EventArgs e)
+        {
+            string filtro = txtFiltro.Text.Trim();
+            DataTable dataTableFiltrado = FiltrarDataTable(dtData, filtro);
+            dgLstRegistros.DataSource = dataTableFiltrado;
+        }
+        private DataTable FiltrarDataTable(DataTable dataTable, string filtro)
+        {
+            DataTable dataTableFiltrado = dataTable.Clone();
+            foreach (DataRow row in dataTable.Rows)
+            {
+                if (row.ItemArray.Any(field => field.ToString().IndexOf(filtro, StringComparison.OrdinalIgnoreCase) >= 0))
+                {
+                    dataTableFiltrado.ImportRow(row);
+                }
+            }
+
+            return dataTableFiltrado;
+        }
+
+        private void txtFiltro_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char tecla = char.ToUpper(e.KeyChar);
+
+            e.KeyChar = tecla;
+            e.Handled = false;
         }
     }
 }

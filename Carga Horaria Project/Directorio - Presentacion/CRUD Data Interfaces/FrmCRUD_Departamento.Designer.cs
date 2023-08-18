@@ -239,12 +239,12 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Roboto Black", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label1.Font = new System.Drawing.Font("Calibri", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label1.Location = new System.Drawing.Point(23, 37);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(263, 24);
+            this.label1.Size = new System.Drawing.Size(396, 35);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Administrar Departamentos";
+            this.label1.Text = "ADMINISTRAR DEPARTAMENTOS";
             // 
             // FrmCRUD_Departamento
             // 

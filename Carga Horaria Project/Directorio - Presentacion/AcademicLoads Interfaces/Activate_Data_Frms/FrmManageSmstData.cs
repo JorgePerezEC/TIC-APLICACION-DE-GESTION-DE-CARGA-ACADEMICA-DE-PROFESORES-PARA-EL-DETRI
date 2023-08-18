@@ -402,22 +402,22 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Activate_Data_Frms
 
         private void dgvDocenteSemestre_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
-            {
-                DataGridViewCell cell = dgvDocenteSemestre.Rows[e.RowIndex].Cells[e.ColumnIndex];
+            //if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            //{
+            //    DataGridViewCell cell = dgvDocenteSemestre.Rows[e.RowIndex].Cells[e.ColumnIndex];
 
-                if (cell.OwningColumn is DataGridViewCheckBoxColumn && cell.Value is bool)
-                {
-                    if ((bool)cell.Value)
-                    {
-                        e.CellStyle.BackColor = Color.Yellow; // Cambiar el color de fondo a amarillo
-                    }
-                    else
-                    {
-                        e.CellStyle.BackColor = Color.Transparent; // Restaurar el color de fondo predeterminado
-                    }
-                }
-            }
+            //    if (cell.OwningColumn is DataGridViewCheckBoxColumn && cell.Value is bool)
+            //    {
+            //        if ((bool)cell.Value)
+            //        {
+            //            e.CellStyle.BackColor = Color.Yellow; // Cambiar el color de fondo a amarillo
+            //        }
+            //        else
+            //        {
+            //            e.CellStyle.BackColor = Color.Transparent; // Restaurar el color de fondo predeterminado
+            //        }
+            //    }
+            //}
         }
     }
 }

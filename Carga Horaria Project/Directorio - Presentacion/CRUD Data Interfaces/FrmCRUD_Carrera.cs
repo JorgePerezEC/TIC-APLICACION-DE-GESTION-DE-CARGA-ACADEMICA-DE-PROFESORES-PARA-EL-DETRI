@@ -25,6 +25,7 @@ namespace Directorio___Presentacion.CRUD_Interfaces
         private string codigoCarrera;
         private string pensum;
         private string estado;
+        private DataTable dtData;
         public FrmCRUD_Carrera()
         {
             InitializeComponent();
@@ -40,7 +41,10 @@ namespace Directorio___Presentacion.CRUD_Interfaces
         private void MostrarCarreras()
         {
             CN_Carrera objetoCNegocio = new CN_Carrera();
-            dgLstRegistros.DataSource = objetoCNegocio.MostrarCarreras();
+            dtData = objetoCNegocio.MostrarCarreras();
+            dgLstRegistros.DataSource = dtData;
+            dgLstRegistros.Columns[0].Visible = false;
+
         }
         private void ListarDepartamentos()
         {
@@ -170,6 +174,34 @@ namespace Directorio___Presentacion.CRUD_Interfaces
                 btnGuardar.PerformClick();
                 e.Handled = true;
             }
+        }
+
+        private void txtFiltro_TextChanged(object sender, EventArgs e)
+        {
+            string filtro = txtFiltro.Text.Trim();
+            DataTable dataTableFiltrado = FiltrarDataTable(dtData, filtro);
+            dgLstRegistros.DataSource = dataTableFiltrado;
+        }
+        private DataTable FiltrarDataTable(DataTable dataTable, string filtro)
+        {
+            DataTable dataTableFiltrado = dataTable.Clone();
+            foreach (DataRow row in dataTable.Rows)
+            {
+                if (row.ItemArray.Any(field => field.ToString().IndexOf(filtro, StringComparison.OrdinalIgnoreCase) >= 0))
+                {
+                    dataTableFiltrado.ImportRow(row);
+                }
+            }
+
+            return dataTableFiltrado;
+        }
+
+        private void txtFiltro_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char tecla = char.ToUpper(e.KeyChar);
+
+            e.KeyChar = tecla;
+            e.Handled = false;
         }
     }
 }

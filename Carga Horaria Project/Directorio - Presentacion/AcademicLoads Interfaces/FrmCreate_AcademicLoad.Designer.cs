@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnCrearCargaAcademica = new MaterialSkin.Controls.MaterialButton();
+            this.btnNewCarga = new MaterialSkin.Controls.MaterialButton();
             this.panelHorasExigibles = new System.Windows.Forms.TableLayoutPanel();
             this.lblSemanasClases = new System.Windows.Forms.Label();
             this.lblHorasExigibles = new System.Windows.Forms.Label();
@@ -64,8 +66,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panelHijo = new System.Windows.Forms.Panel();
             this.dgvCargasHorarias = new System.Windows.Forms.DataGridView();
-            this.btnNewCarga = new MaterialSkin.Controls.MaterialButton();
-            this.btnCrearCargaAcademica = new MaterialSkin.Controls.MaterialButton();
             this.panel1.SuspendLayout();
             this.panelHorasExigibles.SuspendLayout();
             this.panelHoras.SuspendLayout();
@@ -94,6 +94,48 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1653, 227);
             this.panel1.TabIndex = 0;
+            // 
+            // btnCrearCargaAcademica
+            // 
+            this.btnCrearCargaAcademica.AutoSize = false;
+            this.btnCrearCargaAcademica.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnCrearCargaAcademica.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.btnCrearCargaAcademica.Depth = 0;
+            this.btnCrearCargaAcademica.HighEmphasis = true;
+            this.btnCrearCargaAcademica.Icon = null;
+            this.btnCrearCargaAcademica.Location = new System.Drawing.Point(364, 138);
+            this.btnCrearCargaAcademica.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnCrearCargaAcademica.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnCrearCargaAcademica.Name = "btnCrearCargaAcademica";
+            this.btnCrearCargaAcademica.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.btnCrearCargaAcademica.Size = new System.Drawing.Size(124, 45);
+            this.btnCrearCargaAcademica.TabIndex = 3;
+            this.btnCrearCargaAcademica.Text = "CREAR CARGA ACADÉMICA";
+            this.btnCrearCargaAcademica.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnCrearCargaAcademica.UseAccentColor = false;
+            this.btnCrearCargaAcademica.UseVisualStyleBackColor = true;
+            this.btnCrearCargaAcademica.Click += new System.EventHandler(this.btnCrearCargaAcademica_Click);
+            // 
+            // btnNewCarga
+            // 
+            this.btnNewCarga.AutoSize = false;
+            this.btnNewCarga.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnNewCarga.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.btnNewCarga.Depth = 0;
+            this.btnNewCarga.HighEmphasis = true;
+            this.btnNewCarga.Icon = null;
+            this.btnNewCarga.Location = new System.Drawing.Point(23, 138);
+            this.btnNewCarga.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnNewCarga.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnNewCarga.Name = "btnNewCarga";
+            this.btnNewCarga.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.btnNewCarga.Size = new System.Drawing.Size(124, 45);
+            this.btnNewCarga.TabIndex = 25;
+            this.btnNewCarga.Text = "NUEVA CARGA";
+            this.btnNewCarga.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnNewCarga.UseAccentColor = false;
+            this.btnNewCarga.UseVisualStyleBackColor = true;
+            this.btnNewCarga.Click += new System.EventHandler(this.btnNewCarga_Click);
             // 
             // panelHorasExigibles
             // 
@@ -529,7 +571,7 @@
             this.cmbDocente.Location = new System.Drawing.Point(148, 88);
             this.cmbDocente.Name = "cmbDocente";
             this.cmbDocente.Size = new System.Drawing.Size(340, 32);
-            this.cmbDocente.TabIndex = 13;
+            this.cmbDocente.TabIndex = 2;
             this.cmbDocente.SelectedIndexChanged += new System.EventHandler(this.cmbDocente_SelectedIndexChanged);
             // 
             // cmbSemestre
@@ -542,7 +584,7 @@
             this.cmbSemestre.Location = new System.Drawing.Point(148, 44);
             this.cmbSemestre.Name = "cmbSemestre";
             this.cmbSemestre.Size = new System.Drawing.Size(167, 32);
-            this.cmbSemestre.TabIndex = 12;
+            this.cmbSemestre.TabIndex = 1;
             this.cmbSemestre.SelectedIndexChanged += new System.EventHandler(this.cmbSemestre_SelectedIndexChanged);
             // 
             // label2
@@ -583,51 +625,9 @@
             this.dgvCargasHorarias.RowHeadersWidth = 51;
             this.dgvCargasHorarias.RowTemplate.Height = 29;
             this.dgvCargasHorarias.Size = new System.Drawing.Size(422, 645);
-            this.dgvCargasHorarias.TabIndex = 0;
+            this.dgvCargasHorarias.TabIndex = 4;
             this.dgvCargasHorarias.Visible = false;
             this.dgvCargasHorarias.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCargasHorarias_CellContentClick);
-            // 
-            // btnNewCarga
-            // 
-            this.btnNewCarga.AutoSize = false;
-            this.btnNewCarga.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnNewCarga.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            this.btnNewCarga.Depth = 0;
-            this.btnNewCarga.HighEmphasis = true;
-            this.btnNewCarga.Icon = null;
-            this.btnNewCarga.Location = new System.Drawing.Point(23, 138);
-            this.btnNewCarga.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.btnNewCarga.MouseState = MaterialSkin.MouseState.HOVER;
-            this.btnNewCarga.Name = "btnNewCarga";
-            this.btnNewCarga.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.btnNewCarga.Size = new System.Drawing.Size(124, 45);
-            this.btnNewCarga.TabIndex = 25;
-            this.btnNewCarga.Text = "NUEVA CARGA";
-            this.btnNewCarga.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.btnNewCarga.UseAccentColor = false;
-            this.btnNewCarga.UseVisualStyleBackColor = true;
-            this.btnNewCarga.Click += new System.EventHandler(this.btnNewCarga_Click);
-            // 
-            // btnCrearCargaAcademica
-            // 
-            this.btnCrearCargaAcademica.AutoSize = false;
-            this.btnCrearCargaAcademica.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnCrearCargaAcademica.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            this.btnCrearCargaAcademica.Depth = 0;
-            this.btnCrearCargaAcademica.HighEmphasis = true;
-            this.btnCrearCargaAcademica.Icon = null;
-            this.btnCrearCargaAcademica.Location = new System.Drawing.Point(364, 138);
-            this.btnCrearCargaAcademica.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.btnCrearCargaAcademica.MouseState = MaterialSkin.MouseState.HOVER;
-            this.btnCrearCargaAcademica.Name = "btnCrearCargaAcademica";
-            this.btnCrearCargaAcademica.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.btnCrearCargaAcademica.Size = new System.Drawing.Size(124, 45);
-            this.btnCrearCargaAcademica.TabIndex = 26;
-            this.btnCrearCargaAcademica.Text = "CREAR CARGA ACADÉMICA";
-            this.btnCrearCargaAcademica.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.btnCrearCargaAcademica.UseAccentColor = false;
-            this.btnCrearCargaAcademica.UseVisualStyleBackColor = true;
-            this.btnCrearCargaAcademica.Click += new System.EventHandler(this.btnCrearCargaAcademica_Click);
             // 
             // FrmCreate_AcademicLoad
             // 

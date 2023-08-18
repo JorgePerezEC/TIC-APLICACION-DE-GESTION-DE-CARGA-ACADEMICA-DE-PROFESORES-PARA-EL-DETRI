@@ -24,6 +24,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
 
         private bool isCruceHorario = false;
         private int idAcLoad;
+        private int count = 0;
         private int idSemestreLocal;
         private string idAsigCarga;
         private int idGrAsignatura;
@@ -74,7 +75,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
             else
             {
                 ListarAsignaturas();
-                cmbAsignatura.SelectedIndex = -1;
+                cmbAsignatura.SelectedIndex = 0;
                 cmbGR.SelectedIndex = -1;
             }
         }
@@ -170,6 +171,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
             cmbAsignatura.DataSource = LstAsignaturas;
             cmbAsignatura.DisplayMember = "Asignatura";
             cmbAsignatura.ValueMember = "ID";
+            cmbAsignatura.SelectedIndex = 0;
 
             lstBoxAsignaturas.DataSource = LstAsignaturas;
             lstBoxAsignaturas.DisplayMember = "Asignatura";
@@ -178,37 +180,41 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
         }
         public void ListarGruposAsignatura(bool NewGr)
         {
-            if (cmbAsignatura.SelectedIndex > -1)
+            if (cmbAsignatura.SelectedIndex > -1 && cmbAsignatura.SelectedValue != null)
             {
-                panelGR.Visible = true;
-                cmbGR.Visible = true;
-
-                CN_GrAsignatura objetoGrNegocio = new CN_GrAsignatura();
-                dtGrs = objetoGrNegocio.MostrarGruposPorAsignaturaWHorario_Negocio(idSemestreLocal.ToString(),cmbAsignatura.SelectedValue.ToString());
-                cmbGR.DataSource = dtGrs;
-                cmbGR.DisplayMember = "Grupos";
-                cmbGR.ValueMember = "ID";
-
-                txtNivel.Text = objetoGrNegocio.GetLvlAsignatura_Negocio(cmbAsignatura.SelectedValue.ToString());
-                txtType.Text = objetoGrNegocio.GetTypeAsigByAsig_Negocio(cmbAsignatura.SelectedValue.ToString());
-                txtCode.Text = objetoGrNegocio.GetCodeAsigByAsig_Negocio(cmbAsignatura.SelectedValue.ToString());
-
-                if (dtGrs.Rows.Count > 0)
+                if (int.TryParse(cmbAsignatura.SelectedValue.ToString(), out int selectedValueAsInt) && selectedValueAsInt > 0)
                 {
-                    lblNoHorario.Visible = false;
-                    dgvHorario.Visible = true;
-                    
-                    if (NewGr)
-                    {
-                        cmbGR.SelectedIndex = cmbGR.Items.Count - 1;
-                    }
+                    panelGR.Visible = true;
+                    cmbGR.Visible = true;
+
+                    CN_GrAsignatura objetoGrNegocio = new CN_GrAsignatura();
+                    dtGrs = objetoGrNegocio.MostrarGruposPorAsignaturaWHorario_Negocio(idSemestreLocal.ToString(),cmbAsignatura.SelectedValue.ToString());
+                    cmbGR.DataSource = dtGrs;
+                    cmbGR.DisplayMember = "Grupos";
+                    cmbGR.ValueMember = "ID";
+
+                    txtNivel.Text = objetoGrNegocio.GetLvlAsignatura_Negocio(cmbAsignatura.SelectedValue.ToString());
+                    txtType.Text = objetoGrNegocio.GetTypeAsigByAsig_Negocio(cmbAsignatura.SelectedValue.ToString());
+                    txtCode.Text = objetoGrNegocio.GetCodeAsigByAsig_Negocio(cmbAsignatura.SelectedValue.ToString());
+
                     btnAddGR.Enabled = true;
-                }
-                else
-                {
-                    //clearData();
-                    panelHorario.Visible = false;
-                    lblNoHorario.Visible = true;
+                    if (dtGrs.Rows.Count > 0)
+                    {
+                        lblNoHorario.Visible = false;
+                        dgvHorario.Visible = true;
+                    
+                        if (NewGr)
+                        {
+                            cmbGR.SelectedIndex = cmbGR.Items.Count - 1;
+                        }
+                    }
+                    else
+                    {
+                        //clearData();
+                        panelHorario.Visible = false;
+                        lblNoHorario.Visible = true;
+                    }
+
                 }
 
             }
@@ -225,15 +231,24 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
 
         private void cmbGR_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //count++;
+            //MessageBox.Show(count.ToString(),"count");
+            //MessageBox.Show(cmbAsignatura.SelectedIndex.ToString(), "cmbAsignatura selectedIndex");
+            //MessageBox.Show(cmbAsignatura.SelectedValue.ToString(), "cmbAsig Value Selected");
             if (cmbAsignatura.SelectedIndex > -1 && cmbAsignatura.SelectedValue != null)
             {
                 if (int.TryParse(cmbGR.SelectedValue.ToString(), out int selectedValueAsInt) && selectedValueAsInt > 0)
                 {
                     if (dtGrs.Rows.Count > 0)
                     {
+                        
                         panelHorario.Visible = true;
                         CN_HorarioAsignatura objetoCNegocio = new CN_HorarioAsignatura();
                         DataTable dtHorarios = objetoCNegocio.GetHorariosByAsignaturaGRView_Negocio(idSemestreLocal.ToString(), cmbGR.SelectedValue.ToString());
+                        if (dtHorarios.Rows.Count ==  0)
+                        {
+                            return;
+                        }
                         dgvHorario.DataSource = dtHorarios;
                         dgvHorario.Columns[3].Visible = false;
                         dgvHorario.Columns[4].Visible = false;

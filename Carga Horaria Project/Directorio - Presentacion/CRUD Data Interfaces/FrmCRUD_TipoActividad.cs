@@ -19,7 +19,7 @@ namespace Directorio___Presentacion.CRUD_Interfaces
         public FrmCRUD_TipoActividad()
         {
             InitializeComponent();
-            clsStyles.tableStyle(dgLstTpActividades);
+            clsStyles.tableLargeRowStyle(dgLstTpActividades);
         }
 
         private void FrmCRUD_TipoActividad_Load(object sender, EventArgs e)
@@ -30,6 +30,9 @@ namespace Directorio___Presentacion.CRUD_Interfaces
         {
             CN_TipoActividad objetoCNegocio = new CN_TipoActividad();
             dgLstTpActividades.DataSource = objetoCNegocio.MostrarTiposActividadesLn();
+            dgLstTpActividades.Columns[0].Visible = false;
+            dgLstTpActividades.Columns[1].HeaderText = "TIPO DE ACTIVIDAD";
+            dgLstTpActividades.Columns[2].HeaderText = "DESCRIPCIÓN";
         }
         #region Clicks Events
         private void btnCloseWin_Click(object sender, EventArgs e)

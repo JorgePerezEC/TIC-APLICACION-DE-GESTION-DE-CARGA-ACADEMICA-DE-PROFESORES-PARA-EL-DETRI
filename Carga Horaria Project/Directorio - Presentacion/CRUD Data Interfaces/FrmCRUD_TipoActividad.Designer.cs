@@ -98,12 +98,12 @@
             // dgLstTpActividades
             // 
             this.dgLstTpActividades.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgLstTpActividades.Location = new System.Drawing.Point(78, 105);
+            this.dgLstTpActividades.Location = new System.Drawing.Point(76, 104);
             this.dgLstTpActividades.Name = "dgLstTpActividades";
             this.dgLstTpActividades.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
             this.dgLstTpActividades.RowTemplate.Height = 29;
             this.dgLstTpActividades.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgLstTpActividades.Size = new System.Drawing.Size(1090, 228);
+            this.dgLstTpActividades.Size = new System.Drawing.Size(603, 365);
             this.dgLstTpActividades.TabIndex = 6;
             // 
             // label9
@@ -141,7 +141,7 @@
             this.btnGuardar.FlatAppearance.BorderSize = 0;
             this.btnGuardar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGuardar.Font = new System.Drawing.Font("Roboto Black", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnGuardar.Location = new System.Drawing.Point(645, 39);
+            this.btnGuardar.Location = new System.Drawing.Point(794, 29);
             this.btnGuardar.MaximumSize = new System.Drawing.Size(125, 41);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(125, 41);
@@ -157,7 +157,7 @@
             this.txtDescripcion.Multiline = true;
             this.txtDescripcion.Name = "txtDescripcion";
             this.txtDescripcion.PlaceholderText = "Ingrese una descripción del tipo de actividad";
-            this.txtDescripcion.Size = new System.Drawing.Size(306, 85);
+            this.txtDescripcion.Size = new System.Drawing.Size(452, 85);
             this.txtDescripcion.TabIndex = 10;
             this.txtDescripcion.Text = "\r\n";
             // 
@@ -167,7 +167,7 @@
             this.txtNameTpAct.Location = new System.Drawing.Point(295, 29);
             this.txtNameTpAct.Name = "txtNameTpAct";
             this.txtNameTpAct.PlaceholderText = "Ingrese el nombre del tipo de actividad";
-            this.txtNameTpAct.Size = new System.Drawing.Size(306, 27);
+            this.txtNameTpAct.Size = new System.Drawing.Size(452, 27);
             this.txtNameTpAct.TabIndex = 9;
             // 
             // label3
@@ -211,7 +211,7 @@
             this.btnNewTpActividad.FlatAppearance.BorderSize = 0;
             this.btnNewTpActividad.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNewTpActividad.Font = new System.Drawing.Font("Roboto Black", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnNewTpActividad.Location = new System.Drawing.Point(497, 25);
+            this.btnNewTpActividad.Location = new System.Drawing.Point(598, 31);
             this.btnNewTpActividad.MaximumSize = new System.Drawing.Size(125, 41);
             this.btnNewTpActividad.Name = "btnNewTpActividad";
             this.btnNewTpActividad.Size = new System.Drawing.Size(125, 36);
@@ -240,12 +240,12 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Roboto Black", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(82, 31);
+            this.label1.Font = new System.Drawing.Font("Calibri", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label1.Location = new System.Drawing.Point(23, 28);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(313, 24);
+            this.label1.Size = new System.Drawing.Size(456, 35);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Administrar Tipos de Actividades";
+            this.label1.Text = "ADMINISTRAR TIPOS DE ACTIVIDADES";
             // 
             // FrmCRUD_TipoActividad
             // 

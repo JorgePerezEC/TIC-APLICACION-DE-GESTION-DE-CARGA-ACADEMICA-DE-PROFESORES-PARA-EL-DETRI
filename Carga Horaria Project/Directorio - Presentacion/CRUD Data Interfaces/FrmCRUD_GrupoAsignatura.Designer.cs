@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label14 = new System.Windows.Forms.Label();
+            this.txtFiltro = new System.Windows.Forms.TextBox();
             this.btnEliminar = new System.Windows.Forms.Button();
             this.btnActualizar = new System.Windows.Forms.Button();
             this.dgLstRegistros = new System.Windows.Forms.DataGridView();
@@ -51,6 +53,8 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.label14);
+            this.panel2.Controls.Add(this.txtFiltro);
             this.panel2.Controls.Add(this.btnEliminar);
             this.panel2.Controls.Add(this.btnActualizar);
             this.panel2.Controls.Add(this.dgLstRegistros);
@@ -60,6 +64,32 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1394, 498);
             this.panel2.TabIndex = 11;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label14.ForeColor = System.Drawing.Color.White;
+            this.label14.Location = new System.Drawing.Point(75, 123);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(75, 28);
+            this.label14.TabIndex = 18;
+            this.label14.Text = "Filtrar:";
+            // 
+            // txtFiltro
+            // 
+            this.txtFiltro.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtFiltro.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.txtFiltro.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.txtFiltro.Location = new System.Drawing.Point(156, 121);
+            this.txtFiltro.Name = "txtFiltro";
+            this.txtFiltro.PlaceholderText = "...";
+            this.txtFiltro.Size = new System.Drawing.Size(535, 30);
+            this.txtFiltro.TabIndex = 17;
+            this.txtFiltro.TextChanged += new System.EventHandler(this.txtFiltro_TextChanged);
+            this.txtFiltro.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFiltro_KeyPress);
             // 
             // btnEliminar
             // 
@@ -98,13 +128,14 @@
             // dgLstRegistros
             // 
             this.dgLstRegistros.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgLstRegistros.Location = new System.Drawing.Point(78, 105);
+            this.dgLstRegistros.Location = new System.Drawing.Point(76, 176);
             this.dgLstRegistros.Name = "dgLstRegistros";
             this.dgLstRegistros.RowHeadersWidth = 51;
             this.dgLstRegistros.RowTemplate.Height = 29;
             this.dgLstRegistros.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgLstRegistros.Size = new System.Drawing.Size(1213, 307);
+            this.dgLstRegistros.Size = new System.Drawing.Size(703, 363);
             this.dgLstRegistros.TabIndex = 6;
+            this.dgLstRegistros.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgLstRegistros_CellContentClick);
             // 
             // label9
             // 
@@ -134,7 +165,7 @@
             // 
             // cmbGR
             // 
-            this.cmbGR.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbGR.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.cmbGR.FormattingEnabled = true;
             this.cmbGR.Items.AddRange(new object[] {
             "GR1",
@@ -159,12 +190,14 @@
             "GR20"});
             this.cmbGR.Location = new System.Drawing.Point(186, 68);
             this.cmbGR.Name = "cmbGR";
-            this.cmbGR.Size = new System.Drawing.Size(97, 28);
+            this.cmbGR.Size = new System.Drawing.Size(97, 32);
             this.cmbGR.TabIndex = 19;
             // 
             // cmbAsignaturas
             // 
-            this.cmbAsignaturas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbAsignaturas.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cmbAsignaturas.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cmbAsignaturas.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.cmbAsignaturas.FormattingEnabled = true;
             this.cmbAsignaturas.Items.AddRange(new object[] {
             "1",
@@ -189,7 +222,7 @@
             "20"});
             this.cmbAsignaturas.Location = new System.Drawing.Point(186, 29);
             this.cmbAsignaturas.Name = "cmbAsignaturas";
-            this.cmbAsignaturas.Size = new System.Drawing.Size(465, 28);
+            this.cmbAsignaturas.Size = new System.Drawing.Size(663, 32);
             this.cmbAsignaturas.TabIndex = 18;
             this.cmbAsignaturas.SelectedIndexChanged += new System.EventHandler(this.cmbAsignaturas_SelectedIndexChanged);
             // 
@@ -214,20 +247,20 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft YaHei", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label3.Location = new System.Drawing.Point(19, 68);
+            this.label3.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label3.Location = new System.Drawing.Point(44, 71);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(38, 23);
+            this.label3.Size = new System.Drawing.Size(40, 24);
             this.label3.TabIndex = 3;
             this.label3.Text = "GR:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft YaHei", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label2.Location = new System.Drawing.Point(23, 29);
+            this.label2.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label2.Location = new System.Drawing.Point(48, 32);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(100, 23);
+            this.label2.Size = new System.Drawing.Size(106, 24);
             this.label2.TabIndex = 2;
             this.label2.Text = "Asignatura:";
             // 
@@ -252,10 +285,10 @@
             this.btnNew.FlatAppearance.BorderSize = 0;
             this.btnNew.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNew.Font = new System.Drawing.Font("Roboto Black", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnNew.Location = new System.Drawing.Point(465, 33);
+            this.btnNew.Location = new System.Drawing.Point(654, 33);
             this.btnNew.MaximumSize = new System.Drawing.Size(125, 41);
             this.btnNew.Name = "btnNew";
-            this.btnNew.Size = new System.Drawing.Size(125, 26);
+            this.btnNew.Size = new System.Drawing.Size(125, 39);
             this.btnNew.TabIndex = 6;
             this.btnNew.Text = "Nuevo";
             this.btnNew.UseVisualStyleBackColor = false;
@@ -281,12 +314,12 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Roboto Black", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(23, 37);
+            this.label1.Font = new System.Drawing.Font("Calibri", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label1.Location = new System.Drawing.Point(23, 31);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(302, 24);
+            this.label1.Size = new System.Drawing.Size(578, 35);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Administrar GRs por Asignatura";
+            this.label1.Text = "ADMINISTRAR GRUPOS O GRs POR ASIGNATURA";
             // 
             // FrmCRUD_GrupoAsignatura
             // 
@@ -328,5 +361,7 @@
         private Button btnNew;
         private Button btnCloseWin;
         private Label label1;
+        private Label label14;
+        private TextBox txtFiltro;
     }
 }

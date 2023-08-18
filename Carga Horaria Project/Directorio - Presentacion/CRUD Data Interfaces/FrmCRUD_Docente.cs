@@ -19,12 +19,8 @@ namespace Directorio___Presentacion.CRUD_Interfaces
         private ClsStyles clsStyles = new ClsStyles();
 
         private string? idDocente = null;
-        private string? idDepartamento = null;
         private bool Editar = false;
-        private string nameCarrera;
-        private string codigoCarrera;
-        private string pensum;
-        private string estado;
+        private DataTable dtData;
         public FrmCRUD_Docente()
         {
             InitializeComponent();
@@ -39,9 +35,12 @@ namespace Directorio___Presentacion.CRUD_Interfaces
         private void MostrarDocentes()
         {
             CN_Docente objetoCNegocio = new CN_Docente();
-            dgLstRegistros.DataSource = objetoCNegocio.MostrarDocentes();
+            dtData = objetoCNegocio.MostrarDocentes();
+            dgLstRegistros.DataSource = dtData;
+
             clsStyles.tableStyle(dgLstRegistros);
             dgLstRegistros.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+            dgLstRegistros.Columns[0].Visible = false;
         }
         private void ListarDepartamentos()
         {
@@ -76,12 +75,12 @@ namespace Directorio___Presentacion.CRUD_Interfaces
                 {
                     if (cmbDepartamentos.SelectedIndex == -1)
                     {
-                        MessageBox.Show("Debe seleccionar un Departamento para completar el registro.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Debe seleccionar un Departamento para completar el registro.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
                     if (txtSApellido.Text == string.Empty || txtTitulo.Text == string.Empty || txtPNombre.Text == string.Empty || txtPApellido.Text == string.Empty || txtSApellido.Text == string.Empty)
                     {
-                        MessageBox.Show("Debe completar todos los campos de texto para completar el registro.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Debe completar todos los campos de texto para completar el registro.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
                     int cmbValue = Convert.ToInt32(cmbDepartamentos.SelectedValue);
@@ -185,6 +184,34 @@ namespace Directorio___Presentacion.CRUD_Interfaces
         private void cmbDepartamentos_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void txtFiltro_TextChanged(object sender, EventArgs e)
+        {
+            string filtro = txtFiltro.Text.Trim();
+            DataTable dataTableFiltrado = FiltrarDataTable(dtData, filtro);
+            dgLstRegistros.DataSource = dataTableFiltrado;
+        }
+        private DataTable FiltrarDataTable(DataTable dataTable, string filtro)
+        {
+            DataTable dataTableFiltrado = dataTable.Clone();
+            foreach (DataRow row in dataTable.Rows)
+            {
+                if (row.ItemArray.Any(field => field.ToString().IndexOf(filtro, StringComparison.OrdinalIgnoreCase) >= 0))
+                {
+                    dataTableFiltrado.ImportRow(row);
+                }
+            }
+
+            return dataTableFiltrado;
+        }
+
+        private void txtFiltro_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char tecla = char.ToUpper(e.KeyChar);
+
+            e.KeyChar = tecla;
+            e.Handled = false;
         }
     }
 }

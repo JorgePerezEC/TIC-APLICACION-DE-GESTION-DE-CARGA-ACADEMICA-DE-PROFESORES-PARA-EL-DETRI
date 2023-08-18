@@ -20,6 +20,7 @@ namespace Directorio___Presentacion.CRUD_Interfaces
         private bool Editar = false;
         private string nameCarrera;
         private string estado;
+        private DataTable dtData;
         public FrmCRUD_Asignatura()
         {
             InitializeComponent();
@@ -41,7 +42,9 @@ namespace Directorio___Presentacion.CRUD_Interfaces
         private void MostrarAsignaturas()
         {
             CN_Asignatura objetoCNegocio = new CN_Asignatura();
-            dgLstRegistros.DataSource = objetoCNegocio.MostrarAsignaturas();
+            dtData = objetoCNegocio.MostrarAsignaturas();
+            dgLstRegistros.DataSource = dtData;
+
             dgLstRegistros.Columns[0].Visible = false;
             dgLstRegistros.Columns[1].Visible = false;
         }
@@ -172,6 +175,39 @@ namespace Directorio___Presentacion.CRUD_Interfaces
             {
                 e.Handled = true; // Ignorar el carácter ingresado si no es un número ni una tecla de control
             }
+        }
+
+        private void txtFiltro_TextChanged(object sender, EventArgs e)
+        {
+            string filtro = txtFiltro.Text.Trim();
+            DataTable dataTableFiltrado = FiltrarDataTable(dtData, filtro);
+            dgLstRegistros.DataSource = dataTableFiltrado;
+        }
+        private DataTable FiltrarDataTable(DataTable dataTable, string filtro)
+        {
+            DataTable dataTableFiltrado = dataTable.Clone();
+            foreach (DataRow row in dataTable.Rows)
+            {
+                if (row.ItemArray.Any(field => field.ToString().IndexOf(filtro, StringComparison.OrdinalIgnoreCase) >= 0))
+                {
+                    dataTableFiltrado.ImportRow(row);
+                }
+            }
+
+            return dataTableFiltrado;
+        }
+
+        private void txtFiltro_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char tecla = char.ToUpper(e.KeyChar);
+
+            e.KeyChar = tecla;
+            e.Handled = false;
+        }
+
+        private void label14_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

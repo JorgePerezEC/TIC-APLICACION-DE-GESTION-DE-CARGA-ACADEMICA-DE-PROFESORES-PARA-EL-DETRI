@@ -24,7 +24,7 @@ namespace Directorio___Presentacion.CRUD_Interfaces
         public FrmCRUD_TipoDocente()
         {
             InitializeComponent();
-            clsStyles.tableStyle(dgLstTpDocentes);
+            clsStyles.tableLargeRowStyle(dgLstTpDocentes);
         }
 
         private void FrmTipoDocente_Load(object sender, EventArgs e)
@@ -36,6 +36,9 @@ namespace Directorio___Presentacion.CRUD_Interfaces
         {
             CN_TipoDocente objetoCNegocio = new CN_TipoDocente();
             dgLstTpDocentes.DataSource = objetoCNegocio.MostrarTiposDocentesLn();
+            dgLstTpDocentes.Columns[0].Visible = false;
+            dgLstTpDocentes.Columns[1].HeaderText = "TIPO DE DOCENTE";
+            dgLstTpDocentes.Columns[2].HeaderText = "HORAS SEMESTRALES";
         }
         #region Clicks Events
         private void btnNew_Click(object sender, EventArgs e)
@@ -44,20 +47,25 @@ namespace Directorio___Presentacion.CRUD_Interfaces
         }
         private void btnGuardar_Click(object sender, EventArgs e)
         {
+            if (txtHorasExigibles.Text == string.Empty || txtNameTpDoc.Text == string.Empty )
+            {
+                MessageBox.Show("Debe completar todos los campos de texto para completar el registro.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
             if (Editar == false)
             {
                 try
                 {
                     objetoCNegocio.CreateTiposDocentesNeg(txtNameTpDoc.Text, txtHorasExigibles.Text);
-                    MessageBox.Show("Tipo de docente insertado correctamente");
+                    MessageBox.Show("Tipo de docente insertado correctamente", "TIPO DE DOCENTE REGISTRADO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     MostrarTiposDocentes();
                     panelNewTpActividad.Visible = false;
                     //ClearTxtBox();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Excepción: No se pudo registrar el Tipo de docente. Motivo: " + ex.Message);
+                    MessageBox.Show("Excepción: No se pudo registrar el Tipo de docente. Motivo: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
             }
@@ -66,14 +74,14 @@ namespace Directorio___Presentacion.CRUD_Interfaces
                 try
                 {
                     objetoCNegocio.UpdateTiposDocentesNeg(idTpDocente, txtNameTpDoc.Text, txtHorasExigibles.Text);
-                    MessageBox.Show("Tipo de docente actualizado correctamente");
+                    MessageBox.Show("Tipo de docente actualizado correctamente", "TIPO DE DOCENTE ACTUALIZADO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     MostrarTiposDocentes();
                     Editar = false;
                     //ClearTxtBox();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error: " + ex.Message);
+                    MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             panelNewTpActividad.Visible = false;
@@ -93,13 +101,13 @@ namespace Directorio___Presentacion.CRUD_Interfaces
                 }
                 else
                 {
-                    MessageBox.Show("Por favor, seleccione el registro que desee editar.");
+                    MessageBox.Show("Por favor, seleccione el registro que desee editar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
 
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Excepción: No se pudo actualizar el Tipo de Actividad seleccionado. Motivo: " + ex.Message);
+                MessageBox.Show("Excepción: No se pudo actualizar el Tipo de Docente seleccionado. Motivo: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -111,19 +119,19 @@ namespace Directorio___Presentacion.CRUD_Interfaces
                 {
                     idTpDocente = dgLstTpDocentes.CurrentRow.Cells[0].Value.ToString()!;
                     objetoCNegocio.DeleteTiposDocentesNeg(idTpDocente);
-                    MessageBox.Show("Tipo de Actividad eliminado correctamente");
+                    MessageBox.Show("Tipo de Docente eliminado correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     MostrarTiposDocentes();
                     //ClearTxtBox();
                 }
                 else
                 {
-                    MessageBox.Show("Por favor, seleccione el registro que desee eliminar.");
+                    MessageBox.Show("Por favor, seleccione el registro que desee eliminar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
 
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Excepción: No se pudo eliminar el Tipo de Actividad seleccionado. Motivo: " + ex.Message);
+                MessageBox.Show("Excepción: No se pudo eliminar el Tipo de Docente seleccionado. Motivo: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -131,8 +139,15 @@ namespace Directorio___Presentacion.CRUD_Interfaces
         {
             this.Close();
         }
+
         #endregion
 
-
+        private void txtHorasExigibles_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true; // Ignorar el carácter ingresado si no es un número ni una tecla de control
+            }
+        }
     }
 }

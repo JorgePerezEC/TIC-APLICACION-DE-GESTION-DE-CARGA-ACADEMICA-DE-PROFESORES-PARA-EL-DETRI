@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -65,23 +66,25 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
             }
             int cmbValue = Convert.ToInt32(cmbAsignaturas.SelectedValue);
             GRisNew = objetoCNegocio.VerificarGRexistente_Negoco(cmbValue.ToString(), cmbGR.Text);
-            if (GRisNew)
-            {
-                MessageBox.Show("GR creado. Agregue ahora un horario para el GR creado.");
-            }
-            else
-            {
-                MessageBox.Show("GR existente, puede modificar el horario a continuación.");
-            }
+            //if (!GRisNew)
+            //{
+            //    MessageBox.Show("GR creado. Agregue ahora un horario para el GR creado.", "GRUPO REGISTRADO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //}
+            //else
+            //{
+            //    MessageBox.Show("GR existente, puede modificar el horario a continuación.", "GRUPO EXISTENTE", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //}
             idGrCreated = objetoCNegocio.CreateGruposOutNeg(cmbValue.ToString(), cmbGR.Text);
             if (idGrCreated != -1)
             {
+                cmbGR.Enabled = false;
                 panelSaveGR.Visible = false;
                 panelCreateHorario.Visible = true;
                 horasSemanalesDB = objCNegocioAsignatura.GetHorasSemanlAsignatura_Negocio(IdAsignatura);
                 lblHorasCorrespondientes.Text = horasSemanalesDB.ToString();
                 CN_HorarioAsignatura objetoCNegocio = new CN_HorarioAsignatura();
-                DataTable dtHorarios = objetoCNegocio.GetHorariosByAsignaturaGR_Negocio(idSemestreLocal, cmbGR.SelectedValue.ToString());
+                DataTable dtHorarios = objetoCNegocio.GetHorariosByAsignaturaGR_Negocio(idSemestreLocal,
+                    idGrCreated.ToString());// cmbGR.SelectedValue.ToString());
 
                 if (dtHorarios != null && dtHorarios.Rows.Count > 0)
                 {
@@ -91,6 +94,11 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
                         string horaInicio = Convert.ToString(row["horaInicio"]);
                         string horaFin = Convert.ToString(row["horaFin"]);
 
+                        DateTime dtInicio = DateTime.ParseExact(horaInicio, "HH:mm:ss", CultureInfo.InvariantCulture);
+                        DateTime dtFin = DateTime.ParseExact(horaFin, "HH:mm:ss", CultureInfo.InvariantCulture);
+
+
+
                         // Activa el checkbox correspondiente según el idDiaSemana
                         switch (idDiaSemana)
                         {
@@ -98,40 +106,68 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
                                 cbLun.Checked = true;
                                 dtLunesI.Text = horaInicio;
                                 dtLunesF.Text = horaFin;
+                                if (dtInicio.TimeOfDay == dtFin.TimeOfDay)
+                                {
+                                    cbLun.Checked = false;
+                                }
                                 break;
                             case 2: // Martes
                                 cbMar.Checked = true;
                                 dtMartesI.Text = horaInicio;
                                 dtMartesF.Text = horaFin;
+                                if (dtInicio.TimeOfDay == dtFin.TimeOfDay)
+                                {
+                                    cbMar.Checked = false;
+                                }
                                 break;
                             case 3: // Miércoles
                                 cbMie.Checked = true;
                                 dtMieI.Text = horaInicio;
                                 dtMieF.Text = horaFin;
+                                if (dtInicio.TimeOfDay == dtFin.TimeOfDay)
+                                {
+                                    cbMie.Checked = false;
+                                }
                                 break;
                             case 4: // Jueves
                                 cbJue.Checked = true;
                                 dtJueI.Text = horaInicio;
                                 dtJueF.Text = horaFin;
+                                if (dtInicio.TimeOfDay == dtFin.TimeOfDay)
+                                {
+                                    cbJue.Checked = false;
+                                }
                                 break;
                             case 5: // Viernes
                                 cbVie.Checked = true;
                                 dtVieI.Text = horaInicio;
                                 dtVieF.Text = horaFin;
+                                if (dtInicio.TimeOfDay == dtFin.TimeOfDay)
+                                {
+                                    cbVie.Checked = false;
+                                }
                                 break;
                             case 6: // Sábado
                                 cbSab.Checked = true;
                                 dtSabI.Text = horaInicio;
                                 dtSabF.Text = horaFin;
+                                if (dtInicio.TimeOfDay == dtFin.TimeOfDay)
+                                {
+                                    cbSab.Checked = false;
+                                }
                                 break;
                             case 7: // Domingo
                                 cbDom.Checked = true;
                                 dtDomI.Text = horaInicio;
                                 dtDomF.Text = horaFin;
+                                if (dtInicio.TimeOfDay == dtFin.TimeOfDay)
+                                {
+                                    cbDom.Checked = false;
+                                }
                                 break;
                         }
-                    }
 
+                    }
 
                     dtHorarios.Clear();
                 }
@@ -140,7 +176,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
                     FormatosDateTimePickersGral();
                 }
             }
-            else { MessageBox.Show("Ocurrio un error al crear el GR."); }
+            else { MessageBox.Show("Ocurrio un error al crear el Horario.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -162,53 +198,104 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
 
         }
 
-        private void VerificarHorasSemanales()
+        private bool VerificarHorasSemanales()
         {
             horasSemanalesAsignatura = 0;
+            bool horasCoherentes = true;
             // Calcular las horas semanales sumando las diferencias de tiempo para cada día seleccionado
             if (cbLun.Checked)
             {
                 TimeSpan diffLunes = dtLunesF.Value - dtLunesI.Value;
-                horasSemanalesAsignatura += (int)diffLunes.TotalHours;
+                // Verificar si la hora final es mayor a la hora inicial y si son diferentes
+                if (diffLunes.TotalHours > 0 && dtLunesF.Value != dtLunesI.Value)
+                {
+                    horasSemanalesAsignatura += (int)diffLunes.TotalHours;
+                }
+                else
+                {
+                    horasCoherentes = false;
+                }
             }
 
             if (cbMar.Checked)
             {
                 TimeSpan diffMartes = dtMartesF.Value - dtMartesI.Value;
-                horasSemanalesAsignatura += (int)diffMartes.TotalHours;
+                if (diffMartes.TotalHours > 0 && dtMartesF.Value != dtMartesI.Value)
+                {
+                    horasSemanalesAsignatura += (int)diffMartes.TotalHours;
+                }
+                else
+                {
+                    horasCoherentes = false;
+                }
             }
             if (cbMie.Checked)
             {
                 TimeSpan diffMiercoles = dtMieF.Value - dtMieI.Value;
-                horasSemanalesAsignatura += (int)diffMiercoles.TotalHours;
+                if (diffMiercoles.TotalHours > 0 && dtMieF.Value != dtMieI.Value)
+                {
+                    horasSemanalesAsignatura += (int)diffMiercoles.TotalHours;
+                }
+                else
+                {
+                    horasCoherentes = false;
+                }
             }
 
             if (cbJue.Checked)
             {
                 TimeSpan diffJueves = dtJueF.Value - dtJueI.Value;
-                horasSemanalesAsignatura += (int)diffJueves.TotalHours;
+                if (diffJueves.TotalHours > 0 && dtJueF.Value != dtJueI.Value)
+                {
+                    horasSemanalesAsignatura += (int)diffJueves.TotalHours;
+                }
+                else
+                {
+                    horasCoherentes = false;
+                }
             }
 
             if (cbVie.Checked)
             {
                 TimeSpan diffViernes = dtVieF.Value - dtVieI.Value;
-                horasSemanalesAsignatura += (int)diffViernes.TotalHours;
+                if (diffViernes.TotalHours > 0 && dtVieF.Value != dtVieI.Value)
+                {
+                    horasSemanalesAsignatura += (int)diffViernes.TotalHours;
+                }
+                else
+                {
+                    horasCoherentes = false;
+                }
             }
 
             if (cbSab.Checked)
             {
                 TimeSpan diffSabado = dtSabF.Value - dtSabI.Value;
-                horasSemanalesAsignatura += (int)diffSabado.TotalHours;
+                if (diffSabado.TotalHours > 0 && dtSabF.Value != dtSabI.Value)
+                {
+                    horasSemanalesAsignatura += (int)diffSabado.TotalHours;
+                }
+                else
+                {
+                    horasCoherentes = false;
+                }
             }
 
             if (cbDom.Checked)
             {
                 TimeSpan diffDomingo = dtDomF.Value - dtDomI.Value;
-                horasSemanalesAsignatura += (int)diffDomingo.TotalHours;
+                if (diffDomingo.TotalHours > 0 && dtDomF.Value != dtDomI.Value)
+                {
+                    horasSemanalesAsignatura += (int)diffDomingo.TotalHours;
+                }
+                else
+                {
+                    horasCoherentes = false;
+                }
             }
             lblHorasIngresadas.Text = horasSemanalesAsignatura.ToString();
+            return horasCoherentes;
         }
-
         private void btnSaveHorario_Click(object sender, EventArgs e)
         {
             try
@@ -224,7 +311,13 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
                 bool exito6 = false;
                 bool exito7 = false;
 
-                VerificarHorasSemanales();
+                bool horaCoherente = VerificarHorasSemanales();
+
+                if (!horaCoherente)
+                {
+                    MessageBox.Show("Por favor, verifique que las horas que esta tratando de ingresar sean coherentes.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
 
                 if (horasSemanalesAsignatura > 0)
                 {
@@ -235,41 +328,79 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
 
                 if (cumpleHorasSemanales)
                 {
+                    string horaInicioNoMark = "00:00";
+                    string horaFinNoMark = "00:00";
+
                     if (cbLun.Checked)
                     {
                         //MessageBox.Show(cmbSemestre.SelectedValue.ToString() + " " + cmbValueGrupo.ToString() + " " + dtLunesI.Text + " " + dtLunesF.Text + " " + cmbDay.Text);
                         CN_HorarioAsignatura objetoCNegocio = new CN_HorarioAsignatura();
                         exito = objetoCNegocio.CreateHorariosNegocio(idSemestreLocal, cmbValueGrupo, dtLunesI.Text, dtLunesF.Text, "1");
                     }
+                    else
+                    {
+                        CN_HorarioAsignatura objetoCNegocio = new CN_HorarioAsignatura();
+                        exito = objetoCNegocio.CreateHorariosNegocio(idSemestreLocal, cmbValueGrupo, horaInicioNoMark, horaFinNoMark, "1");
+                    }
                     if (cbMar.Checked)
                     {
                         CN_HorarioAsignatura objetoCNegocio = new CN_HorarioAsignatura();
                         exito2 = objetoCNegocio.CreateHorariosNegocio(idSemestreLocal, cmbValueGrupo, dtMartesI.Text, dtMartesF.Text, "2");
+                    }
+                    else
+                    {
+                        CN_HorarioAsignatura objetoCNegocio = new CN_HorarioAsignatura();
+                        exito = objetoCNegocio.CreateHorariosNegocio(idSemestreLocal, cmbValueGrupo, horaInicioNoMark, horaFinNoMark, "2");
                     }
                     if (cbMie.Checked)
                     {
                         CN_HorarioAsignatura objetoCNegocio = new CN_HorarioAsignatura();
                         exito3 = objetoCNegocio.CreateHorariosNegocio(idSemestreLocal, cmbValueGrupo, dtMieI.Text, dtMieF.Text, "3");
                     }
+                    else
+                    {
+                        CN_HorarioAsignatura objetoCNegocio = new CN_HorarioAsignatura();
+                        exito = objetoCNegocio.CreateHorariosNegocio(idSemestreLocal, cmbValueGrupo, horaInicioNoMark, horaFinNoMark, "3");
+                    }
                     if (cbJue.Checked)
                     {
                         CN_HorarioAsignatura objetoCNegocio = new CN_HorarioAsignatura();
                         exito4 = objetoCNegocio.CreateHorariosNegocio(idSemestreLocal, cmbValueGrupo, dtJueI.Text, dtJueF.Text, "4");
+                    }
+                    else
+                    {
+                        CN_HorarioAsignatura objetoCNegocio = new CN_HorarioAsignatura();
+                        exito = objetoCNegocio.CreateHorariosNegocio(idSemestreLocal, cmbValueGrupo, horaInicioNoMark, horaFinNoMark, "4");
                     }
                     if (cbVie.Checked)
                     {
                         CN_HorarioAsignatura objetoCNegocio = new CN_HorarioAsignatura();
                         exito5 = objetoCNegocio.CreateHorariosNegocio(idSemestreLocal, cmbValueGrupo, dtVieI.Text, dtVieF.Text, "5");
                     }
+                    else
+                    {
+                        CN_HorarioAsignatura objetoCNegocio = new CN_HorarioAsignatura();
+                        exito = objetoCNegocio.CreateHorariosNegocio(idSemestreLocal, cmbValueGrupo, horaInicioNoMark, horaFinNoMark, "5");
+                    }
                     if (cbSab.Checked)
                     {
                         CN_HorarioAsignatura objetoCNegocio = new CN_HorarioAsignatura();
                         exito6 = objetoCNegocio.CreateHorariosNegocio(idSemestreLocal, cmbValueGrupo, dtSabI.Text, dtSabF.Text, "6");
                     }
+                    else
+                    {
+                        CN_HorarioAsignatura objetoCNegocio = new CN_HorarioAsignatura();
+                        exito = objetoCNegocio.CreateHorariosNegocio(idSemestreLocal, cmbValueGrupo, horaInicioNoMark, horaFinNoMark, "6");
+                    }
                     if (cbDom.Checked)
                     {
                         CN_HorarioAsignatura objetoCNegocio = new CN_HorarioAsignatura();
                         exito7 = objetoCNegocio.CreateHorariosNegocio(idSemestreLocal, cmbValueGrupo, dtDomI.Text, dtDomF.Text, "7");
+                    }
+                    else
+                    {
+                        CN_HorarioAsignatura objetoCNegocio = new CN_HorarioAsignatura();
+                        exito = objetoCNegocio.CreateHorariosNegocio(idSemestreLocal, cmbValueGrupo, horaInicioNoMark, horaFinNoMark, "7");
                     }
 
                     if (exito || exito2 || exito3 || exito4 || exito5 || exito6 || exito7)
@@ -292,14 +423,14 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
                 }
                 else
                 {
-                    MessageBox.Show("El horario no cumple con las horas semanles correspondientes a la asignatura seleccionada.");
+                    MessageBox.Show("El horario no cumple con las horas semanales correspondientes a la asignatura seleccionada.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Excepción: No se pudo registrar el Horario. Motivo: " + ex.Message);
+                MessageBox.Show("Excepción: No se pudo registrar el Horario. Motivo: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -366,9 +497,19 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
             dtDomF.ShowUpDown = true;
         }
 
+        private void FormatosDateTimePicker(DateTimePicker dtDayI, DateTimePicker dtDayF)
+        {
+            dtDayI.CustomFormat = "HH:mm";
+            dtDayI.Text = "09:00";
+            dtDayI.ShowUpDown = true;
+            dtDayF.CustomFormat = "HH:mm";
+            dtDayF.Text = "11:00";
+            dtDayF.ShowUpDown = true;
+        }
+
         private void cbLun_CheckedChanged(object sender, EventArgs e)
         {
-            VerificarHorasSemanales();
+
             if (cbLun.Checked)
             {
                 dtLunesI.Enabled = true;
@@ -378,30 +519,29 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
             {
                 dtLunesI.Enabled = false;
                 dtLunesF.Enabled = false;
-                FormatosDateTimePickersGral();
+                FormatosDateTimePicker(dtLunesI, dtLunesF);
             }
+            VerificarHorasSemanales();
         }
 
         private void cbMar_CheckedChanged(object sender, EventArgs e)
         {
-            VerificarHorasSemanales();
             if (cbMar.Checked)
             {
                 dtMartesI.Enabled = true;
                 dtMartesF.Enabled = true;
-                VerificarHorasSemanales();
             }
             else
             {
                 dtMartesI.Enabled = false;
                 dtMartesF.Enabled = false;
-                FormatosDateTimePickersGral();
+                FormatosDateTimePicker(dtMartesI, dtMartesF);
             }
+            VerificarHorasSemanales();
         }
 
         private void cbMie_CheckedChanged(object sender, EventArgs e)
         {
-            VerificarHorasSemanales();
             if (cbMie.Checked)
             {
                 dtMieI.Enabled = true;
@@ -410,14 +550,14 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
             else
             {
                 dtMieI.Enabled = false;
-                dtMieI.Enabled = false;
-                FormatosDateTimePickersGral();
+                dtMieF.Enabled = false;
+                FormatosDateTimePicker(dtMieI, dtMieF);
             }
+            VerificarHorasSemanales();
         }
 
         private void cbJue_CheckedChanged(object sender, EventArgs e)
         {
-            VerificarHorasSemanales();
             if (cbJue.Checked)
             {
                 dtJueI.Enabled = true;
@@ -427,13 +567,13 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
             {
                 dtJueI.Enabled = false;
                 dtJueF.Enabled = false;
-                FormatosDateTimePickersGral();
+                FormatosDateTimePicker(dtJueI, dtJueF);
             }
+            VerificarHorasSemanales();
         }
 
         private void cbVie_CheckedChanged(object sender, EventArgs e)
         {
-            VerificarHorasSemanales();
             if (cbVie.Checked)
             {
                 dtVieI.Enabled = true;
@@ -443,13 +583,13 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
             {
                 dtVieI.Enabled = false;
                 dtVieF.Enabled = false;
-                FormatosDateTimePickersGral();
+                FormatosDateTimePicker(dtVieI, dtVieF);
             }
+            VerificarHorasSemanales();
         }
 
         private void cbSab_CheckedChanged(object sender, EventArgs e)
         {
-            VerificarHorasSemanales();
             if (cbSab.Checked)
             {
                 dtSabF.Enabled = true;
@@ -459,13 +599,13 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
             {
                 dtSabI.Enabled = false;
                 dtSabF.Enabled = false;
-                FormatosDateTimePickersGral();
+                FormatosDateTimePicker(dtSabI, dtSabF);
             }
+            VerificarHorasSemanales();
         }
 
         private void cbDom_CheckedChanged(object sender, EventArgs e)
         {
-            VerificarHorasSemanales();
             if (cbDom.Checked)
             {
                 dtDomI.Enabled = true;
@@ -475,8 +615,9 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
             {
                 dtDomI.Enabled = false;
                 dtDomF.Enabled = false;
-                FormatosDateTimePickersGral();
+                FormatosDateTimePicker(dtDomI, dtDomF);
             }
+            VerificarHorasSemanales();
         }
 
         #endregion

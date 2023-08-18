@@ -87,7 +87,7 @@
             this.btnAddAsignatura.Location = new System.Drawing.Point(469, 25);
             this.btnAddAsignatura.Name = "btnAddAsignatura";
             this.btnAddAsignatura.Size = new System.Drawing.Size(182, 31);
-            this.btnAddAsignatura.TabIndex = 0;
+            this.btnAddAsignatura.TabIndex = 1;
             this.btnAddAsignatura.Text = "Agregar Asignatura";
             this.btnAddAsignatura.UseVisualStyleBackColor = false;
             this.btnAddAsignatura.Click += new System.EventHandler(this.btnAddAsignatura_Click);
@@ -123,6 +123,7 @@
             this.dgvHorario.RowTemplate.Height = 29;
             this.dgvHorario.Size = new System.Drawing.Size(493, 559);
             this.dgvHorario.TabIndex = 5;
+            this.dgvHorario.TabStop = false;
             // 
             // label3
             // 
@@ -155,8 +156,7 @@
             this.dgLstRegistros.RowHeadersWidth = 51;
             this.dgLstRegistros.RowTemplate.Height = 29;
             this.dgLstRegistros.Size = new System.Drawing.Size(1064, 559);
-            this.dgLstRegistros.TabIndex = 0;
-            this.dgLstRegistros.TabStop = false;
+            this.dgLstRegistros.TabIndex = 2;
             this.dgLstRegistros.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgLstRegistros_CellContentClick);
             // 
             // FrmCRUD_Asignaturas_Ac_Load
