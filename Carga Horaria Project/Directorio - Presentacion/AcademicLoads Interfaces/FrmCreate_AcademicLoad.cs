@@ -179,6 +179,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
         {
             try
             {
+                
                 cmbValueSemestre = Convert.ToInt32(cmbSemestre.SelectedValue);
                 idSemestre = cmbValueSemestre;
                 cmbValueDocente = Convert.ToInt32(cmbDocente.SelectedValue);
@@ -207,6 +208,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
                             frmCRUD.UpdateContent();
                         }
                         btnAsignaturas.BackColor = System.Drawing.Color.LightSeaGreen;
+                        lblTipoDocente.Text = objetoCNegocio.GetDocenteNameTypeByCrgHoraria_Negocio(idCH.ToString(), cmbValueSemestre.ToString());
                     }
                     else
                     {
@@ -218,6 +220,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
                         MessageBox.Show("Carga Horaria creada previamente. Accediendo al modo edicion");
                         frmAsigSon = new FrmCRUD_Asignaturas_Ac_Load(idCH, idSemestre);
                         openChildForm(frmAsigSon);
+                        lblTipoDocente.Text = objetoCNegocio.GetDocenteNameTypeByCrgHoraria_Negocio(idCH.ToString(), cmbValueSemestre.ToString());
                     }
                     idCH = objetoCNegocio.GetIDCargaHorariaNegocio(cmbValueSemestre.ToString(), cmbValueDocente.ToString());
                     CalcularHoras(idCH);
@@ -342,6 +345,8 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
             lblHorasFaltantes.Text = horasExigiblesFaltantes.ToString();
             lblSemanasClases.Text = numSemanasClase.ToString();
             lblSemanasSemestre.Text = numSemanasSemestre.ToString();
+
+            lblTipoDocente.Text = objetoCNegocio.GetDocenteNameTypeByCrgHoraria_Negocio(idCarga.ToString(), cmbValueSemestre.ToString());
 
             if (horasExigiblesFaltantes == 0)
             {

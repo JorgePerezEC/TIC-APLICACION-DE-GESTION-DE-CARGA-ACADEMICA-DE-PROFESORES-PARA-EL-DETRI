@@ -1,5 +1,6 @@
 ﻿using Directorio___Presentacion.AcademicLoads_Interfaces;
 using Directorio___Presentacion.AcademicLoads_Interfaces.Activate_Data_Frms;
+using Directorio___Presentacion.AcademicLoads_Interfaces.EditData_Frms;
 using Directorio___Presentacion.CRUD_Data_Interfaces;
 using Directorio___Presentacion.CRUD_Interfaces;
 using Directorio___Presentacion.Reportes_Frms;
@@ -290,6 +291,12 @@ namespace Directorio___Presentacion
             openChildForm(new FrmCopyData());
             hideSubMenu();
             hideSubMenu2();
+        }
+
+        private void btnConfigureServer_Click(object sender, EventArgs e)
+        {
+            FrmEditServerConection frmEditServerConection = new FrmEditServerConection();
+            frmEditServerConection.ShowDialog();
         }
     }
 }

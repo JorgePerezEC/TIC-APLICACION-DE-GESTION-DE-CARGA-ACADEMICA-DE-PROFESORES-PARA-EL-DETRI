@@ -139,8 +139,11 @@
             this.Controls.Add(this.txtHorasExigibles);
             this.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Margin = new System.Windows.Forms.Padding(4);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "FrmEditHorasExigibles";
             this.ShowIcon = false;
+            this.Sizable = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "EDITAR HORAS EXIGIBLES";
             this.Load += new System.EventHandler(this.FrmEditHorasExigibles_Load);

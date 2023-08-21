@@ -69,6 +69,21 @@ namespace Directorio_Logica
             return tabla;
         }
 
+        public string GetDocenteIfHaveAsignInCarga_Negocio(string idSemestre, string idGr)
+        {
+            string docenteName = string.Empty;
+            ClsSemestre objSemestre = new ClsSemestre()
+            {
+                IdSemestre = Convert.ToInt32(idSemestre)
+            };
+            ClsGrupoAsignatura objGr = new ClsGrupoAsignatura()
+            {
+                IdGrupoAsignatura= Convert.ToInt32(idGr)
+            };
+            docenteName = objetoCData.GetDocenteIfHaveAsignInCarga_DAL(objSemestre, objGr);
+            return docenteName;
+        }
+
         #region CRUD Methods
         public bool CreateDocenteNeg(string idDep, string name1, string name2, string apellido1,string apellido2,string titulo)
         {

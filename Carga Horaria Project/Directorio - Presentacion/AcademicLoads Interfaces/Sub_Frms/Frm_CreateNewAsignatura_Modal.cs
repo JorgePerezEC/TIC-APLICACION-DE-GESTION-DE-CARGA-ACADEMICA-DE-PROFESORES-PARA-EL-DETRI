@@ -77,6 +77,18 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
             idGrCreated = objetoCNegocio.CreateGruposOutNeg(cmbValue.ToString(), cmbGR.Text);
             if (idGrCreated != -1)
             {
+                CN_Docente objDocente = new CN_Docente();
+                string docenteName = objDocente.GetDocenteIfHaveAsignInCarga_Negocio(idSemestreLocal, idGrCreated.ToString());
+                if (docenteName != "NONE")
+                {
+                    lblDocente.Text = "Este Grupo de asignatura se encuentra dentro de la Carga Horaria del docente " +docenteName;
+                    MessageBox.Show("Este Grupo de asignatura se encuentra dentro de la Carga Horaria del docente " + docenteName+ ". Edite el horario con precaución.", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    panelShowDocente.Visible = true;
+                }
+                else
+                {
+                    panelShowDocente.Height = 0;
+                }
                 cmbGR.Enabled = false;
                 panelSaveGR.Visible = false;
                 panelCreateHorario.Visible = true;

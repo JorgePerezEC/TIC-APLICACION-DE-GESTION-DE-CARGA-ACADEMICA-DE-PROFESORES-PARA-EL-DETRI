@@ -457,6 +457,31 @@ AS
 		END
 	END
 GO
+CREATE OR ALTER PROCEDURE spGetDocenteIfGrExisteInCargaHoraria
+    @idSemestre INT,
+	@idGr INT,
+	@docenteName varchar(100) OUT
+AS
+BEGIN
+	DECLARE @nameDoc varchar(100);
+    SELECT @nameDoc =  CONCAT(apellido1Docente,' ',apellido2Docente,' ',nombre1Docente,' ',nombre2Docente)
+    FROM tblAsigCrgHoraria ACH
+	INNER JOIN tblCargaHoraria CH ON ACH.idCrgHoraria = CH.idCargaHoraria
+	INNER JOIN tblDocente D ON CH.idDocente = D.idDocente
+    WHERE CH.idSemestre = @idSemestre AND ACH.idGrAsig = @idGr;
+
+	IF @nameDoc IS NULL
+	BEGIN
+		SET @docenteName = 'NONE'
+		PRINT @docenteName
+	END
+	ELSE
+	BEGIN
+		SET @docenteName = @nameDoc
+		PRINT @docenteName
+	END
+END;
+GO
 -- Stored Procedure to get type Docente Name based on idTipoDocente and idSemestre
 CREATE OR ALTER PROCEDURE spGetDataHorasExigiblesDocentesBySemestreAndName
     @idSemestre INT,
@@ -1885,6 +1910,7 @@ BEGIN
     FROM tblGrAsignatura gr
     INNER JOIN tblAsignatura asg ON gr.idAsignatura = asg.idAsignatura
     WHERE asg.idAsignatura = @idAsignatura
+	ORDER BY Grupos ASC
 END
 GO
 CREATE OR ALTER PROC [dbo].[spReadAllGroupsByAsigBySemestreCmb]
@@ -1914,7 +1940,6 @@ BEGIN
 		INNER JOIN tblCargaHoraria CH ON ash.idCrgHoraria = CH.idCargaHoraria
         WHERE ash.idGrAsig = gr.idGrAsig AND CH.idSemestre = @idSemestre
     )
-	
 END
 GO
 -- Stored Procedure to Read All Rows from  "tblDepartamento" to TreeView

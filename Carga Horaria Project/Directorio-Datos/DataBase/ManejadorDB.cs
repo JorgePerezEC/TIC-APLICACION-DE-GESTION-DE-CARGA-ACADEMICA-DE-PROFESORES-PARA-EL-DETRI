@@ -34,5 +34,15 @@ namespace Directorio_Datos.DataBase
             if (sqlConexion.State == ConnectionState.Open)
                 sqlConexion.Close();
         }
+
+        public static void CambiarConexion(string CadenaConexion)
+        {
+            String cadenaNueva = CadenaConexion;
+            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            config.ConnectionStrings.ConnectionStrings["MyDatabaseConnection"].ConnectionString = cadenaNueva;
+            config.Save(ConfigurationSaveMode.Modified, true);
+
+            Application.Restart();
+        }
     }
 }

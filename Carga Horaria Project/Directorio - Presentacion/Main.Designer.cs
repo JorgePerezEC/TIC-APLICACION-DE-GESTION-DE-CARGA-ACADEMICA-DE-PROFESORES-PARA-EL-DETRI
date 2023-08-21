@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.panelMenuLateral = new System.Windows.Forms.Panel();
+            this.btnConfigureServer = new System.Windows.Forms.Button();
             this.lblAutores = new System.Windows.Forms.Label();
             this.panelSubmenuReportes = new System.Windows.Forms.Panel();
             this.btnGestionarCargas = new System.Windows.Forms.Button();
@@ -84,6 +85,7 @@
             this.panelMenuLateral.AutoScroll = true;
             this.panelMenuLateral.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(0)))), ((int)(((byte)(90)))));
             this.panelMenuLateral.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelMenuLateral.Controls.Add(this.btnConfigureServer);
             this.panelMenuLateral.Controls.Add(this.lblAutores);
             this.panelMenuLateral.Controls.Add(this.panelSubmenuReportes);
             this.panelMenuLateral.Controls.Add(this.btnReportesMain);
@@ -98,15 +100,33 @@
             this.panelMenuLateral.Size = new System.Drawing.Size(285, 1055);
             this.panelMenuLateral.TabIndex = 0;
             // 
+            // btnConfigureServer
+            // 
+            this.btnConfigureServer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(51)))), ((int)(((byte)(124)))));
+            this.btnConfigureServer.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btnConfigureServer.FlatAppearance.BorderSize = 0;
+            this.btnConfigureServer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnConfigureServer.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnConfigureServer.ForeColor = System.Drawing.Color.Transparent;
+            this.btnConfigureServer.Location = new System.Drawing.Point(0, 1421);
+            this.btnConfigureServer.Name = "btnConfigureServer";
+            this.btnConfigureServer.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.btnConfigureServer.Size = new System.Drawing.Size(262, 60);
+            this.btnConfigureServer.TabIndex = 8;
+            this.btnConfigureServer.Text = "CONFIGURACIÓN SERVER";
+            this.btnConfigureServer.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnConfigureServer.UseVisualStyleBackColor = false;
+            this.btnConfigureServer.Click += new System.EventHandler(this.btnConfigureServer_Click);
+            // 
             // lblAutores
             // 
             this.lblAutores.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.lblAutores.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblAutores.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.lblAutores.Location = new System.Drawing.Point(0, 1421);
+            this.lblAutores.Location = new System.Drawing.Point(0, 1481);
             this.lblAutores.Name = "lblAutores";
             this.lblAutores.Padding = new System.Windows.Forms.Padding(7, 0, 0, 7);
-            this.lblAutores.Size = new System.Drawing.Size(262, 105);
+            this.lblAutores.Size = new System.Drawing.Size(262, 58);
             this.lblAutores.TabIndex = 7;
             this.lblAutores.Text = "ESTUDIANTE:  JORGE PÉREZ\r\nDIRECTOR:      ANA ZAMBRANO";
             this.lblAutores.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
@@ -771,5 +791,6 @@
         private Button btnHorarios;
         private Button btnCrearCargaAcademica;
         private Button btnCopiarDatos;
+        private Button btnConfigureServer;
     }
 }

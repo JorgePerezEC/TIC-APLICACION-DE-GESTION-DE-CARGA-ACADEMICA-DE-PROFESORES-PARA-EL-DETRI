@@ -39,13 +39,18 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.panelCreateHorario = new System.Windows.Forms.Panel();
+            this.panelShowDocente = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.lblDocente = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.btnCancelarH = new MaterialSkin.Controls.MaterialButton();
+            this.btnSaveHorario = new MaterialSkin.Controls.MaterialButton();
+            this.panelHorario = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label10 = new System.Windows.Forms.Label();
             this.lblHorasIngresadas = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.lblHorasCorrespondientes = new System.Windows.Forms.Label();
-            this.btnCancelarH = new MaterialSkin.Controls.MaterialButton();
-            this.btnSaveHorario = new MaterialSkin.Controls.MaterialButton();
             this.tblPanelHorario = new System.Windows.Forms.TableLayoutPanel();
             this.cbDom = new MaterialSkin.Controls.MaterialCheckbox();
             this.cbSab = new MaterialSkin.Controls.MaterialCheckbox();
@@ -75,6 +80,9 @@
             this.panelSaveGR2.SuspendLayout();
             this.panelSaveGR.SuspendLayout();
             this.panelCreateHorario.SuspendLayout();
+            this.panelShowDocente.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
+            this.panelHorario.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tblPanelHorario.SuspendLayout();
             this.SuspendLayout();
@@ -87,7 +95,7 @@
             this.panelCreate.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelCreate.Location = new System.Drawing.Point(0, 0);
             this.panelCreate.Name = "panelCreate";
-            this.panelCreate.Size = new System.Drawing.Size(804, 561);
+            this.panelCreate.Size = new System.Drawing.Size(804, 601);
             this.panelCreate.TabIndex = 11;
             // 
             // panelSaveGR2
@@ -101,7 +109,7 @@
             this.panelSaveGR2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelSaveGR2.Location = new System.Drawing.Point(0, 0);
             this.panelSaveGR2.Name = "panelSaveGR2";
-            this.panelSaveGR2.Size = new System.Drawing.Size(804, 171);
+            this.panelSaveGR2.Size = new System.Drawing.Size(804, 178);
             this.panelSaveGR2.TabIndex = 25;
             // 
             // lblNoHorario
@@ -256,16 +264,122 @@
             // 
             // panelCreateHorario
             // 
-            this.panelCreateHorario.Controls.Add(this.tableLayoutPanel1);
+            this.panelCreateHorario.Controls.Add(this.panelShowDocente);
             this.panelCreateHorario.Controls.Add(this.btnCancelarH);
             this.panelCreateHorario.Controls.Add(this.btnSaveHorario);
-            this.panelCreateHorario.Controls.Add(this.tblPanelHorario);
+            this.panelCreateHorario.Controls.Add(this.panelHorario);
             this.panelCreateHorario.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelCreateHorario.Location = new System.Drawing.Point(0, 171);
+            this.panelCreateHorario.Location = new System.Drawing.Point(0, 178);
             this.panelCreateHorario.Name = "panelCreateHorario";
-            this.panelCreateHorario.Size = new System.Drawing.Size(804, 390);
+            this.panelCreateHorario.Size = new System.Drawing.Size(804, 423);
             this.panelCreateHorario.TabIndex = 24;
             this.panelCreateHorario.Visible = false;
+            // 
+            // panelShowDocente
+            // 
+            this.panelShowDocente.Controls.Add(this.tableLayoutPanel2);
+            this.panelShowDocente.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelShowDocente.Location = new System.Drawing.Point(0, 0);
+            this.panelShowDocente.Name = "panelShowDocente";
+            this.panelShowDocente.Size = new System.Drawing.Size(804, 62);
+            this.panelShowDocente.TabIndex = 44;
+            this.panelShowDocente.Visible = false;
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 2;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80F));
+            this.tableLayoutPanel2.Controls.Add(this.lblDocente, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.label4, 0, 0);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(33, 9);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 1;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(690, 50);
+            this.tableLayoutPanel2.TabIndex = 0;
+            // 
+            // lblDocente
+            // 
+            this.lblDocente.AutoSize = true;
+            this.lblDocente.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(241)))), ((int)(((byte)(137)))));
+            this.lblDocente.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblDocente.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblDocente.ForeColor = System.Drawing.Color.Brown;
+            this.lblDocente.Location = new System.Drawing.Point(141, 0);
+            this.lblDocente.Name = "lblDocente";
+            this.lblDocente.Size = new System.Drawing.Size(546, 50);
+            this.lblDocente.TabIndex = 28;
+            this.lblDocente.Text = "ADVERTENCIA";
+            this.lblDocente.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(228)))), ((int)(((byte)(111)))));
+            this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label4.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label4.Location = new System.Drawing.Point(3, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(132, 50);
+            this.label4.TabIndex = 27;
+            this.label4.Text = "ADVERTENCIA";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btnCancelarH
+            // 
+            this.btnCancelarH.AutoSize = false;
+            this.btnCancelarH.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnCancelarH.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.btnCancelarH.Depth = 0;
+            this.btnCancelarH.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnCancelarH.HighEmphasis = true;
+            this.btnCancelarH.Icon = null;
+            this.btnCancelarH.Location = new System.Drawing.Point(598, 168);
+            this.btnCancelarH.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnCancelarH.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnCancelarH.Name = "btnCancelarH";
+            this.btnCancelarH.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.btnCancelarH.Size = new System.Drawing.Size(128, 45);
+            this.btnCancelarH.TabIndex = 42;
+            this.btnCancelarH.Text = "CANCELAR";
+            this.btnCancelarH.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnCancelarH.UseAccentColor = false;
+            this.btnCancelarH.UseVisualStyleBackColor = true;
+            this.btnCancelarH.Click += new System.EventHandler(this.btnCancelarH_Click);
+            // 
+            // btnSaveHorario
+            // 
+            this.btnSaveHorario.AutoSize = false;
+            this.btnSaveHorario.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnSaveHorario.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.btnSaveHorario.Depth = 0;
+            this.btnSaveHorario.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnSaveHorario.HighEmphasis = true;
+            this.btnSaveHorario.Icon = null;
+            this.btnSaveHorario.Location = new System.Drawing.Point(598, 111);
+            this.btnSaveHorario.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnSaveHorario.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnSaveHorario.Name = "btnSaveHorario";
+            this.btnSaveHorario.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.btnSaveHorario.Size = new System.Drawing.Size(128, 45);
+            this.btnSaveHorario.TabIndex = 41;
+            this.btnSaveHorario.Text = "GUARDAR";
+            this.btnSaveHorario.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnSaveHorario.UseAccentColor = false;
+            this.btnSaveHorario.UseVisualStyleBackColor = true;
+            this.btnSaveHorario.Click += new System.EventHandler(this.btnSaveHorario_Click);
+            // 
+            // panelHorario
+            // 
+            this.panelHorario.Controls.Add(this.tableLayoutPanel1);
+            this.panelHorario.Controls.Add(this.tblPanelHorario);
+            this.panelHorario.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelHorario.Location = new System.Drawing.Point(0, 68);
+            this.panelHorario.Name = "panelHorario";
+            this.panelHorario.Size = new System.Drawing.Size(804, 355);
+            this.panelHorario.TabIndex = 43;
             // 
             // tableLayoutPanel1
             // 
@@ -276,7 +390,7 @@
             this.tableLayoutPanel1.Controls.Add(this.lblHorasIngresadas, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.label5, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.lblHorasCorrespondientes, 1, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(531, 167);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(531, 163);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -346,50 +460,6 @@
             this.lblHorasCorrespondientes.Text = "0";
             this.lblHorasCorrespondientes.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // btnCancelarH
-            // 
-            this.btnCancelarH.AutoSize = false;
-            this.btnCancelarH.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnCancelarH.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            this.btnCancelarH.Depth = 0;
-            this.btnCancelarH.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnCancelarH.HighEmphasis = true;
-            this.btnCancelarH.Icon = null;
-            this.btnCancelarH.Location = new System.Drawing.Point(595, 86);
-            this.btnCancelarH.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.btnCancelarH.MouseState = MaterialSkin.MouseState.HOVER;
-            this.btnCancelarH.Name = "btnCancelarH";
-            this.btnCancelarH.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.btnCancelarH.Size = new System.Drawing.Size(128, 45);
-            this.btnCancelarH.TabIndex = 42;
-            this.btnCancelarH.Text = "CANCELAR";
-            this.btnCancelarH.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.btnCancelarH.UseAccentColor = false;
-            this.btnCancelarH.UseVisualStyleBackColor = true;
-            this.btnCancelarH.Click += new System.EventHandler(this.btnCancelarH_Click);
-            // 
-            // btnSaveHorario
-            // 
-            this.btnSaveHorario.AutoSize = false;
-            this.btnSaveHorario.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnSaveHorario.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            this.btnSaveHorario.Depth = 0;
-            this.btnSaveHorario.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnSaveHorario.HighEmphasis = true;
-            this.btnSaveHorario.Icon = null;
-            this.btnSaveHorario.Location = new System.Drawing.Point(595, 29);
-            this.btnSaveHorario.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.btnSaveHorario.MouseState = MaterialSkin.MouseState.HOVER;
-            this.btnSaveHorario.Name = "btnSaveHorario";
-            this.btnSaveHorario.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.btnSaveHorario.Size = new System.Drawing.Size(128, 45);
-            this.btnSaveHorario.TabIndex = 41;
-            this.btnSaveHorario.Text = "GUARDAR";
-            this.btnSaveHorario.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.btnSaveHorario.UseAccentColor = false;
-            this.btnSaveHorario.UseVisualStyleBackColor = true;
-            this.btnSaveHorario.Click += new System.EventHandler(this.btnSaveHorario_Click);
-            // 
             // tblPanelHorario
             // 
             this.tblPanelHorario.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
@@ -421,7 +491,7 @@
             this.tblPanelHorario.Controls.Add(this.label1, 0, 0);
             this.tblPanelHorario.Controls.Add(this.cbLun, 0, 1);
             this.tblPanelHorario.Controls.Add(this.dtMartesI, 1, 2);
-            this.tblPanelHorario.Location = new System.Drawing.Point(29, 29);
+            this.tblPanelHorario.Location = new System.Drawing.Point(33, 21);
             this.tblPanelHorario.Name = "tblPanelHorario";
             this.tblPanelHorario.RowCount = 8;
             this.tblPanelHorario.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
@@ -864,7 +934,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(804, 561);
+            this.ClientSize = new System.Drawing.Size(804, 601);
             this.Controls.Add(this.panelCreate);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -880,6 +950,10 @@
             this.panelSaveGR2.PerformLayout();
             this.panelSaveGR.ResumeLayout(false);
             this.panelCreateHorario.ResumeLayout(false);
+            this.panelShowDocente.ResumeLayout(false);
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel2.PerformLayout();
+            this.panelHorario.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.tblPanelHorario.ResumeLayout(false);
@@ -933,5 +1007,10 @@
         private Label lblHorasIngresadas;
         private Label lblHorasCorrespondientes;
         private Label lblNoHorario;
+        private Panel panelShowDocente;
+        private TableLayoutPanel tableLayoutPanel2;
+        private Label lblDocente;
+        private Label label4;
+        private Panel panelHorario;
     }
 }

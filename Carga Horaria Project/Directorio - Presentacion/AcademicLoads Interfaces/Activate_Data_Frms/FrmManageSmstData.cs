@@ -1,5 +1,6 @@
 ﻿using Directorio___Presentacion.ElementsStyles_Configuration;
 using Directorio_Logica;
+using MaterialSkin;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,6 +11,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+
+using MaterialSkin;
+using MaterialSkin.Controls;
 
 namespace Directorio___Presentacion.AcademicLoads_Interfaces.Activate_Data_Frms
 {
@@ -28,6 +32,11 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Activate_Data_Frms
         private int numHorasDocenteTiempoCompleto = 0;
         private int numHorasDeshabilitado = 0;
         private DataTable dtHorasExigibles = new DataTable();
+
+        MaterialSkinManager materialSkinManager = MaterialSkinManager.Instance;
+
+        // Establecer el esquema de color
+        //materialSkinManager.ColorScheme = new ColorScheme(Primary.Teal400, Primary.Teal500, Primary.Teal500, Accent.Teal200, TextShade.WHITE);
 
         #endregion
         public FrmManageSmstData()
@@ -175,6 +184,15 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Activate_Data_Frms
                 columna.TrueValue = true;
                 columna.FalseValue = false;
                 dgvDocenteSemestre.Columns.Add(columna);
+
+                foreach (DataGridViewRow dgvRow in dgvDocenteSemestre.Rows)
+                {
+                    if (dgvRow.Cells[columna.Index] is DataGridViewCheckBoxCell cell)
+                    {
+                        cell.Style.BackColor = MaterialSkinManager.Instance.ColorScheme.PrimaryColor;
+                        cell.Style.ForeColor = MaterialSkinManager.Instance.ColorScheme.TextColor;
+                    }
+                }
             }
 
         }

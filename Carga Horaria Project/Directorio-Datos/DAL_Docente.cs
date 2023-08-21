@@ -204,5 +204,39 @@ namespace Directorio_Datos
             ObjDataBase.CerrarConexion();
             return tabla;
         }
+        public string GetDocenteIfHaveAsignInCarga_DAL(ClsSemestre _semestre, ClsGrupoAsignatura _grAsignatura)
+        {
+            try
+            {
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.Connection = ObjDataBase.sqlConexion;
+                sqlCommand.CommandText = "spGetDocenteIfGrExisteInCargaHoraria";
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+
+                sqlCommand.Parameters.AddWithValue("@idSemestre", _semestre.IdSemestre);
+                sqlCommand.Parameters.AddWithValue("@idGr", _grAsignatura.IdGrupoAsignatura);
+
+                SqlParameter insertedIdParam = sqlCommand.Parameters.Add("@docenteName", SqlDbType.VarChar,100);
+                insertedIdParam.Direction = ParameterDirection.Output;
+
+                ObjDataBase.AbrirConexion();
+                sqlCommand.ExecuteNonQuery();
+
+                string docenteName = (string)insertedIdParam.Value;
+
+                return docenteName;
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error" + ex.Message);
+                return string.Empty;
+            }
+            finally
+            {
+                ObjDataBase.CerrarConexion();
+            }
+
+        }
     }
 }
