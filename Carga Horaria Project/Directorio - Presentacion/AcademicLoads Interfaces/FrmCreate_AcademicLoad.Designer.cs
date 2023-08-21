@@ -29,6 +29,9 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnEditarHorasExigibles = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.btnCrearCargaAcademica = new MaterialSkin.Controls.MaterialButton();
             this.btnNewCarga = new MaterialSkin.Controls.MaterialButton();
             this.panelHorasExigibles = new System.Windows.Forms.TableLayoutPanel();
@@ -77,11 +80,10 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.panel1.Controls.Add(this.btnInvestigacion);
             this.panel1.Controls.Add(this.btnCrearCargaAcademica);
             this.panel1.Controls.Add(this.btnNewCarga);
-            this.panel1.Controls.Add(this.panelHorasExigibles);
             this.panel1.Controls.Add(this.panelHoras);
-            this.panel1.Controls.Add(this.btnInvestigacion);
             this.panel1.Controls.Add(this.btnGestion);
             this.panel1.Controls.Add(this.btnDocencia);
             this.panel1.Controls.Add(this.btnAsignaturas);
@@ -94,6 +96,44 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1653, 227);
             this.panel1.TabIndex = 0;
+            // 
+            // btnEditarHorasExigibles
+            // 
+            this.btnEditarHorasExigibles.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(110)))), ((int)(((byte)(175)))));
+            this.btnEditarHorasExigibles.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEditarHorasExigibles.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnEditarHorasExigibles.ForeColor = System.Drawing.Color.White;
+            this.btnEditarHorasExigibles.Location = new System.Drawing.Point(126, 131);
+            this.btnEditarHorasExigibles.Name = "btnEditarHorasExigibles";
+            this.btnEditarHorasExigibles.Size = new System.Drawing.Size(137, 53);
+            this.btnEditarHorasExigibles.TabIndex = 28;
+            this.btnEditarHorasExigibles.Text = "EDITAR HORAS EXIGIBLES";
+            this.btnEditarHorasExigibles.UseVisualStyleBackColor = false;
+            this.btnEditarHorasExigibles.Click += new System.EventHandler(this.btnEditarHorasExigibles_Click);
+            // 
+            // label4
+            // 
+            this.label4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(130)))), ((int)(((byte)(181)))));
+            this.label4.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label4.ForeColor = System.Drawing.Color.White;
+            this.label4.Location = new System.Drawing.Point(196, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(184, 27);
+            this.label4.TabIndex = 27;
+            this.label4.Text = "# SEMANAS";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label3
+            // 
+            this.label3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(92)))), ((int)(((byte)(111)))));
+            this.label3.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label3.ForeColor = System.Drawing.Color.White;
+            this.label3.Location = new System.Drawing.Point(7, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(183, 27);
+            this.label3.TabIndex = 26;
+            this.label3.Text = "# HORAS";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnCrearCargaAcademica
             // 
@@ -152,12 +192,12 @@
             this.panelHorasExigibles.Controls.Add(this.label12, 2, 0);
             this.panelHorasExigibles.Controls.Add(this.label11, 3, 0);
             this.panelHorasExigibles.Controls.Add(this.lblSemanasSemestre, 3, 1);
-            this.panelHorasExigibles.Location = new System.Drawing.Point(508, 20);
+            this.panelHorasExigibles.Location = new System.Drawing.Point(7, 33);
             this.panelHorasExigibles.Name = "panelHorasExigibles";
             this.panelHorasExigibles.RowCount = 2;
-            this.panelHorasExigibles.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 48.06202F));
-            this.panelHorasExigibles.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 51.93798F));
-            this.panelHorasExigibles.Size = new System.Drawing.Size(389, 129);
+            this.panelHorasExigibles.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 55F));
+            this.panelHorasExigibles.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 45F));
+            this.panelHorasExigibles.Size = new System.Drawing.Size(373, 78);
             this.panelHorasExigibles.TabIndex = 24;
             this.panelHorasExigibles.Visible = false;
             this.panelHorasExigibles.Paint += new System.Windows.Forms.PaintEventHandler(this.panelHorasExigibles_Paint);
@@ -165,12 +205,12 @@
             // lblSemanasClases
             // 
             this.lblSemanasClases.AutoSize = true;
-            this.lblSemanasClases.BackColor = System.Drawing.Color.LemonChiffon;
+            this.lblSemanasClases.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(234)))), ((int)(((byte)(234)))), ((int)(((byte)(234)))));
             this.lblSemanasClases.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblSemanasClases.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblSemanasClases.Location = new System.Drawing.Point(197, 62);
+            this.lblSemanasClases.Location = new System.Drawing.Point(189, 42);
             this.lblSemanasClases.Name = "lblSemanasClases";
-            this.lblSemanasClases.Size = new System.Drawing.Size(91, 67);
+            this.lblSemanasClases.Size = new System.Drawing.Size(87, 36);
             this.lblSemanasClases.TabIndex = 4;
             this.lblSemanasClases.Text = "0";
             this.lblSemanasClases.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -181,9 +221,9 @@
             this.lblHorasExigibles.BackColor = System.Drawing.Color.LemonChiffon;
             this.lblHorasExigibles.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblHorasExigibles.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblHorasExigibles.Location = new System.Drawing.Point(3, 62);
+            this.lblHorasExigibles.Location = new System.Drawing.Point(3, 42);
             this.lblHorasExigibles.Name = "lblHorasExigibles";
-            this.lblHorasExigibles.Size = new System.Drawing.Size(91, 67);
+            this.lblHorasExigibles.Size = new System.Drawing.Size(87, 36);
             this.lblHorasExigibles.TabIndex = 3;
             this.lblHorasExigibles.Text = "0";
             this.lblHorasExigibles.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -194,9 +234,9 @@
             this.lblHorasFaltantes.BackColor = System.Drawing.Color.LemonChiffon;
             this.lblHorasFaltantes.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblHorasFaltantes.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblHorasFaltantes.Location = new System.Drawing.Point(100, 62);
+            this.lblHorasFaltantes.Location = new System.Drawing.Point(96, 42);
             this.lblHorasFaltantes.Name = "lblHorasFaltantes";
-            this.lblHorasFaltantes.Size = new System.Drawing.Size(91, 67);
+            this.lblHorasFaltantes.Size = new System.Drawing.Size(87, 36);
             this.lblHorasFaltantes.TabIndex = 2;
             this.lblHorasFaltantes.Text = "0";
             this.lblHorasFaltantes.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -204,64 +244,76 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.BackColor = System.Drawing.Color.LightSalmon;
+            this.label10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(111)))), ((int)(((byte)(128)))));
+            this.label10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label10.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label10.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label10.Location = new System.Drawing.Point(100, 0);
+            this.label10.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label10.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label10.ForeColor = System.Drawing.Color.White;
+            this.label10.Location = new System.Drawing.Point(96, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(91, 62);
+            this.label10.Size = new System.Drawing.Size(87, 42);
             this.label10.TabIndex = 1;
-            this.label10.Text = "Horas Faltantes";
+            this.label10.Text = "FALTANTES";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.BackColor = System.Drawing.Color.LightSalmon;
+            this.label9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(111)))), ((int)(((byte)(128)))));
+            this.label9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label9.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label9.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label9.ForeColor = System.Drawing.Color.White;
             this.label9.Location = new System.Drawing.Point(3, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(91, 62);
+            this.label9.Size = new System.Drawing.Size(87, 42);
             this.label9.TabIndex = 0;
-            this.label9.Text = "Horas Exigibles";
+            this.label9.Text = "EXIGIBLES";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.BackColor = System.Drawing.Color.LightSalmon;
+            this.label12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(155)))), ((int)(((byte)(212)))));
+            this.label12.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label12.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label12.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label12.Location = new System.Drawing.Point(197, 0);
+            this.label12.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label12.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label12.ForeColor = System.Drawing.Color.White;
+            this.label12.Location = new System.Drawing.Point(189, 0);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(91, 62);
+            this.label12.Size = new System.Drawing.Size(87, 42);
             this.label12.TabIndex = 5;
-            this.label12.Text = "Semanas de Clase";
+            this.label12.Text = "CLASE";
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.BackColor = System.Drawing.Color.LightSalmon;
+            this.label11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(155)))), ((int)(((byte)(212)))));
+            this.label11.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label11.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label11.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label11.Location = new System.Drawing.Point(294, 0);
+            this.label11.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label11.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label11.ForeColor = System.Drawing.Color.White;
+            this.label11.Location = new System.Drawing.Point(282, 0);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(92, 62);
+            this.label11.Size = new System.Drawing.Size(88, 42);
             this.label11.TabIndex = 6;
-            this.label11.Text = "Semanas del Semestre";
+            this.label11.Text = "SEMESTRE";
             this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblSemanasSemestre
             // 
             this.lblSemanasSemestre.AutoSize = true;
-            this.lblSemanasSemestre.BackColor = System.Drawing.Color.LemonChiffon;
+            this.lblSemanasSemestre.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(234)))), ((int)(((byte)(234)))), ((int)(((byte)(234)))));
             this.lblSemanasSemestre.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblSemanasSemestre.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblSemanasSemestre.Location = new System.Drawing.Point(294, 62);
+            this.lblSemanasSemestre.Location = new System.Drawing.Point(282, 42);
             this.lblSemanasSemestre.Name = "lblSemanasSemestre";
-            this.lblSemanasSemestre.Size = new System.Drawing.Size(92, 67);
+            this.lblSemanasSemestre.Size = new System.Drawing.Size(88, 36);
             this.lblSemanasSemestre.TabIndex = 7;
             this.lblSemanasSemestre.Text = "0";
             this.lblSemanasSemestre.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -269,15 +321,20 @@
             // panelHoras
             // 
             this.panelHoras.Controls.Add(this.tableLayoutPanel1);
+            this.panelHoras.Controls.Add(this.btnEditarHorasExigibles);
             this.panelHoras.Controls.Add(this.label7);
+            this.panelHoras.Controls.Add(this.label4);
             this.panelHoras.Controls.Add(this.pieChart);
-            this.panelHoras.Location = new System.Drawing.Point(917, 9);
+            this.panelHoras.Controls.Add(this.label3);
+            this.panelHoras.Controls.Add(this.panelHorasExigibles);
+            this.panelHoras.Location = new System.Drawing.Point(576, 9);
             this.panelHoras.Name = "panelHoras";
-            this.panelHoras.Size = new System.Drawing.Size(698, 212);
+            this.panelHoras.Size = new System.Drawing.Size(1065, 212);
             this.panelHoras.TabIndex = 22;
             // 
             // tableLayoutPanel1
             // 
+            this.tableLayoutPanel1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 75F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
@@ -293,7 +350,7 @@
             this.tableLayoutPanel1.Controls.Add(this.label13, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.txtHorasTotales, 1, 6);
             this.tableLayoutPanel1.Controls.Add(this.label15, 0, 6);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(13, 35);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(386, 33);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 7;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15.83317F));
@@ -470,9 +527,10 @@
             // 
             // label7
             // 
+            this.label7.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label7.BackColor = System.Drawing.Color.Gold;
             this.label7.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label7.Location = new System.Drawing.Point(325, 3);
+            this.label7.Location = new System.Drawing.Point(698, 1);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(97, 27);
             this.label7.TabIndex = 7;
@@ -481,9 +539,10 @@
             // 
             // pieChart
             // 
+            this.pieChart.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.pieChart.BackColor = System.Drawing.Color.LightSkyBlue;
             this.pieChart.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.pieChart.Location = new System.Drawing.Point(460, 3);
+            this.pieChart.Location = new System.Drawing.Point(833, 1);
             this.pieChart.Name = "pieChart";
             this.pieChart.Size = new System.Drawing.Size(225, 209);
             this.pieChart.TabIndex = 0;
@@ -693,5 +752,8 @@
         private Label label15;
         private MaterialSkin.Controls.MaterialButton btnCrearCargaAcademica;
         private MaterialSkin.Controls.MaterialButton btnNewCarga;
+        private Label label4;
+        private Label label3;
+        private Button btnEditarHorasExigibles;
     }
 }

@@ -1,0 +1,12 @@
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\Carga Horaria Project\Directorio-Entidades\bin\Release\net6.0-windows\Directorio-Entidades.deps.json
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\Carga Horaria Project\Directorio-Entidades\bin\Release\net6.0-windows\Directorio-Entidades.dll
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\Carga Horaria Project\Directorio-Entidades\bin\Release\net6.0-windows\Directorio-Entidades.pdb
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\Carga Horaria Project\Directorio-Entidades\obj\Release\net6.0-windows\Directorio-Entidades.csproj.AssemblyReference.cache
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\Carga Horaria Project\Directorio-Entidades\obj\Release\net6.0-windows\Directorio-Entidades.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\Carga Horaria Project\Directorio-Entidades\obj\Release\net6.0-windows\Directorio-Entidades.AssemblyInfoInputs.cache
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\Carga Horaria Project\Directorio-Entidades\obj\Release\net6.0-windows\Directorio-Entidades.AssemblyInfo.cs
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\Carga Horaria Project\Directorio-Entidades\obj\Release\net6.0-windows\Directorio-Entidades.csproj.CoreCompileInputs.cache
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\Carga Horaria Project\Directorio-Entidades\obj\Release\net6.0-windows\Directorio-Entidades.dll
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\Carga Horaria Project\Directorio-Entidades\obj\Release\net6.0-windows\refint\Directorio-Entidades.dll
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\Carga Horaria Project\Directorio-Entidades\obj\Release\net6.0-windows\Directorio-Entidades.pdb
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\Carga Horaria Project\Directorio-Entidades\obj\Release\net6.0-windows\ref\Directorio-Entidades.dll

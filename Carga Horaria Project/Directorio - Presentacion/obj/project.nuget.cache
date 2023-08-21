@@ -1,10 +1,9 @@
 {
   "version": 2,
-  "dgSpecHash": "9NcpgknB1oYOwZt/tTLilFZMAnfJNO/GVLe4SBl2hMCFXMkKWYJT6eOi0t+f+JmAj6ODln3WFZVlkEGgHXTwnA==",
+  "dgSpecHash": "bGW61VUJRb9IJ7QQHCrcJ+gyHDXi2o5qLsPP2YNiz6WG97rHIfeHDr4mmM0FzVv+c1TWWOt7O/75xHPhTp1jMg==",
   "success": true,
   "projectFilePath": "C:\\Users\\jorge\\OneDrive - Escuela Politécnica Nacional\\TESIS LAPTOP SYNC\\resp\\Carga Horaria Project\\Directorio - Presentacion\\Directorio - Presentacion.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\jorge\\.nuget\\packages\\bipscontrolsforms\\1.0.0\\bipscontrolsforms.1.0.0.nupkg.sha512",
     "C:\\Users\\jorge\\.nuget\\packages\\itext7\\8.0.0\\itext7.8.0.0.nupkg.sha512",
     "C:\\Users\\jorge\\.nuget\\packages\\itext7.bouncy-castle-adapter\\8.0.0\\itext7.bouncy-castle-adapter.8.0.0.nupkg.sha512",
     "C:\\Users\\jorge\\.nuget\\packages\\itext7.bouncy-castle-fips-adapter\\8.0.0\\itext7.bouncy-castle-fips-adapter.8.0.0.nupkg.sha512",

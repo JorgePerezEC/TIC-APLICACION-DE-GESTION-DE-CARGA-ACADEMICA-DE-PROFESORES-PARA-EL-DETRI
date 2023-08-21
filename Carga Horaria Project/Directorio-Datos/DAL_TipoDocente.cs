@@ -343,6 +343,91 @@ namespace Directorio_Datos
                 ObjDataBase.CerrarConexion();
             }
         }
+        public DataTable GetTipoDocenteHorasAll_DAL(ClsSemestre _semestre)
+        {
+            try
+            {
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.Connection = ObjDataBase.sqlConexion;
+                sqlCommand.CommandText = "spGetHorasExigiblesDocentesBySemestre";
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                sqlCommand.Parameters.AddWithValue("@idSemestre", _semestre.IdSemestre);
+
+                ObjDataBase.AbrirConexion();
+                leer = sqlCommand.ExecuteReader();
+                tabla.Load(leer);
+                ObjDataBase.CerrarConexion();
+                return tabla;
+
+            }
+            catch (SqlException ex)
+            {
+                SqlError err = ex.Errors[0];
+                string mensaje = string.Empty;
+                switch (err.Number)
+                {
+                    case 109:
+                        mensaje = "Problemas con insert"; break;
+                    case 110:
+                        mensaje = "Más problemas con insert"; break;
+                    case 113:
+                        mensaje = "Problemas con comentarios"; break;
+                    case 156:
+                        mensaje = "Error de sintaxis"; break;
+                    default:
+                        mensaje = err.ToString(); break;
+
+                }
+                return null;
+            }
+            finally
+            {
+                ObjDataBase.CerrarConexion();
+            }
+        }
+        public DataTable GetInfoTipoDocenteByName_DAL(ClsSemestre _semestre, ClsTipoDocente _tpDocente)
+        {
+            try
+            {
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.Connection = ObjDataBase.sqlConexion;
+                sqlCommand.CommandText = "spGetDataHorasExigiblesDocentesBySemestreAndName";
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                sqlCommand.Parameters.AddWithValue("@idSemestre", _semestre.IdSemestre);
+                sqlCommand.Parameters.AddWithValue("@nombreTipoDocente", _tpDocente.NombreTipoDocente);
+
+                ObjDataBase.AbrirConexion();
+                leer = sqlCommand.ExecuteReader();
+                tabla.Load(leer);
+                ObjDataBase.CerrarConexion();
+                return tabla;
+
+            }
+            catch (SqlException ex)
+            {
+                SqlError err = ex.Errors[0];
+                string mensaje = string.Empty;
+                switch (err.Number)
+                {
+                    case 109:
+                        mensaje = "Problemas con insert"; break;
+                    case 110:
+                        mensaje = "Más problemas con insert"; break;
+                    case 113:
+                        mensaje = "Problemas con comentarios"; break;
+                    case 156:
+                        mensaje = "Error de sintaxis"; break;
+                    default:
+                        mensaje = err.ToString(); break;
+
+                }
+                return null;
+            }
+            finally
+            {
+                ObjDataBase.CerrarConexion();
+            }
+        }
         public bool AddOrUpdateTipoDocente_Semstre_DAL(ClsTipoDocente _tipoDocente, ClsSemestre _semestre)
         {
             try

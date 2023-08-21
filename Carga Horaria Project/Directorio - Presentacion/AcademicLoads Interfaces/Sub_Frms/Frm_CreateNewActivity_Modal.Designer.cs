@@ -32,6 +32,7 @@
             this.txtTipoActividad = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.ckboxSemanal = new MaterialSkin.Controls.MaterialCheckbox();
             this.ckboxTotal = new MaterialSkin.Controls.MaterialCheckbox();
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
@@ -45,7 +46,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.ckboxSemanal = new MaterialSkin.Controls.MaterialCheckbox();
             this.panelCreate.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
@@ -112,6 +112,22 @@
             this.tableLayoutPanel2.Size = new System.Drawing.Size(172, 61);
             this.tableLayoutPanel2.TabIndex = 24;
             // 
+            // ckboxSemanal
+            // 
+            this.ckboxSemanal.AutoSize = true;
+            this.ckboxSemanal.Depth = 0;
+            this.ckboxSemanal.Location = new System.Drawing.Point(122, 0);
+            this.ckboxSemanal.Margin = new System.Windows.Forms.Padding(0);
+            this.ckboxSemanal.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.ckboxSemanal.MouseState = MaterialSkin.MouseState.HOVER;
+            this.ckboxSemanal.Name = "ckboxSemanal";
+            this.ckboxSemanal.ReadOnly = false;
+            this.ckboxSemanal.Ripple = true;
+            this.ckboxSemanal.Size = new System.Drawing.Size(35, 30);
+            this.ckboxSemanal.TabIndex = 2;
+            this.ckboxSemanal.UseVisualStyleBackColor = true;
+            this.ckboxSemanal.CheckedChanged += new System.EventHandler(this.ckboxSemanal_CheckedChanged);
+            // 
             // ckboxTotal
             // 
             this.ckboxTotal.AutoSize = true;
@@ -159,7 +175,7 @@
             this.btnClose.FlatAppearance.BorderSize = 0;
             this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClose.Font = new System.Drawing.Font("Roboto Black", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnClose.Location = new System.Drawing.Point(974, 244);
+            this.btnClose.Location = new System.Drawing.Point(1004, 252);
             this.btnClose.MaximumSize = new System.Drawing.Size(125, 41);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(125, 41);
@@ -174,7 +190,7 @@
             this.txtHorasTotales.Location = new System.Drawing.Point(828, 175);
             this.txtHorasTotales.Name = "txtHorasTotales";
             this.txtHorasTotales.PlaceholderText = "Ingrese la duración total de la actvidad";
-            this.txtHorasTotales.Size = new System.Drawing.Size(271, 32);
+            this.txtHorasTotales.Size = new System.Drawing.Size(301, 32);
             this.txtHorasTotales.TabIndex = 5;
             this.txtHorasTotales.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtHorasSemanales_KeyPress);
             // 
@@ -194,8 +210,9 @@
             this.txtHorasSemanales.Location = new System.Drawing.Point(828, 120);
             this.txtHorasSemanales.Name = "txtHorasSemanales";
             this.txtHorasSemanales.PlaceholderText = "Ingrese la duración de la actvidad";
-            this.txtHorasSemanales.Size = new System.Drawing.Size(271, 32);
+            this.txtHorasSemanales.Size = new System.Drawing.Size(301, 32);
             this.txtHorasSemanales.TabIndex = 4;
+            this.txtHorasSemanales.TextChanged += new System.EventHandler(this.txtHorasSemanales_TextChanged);
             this.txtHorasSemanales.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtHorasSemanales_KeyPress);
             // 
             // cmbTpActiv
@@ -238,7 +255,7 @@
             this.btnGuardar.FlatAppearance.BorderSize = 0;
             this.btnGuardar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGuardar.Font = new System.Drawing.Font("Roboto Black", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnGuardar.Location = new System.Drawing.Point(789, 244);
+            this.btnGuardar.Location = new System.Drawing.Point(819, 252);
             this.btnGuardar.MaximumSize = new System.Drawing.Size(125, 41);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(125, 41);
@@ -285,22 +302,6 @@
             this.label2.Size = new System.Drawing.Size(167, 24);
             this.label2.TabIndex = 2;
             this.label2.Text = "Tipo de Actividad: ";
-            // 
-            // ckboxSemanal
-            // 
-            this.ckboxSemanal.AutoSize = true;
-            this.ckboxSemanal.Depth = 0;
-            this.ckboxSemanal.Location = new System.Drawing.Point(122, 0);
-            this.ckboxSemanal.Margin = new System.Windows.Forms.Padding(0);
-            this.ckboxSemanal.MouseLocation = new System.Drawing.Point(-1, -1);
-            this.ckboxSemanal.MouseState = MaterialSkin.MouseState.HOVER;
-            this.ckboxSemanal.Name = "ckboxSemanal";
-            this.ckboxSemanal.ReadOnly = false;
-            this.ckboxSemanal.Ripple = true;
-            this.ckboxSemanal.Size = new System.Drawing.Size(35, 30);
-            this.ckboxSemanal.TabIndex = 2;
-            this.ckboxSemanal.UseVisualStyleBackColor = true;
-            this.ckboxSemanal.CheckedChanged += new System.EventHandler(this.ckboxSemanal_CheckedChanged);
             // 
             // Frm_CreateNewActivity_Modal
             // 

@@ -7,16 +7,17 @@
 -- PRESS F5 to Execute entire script
 --------------------------------------------
 USE master
+--dbCargaHorariaTICtest2
 GO
-IF EXISTS (SELECT name FROM sys.databases WHERE name = 'dbCargaHorariaTIC')
+IF EXISTS (SELECT name FROM sys.databases WHERE name = 'dbCargaHorariaTICtest3')
 BEGIN
-    DROP DATABASE dbCargaHorariaTIC;
+    DROP DATABASE dbCargaHorariaTICtest3;
 END
 GO
 PRINT 'Creating DB';
-CREATE DATABASE dbCargaHorariaTIC;
+CREATE DATABASE dbCargaHorariaTICtest3;
 GO
-USE dbCargaHorariaTIC;
+USE dbCargaHorariaTICtest3;
 
 -----------------------------------------
 -- Table Creation Section
@@ -68,6 +69,7 @@ CREATE TABLE tblDocente(
 	apellido1Docente varchar(50) NOT NULL,
 	apellido2Docente varchar(50) NOT NULL,
 	tituloDocente varchar(50) NOT NULL,
+	estadoDocente int,
 	PRIMARY KEY (idDocente),
 	FOREIGN KEY (idDepa) REFERENCES tblDepartamento(idDepartamento) ON UPDATE  NO ACTION  ON DELETE  NO ACTION
 );
@@ -339,6 +341,35 @@ BEGIN
 	SELECT @numHorasSemestrales AS numHorasSemestrales
 END
 GO
+-- Stored Procedure to get the number of semester hours based on idTipoDocente and idSemestre
+CREATE OR ALTER PROCEDURE spGetHorasExigiblesDocentesBySemestre
+    @idSemestre INT
+AS
+BEGIN
+    DECLARE @RowCount INT;
+	DECLARE @RowCountDefault INT;
+
+    SELECT @RowCount = COUNT(*)
+    FROM tblTipoDocenteSemestre
+    WHERE idSemestre = @idSemestre;
+
+	SELECT @RowCountDefault = COUNT(*)
+    FROM tblTipoDocente
+
+    IF @RowCount > 0 AND @RowCountDefault = @RowCount
+    BEGIN
+        SELECT TDS.idTipoDocenteSemestre as ID, TD.nombreTipoDocente as 'TIPO DE DOCENTE' ,TDS.numHorasSemestrales as '# HORAS'
+        FROM tblTipoDocenteSemestre TDS
+		INNER JOIN tblTipoDocente TD ON TDS.idTipoDocente = TD.idTipoDocente
+        WHERE idSemestre = @idSemestre;
+    END
+    ELSE
+    BEGIN
+        SELECT idTipoDocente as IDs,nombreTipoDocente as 'TIPO DE DOCENTE',numHorasSemestrales as '# HORAS'
+		FROM tblTipoDocente
+    END
+END;
+GO
 -- Stored Procedure to create one row from  "tblDocente"
 CREATE PROCEDURE [dbo].[spAddDocente]
 	@idDepa	int,
@@ -350,8 +381,8 @@ CREATE PROCEDURE [dbo].[spAddDocente]
 AS
 	BEGIN 
 		INSERT INTO tblDocente(idDepa,nombre1Docente,nombre2Docente,
-		apellido1Docente,apellido2Docente,tituloDocente)
-		VALUES(@idDepa,@name1,@name2,@apellido1,@apellido2,@tituloDoc)
+		apellido1Docente,apellido2Docente,tituloDocente, estadoDocente)
+		VALUES(@idDepa,@name1,@name2,@apellido1,@apellido2,@tituloDoc,1)
 	END
 GO
 --exec spAddSemestre '2023A',2023,'lunes,30 de enero 2023','2023-05-02',16,20,1
@@ -430,6 +461,28 @@ AS
 		BEGIN
 			INSERT INTO tblSemestreTpDocente (idTipoDoc,idSemestre, idDocente, numHorasSemestrales,estadoSemestreDoc)
 			VALUES (@idTpDocente,@idSemestre, @idDocente, @numHoras, @state)
+		END
+	END
+GO
+---- Stored Procedure to UPDATE one row into  "tblSemestreDocente"
+CREATE OR ALTER PROCEDURE [dbo].[spUpdateHorasExigiblesSemestreTpDocente]
+	@idSemestre int,
+	@idDocente int,
+	@numHoras int,
+	@result bit OUTPUT
+AS
+	BEGIN 
+		IF EXISTS(SELECT idSemestreTpDoc FROM tblSemestreTpDocente WHERE idSemestre = @idSemestre AND idDocente = @idDocente)
+		BEGIN
+			UPDATE tblSemestreTpDocente
+			SET numHorasSemestrales = @numHoras
+			WHERE idSemestre = @idSemestre AND idDocente = @idDocente
+
+			SET @result = 1
+		END
+		ELSE
+		BEGIN
+			SET @result = 0
 		END
 	END
 GO
@@ -1202,6 +1255,7 @@ BEGIN
 			CONCAT(apellido1Docente, ' ', apellido2Docente) Apellidos,tituloDocente AS 'Título'
     FROM   tblDocente car
 	INNER JOIN tblDepartamento dep  on car.idDepa = dep.idDepartamento
+	WHERE estadoDocente = 1
 END
 GO
 -- Stored Procedure to Get Docente Name from  "tblCargaHoraria" based on idCargaHoraria
@@ -1212,7 +1266,7 @@ BEGIN
     SELECT CONCAT(apellido1Docente, ' ', apellido2Docente, ' ',nombre1Docente, ' ', nombre2Docente) NameDocente
 	FROM tblCargaHoraria ch
 	INNER JOIN tblDocente doc ON ch.idDocente = doc.idDocente
-	WHERE ch.idCargaHoraria = @idCrgHoraria
+	WHERE ch.idCargaHoraria = @idCrgHoraria AND doc.estadoDocente = 1
 END
 GO
 -- Stored Procedure to Get Docente Type Name from  "tblCargaHoraria" based on idCargaHoraria
@@ -1226,7 +1280,7 @@ BEGIN
 	INNER JOIN tblDocente doc ON ch.idDocente = doc.idDocente
 	INNER JOIN tblSemestreTpDocente std ON doc.idDocente = std.idDocente
 	INNER JOIN tblTipoDocente td ON std.idTipoDoc = td.idTipoDocente
-	WHERE ch.idCargaHoraria = @idCrgHoraria and  std.idSemestre =@idSemestre
+	WHERE ch.idCargaHoraria = @idCrgHoraria and  std.idSemestre =@idSemestre and doc.estadoDocente = 1
 END
 GO
 -- Stored Procedure to Read All rows from  "tblDocente"
@@ -1234,7 +1288,7 @@ CREATE OR ALTER PROCEDURE [dbo].[spReadAllDocentesAllNames]
 AS 
 BEGIN 
     SELECT idDocente AS ID, CONCAT(apellido1Docente, ' ', apellido2Docente,' ', nombre1Docente, ' ', nombre2Docente) NombreDocente
-    FROM   tblDocente
+    FROM   tblDocente WHERE estadoDocente = 1
 	ORDER BY NombreDocente ASC
 END
 GO
@@ -1246,7 +1300,7 @@ BEGIN
     SELECT D.idDocente AS ID, CONCAT(D.apellido1Docente, ' ', D.apellido2Docente,' ', D.nombre1Docente, ' ', D.nombre2Docente) NombreDocente
     FROM   tblSemestreTpDocente STP
 	INNER JOIN tblDocente D ON STP.idDocente = D.idDocente
-	WHERE STP.estadoSemestreDoc = 1 AND STP.idSemestre = @idSemestre AND STP.numHorasSemestrales > 0
+	WHERE STP.estadoSemestreDoc = 1 AND STP.idSemestre = @idSemestre AND STP.numHorasSemestrales > 0 AND D.estadoDocente = 1
 	ORDER BY NombreDocente ASC
 END
 GO
@@ -1260,7 +1314,7 @@ BEGIN
     FROM   tblSemestreTpDocente STP
 	INNER JOIN tblDocente D ON STP.idDocente = D.idDocente
 	INNER JOIN tblTipoDocente TD ON STP.idTipoDoc = TD.idTipoDocente
-	WHERE STP.idSemestre = @idSemestre
+	WHERE STP.idSemestre = @idSemestre AND D.estadoDocente = 1
 	ORDER BY NombreDocente ASC
 END
 GO
@@ -1298,7 +1352,7 @@ BEGIN
 	INNER JOIN tblDocente doc ON std.idDocente = doc.idDocente
 	INNER JOIN tblTipoDocente tp ON std.idTipoDoc = tp.idTipoDocente
 	INNER JOIN tblSemestre sm ON std.idSemestre = sm.idSemestre
-	WHERE std.idSemestre = @idSemestre
+	WHERE std.idSemestre = @idSemestre AND doc.estadoDocente = 1
 	ORDER BY NombreDocente ASC
 END
 GO
@@ -1569,8 +1623,9 @@ CREATE PROCEDURE [dbo].[spDeleteDocente]
 	@id	int
 AS
 	BEGIN
-		DELETE FROM tblDocente 
-		WHERE idDocente = @id
+		UPDATE tblDocente
+		SET estadoDocente = 0
+		WHERE idDocente = @id;
 	END
 GO
 -- Stored Procedure to delete one row from  "tblSemestre"
@@ -1774,7 +1829,7 @@ CREATE PROCEDURE [dbo].[spDocentesByIdTV]
 AS
 	BEGIN 
 		SELECT idDocente AS ID, CONCAT(apellido1Docente,' ',apellido2Docente,' ',nombre1Docente,' ',nombre2Docente) AS Docente
-		FROM tblDocente WHERE idDepa = @id
+		FROM tblDocente WHERE idDepa = @id and estadoDocente = 1
 		ORDER BY Docente ASC
 	END
 GO
@@ -1792,7 +1847,7 @@ AS
 			INNER JOIN tblTipoDocente tp ON std.idTipoDoc = tp.idTipoDocente
 			INNER JOIN tblSemestre sm ON std.idSemestre = sm.idSemestre
 			INNER JOIN tblCargaHoraria ch ON std.idDocente = ch.idDocente
-			WHERE ch.idSemestre = @idSemestre AND doc.idDepa = @idDepa and std.idSemestre = @idSemestre
+			WHERE ch.idSemestre = @idSemestre AND doc.idDepa = @idDepa and std.idSemestre = @idSemestre and doc.estadoDocente = 1
 		) AS subquery
 		GROUP BY ID, Docente, codigoSemestre
 		ORDER BY Docente ASC
@@ -1804,7 +1859,7 @@ CREATE PROCEDURE [dbo].[spDocentesById]
 AS
 	BEGIN 
 		SELECT idDepa AS ID, CONCAT(apellido1Docente,' ',apellido2Docente,' ',nombre1Docente,' ',nombre2Docente) AS Departamento
-		FROM tblDocente WHERE idDepa = @id
+		FROM tblDocente WHERE idDepa = @id and estadoDocente = 1
 		ORDER BY Departamento ASC
 	END
 GO
@@ -2632,8 +2687,130 @@ BEGIN
 	DECLARE @horaSemana3Mod INT;
 	DECLARE @horaSemana4Mod INT;
 	-- Se recupera el id de la Carga Horaria
+    SELECT @id_CargaH = COALESCE(i.idCrgHoraria, d.idCrgHoraria)
+    FROM inserted i
+    LEFT JOIN deleted d ON i.idCrgHoraria = d.idCrgHoraria;
+
+	
+	-- Se obtiene la suma de horasAsignatura semestrales mediante el procedimiento almacenado
+	SELECT @horasSemanalesAsignaturas = COALESCE(SUM(asig.horasAsignaturaSemanales),0)
+	FROM   tblAsigCrgHoraria interAsig
+	INNER JOIN tblGrAsignatura gr  on interAsig.idGrAsig = gr.idGrAsig
+	INNER JOIN tblAsignatura asig on gr.idAsignatura = asig.idAsignatura
+	WHERE (interAsig.idCrgHoraria = @id_CargaH AND (asig.tipoAsignatura='Semestral'));
+
+	SELECT @horasTotalesAsigModulares = COALESCE(SUM(asig.horasAsignaturaTotales),0)
+	FROM   tblAsigCrgHoraria interAsig
+	INNER JOIN tblGrAsignatura gr  on interAsig.idGrAsig = gr.idGrAsig
+	INNER JOIN tblAsignatura asig on gr.idAsignatura = asig.idAsignatura
+	WHERE (interAsig.idCrgHoraria = @id_CargaH AND (asig.tipoAsignatura='Modular'));
+	
+	 ---- Se verifica que las actividades 1, 2, 3 y 4 existan en la tabla tblActividadCargas
+  --  IF NOT EXISTS (SELECT 1 FROM tblActividadCargas WHERE idCrgHoraria = @id_CargaH AND idActividad IN (1, 2, 3, 4))
+  --  BEGIN
+  --      RAISERROR('No se encuentran las actividades por defecto de Docencia 1:1 en la Carga Horaria.', 16, 1)
+  --      ROLLBACK TRANSACTION
+  --      RETURN
+  --  END
+
+	-- Calcular horas por actividad
+    DECLARE @horasPorActividad DECIMAL(10, 2);
+    SET @horasPorActividad = CAST(@horasSemanalesAsignaturas / 4.0 AS DECIMAL(10, 2));
+
+	-- Distribuir horas en variables  -SEMESTRALES
+	IF @horasSemanalesAsignaturas > 0
+		BEGIN
+			SET @horaSemana1 = CEILING(@horasPorActividad);
+			IF @horaSemana1 <= 0 SET @horaSemana1 = 0;
+			SET @horaSemana2 = FLOOR(@horasPorActividad);
+			IF @horaSemana2 <= 0 SET @horaSemana2 = 0;
+			SET @horaSemana3 = FLOOR(@horasPorActividad);
+			IF @horaSemana3 <= 0 SET @horaSemana3 = 0;
+			SET @horaSemana4 = @horasSemanalesAsignaturas - @horaSemana1 - @horaSemana2 - @horaSemana3;
+			IF @horaSemana4 <= 0 SET @horaSemana4 = 0;
+		END
+    ELSE
+		BEGIN
+			SET @horaSemana1 = 0;
+			SET @horaSemana2 = 0;
+			SET @horaSemana3 = 0;
+			SET @horaSemana4 = 0;
+		END
+
+	DECLARE @horasPorActividadModular DECIMAL(10, 2);
+    SET @horasPorActividadModular = CAST(@horasTotalesAsigModulares / 4.0 AS DECIMAL(10, 2));
+    
+    -- Distribuir horas en variables  -MODULAR
+	IF @horasTotalesAsigModulares > 0
+		BEGIN
+			SET @horaSemana1Mod = CEILING(@horasPorActividadModular);
+			IF @horaSemana1Mod <= 0 SET @horaSemana1Mod = 0;
+			SET @horaSemana2Mod = FLOOR(@horasPorActividadModular);
+			IF @horaSemana2Mod <= 0 SET @horaSemana2Mod = 0;
+			SET @horaSemana3Mod = FLOOR(@horasPorActividadModular);
+			IF @horaSemana3Mod <= 0 SET @horaSemana3Mod = 0;
+			SET @horaSemana4Mod = @horasTotalesAsigModulares - @horaSemana1Mod - @horaSemana2Mod - @horaSemana3Mod;
+			IF @horaSemana4Mod <= 0 SET @horaSemana4Mod = 0;
+		END
+    ELSE
+		BEGIN
+			SET @horaSemana1Mod = 0;
+			SET @horaSemana2Mod = 0;
+			SET @horaSemana3Mod = 0;
+			SET @horaSemana4Mod = 0;
+		END
+
+    -- Recalcular horas de actividades de Docencia por defecto
+	UPDATE tblActividadCargas
+	SET horasSemana = @horaSemana1
+	WHERE idCrgHoraria = @id_CargaH AND idActividad = 1
+	UPDATE tblActividadCargas
+	SET horasSemana = @horaSemana2
+	WHERE idCrgHoraria = @id_CargaH AND idActividad = 2
+	UPDATE tblActividadCargas
+	SET horasSemana = @horaSemana3
+	WHERE idCrgHoraria = @id_CargaH AND idActividad = 3
+	UPDATE tblActividadCargas
+	SET horasSemana = @horaSemana4
+	WHERE idCrgHoraria = @id_CargaH AND idActividad = 4
+
+	-- Recalcular horas de actividades de Docencia por defecto PARA ASIG MODULARES
+	UPDATE tblActividadCargas
+	SET horaTotal = @horaSemana1Mod
+	WHERE idCrgHoraria = @id_CargaH AND idActividad = 1
+	UPDATE tblActividadCargas
+	SET horaTotal = @horaSemana2Mod
+	WHERE idCrgHoraria = @id_CargaH AND idActividad = 2
+	UPDATE tblActividadCargas
+	SET horaTotal = @horaSemana3Mod
+	WHERE idCrgHoraria = @id_CargaH AND idActividad = 3
+	UPDATE tblActividadCargas
+	SET horaTotal = @horaSemana4Mod
+	WHERE idCrgHoraria = @id_CargaH AND idActividad = 4
+END;
+GO
+CREATE TRIGGER tr_recalcularHorasDocencia_CargaH_afterDelete
+ON tblAsigCrgHoraria
+AFTER DELETE
+AS
+BEGIN
+	DECLARE @id_CargaH INT;
+	DECLARE @horasSemanalesAsignaturas INT;
+	DECLARE @horasTotalesAsigModulares INT;
+	DECLARE @horaSemana1 INT;
+	DECLARE @horaSemana2 INT;
+	DECLARE @horaSemana3 INT;
+	DECLARE @horaSemana4 INT;
+
+	DECLARE @horaSemana1Mod INT;
+	DECLARE @horaSemana2Mod INT;
+	DECLARE @horaSemana3Mod INT;
+	DECLARE @horaSemana4Mod INT;
+	-- Se recupera el id de la Carga Horaria
     SELECT @id_CargaH = idCrgHoraria
-    FROM inserted;
+    FROM deleted;
+	PRINT 'TRIGGER DELETE'
+	PRINT @id_CargaH
 
 	-- Se obtiene la suma de horasAsignatura semestrales mediante el procedimiento almacenado
 	SELECT @horasSemanalesAsignaturas = COALESCE(SUM(asig.horasAsignaturaSemanales),0)
@@ -2866,6 +3043,21 @@ BEGIN
     SELECT idSemestre, @idAsignatura, 0
     FROM tblSemestre;
 END;
+GO
+--Trigger para actualizar num de horas semestrales al cambiar registros de la tabla que contiene el num de horas semestrales por semestre
+CREATE TRIGGER tr_UpdateSemestreTpDocente
+ON dbo.tblTipoDocenteSemestre
+AFTER UPDATE
+AS
+BEGIN
+    -- Actualizar los registros en tblSemestreTpDocente basados en los valores actualizados en tblTipoDocenteSemestre
+    UPDATE stp
+    SET stp.numHorasSemestrales = ins.numHorasSemestrales
+    FROM tblSemestreTpDocente stp
+    INNER JOIN inserted ins ON stp.idTipoDoc = ins.idTipoDocente AND stp.idSemestre = ins.idSemestre;
+END;
+
+
 -----------------------------------------
 -- Default Data Insert into DataBase Section
 -----------------------------------------
@@ -2903,55 +3095,55 @@ GO
 -- Table: Docente
 -- DATA INSERT
 --  TABLA: Docente- DATOS    (Id departamento,'Nombre1','Nombre2','Apellido1','Apellido2','Titulo Docente')
-INSERT INTO tblDocente VALUES(1,'Ana','Maria','Zambrano','Vizuete','PhD');
-INSERT INTO tblDocente VALUES(1,'Carlos','Francisco','Cevallos','Zambrano','MSc');
-INSERT INTO tblDocente VALUES(1,'Tania','Aleyda','Acosta','Hurtado','PhD');
-INSERT INTO tblDocente VALUES(1,'Robin','Gerardo','Alvarez','Rueda','PhD');
-INSERT INTO tblDocente VALUES(1,'Hernan','Vinicio','Barba','Molina','PhD');
-INSERT INTO tblDocente VALUES(1,'Pablo','Andres','Barbecho','Bautista','PhD');
-INSERT INTO tblDocente VALUES(1,'Ivan','Marcelo','Bernal','Carrillo','PhD');
-INSERT INTO tblDocente VALUES(1,'Julio','Cesar','Caiza','Ñacato','PhD');
-INSERT INTO tblDocente VALUES(1,'Xavier','Alexander','Calderon','Hinojosa','MSc');
-INSERT INTO tblDocente VALUES(1,'Luis','Fernando','Carrera','Suarez','PhD');
-INSERT INTO tblDocente VALUES(1,'Jorge','Eduardo','Carvajal','Rodriguez','MSc');
-INSERT INTO tblDocente VALUES(1,'William','Santiago','Coloma','Gomez','Ingeniería');
-INSERT INTO tblDocente VALUES(1,'Michael','Alexander','Curipallo','Martinez','Ingeniería');
-INSERT INTO tblDocente VALUES(1,'Luis','Efren','Diaz','Villacis','MSc');
-INSERT INTO tblDocente VALUES(1,'Carlos','Roberto','Egas','Acosta','MSc');
-INSERT INTO tblDocente VALUES(1,'Jose','Antonio','Estrada','Jimenez','PhD');	
-INSERT INTO tblDocente VALUES(1,'Luis','Antonio','Flores','Asimbaya','MSc');
-INSERT INTO tblDocente VALUES(1,'William','Fernando','Flores','Cifuentes','MSc');  			
-INSERT INTO tblDocente VALUES(1,'Fabio','Matias','Gonzalez','Gonzalez','MSc');
-INSERT INTO tblDocente VALUES(1,'Felipe','Leonel','Grijalva','Arevalo','PhD'); 
-INSERT INTO tblDocente VALUES(1,'Danny','Santiago','Guaman','Loachamin','PhD');
-INSERT INTO tblDocente VALUES(1,'Melany','Paola','Herrera','Herrera','Ingeniería');
-INSERT INTO tblDocente VALUES(1,'Carlos','Alfonso','Herrera','Muñoz','MSc');
-INSERT INTO tblDocente VALUES(1,'Pablo','Wilian','Hidalgo','Lascano','MSc'); 
-INSERT INTO tblDocente VALUES(1,'Marco','Fernando','Lara','Mina','MSc');
-INSERT INTO tblDocente VALUES(1,'Ricardo','Xavier','Llugsi','Cañar','MSc'); 
-INSERT INTO tblDocente VALUES(1,'Gabriel','Roberto','Lopez','Fonseca','MSc');
-INSERT INTO tblDocente VALUES(1,'Pablo','Anibal','Lupera','Morillo','PhD');
-INSERT INTO tblDocente VALUES(1,'Raul','David','Mejia','Navarrete','MSc'); 
-INSERT INTO tblDocente VALUES(1,'Ricardo','Ivan','Mena','Villacis',',MSc');
-INSERT INTO tblDocente VALUES(1,'Ramiro','Eduardo','Morejon','Tobar','MSc');
-INSERT INTO tblDocente VALUES(1,'Diana','Veronica','Navarro','Mendez','PhD');
-INSERT INTO tblDocente VALUES(1,'Martha','Cecilia','Paredes','Paredes','PhD');
-INSERT INTO tblDocente VALUES(1,'Viviana','Cristina','Parraga','Villamar','MSc');
-INSERT INTO tblDocente VALUES(1,'Maria','Cristina','Ramos','Lopez','MSc')
-INSERT INTO tblDocente VALUES(1,'Diego','Javier','Reinoso','Chisaguano','PhD');
-INSERT INTO tblDocente VALUES(1,'Aldrin','Paul','Reyes','Narvaez','MSc');
-INSERT INTO tblDocente VALUES(1,'Ana','Fernanda','Rodriguez','Hoyos','PhD');
-INSERT INTO tblDocente VALUES(1,'Tarquino','Fabian','Sanchez','Almeida','PhD');
-INSERT INTO tblDocente VALUES(1,'Franklin','Leonel','Sanchez','Catota','MSc');
-INSERT INTO tblDocente VALUES(1,'Marco','Fabian','Serrano','Gomez','Ingeniería');
-INSERT INTO tblDocente VALUES(1,'Soraya','Lucia','Sinche','Maita','PhD');
-INSERT INTO tblDocente VALUES(1,'Edison','Ramiro','Tatayo','Vinueza','MSc');
-INSERT INTO tblDocente VALUES(1,'Christian','Jose','Tipantuña','Tenelema','MSc');
-INSERT INTO tblDocente VALUES(1,'Luis','Felipe','Urquiza','Aguiar','PhD');
-INSERT INTO tblDocente VALUES(1,'Jose','David','Vega','Sanchez','PhD');
-INSERT INTO tblDocente VALUES(1,'Monica','De Lourdes','Vinueza','Rhor','MSc');
-INSERT INTO tblDocente VALUES(1,'Francisco','Javier','Vizuete','Bassante','Ingeniería');
-INSERT INTO tblDocente VALUES(1,'Jose','Adrian','Zambrano','Miranda','MSc');
+INSERT INTO tblDocente VALUES(1,'Ana','Maria','Zambrano','Vizuete','PhD',1);
+INSERT INTO tblDocente VALUES(1,'Carlos','Francisco','Cevallos','Zambrano','MSc',1);
+INSERT INTO tblDocente VALUES(1,'Tania','Aleyda','Acosta','Hurtado','PhD',1);
+INSERT INTO tblDocente VALUES(1,'Robin','Gerardo','Alvarez','Rueda','PhD',1);
+INSERT INTO tblDocente VALUES(1,'Hernan','Vinicio','Barba','Molina','PhD',1);
+INSERT INTO tblDocente VALUES(1,'Pablo','Andres','Barbecho','Bautista','PhD',1);
+INSERT INTO tblDocente VALUES(1,'Ivan','Marcelo','Bernal','Carrillo','PhD',1);
+INSERT INTO tblDocente VALUES(1,'Julio','Cesar','Caiza','Ñacato','PhD',1);
+INSERT INTO tblDocente VALUES(1,'Xavier','Alexander','Calderon','Hinojosa','MSc',1);
+INSERT INTO tblDocente VALUES(1,'Luis','Fernando','Carrera','Suarez','PhD',1);
+INSERT INTO tblDocente VALUES(1,'Jorge','Eduardo','Carvajal','Rodriguez','MSc',1);
+INSERT INTO tblDocente VALUES(1,'William','Santiago','Coloma','Gomez','Ingeniería',1);
+INSERT INTO tblDocente VALUES(1,'Michael','Alexander','Curipallo','Martinez','Ingeniería',1);
+INSERT INTO tblDocente VALUES(1,'Luis','Efren','Diaz','Villacis','MSc',1);
+INSERT INTO tblDocente VALUES(1,'Carlos','Roberto','Egas','Acosta','MSc',1);
+INSERT INTO tblDocente VALUES(1,'Jose','Antonio','Estrada','Jimenez','PhD',1);	
+INSERT INTO tblDocente VALUES(1,'Luis','Antonio','Flores','Asimbaya','MSc',1);
+INSERT INTO tblDocente VALUES(1,'William','Fernando','Flores','Cifuentes','MSc',1);  			
+INSERT INTO tblDocente VALUES(1,'Fabio','Matias','Gonzalez','Gonzalez','MSc',1);
+INSERT INTO tblDocente VALUES(1,'Felipe','Leonel','Grijalva','Arevalo','PhD',1); 
+INSERT INTO tblDocente VALUES(1,'Danny','Santiago','Guaman','Loachamin','PhD',1);
+INSERT INTO tblDocente VALUES(1,'Melany','Paola','Herrera','Herrera','Ingeniería',1);
+INSERT INTO tblDocente VALUES(1,'Carlos','Alfonso','Herrera','Muñoz','MSc',1);
+INSERT INTO tblDocente VALUES(1,'Pablo','Wilian','Hidalgo','Lascano','MSc',1); 
+INSERT INTO tblDocente VALUES(1,'Marco','Fernando','Lara','Mina','MSc',1);
+INSERT INTO tblDocente VALUES(1,'Ricardo','Xavier','Llugsi','Cañar','MSc',1); 
+INSERT INTO tblDocente VALUES(1,'Gabriel','Roberto','Lopez','Fonseca','MSc',1);
+INSERT INTO tblDocente VALUES(1,'Pablo','Anibal','Lupera','Morillo','PhD',1);
+INSERT INTO tblDocente VALUES(1,'Raul','David','Mejia','Navarrete','MSc',1); 
+INSERT INTO tblDocente VALUES(1,'Ricardo','Ivan','Mena','Villacis',',MSc',1);
+INSERT INTO tblDocente VALUES(1,'Ramiro','Eduardo','Morejon','Tobar','MSc',1);
+INSERT INTO tblDocente VALUES(1,'Diana','Veronica','Navarro','Mendez','PhD',1);
+INSERT INTO tblDocente VALUES(1,'Martha','Cecilia','Paredes','Paredes','PhD',1);
+INSERT INTO tblDocente VALUES(1,'Viviana','Cristina','Parraga','Villamar','MSc',1);
+INSERT INTO tblDocente VALUES(1,'Maria','Cristina','Ramos','Lopez','MSc',1)
+INSERT INTO tblDocente VALUES(1,'Diego','Javier','Reinoso','Chisaguano','PhD',1);
+INSERT INTO tblDocente VALUES(1,'Aldrin','Paul','Reyes','Narvaez','MSc',1);
+INSERT INTO tblDocente VALUES(1,'Ana','Fernanda','Rodriguez','Hoyos','PhD',1);
+INSERT INTO tblDocente VALUES(1,'Tarquino','Fabian','Sanchez','Almeida','PhD',1);
+INSERT INTO tblDocente VALUES(1,'Franklin','Leonel','Sanchez','Catota','MSc',1);
+INSERT INTO tblDocente VALUES(1,'Marco','Fabian','Serrano','Gomez','Ingeniería',1);
+INSERT INTO tblDocente VALUES(1,'Soraya','Lucia','Sinche','Maita','PhD',1);
+INSERT INTO tblDocente VALUES(1,'Edison','Ramiro','Tatayo','Vinueza','MSc',1);
+INSERT INTO tblDocente VALUES(1,'Christian','Jose','Tipantuña','Tenelema','MSc',1);
+INSERT INTO tblDocente VALUES(1,'Luis','Felipe','Urquiza','Aguiar','PhD',1);
+INSERT INTO tblDocente VALUES(1,'Jose','David','Vega','Sanchez','PhD',1);
+INSERT INTO tblDocente VALUES(1,'Monica','De Lourdes','Vinueza','Rhor','MSc',1);
+INSERT INTO tblDocente VALUES(1,'Francisco','Javier','Vizuete','Bassante','Ingeniería',1);
+INSERT INTO tblDocente VALUES(1,'Jose','Adrian','Zambrano','Miranda','MSc',1);
 -- CREATE SEMESTRE PREV
 GO
 -- Table: Actividad

@@ -54,7 +54,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1660, 82);
+            this.panel1.Size = new System.Drawing.Size(1686, 82);
             this.panel1.TabIndex = 0;
             // 
             // panel3
@@ -101,7 +101,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 82);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1660, 838);
+            this.panel2.Size = new System.Drawing.Size(1686, 838);
             this.panel2.TabIndex = 1;
             // 
             // panel4
@@ -111,7 +111,7 @@
             this.panel4.Controls.Add(this.label3);
             this.panel4.Location = new System.Drawing.Point(1097, 6);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(563, 623);
+            this.panel4.Size = new System.Drawing.Size(589, 623);
             this.panel4.TabIndex = 3;
             // 
             // dgvHorario
@@ -121,7 +121,7 @@
             this.dgvHorario.Name = "dgvHorario";
             this.dgvHorario.RowHeadersWidth = 51;
             this.dgvHorario.RowTemplate.Height = 29;
-            this.dgvHorario.Size = new System.Drawing.Size(493, 559);
+            this.dgvHorario.Size = new System.Drawing.Size(565, 559);
             this.dgvHorario.TabIndex = 5;
             this.dgvHorario.TabStop = false;
             // 
@@ -163,7 +163,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1660, 920);
+            this.ClientSize = new System.Drawing.Size(1686, 920);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Name = "FrmCRUD_Asignaturas_Ac_Load";

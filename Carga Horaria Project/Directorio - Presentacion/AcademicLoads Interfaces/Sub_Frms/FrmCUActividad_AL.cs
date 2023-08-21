@@ -124,7 +124,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
                 }
                 else if (ActividadTipo == "D11")
                 {
-                    cboxHorasTotales.Enabled= false;
+                    //cboxHorasTotales.Enabled= false;
                     cboxHorasSemanales.Checked = true;
                     lblTitleActividad.Text = "Editar Actividad de Docencia dentro del 1:1";
                     btnCrearActividad.Text = "Crear Actividad de Docencia 1:1";

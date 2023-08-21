@@ -210,6 +210,30 @@ namespace Directorio_Logica
             int horasEx = objetoCData.GetTipoDocenteHoras_DAL(ObjSemestre,ObjTipoDocente);
             return horasEx;
         }
+        public DataTable GetTipoDocenteHorasAll_Negocio(string idSemestre)
+        {
+            DataTable tabla = new DataTable();
+            ClsSemestre ObjSemestre = new ClsSemestre()
+            {
+                IdSemestre = Convert.ToInt32(idSemestre)
+            };
+            tabla = objetoCData.GetTipoDocenteHorasAll_DAL(ObjSemestre);
+            return tabla;
+        }
+        public DataTable GetInfoTipoDocenteByName_Negocio(string idSemestre, string nameTipoDocente)
+        {
+            DataTable tabla = new DataTable();
+            ClsSemestre ObjSemestre = new ClsSemestre()
+            {
+                IdSemestre = Convert.ToInt32(idSemestre)
+            };
+            ClsTipoDocente ObjTipoDocente = new ClsTipoDocente()
+            {
+                NombreTipoDocente = nameTipoDocente
+            };
+            tabla = objetoCData.GetInfoTipoDocenteByName_DAL(ObjSemestre, ObjTipoDocente);
+            return tabla;
+        }
         public bool AddOrUpdateTipoDocente_Semstre_Negocio(string idTpDocente, string idSemestre, string numHorasEx)
         {
             try

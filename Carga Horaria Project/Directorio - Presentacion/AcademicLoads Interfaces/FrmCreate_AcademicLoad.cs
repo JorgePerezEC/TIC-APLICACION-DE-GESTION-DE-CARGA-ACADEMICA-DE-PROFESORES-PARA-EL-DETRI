@@ -1,10 +1,10 @@
-﻿using Directorio___Presentacion.AcademicLoads_Interfaces.Error_Frms;
+﻿using Directorio___Presentacion.AcademicLoads_Interfaces.EditData_Frms;
+using Directorio___Presentacion.AcademicLoads_Interfaces.Error_Frms;
 using Directorio___Presentacion.CRUD_Interfaces;
 using Directorio___Presentacion.ElementsStyles_Configuration;
 using Directorio_Datos;
 using Directorio_Entidades;
 using Directorio_Logica;
-using Directorio_LogicaNegocio;
 using LiveCharts;
 using LiveCharts.Wpf;
 using System;
@@ -113,6 +113,9 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
 
         #region Método para abrir formularios hijos
         public Form activeForm = null;
+
+        
+
         public void openChildForm(Form childForm)
         {
             if (activeForm != null)
@@ -530,6 +533,20 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
                 e.Handled = true;
             }
         }
+
+        private void btnEditarHorasExigibles_Click(object sender, EventArgs e)
+        {
+            if (cmbSemestre.SelectedItem != null && cmbDocente.SelectedItem != null)
+            {
+                FrmEditHorasExigibles frmEditarHorasEx = new FrmEditHorasExigibles(Convert.ToInt32(cmbSemestre.SelectedValue), Convert.ToInt32(cmbDocente.SelectedValue));
+                frmEditarHorasEx.ShowDialog(this);
+            }
+            else
+            {
+                MessageBox.Show("Por favor, selecciona un semestre y un docente antes de continuar.", "Información incompleta", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
     }
 
 

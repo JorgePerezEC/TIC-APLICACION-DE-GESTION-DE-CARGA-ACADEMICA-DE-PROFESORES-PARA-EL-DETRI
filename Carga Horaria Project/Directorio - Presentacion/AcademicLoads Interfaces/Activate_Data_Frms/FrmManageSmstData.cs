@@ -25,12 +25,15 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Activate_Data_Frms
         private bool Editar = false;
         private DataTable dtDocentes;
         private int idTipoDocente = 7;
+        private int numHorasDocenteTiempoCompleto = 0;
+        private int numHorasDeshabilitado = 0;
+        private DataTable dtHorasExigibles = new DataTable();
+
         #endregion
         public FrmManageSmstData()
         {
             InitializeComponent();
-            dgvDocenteSemestre.CellFormatting += dgvDocenteSemestre_CellFormatting;
-
+            clsStyles.tableEditStyle(dgvAdminHorasTipoDocente);
         }
 
         private void FrmManageSmstData_Load(object sender, EventArgs e)
@@ -46,12 +49,42 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Activate_Data_Frms
         {
             if (cmbSemestre.SelectedValue != null)
             {
-                txtH_TTC.Text = objTpDocente.GetTipoDocenteHoras_Negocio(idSemestre, "1").ToString();
-                txtH_TTP.Text = objTpDocente.GetTipoDocenteHoras_Negocio(idSemestre, "2").ToString();
-                txtH_OTC.Text = objTpDocente.GetTipoDocenteHoras_Negocio(idSemestre, "3").ToString();
-                txtH_OTP.Text = objTpDocente.GetTipoDocenteHoras_Negocio(idSemestre, "4").ToString();
-                txtH_TC.Text  = objTpDocente.GetTipoDocenteHoras_Negocio(idSemestre, "5").ToString();
-                txtH_TP.Text  = objTpDocente.GetTipoDocenteHoras_Negocio(idSemestre, "6").ToString();
+                CN_TipoDocente objTipoDocente_N = new CN_TipoDocente();
+                
+                dtHorasExigibles = objTipoDocente_N.GetTipoDocenteHorasAll_Negocio(idSemestre);
+                if (dtHorasExigibles.Rows.Count > 0)
+                {
+                    dgvAdminHorasTipoDocente.DataSource = dtHorasExigibles;
+
+                    dgvAdminHorasTipoDocente.Columns[0].Visible = false;
+                    dgvAdminHorasTipoDocente.Columns[1].ReadOnly = true;
+                    dgvAdminHorasTipoDocente.Columns[2].ReadOnly = true;
+
+                    DataRow[] rows = dtHorasExigibles.Select("ID = 1"); // Filtrar las filas donde ID es igual a 1
+
+                    if (rows.Length > 0)
+                    {
+                        object valorHorasTTC = rows[0]["# HORAS"];
+
+                        if (valorHorasTTC != null)
+                        {
+                            numHorasDocenteTiempoCompleto = Convert.ToInt32(valorHorasTTC);
+                        }
+                    }
+
+                    DataRow[] rows2 = dtHorasExigibles.Select("ID = 7"); // Filtrar las filas donde ID es igual a 7
+
+                    if (rows2.Length > 0)
+                    {
+                        object valorHorasDeshabilitado = rows2[0]["# HORAS"];
+
+                        if (valorHorasDeshabilitado != null)
+                        {
+                            numHorasDeshabilitado = Convert.ToInt32(valorHorasDeshabilitado);
+                        }
+                    }
+
+                }
             }
         }
 
@@ -74,7 +107,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Activate_Data_Frms
                 dgvDocenteSemestre.Columns[2].HeaderText = "Activo?";
 
                 // Asignar los valores correspondientes a los ComboBox
-                AgregarColumnasTipoDocentes();
+                AgregarColumnasTipoDocentesDT();
                 for (int i = 0; i < dgvDocenteSemestre.Rows.Count - 1; i++)
                 {
                     int valorColumna = Convert.ToInt32(dtDocentes.Rows[i][3]);
@@ -95,37 +128,19 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Activate_Data_Frms
                 clsStyles.tableActivateDocentesStyle(dgvDocenteSemestre);
                 dgvDocenteSemestre.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
                 dgvDocenteSemestre.SelectionMode = DataGridViewSelectionMode.CellSelect;
-
-            }
-            //UpdateCheckboxCellStyles();
-        }
-
-        private void UpdateCheckboxCellStyles()
-        {
-            foreach (DataGridViewRow row in dgvDocenteSemestre.Rows)
-            {
-                foreach (DataGridViewCell cell in row.Cells)
-                {
-                    if (cell.OwningColumn is DataGridViewCheckBoxColumn && cell.Value is bool)
-                    {
-                        if ((bool)cell.Value)
-                        {
-                            cell.Style.BackColor = Color.Yellow; // Cambiar el color de fondo a amarillo
-                        }
-                        else
-                        {
-                            cell.Style.BackColor = dgvDocenteSemestre.DefaultCellStyle.BackColor; // Restaurar el color de fondo predeterminado
-                        }
-                    }
-                }
             }
         }
+
 
         private void LimpiarTabla()
         {
             dgvDocenteSemestre.DataSource = null;
             dgvDocenteSemestre.Rows.Clear();
             dgvDocenteSemestre.Columns.Clear();
+
+            dgvAdminHorasTipoDocente.DataSource = null;
+            dgvAdminHorasTipoDocente.Rows.Clear();
+            dgvAdminHorasTipoDocente.Columns.Clear();
         }
 
 
@@ -137,12 +152,6 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Activate_Data_Frms
             cmbSemestre.DataSource = objSemestre_N.MostrarSemestres();
             cmbSemestre.SelectedIndex = -1;
             cmbSemestre.SelectedIndexChanged += cmbSemestre_SelectedIndexChanged;
-            txtH_OTC.Enabled = false;
-            txtH_OTP.Enabled = false;
-            txtH_TC.Enabled = false;
-            txtH_TP.Enabled = false;
-            txtH_TTC.Enabled = false;
-            txtH_TTP.Enabled = false;
             btnGuardar.Text = "Continuar";
         }
         
@@ -153,65 +162,32 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Activate_Data_Frms
             MostrarDocentes();
         }
 
-        private void AgregarColumnasTipoDocentes()
+        private void AgregarColumnasTipoDocentesDT()
         {
-            DataGridViewCheckBoxColumn columnaTTC = new DataGridViewCheckBoxColumn();
-            columnaTTC.HeaderText = "Titular - Tiempo Completo";
-            columnaTTC.Name = "TTC";
-            columnaTTC.TrueValue = true;
-            columnaTTC.FalseValue = false;
-            columnaTTC.Width = 10;
-            dgvDocenteSemestre.Columns.Add(columnaTTC);
+            foreach (DataRow row in dtHorasExigibles.Rows)
+            {
+                string nombreColumna = row["TIPO DE DOCENTE"].ToString();
+                string nombreCorto = ObtenerNombreCorto(nombreColumna); // Función que obtiene el nombre corto según el tipo
 
-            DataGridViewCheckBoxColumn columnaTTP = new DataGridViewCheckBoxColumn();
-            columnaTTP.HeaderText = "Titular - Tiempo Parcial";
-            columnaTTP.Name = "TTP";
-            columnaTTP.TrueValue = true;
-            columnaTTP.FalseValue = false;
-            dgvDocenteSemestre.Columns.Add(columnaTTP);
-
-            DataGridViewCheckBoxColumn columnaOTC = new DataGridViewCheckBoxColumn();
-            columnaOTC.HeaderText = "Ocasional - Tiempo Completo";
-            columnaOTC.Name = "OTC";
-            columnaOTC.TrueValue = true;
-            columnaOTC.FalseValue = false;
-            columnaOTC.Width = 40;
-            dgvDocenteSemestre.Columns.Add(columnaOTC);
-
-            DataGridViewCheckBoxColumn columnaOTP = new DataGridViewCheckBoxColumn();
-            columnaOTP.HeaderText = "Ocasional - Tiempo parcial";
-            columnaOTP.Name = "OTP";
-            columnaOTP.TrueValue = true;
-            columnaOTP.FalseValue = false;
-            dgvDocenteSemestre.Columns.Add(columnaOTP);
-
-            DataGridViewCheckBoxColumn columnaTC = new DataGridViewCheckBoxColumn();
-            columnaTC.HeaderText = "Tecnico Docente - Tiempo Completo";
-            columnaTC.Name = "TC";
-            columnaTC.TrueValue = true;
-            columnaTC.FalseValue = false;
-            dgvDocenteSemestre.Columns.Add(columnaTC);
-
-            DataGridViewCheckBoxColumn columnaTP = new DataGridViewCheckBoxColumn();
-            columnaTP.HeaderText = "Tecnico Docente - Tiempo Parcial";
-            columnaTP.Name = "TP";
-            columnaTP.TrueValue = true;
-            columnaTP.FalseValue = false;
-            columnaTP.Width = 40;
-            dgvDocenteSemestre.Columns.Add(columnaTP);
-
-            DataGridViewCheckBoxColumn columnaNA = new DataGridViewCheckBoxColumn();
-            columnaNA.HeaderText = "No Asignado";
-            columnaNA.Name = "NA";
-            columnaNA.TrueValue = true;
-            columnaNA.FalseValue = false;
-            columnaNA.Width = 30;
-            dgvDocenteSemestre.Columns.Add(columnaNA);
+                DataGridViewCheckBoxColumn columna = new DataGridViewCheckBoxColumn();
+                columna.HeaderText = nombreColumna;
+                columna.Name = nombreCorto;
+                columna.TrueValue = true;
+                columna.FalseValue = false;
+                dgvDocenteSemestre.Columns.Add(columna);
+            }
 
         }
+        private string ObtenerNombreCorto(string nombreCompleto)
+        {
+            string nombreCorto = new string(nombreCompleto.Where(c => !char.IsWhiteSpace(c)).ToArray()).ToUpper();
+            return nombreCorto;
+        }
 
+        
         private void dgvDocenteSemestre_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            int totalColumns = dgvDocenteSemestre.Columns.Count;
             if (e.ColumnIndex == dgvDocenteSemestre.Columns[2].Index && e.RowIndex >= 0 && dgvDocenteSemestre.Rows[e.RowIndex].Cells[2] is DataGridViewCheckBoxCell checkBoxCell)
             {
                 if (checkBoxCell != null)
@@ -226,84 +202,78 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Activate_Data_Frms
                     
                     if ((bool)checkBoxCell.EditedFormattedValue)
                     {
-                        objSemestre_Neg.CreateOrUpdateSemestreDocente_Negocio(cmbSemestre.SelectedValue.ToString(), dgvDocenteSemestre.Rows[e.RowIndex].Cells[0].Value.ToString(), "1", txtH_TTC.Text, (!habilitado).ToString());
+                        objSemestre_Neg.CreateOrUpdateSemestreDocente_Negocio(cmbSemestre.SelectedValue.ToString(), dgvDocenteSemestre.Rows[e.RowIndex].Cells[0].Value.ToString(), "1", numHorasDocenteTiempoCompleto.ToString(), (!habilitado).ToString());
                         MostrarDocentes();
                     }
                     else
                     {
-                        //MessageBox.Show("Se ha deshabilitado el docente: " + nombreDocente);
-                        objSemestre_Neg.CreateOrUpdateSemestreDocente_Negocio(cmbSemestre.SelectedValue.ToString(), dgvDocenteSemestre.Rows[e.RowIndex].Cells[0].Value.ToString(), "7", "0", (!habilitado).ToString());
+                        objSemestre_Neg.CreateOrUpdateSemestreDocente_Negocio(cmbSemestre.SelectedValue.ToString(), dgvDocenteSemestre.Rows[e.RowIndex].Cells[0].Value.ToString(), "7", numHorasDeshabilitado.ToString(), (!habilitado).ToString());
                         MostrarDocentes();
                     }
                 }
             }
-            else if (e.ColumnIndex >= 4 && e.ColumnIndex <= 10 && e.RowIndex >= 0)
+            else if (e.ColumnIndex >= 4 && e.ColumnIndex <= totalColumns && e.RowIndex >= 0)
             {
-                SetSingleCheckBoxValue(e.RowIndex, e.ColumnIndex);
+                SetSingleCheckBoxValueDT(e.RowIndex, e.ColumnIndex);
             }
         }
 
-        private void SetSingleCheckBoxValue(int rowIndex, int selectedColumnIndex)
+        private void SetSingleCheckBoxValueDT(int rowIndex, int selectedColumnIndex)
         {
-            for (int columnIndex = 4; columnIndex <= 10; columnIndex++)
+            int totalColumns = dgvDocenteSemestre.Columns.Count;
+            
+            for (int columnIndex = 4; columnIndex <= totalColumns -1 ; columnIndex++)
             {
-                if (columnIndex == selectedColumnIndex)
+                bool isChecked = columnIndex == selectedColumnIndex;
+                dgvDocenteSemestre.Rows[rowIndex].Cells[columnIndex].Value = isChecked;
+
+                if (isChecked)
                 {
-                    dgvDocenteSemestre.Rows[rowIndex].Cells[columnIndex].Value = true;
-                    string columnName = dgvDocenteSemestre.Columns[columnIndex].Name;
-                    if (columnName == "TTC") idTipoDocente = 1;
-                    else if (columnName == "TTP") idTipoDocente = 2;
-                    else if (columnName == "OTC") idTipoDocente = 3;
-                    else if (columnName == "OTP") idTipoDocente = 4;
-                    else if (columnName == "TC") idTipoDocente = 5;
-                    else if (columnName == "TP") idTipoDocente = 6;
-                    string controlName = "txtH_" + columnName;
+                    string columnName = dgvDocenteSemestre.Columns[columnIndex].HeaderText;
+                    int idTipoDocente = -1; 
+                    int numHoras = -1;
+
+                    DataTable dtInfo = new DataTable();
+                    dtInfo = objTpDocente.GetInfoTipoDocenteByName_Negocio(cmbSemestre.SelectedValue.ToString(), columnName);
                     bool habilitado = Convert.ToBoolean(dgvDocenteSemestre.Rows[rowIndex].Cells[2].Value);
-
-                    Control[] foundControls = this.Controls.Find(controlName, true);
-
-                    if (foundControls.Length > 0 && foundControls[0] is TextBox textBox)
+                    if (dtInfo.Rows.Count > 0)
                     {
-                        string controlValue = textBox.Text;
-                        //MessageBox.Show(controlValue);
-                        //EDITA PARA OBTENER LOS MISMOS DATOS
+                        numHoras = Convert.ToInt32(dtInfo.Rows[0][1]);
+                        idTipoDocente = Convert.ToInt32(dtInfo.Rows[0][0]);
                         objSemestre_Neg = new CN_Semestre();
+                        objSemestre_Neg.CreateOrUpdateSemestreDocente_Negocio(cmbSemestre.SelectedValue.ToString(), dgvDocenteSemestre.Rows[rowIndex].Cells[0].Value.ToString(), idTipoDocente.ToString(), numHoras.ToString(), habilitado.ToString());
 
-                        //MessageBox.Show(dgvDocenteSemestre.Rows[rowIndex].Cells[0].Value.ToString() + " " + selectedColumnIndex.ToString() + " " + cmbSemestre.SelectedValue.ToString() + " " + habilitado.ToString());
-                        objSemestre_Neg.CreateOrUpdateSemestreDocente_Negocio(cmbSemestre.SelectedValue.ToString(), dgvDocenteSemestre.Rows[rowIndex].Cells[0].Value.ToString(), idTipoDocente.ToString(), controlValue, (habilitado).ToString());
                     }
-
-                }
-                else
-                {
-                    dgvDocenteSemestre.Rows[rowIndex].Cells[columnIndex].Value = false;
                 }
             }
         }
+
 
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
+            dgvAdminHorasTipoDocente.ClearSelection();
             panelAdminDocentes.Visible = true;
             panelAdminDocentes.Enabled = true;
-            txtH_OTC.Enabled = false;
-            txtH_OTP.Enabled = false;
-            txtH_TC.Enabled = false;
-            txtH_TP.Enabled = false;
-            txtH_TTC.Enabled = false;
-            txtH_TTP.Enabled = false;
             btnGuardar.Visible = false;
+            btnCancelar.Visible = false;
+            dgvAdminHorasTipoDocente.Enabled = false;
+            
 
             if (Editar)
             {
-                objTpDocente.AddOrUpdateTipoDocente_Semstre_Negocio("1",cmbSemestre.SelectedValue.ToString(),txtH_TTC.Text);
-                objTpDocente.AddOrUpdateTipoDocente_Semstre_Negocio("2", cmbSemestre.SelectedValue.ToString(), txtH_TTP.Text);
-                objTpDocente.AddOrUpdateTipoDocente_Semstre_Negocio("3", cmbSemestre.SelectedValue.ToString(), txtH_OTC.Text);
-                objTpDocente.AddOrUpdateTipoDocente_Semstre_Negocio("4", cmbSemestre.SelectedValue.ToString(), txtH_OTP.Text);
-                objTpDocente.AddOrUpdateTipoDocente_Semstre_Negocio("5", cmbSemestre.SelectedValue.ToString(), txtH_TC.Text);
-                objTpDocente.AddOrUpdateTipoDocente_Semstre_Negocio("6", cmbSemestre.SelectedValue.ToString(), txtH_TP.Text);
+                foreach (DataGridViewRow row in dgvAdminHorasTipoDocente.Rows)
+                {
+                    string idTipoDocente = row.Cells[0].Value.ToString();
+                    string idSemestre = cmbSemestre.SelectedValue.ToString();
+                    string horas = row.Cells[2].Value.ToString();
+
+                    objTpDocente.AddOrUpdateTipoDocente_Semstre_Negocio(idTipoDocente, idSemestre, horas);
+                }
                 Editar = false;
             }
+            LoadHorasTipoDocentes(cmbSemestre.SelectedValue.ToString());
+            dgvAdminHorasTipoDocente.ClearSelection();
         }
 
         private void btnEditar_Click(object sender, EventArgs e)
@@ -313,13 +283,18 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Activate_Data_Frms
             btnGuardar.Visible = true;
             btnCancelar.Visible = true;
             panelAdminDocentes.Enabled = false;
-            txtH_OTC.Enabled= true;
-            txtH_OTP.Enabled= true;
-            txtH_TC.Enabled= true;
-            txtH_TP.Enabled= true;
-            txtH_TTC.Enabled= true;
-            txtH_TTP.Enabled= true;
+            dgvAdminHorasTipoDocente.Enabled = true;
+
+            HabilitarEdicionHorasExigibles(true);
         }
+
+        private void HabilitarEdicionHorasExigibles(bool habilitar)
+        {
+            dgvAdminHorasTipoDocente.Columns[2].ReadOnly = !habilitar; 
+
+            dgvAdminHorasTipoDocente.RefreshEdit();
+        }
+
 
         private void txtH_TTP_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -333,12 +308,9 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Activate_Data_Frms
         {
             LoadHorasTipoDocentes(cmbSemestre.SelectedValue.ToString());
             btnCancelar.Visible = false;
-            txtH_OTC.Enabled = true;
-            txtH_OTP.Enabled = true;
-            txtH_TC.Enabled = true;
-            txtH_TP.Enabled = true;
-            txtH_TTC.Enabled = true;
-            txtH_TTP.Enabled = true;
+            btnGuardar.Visible = false;
+            dgvAdminHorasTipoDocente.Enabled = false;
+            dgvAdminHorasTipoDocente.ClearSelection();
             panelAdminDocentes.Enabled = true;
 
         }
@@ -379,45 +351,32 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Activate_Data_Frms
             e.Handled = false;
         }
 
-        private void dgvDocenteSemestre_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        private void dgvAdminHorasTipoDocente_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
         {
-            //if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
-            //{
-            //    DataGridViewCell cell = dgvDocenteSemestre.Rows[e.RowIndex].Cells[e.ColumnIndex];
+            if (e.ColumnIndex == 2) // Validar solo la columna 2
+            {
+                string newValue = e.FormattedValue.ToString();
 
-            //    if (cell.OwningColumn is DataGridViewCheckBoxColumn && cell.Value is bool)
-            //    {
-            //        if ((bool)cell.Value)
-            //        {
-            //            cell.Style.BackColor = Color.Yellow; // Cambiar el color de fondo a amarillo
-            //        }
-            //        else
-            //        {
-            //            cell.Style.BackColor = Color.Transparent; // Restaurar el color de fondo predeterminado
-            //        }
-            //    }
-            //}
-            //UpdateCheckboxCellStyles();
+                if (string.IsNullOrWhiteSpace(newValue))
+                {
+                    e.Cancel = true;
+                    dgvDocenteSemestre.Rows[e.RowIndex].Cells[e.ColumnIndex].ErrorText = "Debe ingresar un valor.";
+                }
+                else if (!int.TryParse(newValue, out int intValue))
+                {
+                    e.Cancel = true;
+                    dgvDocenteSemestre.Rows[e.RowIndex].Cells[e.ColumnIndex].ErrorText = "Debe ingresar un valor entero válido.";
+                }
+                else
+                {
+                    dgvDocenteSemestre.Rows[e.RowIndex].Cells[e.ColumnIndex].ErrorText = "";
+                }
+            }
         }
 
-        private void dgvDocenteSemestre_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        private void dgvAdminHorasTipoDocente_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            //if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
-            //{
-            //    DataGridViewCell cell = dgvDocenteSemestre.Rows[e.RowIndex].Cells[e.ColumnIndex];
-
-            //    if (cell.OwningColumn is DataGridViewCheckBoxColumn && cell.Value is bool)
-            //    {
-            //        if ((bool)cell.Value)
-            //        {
-            //            e.CellStyle.BackColor = Color.Yellow; // Cambiar el color de fondo a amarillo
-            //        }
-            //        else
-            //        {
-            //            e.CellStyle.BackColor = Color.Transparent; // Restaurar el color de fondo predeterminado
-            //        }
-            //    }
-            //}
+            dgvDocenteSemestre.Rows[e.RowIndex].ErrorText = ""; // Limpia el mensaje de error
         }
     }
 }

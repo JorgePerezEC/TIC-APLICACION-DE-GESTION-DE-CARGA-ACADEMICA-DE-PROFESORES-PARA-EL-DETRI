@@ -38,6 +38,7 @@ namespace Directorio___Presentacion.Reportes_Frms
         private int count;
         private int cmbValueSemestre;
         private DataTable dtReporteData;
+        private DataTable dtDataPDF;
         private bool rbSiCumpleChecked;
         private bool rbNoCumpleChecked;
         private int horasExigibles;
@@ -82,10 +83,13 @@ namespace Directorio___Presentacion.Reportes_Frms
             {
                 panelFilters.Visible = true;
                 btnExportAll.Visible = true;
+                lblSearch.Visible = true;
+                txtFiltro.Visible = true;
                 CN_CargaHoraria objCarga_N = new CN_CargaHoraria();
                 cmbValueSemestre = Convert.ToInt32(cmbSemestre.SelectedValue);
                 dgvReporteCargasDocentes.DataSource = null;
                 dtReporteData = objCarga_N.MostrarReporteDocentes_ByIdSemestre_Negocio(cmbValueSemestre.ToString());
+                dtDataPDF = dtReporteData.Copy();
                 //dgvReporteCargasDocentes.DataSource = objCarga_N.MostrarReporteDocentes_ByIdSemestre_Negocio(cmbValueSemestre.ToString());
                 dgvReporteCargasDocentes.DataSource = dtReporteData;
                 dgvReporteCargasDocentes.Columns[3].Visible = false;
@@ -531,6 +535,33 @@ namespace Directorio___Presentacion.Reportes_Frms
             }
         }
 
-        
+        private void txtFiltro_TextChanged(object sender, EventArgs e)
+        {
+            string filtro = txtFiltro.Text.Trim();
+            DataTable dataTableFiltrado = FiltrarDataTable(dtReporteData, filtro);
+            dtDataPDF = FiltrarDataTable(dtReporteData, filtro);
+            dgvReporteCargasDocentes.DataSource = dataTableFiltrado;
+        }
+        private DataTable FiltrarDataTable(DataTable dataTable, string filtro)
+        {
+            DataTable dataTableFiltrado = dataTable.Clone();
+            foreach (DataRow row in dataTable.Rows)
+            {
+                if (row.ItemArray.Any(field => field.ToString().IndexOf(filtro, StringComparison.OrdinalIgnoreCase) >= 0))
+                {
+                    dataTableFiltrado.ImportRow(row);
+                }
+            }
+
+            return dataTableFiltrado;
+        }
+
+        private void txtFiltro_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char tecla = char.ToUpper(e.KeyChar);
+
+            e.KeyChar = tecla;
+            e.Handled = false;
+        }
     }
 }

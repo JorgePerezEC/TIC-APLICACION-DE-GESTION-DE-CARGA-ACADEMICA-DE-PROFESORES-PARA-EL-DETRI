@@ -20,10 +20,4 @@
     <ProjectReference Include="..\Directorio-Entidades\Directorio-Entidades.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="App.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
 </Project>

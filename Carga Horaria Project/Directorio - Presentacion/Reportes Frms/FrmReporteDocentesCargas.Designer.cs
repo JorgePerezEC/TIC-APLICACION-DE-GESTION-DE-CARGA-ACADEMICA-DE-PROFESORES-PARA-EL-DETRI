@@ -54,6 +54,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.dgvReporteCargasDocentes = new System.Windows.Forms.DataGridView();
             this.btnExportAll = new System.Windows.Forms.Button();
+            this.lblSearch = new System.Windows.Forms.Label();
+            this.txtFiltro = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.panelFilters.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -368,7 +370,7 @@
             this.cmbSemestre.FormattingEnabled = true;
             this.cmbSemestre.Location = new System.Drawing.Point(176, 71);
             this.cmbSemestre.Name = "cmbSemestre";
-            this.cmbSemestre.Size = new System.Drawing.Size(167, 28);
+            this.cmbSemestre.Size = new System.Drawing.Size(182, 28);
             this.cmbSemestre.TabIndex = 1;
             this.cmbSemestre.SelectedIndexChanged += new System.EventHandler(this.cmbSemestre_SelectedIndexChanged);
             // 
@@ -397,7 +399,7 @@
             // dgvReporteCargasDocentes
             // 
             this.dgvReporteCargasDocentes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvReporteCargasDocentes.Location = new System.Drawing.Point(51, 292);
+            this.dgvReporteCargasDocentes.Location = new System.Drawing.Point(47, 349);
             this.dgvReporteCargasDocentes.Name = "dgvReporteCargasDocentes";
             this.dgvReporteCargasDocentes.RowHeadersWidth = 51;
             this.dgvReporteCargasDocentes.RowTemplate.Height = 29;
@@ -419,6 +421,34 @@
             this.btnExportAll.Visible = false;
             this.btnExportAll.Click += new System.EventHandler(this.btnExportAll_Click);
             // 
+            // lblSearch
+            // 
+            this.lblSearch.AutoSize = true;
+            this.lblSearch.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblSearch.ForeColor = System.Drawing.Color.White;
+            this.lblSearch.Location = new System.Drawing.Point(54, 281);
+            this.lblSearch.Name = "lblSearch";
+            this.lblSearch.Size = new System.Drawing.Size(203, 28);
+            this.lblSearch.TabIndex = 16;
+            this.lblSearch.Text = "Buscar por Docente:";
+            this.lblSearch.Visible = false;
+            // 
+            // txtFiltro
+            // 
+            this.txtFiltro.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtFiltro.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.txtFiltro.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.txtFiltro.Location = new System.Drawing.Point(272, 279);
+            this.txtFiltro.Name = "txtFiltro";
+            this.txtFiltro.PlaceholderText = "Docente ...";
+            this.txtFiltro.Size = new System.Drawing.Size(493, 30);
+            this.txtFiltro.TabIndex = 15;
+            this.txtFiltro.Visible = false;
+            this.txtFiltro.TextChanged += new System.EventHandler(this.txtFiltro_TextChanged);
+            this.txtFiltro.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFiltro_KeyPress);
+            // 
             // FrmReporteDocentesCargas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -426,6 +456,8 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(76)))), ((int)(((byte)(146)))));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(1528, 958);
+            this.Controls.Add(this.lblSearch);
+            this.Controls.Add(this.txtFiltro);
             this.Controls.Add(this.btnExportAll);
             this.Controls.Add(this.dgvReporteCargasDocentes);
             this.Controls.Add(this.panel1);
@@ -443,6 +475,7 @@
             this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReporteCargasDocentes)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -474,5 +507,7 @@
         private Label label15;
         private Panel panelFilters;
         private Button btnExportAll;
+        private Label lblSearch;
+        private TextBox txtFiltro;
     }
 }

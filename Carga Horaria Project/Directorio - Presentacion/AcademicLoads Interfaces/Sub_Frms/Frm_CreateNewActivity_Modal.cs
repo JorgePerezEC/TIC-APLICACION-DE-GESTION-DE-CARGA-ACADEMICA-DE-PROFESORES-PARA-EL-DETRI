@@ -181,5 +181,10 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
                 e.Handled = true;
             }
         }
+
+        private void txtHorasSemanales_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

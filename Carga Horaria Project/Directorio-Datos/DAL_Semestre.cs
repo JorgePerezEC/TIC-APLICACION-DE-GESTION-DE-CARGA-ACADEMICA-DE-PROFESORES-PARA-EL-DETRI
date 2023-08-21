@@ -168,6 +168,45 @@ namespace Directorio_Datos
             }
 
         }
+
+        public bool UpdateHorasExSemestreDocente_DAL(ClsSemestre _semestre, ClsDocente _docente, ClsTipoDocente _tpDocente)
+        {
+            try
+            {
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.Connection = ObjDataBase.sqlConexion;
+                sqlCommand.CommandText = "spUpdateHorasExigiblesSemestreTpDocente";
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+
+                sqlCommand.Parameters.AddWithValue("@idSemestre", _semestre.IdSemestre);
+                sqlCommand.Parameters.AddWithValue("@idDocente", _docente.IdDocente);
+                sqlCommand.Parameters.AddWithValue("@numHoras", _tpDocente.HorasExigibles);
+
+                // Agregar el parámetro de salida
+                SqlParameter outputParameter = new SqlParameter("@result", SqlDbType.Bit);
+                outputParameter.Direction = ParameterDirection.Output;
+                sqlCommand.Parameters.Add(outputParameter);
+
+                ObjDataBase.AbrirConexion();
+                sqlCommand.ExecuteNonQuery();
+
+                bool result = Convert.ToBoolean(outputParameter.Value);
+
+                return result;
+
+            }
+            catch (System.Data.SqlClient.SqlException sqlException)
+            {
+                System.Windows.Forms.MessageBox.Show(sqlException.Message); ;
+                return false;
+
+            }
+            finally
+            {
+                ObjDataBase.CerrarConexion();
+            }
+
+        }
         public bool CreateSemestreAsignatura(ClsSemestre _semestre, ClsAsignatura _asignatura)
         {
             try

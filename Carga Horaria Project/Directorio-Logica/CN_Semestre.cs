@@ -141,6 +141,36 @@ namespace Directorio_Logica
             }
 
         }
+        public bool UpdateHorasExigiblesSemestreDocente_Negocio(string idSemestre, string idDocente,  string numHorasTpDoc)
+        {
+            try
+            {
+
+                ClsSemestre ObjSemestre = new ClsSemestre()
+                {
+                    IdSemestre = Convert.ToInt32(idSemestre),
+                };
+                ClsDocente ObjDocente = new ClsDocente()
+                {
+                    IdDocente = Convert.ToInt32(idDocente)
+                };
+                ClsTipoDocente ObjTpDocente = new ClsTipoDocente()
+                {
+                    HorasExigibles = Convert.ToInt32(numHorasTpDoc),
+                };
+                objetoCData.UpdateHorasExSemestreDocente_DAL(ObjSemestre, ObjDocente, ObjTpDocente);
+
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error" + ex.Message);
+                return false;
+
+            }
+
+        }
         public bool CreateOrUpdateSemestreAsignatura_Negocio(string idSemestre, string idAsignatura, string state)
         {
             try
