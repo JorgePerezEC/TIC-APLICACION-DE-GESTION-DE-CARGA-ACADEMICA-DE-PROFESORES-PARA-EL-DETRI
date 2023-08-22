@@ -117,11 +117,11 @@
             // dgvHorario
             // 
             this.dgvHorario.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvHorario.Location = new System.Drawing.Point(12, 61);
+            this.dgvHorario.Location = new System.Drawing.Point(0, 61);
             this.dgvHorario.Name = "dgvHorario";
             this.dgvHorario.RowHeadersWidth = 51;
             this.dgvHorario.RowTemplate.Height = 29;
-            this.dgvHorario.Size = new System.Drawing.Size(565, 559);
+            this.dgvHorario.Size = new System.Drawing.Size(565, 509);
             this.dgvHorario.TabIndex = 5;
             this.dgvHorario.TabStop = false;
             // 
@@ -155,7 +155,7 @@
             this.dgLstRegistros.Name = "dgLstRegistros";
             this.dgLstRegistros.RowHeadersWidth = 51;
             this.dgLstRegistros.RowTemplate.Height = 29;
-            this.dgLstRegistros.Size = new System.Drawing.Size(1064, 559);
+            this.dgLstRegistros.Size = new System.Drawing.Size(1064, 509);
             this.dgLstRegistros.TabIndex = 2;
             this.dgLstRegistros.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgLstRegistros_CellContentClick);
             // 

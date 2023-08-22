@@ -675,7 +675,7 @@
             this.cmbDocente.FormattingEnabled = true;
             this.cmbDocente.Location = new System.Drawing.Point(148, 54);
             this.cmbDocente.Name = "cmbDocente";
-            this.cmbDocente.Size = new System.Drawing.Size(340, 32);
+            this.cmbDocente.Size = new System.Drawing.Size(409, 32);
             this.cmbDocente.TabIndex = 2;
             this.cmbDocente.SelectedIndexChanged += new System.EventHandler(this.cmbDocente_SelectedIndexChanged);
             // 
@@ -729,7 +729,7 @@
             this.dgvCargasHorarias.Name = "dgvCargasHorarias";
             this.dgvCargasHorarias.RowHeadersWidth = 51;
             this.dgvCargasHorarias.RowTemplate.Height = 29;
-            this.dgvCargasHorarias.Size = new System.Drawing.Size(422, 645);
+            this.dgvCargasHorarias.Size = new System.Drawing.Size(422, 580);
             this.dgvCargasHorarias.TabIndex = 4;
             this.dgvCargasHorarias.Visible = false;
             this.dgvCargasHorarias.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCargasHorarias_CellContentClick);

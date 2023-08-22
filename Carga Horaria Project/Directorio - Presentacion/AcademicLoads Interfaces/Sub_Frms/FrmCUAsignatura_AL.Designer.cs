@@ -131,7 +131,7 @@
             this.lstBoxAsignaturas.ItemHeight = 20;
             this.lstBoxAsignaturas.Location = new System.Drawing.Point(304, 158);
             this.lstBoxAsignaturas.Name = "lstBoxAsignaturas";
-            this.lstBoxAsignaturas.Size = new System.Drawing.Size(570, 144);
+            this.lstBoxAsignaturas.Size = new System.Drawing.Size(624, 144);
             this.lstBoxAsignaturas.TabIndex = 5;
             // 
             // tblPanelFiltros
@@ -245,7 +245,7 @@
             this.cmbAsignatura.FormattingEnabled = true;
             this.cmbAsignatura.Location = new System.Drawing.Point(304, 124);
             this.cmbAsignatura.Name = "cmbAsignatura";
-            this.cmbAsignatura.Size = new System.Drawing.Size(570, 28);
+            this.cmbAsignatura.Size = new System.Drawing.Size(624, 28);
             this.cmbAsignatura.TabIndex = 0;
             this.cmbAsignatura.SelectedIndexChanged += new System.EventHandler(this.cmbAsignatura_SelectedIndexChanged);
             this.cmbAsignatura.TextChanged += new System.EventHandler(this.cmbAsignatura_TextChanged);

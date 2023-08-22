@@ -907,7 +907,7 @@ BEGIN
 	LEFT JOIN tblSemestreAsignatura sa ON a.idAsignatura = sa.idAsignatura
 	LEFT JOIN tblHorarioGrAsig HGA ON SGA.idSemestreGrAsignatura = HGA.idSemestreGrAsignatura
     WHERE c.idAsigCrgHoraria IS NULL AND g.grupoAsignatura IS NOT NULL AND sa.isActive = 1 AND sa.idSemestre = @idSemestre
-	AND SGA.isActive = 1 AND HGA.isActive = 1 AND SGA.idSemestre = 1
+	AND SGA.isActive = 1 AND HGA.isActive = 1 AND SGA.idSemestre = @idSemestre
 	ORDER BY Asignatura ASC
 END
 GO
@@ -926,7 +926,8 @@ BEGIN
     INNER JOIN tblGrAsignatura g ON a.idAsignatura = g.idAsignatura
     LEFT JOIN tblAsigCrgHoraria c ON g.idGrAsig = c.idGrAsig
 	LEFT JOIN tblSemestreAsignatura sa ON a.idAsignatura = sa.idAsignatura
-    WHERE c.idAsigCrgHoraria IS NULL AND g.grupoAsignatura IS NOT NULL AND sa.isActive = 1 AND sa.idSemestre = @idSemestre
+    --WHERE c.idAsigCrgHoraria IS NULL AND g.grupoAsignatura IS NOT NULL AND sa.isActive = 1 AND sa.idSemestre = @idSemestre
+	WHERE sa.isActive = 1 AND sa.idSemestre = @idSemestre AND a.estadoAsignatura = 1
 	ORDER BY Asignatura ASC
 END
 GO
@@ -3646,7 +3647,7 @@ GO
 --exec [spAddHorarioAsigNoOut]  1,1,'00:00', '00:00',5
 --exec [spAddHorarioAsigNoOut]  1,1,'00:00', '00:00',6
 --exec [spAddHorarioAsigNoOut]  1,1,'00:00', '00:00',7
-
+ 
 PRINT 'DataBase Created';
 -- END SCRIPT
 

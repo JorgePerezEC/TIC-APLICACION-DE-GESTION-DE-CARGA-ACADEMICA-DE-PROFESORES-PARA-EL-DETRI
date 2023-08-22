@@ -1,4 +1,5 @@
 ﻿using Directorio___Presentacion.ElementsStyles_Configuration;
+using Directorio_Entidades;
 using Directorio_Logica;
 using System;
 using System.Collections.Generic;
@@ -114,7 +115,7 @@ namespace Directorio___Presentacion.CRUD_Interfaces
         {
             if (Editar == false)
             {
-                if (cmbAsignaturas.SelectedIndex == -1 || cmbGR.SelectedIndex == -1)
+                if (cmbAsignaturas.SelectedIndex == -1 || cmbGR.Text == string.Empty)
                 {
                     MessageBox.Show("Debe llenar todos los campos para completar el registro del Grupo.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
@@ -163,7 +164,22 @@ namespace Directorio___Presentacion.CRUD_Interfaces
 
         private void cmbAsignaturas_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (cmbAsignaturas.SelectedIndex >= 0)
+            {
+                CN_GrAsignatura objetoGrNegocio = new CN_GrAsignatura();
 
+                // Comprobar si el SelectedValue no es nulo
+                if (cmbAsignaturas.SelectedValue != null)
+                {
+                    if (int.TryParse(cmbAsignaturas.SelectedValue.ToString(), out int selectedValueAsInt))
+                    {
+                        txtNivel.Text = objetoGrNegocio.GetLvlAsignatura_Negocio(selectedValueAsInt.ToString());
+                        txtType.Text = objetoGrNegocio.GetTypeAsigByAsig_Negocio(selectedValueAsInt.ToString());
+                        txtCode.Text = objetoGrNegocio.GetCodeAsigByAsig_Negocio(selectedValueAsInt.ToString());
+                    }
+                }
+            }
+            
         }
 
         private void dgLstRegistros_CellContentClick(object sender, DataGridViewCellEventArgs e)

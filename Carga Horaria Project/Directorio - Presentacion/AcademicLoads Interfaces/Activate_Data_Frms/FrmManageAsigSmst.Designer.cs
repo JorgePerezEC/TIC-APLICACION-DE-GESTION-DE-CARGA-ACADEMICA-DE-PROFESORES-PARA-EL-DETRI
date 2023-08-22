@@ -136,7 +136,7 @@
             this.dgvAsignaturasSemestre.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
             this.dgvAsignaturasSemestre.RowTemplate.Height = 29;
             this.dgvAsignaturasSemestre.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvAsignaturasSemestre.Size = new System.Drawing.Size(1178, 624);
+            this.dgvAsignaturasSemestre.Size = new System.Drawing.Size(1307, 624);
             this.dgvAsignaturasSemestre.TabIndex = 5;
             this.dgvAsignaturasSemestre.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAsignaturasSemestre_CellContentClick);
             // 
