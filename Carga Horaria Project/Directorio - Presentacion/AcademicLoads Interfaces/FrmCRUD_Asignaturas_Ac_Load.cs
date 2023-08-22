@@ -66,6 +66,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
             dgvHorario.Columns[3].Visible = false;
             dgvHorario.Columns[4].Visible = false;
             dgvHorario.Columns[5].Visible = false;
+            dgvHorario.Columns[6].Visible = false;
         }
 
         public DataTable GetHorario()

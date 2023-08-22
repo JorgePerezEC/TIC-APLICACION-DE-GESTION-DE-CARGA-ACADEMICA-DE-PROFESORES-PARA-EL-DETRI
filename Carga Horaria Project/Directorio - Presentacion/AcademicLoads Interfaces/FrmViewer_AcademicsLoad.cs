@@ -378,6 +378,57 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
                 doc.Add(tableAsignaturas);
                 #endregion
 
+                #region tblHorario
+
+                CN_CargaHoraria objetoCNegocio2 = new CN_CargaHoraria();
+                DataTable DtHorario = objetoCNegocio2.GetHorarioForCargaHoraria_Negocio(idCH.ToString());
+
+                List<int> columnasOmitir = new List<int> { 3, 4, 5, 6 };
+
+
+                foreach (int columnIndex in columnasOmitir.OrderByDescending(i => i))
+                {
+                    DtHorario.Columns.RemoveAt(columnIndex);
+                }
+
+                Paragraph HorarioTitle = new Paragraph("Horario asignado").SetFont(fontNegrita).SetFontSize(14);
+                HorarioTitle.SetMarginBottom(2);
+                doc.Add(HorarioTitle);
+
+                // Crea una tabla con  columnas
+                Table tableHorario = new Table(DtHorario.Columns.Count);
+
+                foreach (DataColumn column in DtHorario.Columns)
+                {
+                    Cell cell = new Cell().Add(new Paragraph(column.ColumnName));
+                    cell.SetTextAlignment(TextAlignment.CENTER);
+                    cell.SetFont(fontNegrita).SetFontSize(10);
+                    cell.SetVerticalAlignment(VerticalAlignment.MIDDLE).SetBackgroundColor(new DeviceRgb(230, 230, 230)); ;
+                    tableHorario.AddHeaderCell(cell);
+                }
+
+                // Agrega filas a la tabla
+                foreach (DataRow row in DtHorario.Rows)
+                {
+                    for (int i = 0; i < DtHorario.Columns.Count; i++)
+                    {
+                        Cell cell = new Cell().Add(new Paragraph(row[i].ToString()));
+                        cell.SetTextAlignment(TextAlignment.LEFT);
+                        cell.SetFont(timesNewRoman).SetFontSize(10);
+                        cell.SetVerticalAlignment(VerticalAlignment.MIDDLE);
+                        tableHorario.AddCell(cell);
+                    }
+                }
+
+                // Agrega espacio antes y después de la tabla
+                tableHorario.SetMarginTop(10f);
+                tableHorario.SetMarginBottom(10f);
+
+                // Agrega la tabla al documento
+                doc.Add(tableHorario);
+
+                #endregion
+
                 Paragraph AcividadesTitle = new Paragraph("Gestión de Actividades").SetFont(fontNegrita).SetFontSize(14);
                 AcividadesTitle.SetMarginBottom(2);
                 doc.Add(AcividadesTitle);
@@ -416,6 +467,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
 
                 // Agrega la tabla al documento
                 doc.Add(table);
+
 
                 Paragraph HorasTotalesTitle = new Paragraph("HORAS TOTALES").SetFont(fontNegrita).SetFontSize(14);
                 HorasTotalesTitle.SetMarginBottom(2);

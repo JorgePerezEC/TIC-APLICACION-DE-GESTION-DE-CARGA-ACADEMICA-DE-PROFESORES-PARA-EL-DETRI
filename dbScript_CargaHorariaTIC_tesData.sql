@@ -7,17 +7,17 @@
 -- PRESS F5 to Execute entire script
 --------------------------------------------
 USE master
---dbCargaHorariaTICtest2
+--dbCargaHorariaTICtest2  gg
 GO
-IF EXISTS (SELECT name FROM sys.databases WHERE name = 'dbCargaHorariaTICtest3')
+IF EXISTS (SELECT name FROM sys.databases WHERE name = 'dbCargaHorariaTIC_DETRI')
 BEGIN
-    DROP DATABASE dbCargaHorariaTICtest3;
+    DROP DATABASE dbCargaHorariaTIC_DETRI;
 END
 GO
 PRINT 'Creating DB';
-CREATE DATABASE dbCargaHorariaTICtest3;
+CREATE DATABASE dbCargaHorariaTIC_DETRI;
 GO
-USE dbCargaHorariaTICtest3;
+USE dbCargaHorariaTIC_DETRI;
 
 -----------------------------------------
 -- Table Creation Section
@@ -1075,7 +1075,7 @@ BEGIN
         END
 END
 GO
---SP TO GET DOCENTE HORARIO
+--SP TO GET DOCENTE HORARIO exec spGetHorarioForCargaHoraria 1
 CREATE OR ALTER PROCEDURE spGetHorarioForCargaHoraria
     @idCargaHoraria int
 AS
@@ -1093,14 +1093,14 @@ BEGIN
     WHERE ACH.idCrgHoraria = @idCargaHoraria;
 
     SELECT CONCAT(CONVERT(NVARCHAR(5), h.horaInicio, 108), ' - ', CONVERT(NVARCHAR(5), h.horaFin, 108)) AS HORA, ds.dia AS DÍA, 
-           CONCAT(g.grupoAsignatura,'-',A.nombreAsignatura) AS ASIGNATURA, h.horaInicio, h.horaFin, ds.dia
+           CONCAT(g.grupoAsignatura,'-',A.nombreAsignatura) AS ASIGNATURA, h.horaInicio, h.horaFin, ds.dia, ds.idDiaSemana
     FROM tblHorarioGrAsig h
     INNER JOIN tblDiaSemana ds ON h.idDiaSemana = ds.idDiaSemana
     INNER JOIN tblSemestreGrAsignatura sg ON h.idSemestreGrAsignatura = sg.idSemestreGrAsignatura
     INNER JOIN tblGrAsignatura g ON sg.idGrAsig = g.idGrAsig
     INNER JOIN tblAsignatura A ON g.idAsignatura = A.idAsignatura
     WHERE h.isActive = 1 and sg.idSemestre = @idSemestre and sg.idGrAsig IN (SELECT idGrAsig FROM #LstidGRAsig) AND h.horaInicio <> h.horaFin
-    ORDER BY DÍA,HORA ASC;
+    ORDER BY idDiaSemana ASC;
 
     DROP TABLE #LstidGRAsig;
 END;
@@ -3647,5 +3647,11 @@ GO
 --exec [spAddHorarioAsigNoOut]  1,1,'00:00', '00:00',6
 --exec [spAddHorarioAsigNoOut]  1,1,'00:00', '00:00',7
 
-
+PRINT 'DataBase Created';
 -- END SCRIPT
+
+-- NUEVOS SPS AGREGADOS 21-AGO
+
+
+
+-------------------------------

@@ -35,20 +35,10 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.EditData_Frms
 
         }
 
-        private void rbSql_CheckedChanged(object sender, EventArgs e)
-        {
-            txtUser.Enabled= true;
-            txtPassword.Enabled= true;
-            txtUser.Text = string.Empty;
-            txtPassword.Text = string.Empty;
-        }
 
-        private void rbIntegrated_CheckedChanged(object sender, EventArgs e)
+        private void btnCancelar_Click(object sender, EventArgs e)
         {
-            txtUser.Text = string.Empty;
-            txtPassword.Text = string.Empty;
-            txtUser.Enabled = false;
-            txtPassword.Enabled = false;
+            this.Close();
         }
     }
 }

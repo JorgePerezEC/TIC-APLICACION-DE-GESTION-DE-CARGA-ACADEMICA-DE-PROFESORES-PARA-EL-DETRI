@@ -231,12 +231,15 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
 
         private void cmbGR_SelectedIndexChanged(object sender, EventArgs e)
         {
-            count++;
-            //MessageBox.Show(cmbAsignatura.SelectedIndex.ToString(), "cmbAsignatura selectedIndex");
-            //MessageBox.Show(cmbAsignatura.SelectedValue.ToString(), "cmbAsig Value Selected");
-            if (cmbAsignatura.SelectedIndex > -1 && cmbAsignatura.SelectedValue != null && count > 3)
+            DataRowView selectedRow = cmbGR.SelectedItem as DataRowView;
+
+            if (selectedRow == null)
             {
-                if (int.TryParse(cmbGR.SelectedValue.ToString(), out int selectedValueAsInt) && selectedValueAsInt > 0 )
+                return;
+            }
+            if (cmbAsignatura.SelectedIndex > -1 && cmbAsignatura.SelectedValue != null)
+            {
+                if (int.TryParse(cmbGR.SelectedValue.ToString(), out int selectedValueAsInt) && selectedValueAsInt > 0 && cmbGR.SelectedItem as DataRowView != null)
                 {
                     if (dtGrs.Rows.Count > 0)
                     {

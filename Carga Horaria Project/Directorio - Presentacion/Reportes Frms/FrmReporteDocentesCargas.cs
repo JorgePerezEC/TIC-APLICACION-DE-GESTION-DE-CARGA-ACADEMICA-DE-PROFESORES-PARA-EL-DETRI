@@ -197,35 +197,30 @@ namespace Directorio___Presentacion.Reportes_Frms
 
         private void btnExportAll_Click(object sender, EventArgs e)
         {
-            //DataTable dataTable = ObtenerDatosDesdeBaseDeDatos(); // Obtener el DataTable lleno desde la base de datos
             idsCargaHorariaList = objCarga_N.GetIdsCargaHorariaLst_ByIdSemestre_Negocio(cmbSemestre.SelectedValue.ToString());
-            // Crear un objeto SaveFileDialog
-            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
 
-            // Se obtiene la fecha para hacer nombre único al documento
-            DateTime now = DateTime.Now;
-            string formattedDateTime = now.ToString("yyyyMMdd_HHmmss");
-
-            // Establecer opciones de diálogo
-            saveFileDialog1.Filter = "Archivos PDF|*.pdf";
-            saveFileDialog1.Title = "Guardar documento PDF";
-            // Mostrar el diálogo y guardar la ubicación seleccionada
-            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            // Crear un objeto FolderBrowserDialog
+            using (FolderBrowserDialog folderBrowserDialog1 = new FolderBrowserDialog())
             {
-                string folderPath = System.IO.Path.GetDirectoryName(saveFileDialog1.FileName);
-
-                // Generar y guardar un archivo PDF para cada elemento de la lista idsCargaHorariaList
-                foreach (int idCargaHoraria in idsCargaHorariaList)
+                // Mostrar el diálogo y guardar la carpeta seleccionada
+                if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
                 {
-                    // Obtener el nombre del docente (si es necesario) desde la base de datos o donde sea que esté almacenado
-                    string docenteName = objCarga_N.GetDocenteNameByCrgHoraria_Negocio(idCargaHoraria.ToString());
+                    string folderPath = folderBrowserDialog1.SelectedPath;
 
-                    // Establecer el nombre de archivo con el nombre del docente y la información adicional
-                    string fileName = docenteName + "_CA_" + cmbSemestre.Text + "_" + formattedDateTime + ".pdf";
-                    string filePath = System.IO.Path.Combine(folderPath, fileName);
+                    // Generar y guardar un archivo PDF para cada elemento de la lista idsCargaHorariaList
+                    foreach (int idCargaHoraria in idsCargaHorariaList)
+                    {
+                        // Obtener el nombre del docente (si es necesario) desde la base de datos o donde sea que esté almacenado
+                        string docenteName = objCarga_N.GetDocenteNameByCrgHoraria_Negocio(idCargaHoraria.ToString());
 
-                    // Generar el documento y guardarlo en filePath
-                    GenerarDocumentoPDF(filePath, idCargaHoraria, docenteName);
+                        // Establecer el nombre de archivo con el nombre del docente y la información adicional
+                        string formattedDateTime = DateTime.Now.ToString("yyyyMMdd_HHmmss");
+                        string fileName = docenteName + "_CA_" + cmbSemestre.Text + "_" + formattedDateTime + ".pdf";
+                        string filePath = System.IO.Path.Combine(folderPath, fileName);
+
+                        // Generar el documento y guardarlo en filePath
+                        GenerarDocumentoPDF(filePath, idCargaHoraria, docenteName);
+                    }
                 }
             }
 
@@ -361,6 +356,57 @@ namespace Directorio___Presentacion.Reportes_Frms
 
             // Agrega la tabla al documento
             doc.Add(tableAsignaturas);
+            #endregion
+
+            #region HORARIO TABLE
+
+            CN_CargaHoraria objetoCNegocio2 = new CN_CargaHoraria();
+            DataTable DtHorario = objetoCNegocio2.GetHorarioForCargaHoraria_Negocio(idCH.ToString());
+
+            List<int> columnasOmitir = new List<int> { 3, 4, 5, 6 };
+
+
+            foreach (int columnIndex in columnasOmitir.OrderByDescending(i => i))
+            {
+                DtHorario.Columns.RemoveAt(columnIndex);
+            }
+
+            Paragraph HorarioTitle = new Paragraph("Horario asignado").SetFont(fontNegrita).SetFontSize(14);
+            HorarioTitle.SetMarginBottom(2);
+            doc.Add(HorarioTitle);
+
+            // Crea una tabla con  columnas
+            Table tableHorario = new Table(DtHorario.Columns.Count);
+
+            foreach (DataColumn column in DtHorario.Columns)
+            {
+                Cell cell = new Cell().Add(new Paragraph(column.ColumnName));
+                cell.SetTextAlignment(TextAlignment.CENTER);
+                cell.SetFont(fontNegrita).SetFontSize(10);
+                cell.SetVerticalAlignment(VerticalAlignment.MIDDLE).SetBackgroundColor(new DeviceRgb(230, 230, 230)); ;
+                tableHorario.AddHeaderCell(cell);
+            }
+
+            // Agrega filas a la tabla
+            foreach (DataRow row in DtHorario.Rows)
+            {
+                for (int i = 0; i < DtHorario.Columns.Count; i++)
+                {
+                    Cell cell = new Cell().Add(new Paragraph(row[i].ToString()));
+                    cell.SetTextAlignment(TextAlignment.LEFT);
+                    cell.SetFont(timesNewRoman).SetFontSize(10);
+                    cell.SetVerticalAlignment(VerticalAlignment.MIDDLE);
+                    tableHorario.AddCell(cell);
+                }
+            }
+
+            // Agrega espacio antes y después de la tabla
+            tableHorario.SetMarginTop(10f);
+            tableHorario.SetMarginBottom(10f);
+
+            // Agrega la tabla al documento
+            doc.Add(tableHorario);
+
             #endregion
 
             Paragraph AcividadesTitle = new Paragraph("Gestión de Actividades").SetFont(fontNegrita).SetFontSize(14);

@@ -1,17 +1,9 @@
 ﻿using Directorio_Entidades;
 using Directorio_Logica;
 using MaterialSkin;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-using System.Windows.Forms;
 
 namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
 {

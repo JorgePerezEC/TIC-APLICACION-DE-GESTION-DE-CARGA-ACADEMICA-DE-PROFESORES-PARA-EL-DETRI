@@ -114,6 +114,8 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Activate_Data_Frms
                 dgvDocenteSemestre.DataSource = dtDocentes;
                 dgvDocenteSemestre.Columns[1].HeaderText = "Docente";
                 dgvDocenteSemestre.Columns[2].HeaderText = "Activo?";
+                dgvDocenteSemestre.Columns[1].Frozen = true;
+                dgvDocenteSemestre.Columns[2].Frozen = true;
 
                 // Asignar los valores correspondientes a los ComboBox
                 AgregarColumnasTipoDocentesDT();

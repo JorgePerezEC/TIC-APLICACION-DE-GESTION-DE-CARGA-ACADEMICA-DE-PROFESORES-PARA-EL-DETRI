@@ -86,11 +86,11 @@
             // 
             this.dgvAdminHorasTipoDocente.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvAdminHorasTipoDocente.Enabled = false;
-            this.dgvAdminHorasTipoDocente.Location = new System.Drawing.Point(20, 98);
+            this.dgvAdminHorasTipoDocente.Location = new System.Drawing.Point(3, 98);
             this.dgvAdminHorasTipoDocente.Name = "dgvAdminHorasTipoDocente";
             this.dgvAdminHorasTipoDocente.RowHeadersWidth = 51;
             this.dgvAdminHorasTipoDocente.RowTemplate.Height = 29;
-            this.dgvAdminHorasTipoDocente.Size = new System.Drawing.Size(297, 552);
+            this.dgvAdminHorasTipoDocente.Size = new System.Drawing.Size(329, 552);
             this.dgvAdminHorasTipoDocente.TabIndex = 15;
             this.dgvAdminHorasTipoDocente.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAdminHorasTipoDocente_CellEndEdit);
             this.dgvAdminHorasTipoDocente.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dgvAdminHorasTipoDocente_CellValidating);
@@ -100,9 +100,9 @@
             this.label1.BackColor = System.Drawing.Color.DarkRed;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(20, 18);
+            this.label1.Location = new System.Drawing.Point(3, 18);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(297, 59);
+            this.label1.Size = new System.Drawing.Size(329, 59);
             this.label1.TabIndex = 0;
             this.label1.Text = "ADMINISTRAR TIPO DE DOCENTE";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -159,7 +159,7 @@
             this.btnGuardar.Depth = 0;
             this.btnGuardar.HighEmphasis = true;
             this.btnGuardar.Icon = null;
-            this.btnGuardar.Location = new System.Drawing.Point(232, 693);
+            this.btnGuardar.Location = new System.Drawing.Point(28, 677);
             this.btnGuardar.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnGuardar.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnGuardar.Name = "btnGuardar";
@@ -181,7 +181,7 @@
             this.btnCancelar.Depth = 0;
             this.btnCancelar.HighEmphasis = true;
             this.btnCancelar.Icon = null;
-            this.btnCancelar.Location = new System.Drawing.Point(130, 693);
+            this.btnCancelar.Location = new System.Drawing.Point(232, 677);
             this.btnCancelar.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnCancelar.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnCancelar.Name = "btnCancelar";
@@ -203,7 +203,7 @@
             this.btnEditar.Depth = 0;
             this.btnEditar.HighEmphasis = true;
             this.btnEditar.Icon = null;
-            this.btnEditar.Location = new System.Drawing.Point(28, 693);
+            this.btnEditar.Location = new System.Drawing.Point(130, 677);
             this.btnEditar.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnEditar.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnEditar.Name = "btnEditar";
