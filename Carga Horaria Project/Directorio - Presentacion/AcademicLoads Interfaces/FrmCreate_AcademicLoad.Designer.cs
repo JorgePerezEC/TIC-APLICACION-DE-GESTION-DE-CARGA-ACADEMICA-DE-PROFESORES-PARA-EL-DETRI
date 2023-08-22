@@ -72,6 +72,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panelHijo = new System.Windows.Forms.Panel();
             this.dgvCargasHorarias = new System.Windows.Forms.DataGridView();
+            this.label5 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panelHoras.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -84,6 +85,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.btnInvestigacion);
             this.panel1.Controls.Add(this.btnCrearCargaAcademica);
             this.panel1.Controls.Add(this.btnNewCarga);
@@ -673,7 +675,7 @@
             this.cmbDocente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmbDocente.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.cmbDocente.FormattingEnabled = true;
-            this.cmbDocente.Location = new System.Drawing.Point(148, 54);
+            this.cmbDocente.Location = new System.Drawing.Point(144, 99);
             this.cmbDocente.Name = "cmbDocente";
             this.cmbDocente.Size = new System.Drawing.Size(409, 32);
             this.cmbDocente.TabIndex = 2;
@@ -686,7 +688,7 @@
             this.cmbSemestre.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmbSemestre.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.cmbSemestre.FormattingEnabled = true;
-            this.cmbSemestre.Location = new System.Drawing.Point(148, 10);
+            this.cmbSemestre.Location = new System.Drawing.Point(144, 55);
             this.cmbSemestre.Name = "cmbSemestre";
             this.cmbSemestre.Size = new System.Drawing.Size(167, 32);
             this.cmbSemestre.TabIndex = 1;
@@ -696,7 +698,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Calibri", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label2.Location = new System.Drawing.Point(23, 51);
+            this.label2.Location = new System.Drawing.Point(19, 96);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(120, 28);
             this.label2.TabIndex = 2;
@@ -706,7 +708,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Calibri", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(23, 10);
+            this.label1.Location = new System.Drawing.Point(19, 55);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(117, 28);
             this.label1.TabIndex = 1;
@@ -733,6 +735,18 @@
             this.dgvCargasHorarias.TabIndex = 4;
             this.dgvCargasHorarias.Visible = false;
             this.dgvCargasHorarias.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCargasHorarias_CellContentClick);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.BackColor = System.Drawing.Color.BurlyWood;
+            this.label5.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label5.ForeColor = System.Drawing.Color.Black;
+            this.label5.Location = new System.Drawing.Point(19, 9);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(481, 37);
+            this.label5.TabIndex = 26;
+            this.label5.Text = "ADMINISTRAR CARGAS ACADÉMICAS";
             // 
             // FrmCreate_AcademicLoad
             // 
@@ -806,5 +820,6 @@
         private Label lblType;
         private Label lblTipoDocente;
         private TableLayoutPanel tableLayoutPanel2;
+        private Label label5;
     }
 }

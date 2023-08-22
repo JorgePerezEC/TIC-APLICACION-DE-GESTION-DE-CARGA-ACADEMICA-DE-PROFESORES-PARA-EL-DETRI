@@ -272,6 +272,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
         {
             if (cmbDocente.SelectedIndex > -1)
             {
+                btnCrearCargaAcademica.TabIndex = 3;
                 btnCrearCargaAcademica.Enabled = true;
             }
         }

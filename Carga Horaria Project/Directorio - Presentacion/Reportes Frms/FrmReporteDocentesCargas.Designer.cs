@@ -403,7 +403,7 @@
             this.dgvReporteCargasDocentes.Name = "dgvReporteCargasDocentes";
             this.dgvReporteCargasDocentes.RowHeadersWidth = 51;
             this.dgvReporteCargasDocentes.RowTemplate.Height = 29;
-            this.dgvReporteCargasDocentes.Size = new System.Drawing.Size(1296, 597);
+            this.dgvReporteCargasDocentes.Size = new System.Drawing.Size(1296, 542);
             this.dgvReporteCargasDocentes.TabIndex = 1;
             this.dgvReporteCargasDocentes.TabStop = false;
             this.dgvReporteCargasDocentes.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvReporteCargasDocentes_CellFormatting);

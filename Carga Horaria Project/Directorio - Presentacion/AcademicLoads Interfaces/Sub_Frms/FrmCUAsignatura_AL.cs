@@ -12,6 +12,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Forms;
 
 namespace Directorio___Presentacion.AcademicLoads_Interfaces
@@ -66,9 +67,10 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
                 ListarAsignaturasAll();
                 FrmCRUD_Asignaturas_Ac_Load frmA = new FrmCRUD_Asignaturas_Ac_Load(idAcLoad, idSemestreLocal);
                 List<string> list = frmA.GetArgumentosToEdit();
-                cmbAsignatura.Text = list.ElementAt(0);
-                cmbGR.Text = list.ElementAt(1);
                 idAsigCarga = list.ElementAt(2);
+                lstBoxAsignaturas.SelectedValue= Convert.ToInt32(list.ElementAt(2));
+                //cmbAsignatura.Text = list.ElementAt(0);
+                cmbGR.Text = list.ElementAt(1);
                 panelGR.Visible = true;
                 btnAgregar.Text = "Actualizar";
             }
@@ -437,6 +439,29 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
 
         private void txtCodeFilter_TextChanged(object sender, EventArgs e)
         {
+            string filtro = txtCodeFilter.Text.Trim(); // Obtener el texto ingresado en el TextBox y eliminar los espacios en blanco
+
+            // Realizar el filtrado del DataTable en función del texto ingresado
+            DataTable dataTableFiltrado = FiltrarDataTable(LstAsignaturas, filtro);
+
+            // Asignar el DataTable filtrado al DataSource del DataGridView
+            lstBoxAsignaturas.DataSource = dataTableFiltrado;
+            cmbAsignatura.DataSource = dataTableFiltrado;
+        }
+        private DataTable FiltrarDataTable(DataTable dataTable, string filtro)
+        {
+            DataTable dataTableFiltrado = dataTable.Clone();
+
+            foreach (DataRow row in dataTable.Rows)
+            {
+                if (row.ItemArray.Any(field => field.ToString().IndexOf(filtro, StringComparison.OrdinalIgnoreCase) >= 0))
+                {
+                    // Copiar la fila filtrada al nuevo DataTable
+                    dataTableFiltrado.ImportRow(row);
+                }
+            }
+
+            return dataTableFiltrado;
         }
 
         private void cmbAsignatura_TextChanged(object sender, EventArgs e)

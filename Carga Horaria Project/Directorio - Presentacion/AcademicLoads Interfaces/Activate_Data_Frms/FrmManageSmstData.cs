@@ -261,6 +261,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Activate_Data_Frms
                         numHoras = Convert.ToInt32(dtInfo.Rows[0][1]);
                         idTipoDocente = Convert.ToInt32(dtInfo.Rows[0][0]);
                         objSemestre_Neg = new CN_Semestre();
+                        //MessageBox.Show(cmbSemestre.SelectedValue.ToString()+ " rowIndex"+ rowIndex.ToString()+" dgvDocenteSemestre" + dgvDocenteSemestre.Rows[rowIndex].Cells[0].Value.ToString() + " " + idTipoDocente.ToString() + " numHoras" + numHoras.ToString() + " habilitado" + habilitado.ToString());
                         objSemestre_Neg.CreateOrUpdateSemestreDocente_Negocio(cmbSemestre.SelectedValue.ToString(), dgvDocenteSemestre.Rows[rowIndex].Cells[0].Value.ToString(), idTipoDocente.ToString(), numHoras.ToString(), habilitado.ToString());
 
                     }
@@ -337,13 +338,31 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Activate_Data_Frms
 
         private void txtFiltro_TextChanged(object sender, EventArgs e)
         {
-            string filtro = txtFiltro.Text.Trim(); // Obtener el texto ingresado en el TextBox y eliminar los espacios en blanco
+            //string filtro = txtFiltro.Text.Trim(); 
 
-            // Realizar el filtrado del DataTable en función del texto ingresado
-            DataTable dataTableFiltrado = FiltrarDataTable(dtDocentes, filtro);
+            //DataTable dataTableFiltrado = FiltrarDataTable(dtDocentes, filtro);
+            ////Quiero filtrar el contenido del datagridview dgvDocenteSemestre
 
-            // Asignar el DataTable filtrado al DataSource del DataGridView
-            dgvDocenteSemestre.DataSource = dataTableFiltrado;
+            //// Asignar el DataTable filtrado al DataSource del DataGridView
+            //dgvDocenteSemestre.DataSource = dataTableFiltrado;
+
+            string filtro = txtFiltro.Text.Trim();
+
+            foreach (DataGridViewRow row in dgvDocenteSemestre.Rows)
+            {
+                bool mostrarFila = false;
+
+                foreach (DataGridViewCell cell in row.Cells)
+                {
+                    if (cell.Value != null && cell.Value.ToString().IndexOf(filtro, StringComparison.OrdinalIgnoreCase) >= 0)
+                    {
+                        mostrarFila = true;
+                        break;
+                    }
+                }
+
+                row.Visible = mostrarFila;
+            }
         }
         private DataTable FiltrarDataTable(DataTable dataTable, string filtro)
         {

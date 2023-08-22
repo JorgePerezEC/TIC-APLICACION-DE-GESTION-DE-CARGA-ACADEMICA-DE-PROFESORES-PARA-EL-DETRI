@@ -10,6 +10,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls.Primitives;
 using System.Windows.Forms;
 
 namespace Directorio___Presentacion.AcademicLoads_Interfaces
@@ -27,6 +28,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
         private static string AsignaturaName;
         private static string GrName;
         private static int idAsigCarga;
+        private static int idAsignatura;
         private DataTable dtHorario;
 
         private FrmCUAsignatura_AL childAsigFrm;
@@ -53,6 +55,8 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
             CN_CargaHoraria objetoCNegocio = new CN_CargaHoraria();
             dgLstRegistros.DataSource = objetoCNegocio.LoadAsignaturas_Negocio(idAcLoadLocal.ToString());
             dgLstRegistros.Columns[0].Visible = false;
+            int lastColumnIndex = dgLstRegistros.Columns.Count - 1;
+            dgLstRegistros.Columns[lastColumnIndex].Visible = false;
             if (countBtns < 1)
             {
                 countBtns++;
@@ -120,17 +124,19 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
 
         private void dgLstRegistros_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == 7 && e.RowIndex >= 0)
+            int lastColumnIndex = dgLstRegistros.Columns.Count - 1;
+
+            if (e.ColumnIndex == lastColumnIndex - 1 && e.RowIndex >= 0)
             {
                 Editar = true;
-                idAsigCarga = Convert.ToInt32(dgLstRegistros.Rows[e.RowIndex].Cells["ID"].Value);
+                idAsigCarga = Convert.ToInt32(dgLstRegistros.Rows[e.RowIndex].Cells["IDA"].Value);
                 FrmCUAsignatura_AL frm = new FrmCUAsignatura_AL(idAcLoadLocal, Editar, idSemestreL);
                 AsignaturaName = dgLstRegistros.Rows[e.RowIndex].Cells[4].Value.ToString();
                 GrName = dgLstRegistros.Rows[e.RowIndex].Cells[3].Value.ToString();
                 frm.ShowDialog();
                 Editar = false;
             }
-            else if (e.ColumnIndex == 8 && e.RowIndex >= 0)
+            else if (e.ColumnIndex == lastColumnIndex  && e.RowIndex >= 0)
             {
                 DialogResult result = MessageBox.Show("¿Está seguro que desea eliminar el registro?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 

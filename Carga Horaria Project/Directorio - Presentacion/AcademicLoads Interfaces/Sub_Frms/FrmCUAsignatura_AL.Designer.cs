@@ -287,9 +287,9 @@
             this.lblNoHorario.ForeColor = System.Drawing.Color.Red;
             this.lblNoHorario.Location = new System.Drawing.Point(255, 165);
             this.lblNoHorario.Name = "lblNoHorario";
-            this.lblNoHorario.Size = new System.Drawing.Size(241, 21);
+            this.lblNoHorario.Size = new System.Drawing.Size(325, 21);
             this.lblNoHorario.TabIndex = 14;
-            this.lblNoHorario.Text = "No hay GRs con horario asignado";
+            this.lblNoHorario.Text = "No hay GRs disponibles con horario asignado";
             this.lblNoHorario.Visible = false;
             // 
             // btnAddGR
@@ -305,14 +305,14 @@
             this.btnAddGR.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnAddGR.HighEmphasis = true;
             this.btnAddGR.Icon = null;
-            this.btnAddGR.Location = new System.Drawing.Point(521, 128);
+            this.btnAddGR.Location = new System.Drawing.Point(591, 128);
             this.btnAddGR.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnAddGR.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnAddGR.Name = "btnAddGR";
             this.btnAddGR.NoAccentTextColor = System.Drawing.Color.Empty;
             this.btnAddGR.Size = new System.Drawing.Size(125, 38);
             this.btnAddGR.TabIndex = 13;
-            this.btnAddGR.Text = "Agregar GR";
+            this.btnAddGR.Text = "Agregar  o editar GR";
             this.btnAddGR.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             this.btnAddGR.UseAccentColor = false;
             this.btnAddGR.UseVisualStyleBackColor = true;
@@ -450,7 +450,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.BackColor = System.Drawing.Color.SkyBlue;
+            this.label11.BackColor = System.Drawing.Color.LightCyan;
             this.label11.Font = new System.Drawing.Font("Calibri", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label11.Location = new System.Drawing.Point(18, 13);
             this.label11.Name = "label11";

@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panelDataShow = new System.Windows.Forms.Panel();
+            this.btnExportPdf = new System.Windows.Forms.Button();
             this.label14 = new System.Windows.Forms.Label();
             this.txtFiltro = new System.Windows.Forms.TextBox();
             this.dgvReporte = new System.Windows.Forms.DataGridView();
@@ -48,7 +49,6 @@
             this.cmbSemestre = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnExportPdf = new System.Windows.Forms.Button();
             this.panelDataShow.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReporte)).BeginInit();
             this.panel1.SuspendLayout();
@@ -70,6 +70,18 @@
             this.panelDataShow.Name = "panelDataShow";
             this.panelDataShow.Size = new System.Drawing.Size(1614, 695);
             this.panelDataShow.TabIndex = 4;
+            // 
+            // btnExportPdf
+            // 
+            this.btnExportPdf.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.btnExportPdf.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnExportPdf.Location = new System.Drawing.Point(613, 10);
+            this.btnExportPdf.Name = "btnExportPdf";
+            this.btnExportPdf.Size = new System.Drawing.Size(140, 70);
+            this.btnExportPdf.TabIndex = 18;
+            this.btnExportPdf.Text = "EXPORTAR  EN PDF";
+            this.btnExportPdf.UseVisualStyleBackColor = false;
+            this.btnExportPdf.Click += new System.EventHandler(this.btnExportPdf_Click);
             // 
             // label14
             // 
@@ -104,7 +116,7 @@
             this.dgvReporte.Name = "dgvReporte";
             this.dgvReporte.RowHeadersWidth = 51;
             this.dgvReporte.RowTemplate.Height = 29;
-            this.dgvReporte.Size = new System.Drawing.Size(1296, 566);
+            this.dgvReporte.Size = new System.Drawing.Size(1507, 566);
             this.dgvReporte.TabIndex = 2;
             this.dgvReporte.TabStop = false;
             // 
@@ -324,18 +336,6 @@
             this.label1.Size = new System.Drawing.Size(943, 38);
             this.label1.TabIndex = 0;
             this.label1.Text = "REPORTE DE ASIGNATURAS ASIGNADAS EN CARGAS ACADÉMICAS";
-            // 
-            // btnExportPdf
-            // 
-            this.btnExportPdf.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
-            this.btnExportPdf.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnExportPdf.Location = new System.Drawing.Point(1377, 86);
-            this.btnExportPdf.Name = "btnExportPdf";
-            this.btnExportPdf.Size = new System.Drawing.Size(140, 70);
-            this.btnExportPdf.TabIndex = 18;
-            this.btnExportPdf.Text = "EXPORTAR  EN PDF";
-            this.btnExportPdf.UseVisualStyleBackColor = false;
-            this.btnExportPdf.Click += new System.EventHandler(this.btnExportPdf_Click);
             // 
             // FrmReporteAsignaturas
             // 

@@ -2022,7 +2022,7 @@ CREATE OR ALTER PROCEDURE [dbo].[spReadAllCargaAsignaturas]
 AS
 BEGIN 
 	SELECT interAsig.idAsigCrgHoraria AS ID,asig.tipoAsignatura AS TIPO,ASIG.codigoAsignatura as CÓDIGO,gr.grupoAsignatura as GR,asig.nombreAsignatura AS 'ASIGNATURA',
-		asig.horasAsignaturaSemanales AS 'HORAS SEMANALES', asig.horasAsignaturaTotales AS 'HORAS TOTALES'
+		asig.horasAsignaturaSemanales AS 'HORAS SEMANALES', asig.horasAsignaturaTotales AS 'HORAS TOTALES', asig.idAsignatura as IDA
 	FROM   tblAsigCrgHoraria interAsig
 	INNER JOIN tblGrAsignatura gr on interAsig.idGrAsig = gr.idGrAsig
 	INNER JOIN tblAsignatura asig  on gr.idAsignatura = asig.idAsignatura
