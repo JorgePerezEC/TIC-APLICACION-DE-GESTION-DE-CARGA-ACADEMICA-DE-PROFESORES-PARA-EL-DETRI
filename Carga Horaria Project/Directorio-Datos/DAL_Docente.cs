@@ -34,6 +34,7 @@ namespace Directorio_Datos
                 sqlCommand.Parameters.AddWithValue("@apellido1", _docente.Apellido1Docente);
                 sqlCommand.Parameters.AddWithValue("@apellido2", _docente.Apellido2Docente);
                 sqlCommand.Parameters.AddWithValue("@tituloDoc", _docente.TituloDocente);
+                sqlCommand.Parameters.AddWithValue("@email", _docente.EmailDocente);
 
                 ObjDataBase.AbrirConexion();
                 sqlCommand.ExecuteNonQuery();
@@ -70,6 +71,7 @@ namespace Directorio_Datos
                 sqlCommand.Parameters.AddWithValue("@apellido1", _docente.Apellido1Docente);
                 sqlCommand.Parameters.AddWithValue("@apellido2", _docente.Apellido2Docente);
                 sqlCommand.Parameters.AddWithValue("@tituloDoc", _docente.TituloDocente);
+                sqlCommand.Parameters.AddWithValue("@email", _docente.EmailDocente);
 
                 ObjDataBase.AbrirConexion();
                 sqlCommand.ExecuteNonQuery();

@@ -17,6 +17,7 @@ namespace Directorio_Entidades
         private string _apellido1Docente;
         private string _apellido2Docente;
         private string _tituloDocente;
+        private string _emailDocente;
         #endregion
 
         #region Atributos Públicos
@@ -27,6 +28,7 @@ namespace Directorio_Entidades
         public string Apellido2Docente { get => _apellido2Docente; set => _apellido2Docente = value; }
         public string TituloDocente { get => _tituloDocente; set => _tituloDocente = value; }
         public int IdDepa { get => _idDepa; set => _idDepa = value; }
+        public string EmailDocente { get => _emailDocente; set => _emailDocente = value; }
         #endregion
     }
 }

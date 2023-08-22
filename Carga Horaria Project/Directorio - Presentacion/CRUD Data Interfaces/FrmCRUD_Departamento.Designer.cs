@@ -136,19 +136,21 @@
             // txtEmailDepa
             // 
             this.txtEmailDepa.AllowDrop = true;
-            this.txtEmailDepa.Location = new System.Drawing.Point(329, 72);
+            this.txtEmailDepa.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txtEmailDepa.Location = new System.Drawing.Point(329, 93);
             this.txtEmailDepa.Name = "txtEmailDepa";
             this.txtEmailDepa.PlaceholderText = "Ingrese el email del departamento";
-            this.txtEmailDepa.Size = new System.Drawing.Size(293, 27);
+            this.txtEmailDepa.Size = new System.Drawing.Size(387, 32);
             this.txtEmailDepa.TabIndex = 20;
             // 
             // txtNameDepa
             // 
             this.txtNameDepa.AllowDrop = true;
+            this.txtNameDepa.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.txtNameDepa.Location = new System.Drawing.Point(329, 29);
             this.txtNameDepa.Name = "txtNameDepa";
             this.txtNameDepa.PlaceholderText = "Ingrese el nombre del departamento";
-            this.txtNameDepa.Size = new System.Drawing.Size(293, 27);
+            this.txtNameDepa.Size = new System.Drawing.Size(387, 32);
             this.txtNameDepa.TabIndex = 19;
             // 
             // btnGuardar
@@ -172,20 +174,20 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft YaHei", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label6.Location = new System.Drawing.Point(31, 71);
+            this.label6.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label6.Location = new System.Drawing.Point(31, 92);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(166, 23);
+            this.label6.Size = new System.Drawing.Size(171, 24);
             this.label6.TabIndex = 6;
             this.label6.Text = "Correo electrónico:";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft YaHei", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label7.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label7.Location = new System.Drawing.Point(31, 29);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(235, 23);
+            this.label7.Size = new System.Drawing.Size(243, 24);
             this.label7.TabIndex = 5;
             this.label7.Text = "Nombre del Departamento:";
             // 

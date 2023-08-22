@@ -8,6 +8,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -55,6 +56,7 @@ namespace Directorio___Presentacion.CRUD_Interfaces
             if (panelCreate.Visible)
             {
                 panelCreate.Visible = false;
+                ClearTxtBox();
             }
             else
             {
@@ -67,24 +69,51 @@ namespace Directorio___Presentacion.CRUD_Interfaces
             this.Close();
         }
 
+        public static bool ComprobarFormatoEmail(string sEmailAComprobar)
+        {
+            String sFormato;
+            sFormato = "\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*";
+            if (Regex.IsMatch(sEmailAComprobar, sFormato))
+            {
+                if (Regex.Replace(sEmailAComprobar, sFormato, String.Empty).Length == 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         private void btnGuardar_Click(object sender, EventArgs e)
         {
+            if (cmbDepartamentos.SelectedIndex == -1)
+            {
+                MessageBox.Show("Debe seleccionar un Departamento para completar el registro.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (txtSApellido.Text == string.Empty || txtTitulo.Text == string.Empty || txtPNombre.Text == string.Empty || txtPApellido.Text == string.Empty || txtSApellido.Text == string.Empty || txtEmail.Text == string.Empty)
+            {
+                MessageBox.Show("Debe completar todos los campos de texto para completar el registro.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (!ComprobarFormatoEmail(txtEmail.Text))
+            {
+                MessageBox.Show("El Email ** " + txtEmail.Text + " ** ingresado es inválido.", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             if (Editar == false)
             {
                 try
                 {
-                    if (cmbDepartamentos.SelectedIndex == -1)
-                    {
-                        MessageBox.Show("Debe seleccionar un Departamento para completar el registro.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return;
-                    }
-                    if (txtSApellido.Text == string.Empty || txtTitulo.Text == string.Empty || txtPNombre.Text == string.Empty || txtPApellido.Text == string.Empty || txtSApellido.Text == string.Empty)
-                    {
-                        MessageBox.Show("Debe completar todos los campos de texto para completar el registro.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return;
-                    }
+                    
                     int cmbValue = Convert.ToInt32(cmbDepartamentos.SelectedValue);
-                    objetoCNegocio.CreateDocenteNeg(cmbValue.ToString(), txtPNombre.Text, txtSNombre.Text, txtPApellido.Text, txtSApellido.Text, txtTitulo.Text);
+                    objetoCNegocio.CreateDocenteNeg(cmbValue.ToString(), txtPNombre.Text, txtSNombre.Text, txtPApellido.Text, txtSApellido.Text, txtTitulo.Text, txtEmail.Text);
                     MessageBox.Show("Docente agregado correctamente", "DOCENTE REGISTRADO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     MostrarDocentes();
                     ClearTxtBox();
@@ -100,7 +129,7 @@ namespace Directorio___Presentacion.CRUD_Interfaces
                 try
                 {
                     int cmbValue = Convert.ToInt32(cmbDepartamentos.SelectedValue);
-                    objetoCNegocio.UpdateDocenteNeg(idDocente, cmbValue.ToString(), txtPNombre.Text, txtSNombre.Text, txtPApellido.Text, txtSApellido.Text, txtTitulo.Text);
+                    objetoCNegocio.UpdateDocenteNeg(idDocente, cmbValue.ToString(), txtPNombre.Text, txtSNombre.Text, txtPApellido.Text, txtSApellido.Text, txtTitulo.Text, txtEmail.Text);
                     MessageBox.Show("Docente actualizado correctamente", "DOCENTE ACTUALIZADO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     MostrarDocentes();
                     Editar = false;
@@ -212,6 +241,11 @@ namespace Directorio___Presentacion.CRUD_Interfaces
 
             e.KeyChar = tecla;
             e.Handled = false;
+        }
+
+        private void dgLstRegistros_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

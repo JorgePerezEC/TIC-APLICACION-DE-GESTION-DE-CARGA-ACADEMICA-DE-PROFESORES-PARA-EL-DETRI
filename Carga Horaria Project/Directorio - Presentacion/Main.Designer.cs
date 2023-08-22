@@ -68,6 +68,7 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.panelChildForm = new System.Windows.Forms.Panel();
             this.pixtbxLogo = new System.Windows.Forms.PictureBox();
+            this.btnGestionProyectos = new System.Windows.Forms.Button();
             this.panelMenuLateral.SuspendLayout();
             this.panelSubmenuReportes.SuspendLayout();
             this.panelSubmenuGestionData.SuspendLayout();
@@ -108,7 +109,7 @@
             this.btnConfigureServer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnConfigureServer.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnConfigureServer.ForeColor = System.Drawing.Color.Transparent;
-            this.btnConfigureServer.Location = new System.Drawing.Point(0, 1421);
+            this.btnConfigureServer.Location = new System.Drawing.Point(0, 1474);
             this.btnConfigureServer.Name = "btnConfigureServer";
             this.btnConfigureServer.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.btnConfigureServer.Size = new System.Drawing.Size(262, 60);
@@ -123,7 +124,7 @@
             this.lblAutores.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.lblAutores.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblAutores.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.lblAutores.Location = new System.Drawing.Point(0, 1481);
+            this.lblAutores.Location = new System.Drawing.Point(0, 1534);
             this.lblAutores.Name = "lblAutores";
             this.lblAutores.Padding = new System.Windows.Forms.Padding(7, 0, 0, 7);
             this.lblAutores.Size = new System.Drawing.Size(262, 58);
@@ -143,7 +144,7 @@
             this.panelSubmenuReportes.Controls.Add(this.btnReporteDocentesCargas);
             this.panelSubmenuReportes.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelSubmenuReportes.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.panelSubmenuReportes.Location = new System.Drawing.Point(0, 1156);
+            this.panelSubmenuReportes.Location = new System.Drawing.Point(0, 1209);
             this.panelSubmenuReportes.Name = "panelSubmenuReportes";
             this.panelSubmenuReportes.Size = new System.Drawing.Size(262, 265);
             this.panelSubmenuReportes.TabIndex = 6;
@@ -247,7 +248,7 @@
             this.btnReportesMain.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnReportesMain.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnReportesMain.ForeColor = System.Drawing.Color.Transparent;
-            this.btnReportesMain.Location = new System.Drawing.Point(0, 1096);
+            this.btnReportesMain.Location = new System.Drawing.Point(0, 1149);
             this.btnReportesMain.Name = "btnReportesMain";
             this.btnReportesMain.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.btnReportesMain.Size = new System.Drawing.Size(262, 60);
@@ -261,6 +262,7 @@
             // 
             this.panelSubmenuGestionData.AutoSize = true;
             this.panelSubmenuGestionData.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(0)))), ((int)(((byte)(90)))));
+            this.panelSubmenuGestionData.Controls.Add(this.btnGestionProyectos);
             this.panelSubmenuGestionData.Controls.Add(this.btnGestionSemestres);
             this.panelSubmenuGestionData.Controls.Add(this.panelGestionDocentes);
             this.panelSubmenuGestionData.Controls.Add(this.btnGestionDocentes);
@@ -274,7 +276,7 @@
             this.panelSubmenuGestionData.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.panelSubmenuGestionData.Location = new System.Drawing.Point(0, 497);
             this.panelSubmenuGestionData.Name = "panelSubmenuGestionData";
-            this.panelSubmenuGestionData.Size = new System.Drawing.Size(262, 599);
+            this.panelSubmenuGestionData.Size = new System.Drawing.Size(262, 652);
             this.panelSubmenuGestionData.TabIndex = 4;
             // 
             // btnGestionSemestres
@@ -721,6 +723,24 @@
             this.pixtbxLogo.TabIndex = 0;
             this.pixtbxLogo.TabStop = false;
             // 
+            // btnGestionProyectos
+            // 
+            this.btnGestionProyectos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(130)))), ((int)(((byte)(173)))));
+            this.btnGestionProyectos.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnGestionProyectos.FlatAppearance.BorderSize = 0;
+            this.btnGestionProyectos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGestionProyectos.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnGestionProyectos.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btnGestionProyectos.Location = new System.Drawing.Point(0, 599);
+            this.btnGestionProyectos.Name = "btnGestionProyectos";
+            this.btnGestionProyectos.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
+            this.btnGestionProyectos.Size = new System.Drawing.Size(262, 53);
+            this.btnGestionProyectos.TabIndex = 9;
+            this.btnGestionProyectos.Text = "GESTIÓN DE PROYECTOS";
+            this.btnGestionProyectos.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnGestionProyectos.UseVisualStyleBackColor = false;
+            this.btnGestionProyectos.Click += new System.EventHandler(this.btnGestionProyectos_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -792,5 +812,6 @@
         private Button btnCrearCargaAcademica;
         private Button btnCopiarDatos;
         private Button btnConfigureServer;
+        private Button btnGestionProyectos;
     }
 }

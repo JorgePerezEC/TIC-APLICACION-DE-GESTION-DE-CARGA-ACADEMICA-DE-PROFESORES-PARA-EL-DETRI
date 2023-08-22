@@ -7,17 +7,17 @@
 -- PRESS F5 to Execute entire script
 --------------------------------------------
 USE master
---dbCargaHorariaTICtest2  gg
+--dbCargaHorariaTIC_DETRI  dbRespaldo
 GO
-IF EXISTS (SELECT name FROM sys.databases WHERE name = 'dbCargaHorariaTIC_DETRI')
+IF EXISTS (SELECT name FROM sys.databases WHERE name = 'dbCargaHorariaTIC_DETRI2')
 BEGIN
-    DROP DATABASE dbCargaHorariaTIC_DETRI;
+    DROP DATABASE dbCargaHorariaTIC_DETRI2;
 END
 GO
 PRINT 'Creating DB';
-CREATE DATABASE dbCargaHorariaTIC_DETRI;
+CREATE DATABASE dbCargaHorariaTIC_DETRI2;
 GO
-USE dbCargaHorariaTIC_DETRI;
+USE dbCargaHorariaTIC_DETRI2;
 
 -----------------------------------------
 -- Table Creation Section

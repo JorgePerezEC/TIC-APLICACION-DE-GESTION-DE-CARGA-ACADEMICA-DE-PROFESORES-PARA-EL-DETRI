@@ -298,5 +298,12 @@ namespace Directorio___Presentacion
             FrmEditServerConection frmEditServerConection = new FrmEditServerConection();
             frmEditServerConection.ShowDialog();
         }
+
+        private void btnGestionProyectos_Click(object sender, EventArgs e)
+        {
+            openChildForm(new FrmCRUD_Proyecto());
+            hideSubMenu();
+            hideSubMenu2();
+        }
     }
 }

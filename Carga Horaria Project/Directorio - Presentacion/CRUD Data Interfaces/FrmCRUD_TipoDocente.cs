@@ -121,7 +121,6 @@ namespace Directorio___Presentacion.CRUD_Interfaces
                     objetoCNegocio.DeleteTiposDocentesNeg(idTpDocente);
                     MessageBox.Show("Tipo de Docente eliminado correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     MostrarTiposDocentes();
-                    //ClearTxtBox();
                 }
                 else
                 {

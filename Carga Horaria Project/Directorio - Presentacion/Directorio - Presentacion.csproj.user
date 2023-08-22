@@ -73,6 +73,9 @@
     <Compile Update="AcademicLoads Interfaces\Activate_Data_Frms\FrmCRUD_HorarioAsignatura.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="CRUD Data Interfaces\FrmCRUD_Proyecto.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="CRUD Data Interfaces\FrmCRUD_Semestre.cs">
       <SubType>Form</SubType>
     </Compile>

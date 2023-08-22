@@ -63,6 +63,16 @@ namespace Directorio___Presentacion.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap archivo_pdf {
+            get {
+                object obj = ResourceManager.GetObject("archivo-pdf", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap boton_editar {
             get {
                 object obj = ResourceManager.GetObject("boton_editar", resourceCulture);

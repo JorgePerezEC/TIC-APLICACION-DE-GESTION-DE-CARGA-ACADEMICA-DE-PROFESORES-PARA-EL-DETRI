@@ -110,6 +110,7 @@ namespace Directorio___Presentacion.CRUD_Data_Interfaces
             Editar = false;
             if (panelCreate.Visible) {
                 panelCreate.Visible = false;
+                ClearTxtBox();
             }
             else
             {

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using static System.Windows.Forms.AxHost;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace Directorio_Logica
 {
@@ -85,7 +86,7 @@ namespace Directorio_Logica
         }
 
         #region CRUD Methods
-        public bool CreateDocenteNeg(string idDep, string name1, string name2, string apellido1,string apellido2,string titulo)
+        public bool CreateDocenteNeg(string idDep, string name1, string name2, string apellido1,string apellido2,string titulo, string email)
         {
             try
             {
@@ -97,7 +98,8 @@ namespace Directorio_Logica
                     Nombre2Docente = name2,
                     Apellido1Docente = apellido1,
                     Apellido2Docente = apellido2,
-                    TituloDocente = titulo
+                    TituloDocente = titulo,
+                    EmailDocente= email
                 };
                 objetoCData.CreateDocente(ObjDocente);
 
@@ -113,7 +115,7 @@ namespace Directorio_Logica
 
         }
 
-        public bool UpdateDocenteNeg(string idDocente, string idDep, string name1, string name2, string apellido1, string apellido2, string titulo)
+        public bool UpdateDocenteNeg(string idDocente, string idDep, string name1, string name2, string apellido1, string apellido2, string titulo, string email)
         {
             try
             {
@@ -125,7 +127,8 @@ namespace Directorio_Logica
                     Nombre2Docente = name2,
                     Apellido1Docente = apellido1,
                     Apellido2Docente = apellido2,
-                    TituloDocente = titulo
+                    TituloDocente = titulo,
+                    EmailDocente = email
                 };
                 objetoCData.UpdateDocente(ObjDocente);
 
