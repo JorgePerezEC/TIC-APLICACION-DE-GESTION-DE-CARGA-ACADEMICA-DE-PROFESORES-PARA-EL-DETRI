@@ -42,6 +42,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -53,6 +58,9 @@
 
   <ItemGroup>
     <None Update="App.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="appsetting.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="dbCargaHorariaAprilDataSet.xsd">
@@ -69,10 +77,22 @@
     <None Update="Images\warning.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="CRUD Data Interfaces\SubForms_HorasExigibles\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EditorConfigFiles Remove="C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\Carga Horaria Project\Directorio - Presentacion\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\Carga Horaria Project\Directorio - Presentacion\.editorconfig" />
   </ItemGroup>
 
 </Project>

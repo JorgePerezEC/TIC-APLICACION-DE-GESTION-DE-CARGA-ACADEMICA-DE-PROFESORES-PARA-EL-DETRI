@@ -146,5 +146,33 @@ namespace Directorio_Datos
                 ObjDataBase.CerrarConexion();
             }
         }
+        public DataTable GetProjectInfo_DAL(ClsActividad _actividad)
+        {
+            try
+            {
+                SqlCommand comando = new SqlCommand();
+                comando.Connection = ObjDataBase.sqlConexion;
+                comando.CommandText = "spGetProjectInfoFromActivity";
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("@idActividad", _actividad.IdActividad);
+                ObjDataBase.AbrirConexion();
+                leer = comando.ExecuteReader();
+                tabla.Load(leer);
+                ObjDataBase.CerrarConexion();
+                return tabla;
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error" + ex.Message);
+                return null;
+
+            }
+            finally
+            {
+                ObjDataBase.CerrarConexion();
+            }
+        }
+
     }
 }

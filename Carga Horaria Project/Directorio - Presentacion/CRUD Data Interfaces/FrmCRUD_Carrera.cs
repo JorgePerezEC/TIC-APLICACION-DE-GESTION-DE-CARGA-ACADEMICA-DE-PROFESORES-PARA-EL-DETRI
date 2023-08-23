@@ -203,5 +203,10 @@ namespace Directorio___Presentacion.CRUD_Interfaces
             e.KeyChar = tecla;
             e.Handled = false;
         }
+
+        private void cmbDepartamentos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

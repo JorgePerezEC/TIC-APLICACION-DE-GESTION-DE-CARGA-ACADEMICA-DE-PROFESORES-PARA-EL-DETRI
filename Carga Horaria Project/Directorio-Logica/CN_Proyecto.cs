@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,6 +17,17 @@ namespace Directorio_Logica
         {
             DataTable tabla = new DataTable();
             tabla = objetoCData.MostrarRegistros();
+            return tabla;
+        }
+
+        public DataTable GetProjectInfo_Negocio(int idActividad)
+        {
+            ClsActividad ObjActividad = new ClsActividad()
+            {
+                IdActividad= idActividad,
+            };
+            DataTable tabla = new DataTable();
+            tabla = objetoCData.GetProjectInfo_DAL(ObjActividad);
             return tabla;
         }
 

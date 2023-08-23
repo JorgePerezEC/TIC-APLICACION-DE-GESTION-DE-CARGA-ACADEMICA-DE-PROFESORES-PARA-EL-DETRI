@@ -391,7 +391,6 @@ C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\21 MAY
 C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\21 MAY\Carga Horaria Project\Directorio - Presentacion\bin\Debug\net6.0-windows\zh-CHT\Microsoft.ReportViewer.Design.resources.dll
 C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\21 MAY\Carga Horaria Project\Directorio - Presentacion\bin\Debug\net6.0-windows\zh-CHT\Microsoft.ReportViewer.WinForms.resources.dll
 C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\21 MAY\Carga Horaria Project\Directorio - Presentacion\obj\Debug\net6.0-windows\Directorio___Presentacion.Reportes.Form1.resources
-C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\Carga Horaria Project\Directorio - Presentacion\bin\Debug\net6.0-windows\Directorio - Presentacion.dll
 C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\Carga Horaria Project\Directorio - Presentacion\bin\Debug\net6.0-windows\Directorio - Presentacion.exe
 C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\Carga Horaria Project\Directorio - Presentacion\bin\Debug\net6.0-windows\App.config
 C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\Carga Horaria Project\Directorio - Presentacion\bin\Debug\net6.0-windows\Images\EPNLogo.png
@@ -399,6 +398,8 @@ C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\C
 C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\Carga Horaria Project\Directorio - Presentacion\bin\Debug\net6.0-windows\Directorio - Presentacion.dll.config
 C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\Carga Horaria Project\Directorio - Presentacion\bin\Debug\net6.0-windows\Directorio - Presentacion.deps.json
 C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\Carga Horaria Project\Directorio - Presentacion\bin\Debug\net6.0-windows\Directorio - Presentacion.runtimeconfig.json
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\Carga Horaria Project\Directorio - Presentacion\bin\Debug\net6.0-windows\Directorio - Presentacion.dll
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\Carga Horaria Project\Directorio - Presentacion\bin\Debug\net6.0-windows\Directorio - Presentacion.pdb
 C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\Carga Horaria Project\Directorio - Presentacion\bin\Debug\net6.0-windows\itext.barcodes.dll
 C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\Carga Horaria Project\Directorio - Presentacion\bin\Debug\net6.0-windows\itext.bouncy-castle-connector.dll
 C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\Carga Horaria Project\Directorio - Presentacion\bin\Debug\net6.0-windows\itext.forms.dll
@@ -457,6 +458,8 @@ C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\C
 C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\Carga Horaria Project\Directorio - Presentacion\obj\Debug\net6.0-windows\Directorio___Presentacion.AcademicLoads_Interfaces.Activate_Data_Frms.FrmManageSmstData.resources
 C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\Carga Horaria Project\Directorio - Presentacion\obj\Debug\net6.0-windows\Directorio___Presentacion.AcademicLoads_Interfaces.EditData_Frms.FrmEditHorasExigibles.resources
 C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\Carga Horaria Project\Directorio - Presentacion\obj\Debug\net6.0-windows\Directorio___Presentacion.AcademicLoads_Interfaces.EditData_Frms.FrmEditServerConection.resources
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\Carga Horaria Project\Directorio - Presentacion\obj\Debug\net6.0-windows\Directorio___Presentacion.AcademicLoads_Interfaces.EditData_Frms.FrmSettings.resources
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\Carga Horaria Project\Directorio - Presentacion\obj\Debug\net6.0-windows\Directorio___Presentacion.AcademicLoads_Interfaces.EditData_Frms.Settings_Frms.FrmEditMail.resources
 C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\Carga Horaria Project\Directorio - Presentacion\obj\Debug\net6.0-windows\Directorio___Presentacion.AcademicLoads_Interfaces.Error_Frms.Frm_Err_HorasExigibles.resources
 C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\Carga Horaria Project\Directorio - Presentacion\obj\Debug\net6.0-windows\Directorio___Presentacion.AcademicLoads_Interfaces.FrmCopyData.resources
 C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\Carga Horaria Project\Directorio - Presentacion\obj\Debug\net6.0-windows\Directorio___Presentacion.AcademicLoads_Interfaces.FrmCreate_AcademicLoad.resources
@@ -475,6 +478,7 @@ C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\C
 C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\Carga Horaria Project\Directorio - Presentacion\obj\Debug\net6.0-windows\Directorio___Presentacion.CRUD_Data_Interfaces.FrmCRUD_Departamento.resources
 C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\Carga Horaria Project\Directorio - Presentacion\obj\Debug\net6.0-windows\Directorio___Presentacion.CRUD_Interfaces.FrmCRUD_Docente.resources
 C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\Carga Horaria Project\Directorio - Presentacion\obj\Debug\net6.0-windows\Directorio___Presentacion.CRUD_Interfaces.FrmCRUD_GrupoAsignatura.resources
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\Carga Horaria Project\Directorio - Presentacion\obj\Debug\net6.0-windows\Directorio___Presentacion.CRUD_Data_Interfaces.FrmCRUD_Proyecto.resources
 C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\Carga Horaria Project\Directorio - Presentacion\obj\Debug\net6.0-windows\Directorio___Presentacion.CRUD_Interfaces.FrmCRUD_Semestre.resources
 C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\Carga Horaria Project\Directorio - Presentacion\obj\Debug\net6.0-windows\Directorio___Presentacion.CRUD_Interfaces.FrmCRUD_TipoActividad.resources
 C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\Carga Horaria Project\Directorio - Presentacion\obj\Debug\net6.0-windows\Directorio___Presentacion.CRUD_Interfaces.FrmCRUD_TipoDocente.resources
@@ -494,6 +498,4 @@ C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\C
 C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\Carga Horaria Project\Directorio - Presentacion\obj\Debug\net6.0-windows\refint\Directorio - Presentacion.dll
 C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\Carga Horaria Project\Directorio - Presentacion\obj\Debug\net6.0-windows\Directorio - Presentacion.pdb
 C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\Carga Horaria Project\Directorio - Presentacion\obj\Debug\net6.0-windows\Directorio - Presentacion.genruntimeconfig.cache
-C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\Carga Horaria Project\Directorio - Presentacion\bin\Debug\net6.0-windows\Directorio - Presentacion.pdb
 C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\Carga Horaria Project\Directorio - Presentacion\obj\Debug\net6.0-windows\ref\Directorio - Presentacion.dll
-C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\Carga Horaria Project\Directorio - Presentacion\obj\Debug\net6.0-windows\Directorio___Presentacion.CRUD_Data_Interfaces.FrmCRUD_Proyecto.resources

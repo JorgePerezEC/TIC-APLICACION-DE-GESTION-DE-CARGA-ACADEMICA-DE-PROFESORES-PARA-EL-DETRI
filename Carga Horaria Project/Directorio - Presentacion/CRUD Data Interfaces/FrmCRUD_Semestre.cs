@@ -107,16 +107,16 @@ namespace Directorio___Presentacion.CRUD_Interfaces
                 MessageBox.Show("Debe seleccionar un número de semanas totales del semestre mayor a las semanas de clase para completar el registro.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+            if (dtFechaInicio.Value > dtFechaFin.Value)
+            {
+                MessageBox.Show("La fecha de inicio debe ser anterior a la fecha de fin.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
             if (Editar == false)
             {
                 try
                 {
-                    //if (!txtCodigo.Text.Contains(selectedYearCmb.ToString()))
-                    //{
-                    //    MessageBox.Show("El código del semestre debe contener el año del semestre en su contenido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    //    return;
-                    //}
 
                     objetoCNegocio.CreateSemestreNegocio(txtCodigo.Text, selectedYearCmb.ToString(), dtFechaInicio.Value.ToString("yyyy-MM-dd"),
                     dtFechaFin.Value.ToString("yyyy-MM-dd"), cboxSemanasClase.Text, cboxSemanasTotales.Text);

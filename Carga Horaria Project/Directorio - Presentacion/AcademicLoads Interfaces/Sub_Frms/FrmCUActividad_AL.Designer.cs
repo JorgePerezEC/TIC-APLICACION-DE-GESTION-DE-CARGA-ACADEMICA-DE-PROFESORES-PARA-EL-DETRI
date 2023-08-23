@@ -29,6 +29,19 @@
         private void InitializeComponent()
         {
             this.panel2 = new System.Windows.Forms.Panel();
+            this.panelProyectos = new System.Windows.Forms.Panel();
+            this.txtNombreProyecto = new System.Windows.Forms.TextBox();
+            this.txtCodeProyecto = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.pictBoxAval = new System.Windows.Forms.PictureBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.txtPresupuesto = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.dtFechaInicio = new System.Windows.Forms.DateTimePicker();
+            this.dtFechaFin = new System.Windows.Forms.DateTimePicker();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
             this.panelInfoActividad = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -49,6 +62,8 @@
             this.btnCrearActividad = new System.Windows.Forms.Button();
             this.lblTitleActividad = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
+            this.panelProyectos.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictBoxAval)).BeginInit();
             this.panelInfoActividad.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panelHorasTotales.SuspendLayout();
@@ -58,6 +73,7 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.LightBlue;
+            this.panel2.Controls.Add(this.panelProyectos);
             this.panel2.Controls.Add(this.panelInfoActividad);
             this.panel2.Controls.Add(this.btnCancelar);
             this.panel2.Controls.Add(this.cmbActividad);
@@ -65,8 +81,155 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 83);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1175, 376);
+            this.panel2.Size = new System.Drawing.Size(1328, 393);
             this.panel2.TabIndex = 3;
+            // 
+            // panelProyectos
+            // 
+            this.panelProyectos.Controls.Add(this.txtNombreProyecto);
+            this.panelProyectos.Controls.Add(this.txtCodeProyecto);
+            this.panelProyectos.Controls.Add(this.label6);
+            this.panelProyectos.Controls.Add(this.pictBoxAval);
+            this.panelProyectos.Controls.Add(this.label9);
+            this.panelProyectos.Controls.Add(this.txtPresupuesto);
+            this.panelProyectos.Controls.Add(this.label14);
+            this.panelProyectos.Controls.Add(this.dtFechaInicio);
+            this.panelProyectos.Controls.Add(this.dtFechaFin);
+            this.panelProyectos.Controls.Add(this.label18);
+            this.panelProyectos.Controls.Add(this.label19);
+            this.panelProyectos.Controls.Add(this.label20);
+            this.panelProyectos.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelProyectos.Location = new System.Drawing.Point(0, 235);
+            this.panelProyectos.Name = "panelProyectos";
+            this.panelProyectos.Size = new System.Drawing.Size(1328, 158);
+            this.panelProyectos.TabIndex = 11;
+            this.panelProyectos.Visible = false;
+            // 
+            // txtNombreProyecto
+            // 
+            this.txtNombreProyecto.AllowDrop = true;
+            this.txtNombreProyecto.BackColor = System.Drawing.Color.Cornsilk;
+            this.txtNombreProyecto.Enabled = false;
+            this.txtNombreProyecto.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txtNombreProyecto.Location = new System.Drawing.Point(135, 8);
+            this.txtNombreProyecto.Multiline = true;
+            this.txtNombreProyecto.Name = "txtNombreProyecto";
+            this.txtNombreProyecto.Size = new System.Drawing.Size(543, 56);
+            this.txtNombreProyecto.TabIndex = 58;
+            // 
+            // txtCodeProyecto
+            // 
+            this.txtCodeProyecto.AllowDrop = true;
+            this.txtCodeProyecto.BackColor = System.Drawing.Color.Cornsilk;
+            this.txtCodeProyecto.Enabled = false;
+            this.txtCodeProyecto.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txtCodeProyecto.Location = new System.Drawing.Point(135, 78);
+            this.txtCodeProyecto.Name = "txtCodeProyecto";
+            this.txtCodeProyecto.Size = new System.Drawing.Size(317, 32);
+            this.txtCodeProyecto.TabIndex = 57;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label6.Location = new System.Drawing.Point(34, 81);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(79, 24);
+            this.label6.TabIndex = 56;
+            this.label6.Text = "Código: ";
+            // 
+            // pictBoxAval
+            // 
+            this.pictBoxAval.Location = new System.Drawing.Point(1244, 43);
+            this.pictBoxAval.Name = "pictBoxAval";
+            this.pictBoxAval.Size = new System.Drawing.Size(77, 62);
+            this.pictBoxAval.TabIndex = 55;
+            this.pictBoxAval.TabStop = false;
+            this.pictBoxAval.Click += new System.EventHandler(this.pictBoxAval_Click);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label9.Location = new System.Drawing.Point(1180, 60);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(58, 24);
+            this.label9.TabIndex = 54;
+            this.label9.Text = "AVAL:";
+            // 
+            // txtPresupuesto
+            // 
+            this.txtPresupuesto.AllowDrop = true;
+            this.txtPresupuesto.BackColor = System.Drawing.Color.Cornsilk;
+            this.txtPresupuesto.Enabled = false;
+            this.txtPresupuesto.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txtPresupuesto.Location = new System.Drawing.Point(906, 113);
+            this.txtPresupuesto.Name = "txtPresupuesto";
+            this.txtPresupuesto.PlaceholderText = "XXX,XX";
+            this.txtPresupuesto.Size = new System.Drawing.Size(251, 32);
+            this.txtPresupuesto.TabIndex = 53;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label14.Location = new System.Drawing.Point(733, 116);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(155, 24);
+            this.label14.TabIndex = 52;
+            this.label14.Text = "Presupuesto {$}: ";
+            // 
+            // dtFechaInicio
+            // 
+            this.dtFechaInicio.Enabled = false;
+            this.dtFechaInicio.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.dtFechaInicio.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtFechaInicio.Location = new System.Drawing.Point(906, 5);
+            this.dtFechaInicio.MaxDate = new System.DateTime(8970, 1, 31, 0, 0, 0, 0);
+            this.dtFechaInicio.MinDate = new System.DateTime(1753, 1, 11, 0, 0, 0, 0);
+            this.dtFechaInicio.Name = "dtFechaInicio";
+            this.dtFechaInicio.Size = new System.Drawing.Size(251, 32);
+            this.dtFechaInicio.TabIndex = 48;
+            // 
+            // dtFechaFin
+            // 
+            this.dtFechaFin.Enabled = false;
+            this.dtFechaFin.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.dtFechaFin.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtFechaFin.Location = new System.Drawing.Point(906, 60);
+            this.dtFechaFin.Name = "dtFechaFin";
+            this.dtFechaFin.Size = new System.Drawing.Size(251, 32);
+            this.dtFechaFin.TabIndex = 49;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label18.Location = new System.Drawing.Point(733, 61);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(120, 24);
+            this.label18.TabIndex = 51;
+            this.label18.Text = "Fecha de Fin:";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label19.Location = new System.Drawing.Point(733, 6);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(140, 24);
+            this.label19.TabIndex = 50;
+            this.label19.Text = "Fecha de Inicio:";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label20.Location = new System.Drawing.Point(34, 11);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(95, 24);
+            this.label20.TabIndex = 46;
+            this.label20.Text = "Proyecto: ";
             // 
             // panelInfoActividad
             // 
@@ -76,9 +239,9 @@
             this.panelInfoActividad.Controls.Add(this.lblHorasAct);
             this.panelInfoActividad.Controls.Add(this.txtHorasActividad);
             this.panelInfoActividad.Controls.Add(this.btnAgregar);
-            this.panelInfoActividad.Location = new System.Drawing.Point(20, 102);
+            this.panelInfoActividad.Location = new System.Drawing.Point(3, 64);
             this.panelInfoActividad.Name = "panelInfoActividad";
-            this.panelInfoActividad.Size = new System.Drawing.Size(942, 262);
+            this.panelInfoActividad.Size = new System.Drawing.Size(942, 170);
             this.panelInfoActividad.TabIndex = 8;
             this.panelInfoActividad.Visible = false;
             // 
@@ -160,9 +323,9 @@
             // 
             this.panelHorasTotales.Controls.Add(this.label1);
             this.panelHorasTotales.Controls.Add(this.txtHorasTotales);
-            this.panelHorasTotales.Location = new System.Drawing.Point(3, 94);
+            this.panelHorasTotales.Location = new System.Drawing.Point(9, 67);
             this.panelHorasTotales.Name = "panelHorasTotales";
-            this.panelHorasTotales.Size = new System.Drawing.Size(649, 149);
+            this.panelHorasTotales.Size = new System.Drawing.Size(649, 67);
             this.panelHorasTotales.TabIndex = 9;
             this.panelHorasTotales.Visible = false;
             // 
@@ -184,13 +347,14 @@
             this.txtHorasTotales.Name = "txtHorasTotales";
             this.txtHorasTotales.Size = new System.Drawing.Size(248, 34);
             this.txtHorasTotales.TabIndex = 4;
+            this.txtHorasTotales.TextChanged += new System.EventHandler(this.txtHorasTotales_TextChanged);
             this.txtHorasTotales.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtHorasTotales_KeyPress);
             // 
             // lblHorasAct
             // 
             this.lblHorasAct.AutoSize = true;
             this.lblHorasAct.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblHorasAct.Location = new System.Drawing.Point(28, 108);
+            this.lblHorasAct.Location = new System.Drawing.Point(34, 81);
             this.lblHorasAct.Name = "lblHorasAct";
             this.lblHorasAct.Size = new System.Drawing.Size(338, 28);
             this.lblHorasAct.TabIndex = 4;
@@ -201,10 +365,11 @@
             this.txtHorasActividad.BackColor = System.Drawing.Color.Khaki;
             this.txtHorasActividad.Enabled = false;
             this.txtHorasActividad.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.txtHorasActividad.Location = new System.Drawing.Point(372, 105);
+            this.txtHorasActividad.Location = new System.Drawing.Point(378, 78);
             this.txtHorasActividad.Name = "txtHorasActividad";
             this.txtHorasActividad.Size = new System.Drawing.Size(248, 34);
             this.txtHorasActividad.TabIndex = 5;
+            this.txtHorasActividad.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtHorasTotales_KeyPress);
             // 
             // btnAgregar
             // 
@@ -213,7 +378,7 @@
             this.btnAgregar.FlatAppearance.BorderSize = 0;
             this.btnAgregar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAgregar.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnAgregar.Location = new System.Drawing.Point(771, 108);
+            this.btnAgregar.Location = new System.Drawing.Point(771, 24);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(156, 41);
             this.btnAgregar.TabIndex = 5;
@@ -227,7 +392,7 @@
             this.btnCancelar.FlatAppearance.BorderSize = 0;
             this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelar.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnCancelar.Location = new System.Drawing.Point(984, 210);
+            this.btnCancelar.Location = new System.Drawing.Point(973, 88);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(156, 41);
             this.btnCancelar.TabIndex = 10;
@@ -268,7 +433,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1175, 83);
+            this.panel1.Size = new System.Drawing.Size(1328, 83);
             this.panel1.TabIndex = 2;
             // 
             // btnCrearActividad
@@ -300,7 +465,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancelar;
-            this.ClientSize = new System.Drawing.Size(1175, 459);
+            this.ClientSize = new System.Drawing.Size(1328, 476);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -315,6 +480,9 @@
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.FrmCUActividad_AL_KeyPress);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.panelProyectos.ResumeLayout(false);
+            this.panelProyectos.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictBoxAval)).EndInit();
             this.panelInfoActividad.ResumeLayout(false);
             this.panelInfoActividad.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -349,5 +517,18 @@
         private TextBox txtHorasTotales;
         private Label label4;
         public Button btnCrearActividad;
+        private Panel panelProyectos;
+        private TextBox txtNombreProyecto;
+        private TextBox txtCodeProyecto;
+        private Label label6;
+        private PictureBox pictBoxAval;
+        private Label label9;
+        private TextBox txtPresupuesto;
+        private Label label14;
+        private DateTimePicker dtFechaInicio;
+        private DateTimePicker dtFechaFin;
+        private Label label18;
+        private Label label19;
+        private Label label20;
     }
 }

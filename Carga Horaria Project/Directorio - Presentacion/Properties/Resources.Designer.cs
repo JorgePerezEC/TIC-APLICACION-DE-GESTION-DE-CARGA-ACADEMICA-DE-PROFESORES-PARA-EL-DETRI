@@ -61,6 +61,16 @@ namespace Directorio___Presentacion.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] appsettings {
+            get {
+                object obj = ResourceManager.GetObject("appsettings", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap archivo_pdf {

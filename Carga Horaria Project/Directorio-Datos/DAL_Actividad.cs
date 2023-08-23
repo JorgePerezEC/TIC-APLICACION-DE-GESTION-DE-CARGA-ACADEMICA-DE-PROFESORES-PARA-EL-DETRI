@@ -16,7 +16,7 @@ namespace Directorio_Datos
         // CRUD METHODS
 
         // CREATE ACTIVIDAD
-        public bool CreateActividad(ClsActividad _actividad)
+        public bool CreateActividad(ClsActividad _actividad, ClsProyecto _proyecto)
         {
             try
             {
@@ -26,6 +26,7 @@ namespace Directorio_Datos
                 sqlCommand.CommandType = CommandType.StoredProcedure;
 
                 sqlCommand.Parameters.AddWithValue("@idTpAct", _actividad.IdTpActividad);
+                sqlCommand.Parameters.AddWithValue("@idProyecto", _proyecto.IdProyecto);
                 sqlCommand.Parameters.AddWithValue("@nameAct", _actividad.NombreActividad);
                 sqlCommand.Parameters.AddWithValue("@horasAct", _actividad.HorasSemana);
                 sqlCommand.Parameters.AddWithValue("@horasTAct", _actividad.HorasTotalesAct);
@@ -49,7 +50,7 @@ namespace Directorio_Datos
 
         }
         // UPDATE ACTIVIDAD
-        public bool UpdateActividad(ClsActividad _actividad)
+        public bool UpdateActividad(ClsActividad _actividad, ClsProyecto _proyecto)
         {
             try
             {
@@ -60,6 +61,7 @@ namespace Directorio_Datos
 
                 sqlCommand.Parameters.AddWithValue("@id", _actividad.IdActividad);
                 sqlCommand.Parameters.AddWithValue("@idTpAct", _actividad.IdTpActividad);
+                sqlCommand.Parameters.AddWithValue("@idProyecto", _proyecto.IdProyecto);
                 sqlCommand.Parameters.AddWithValue("@nameAct", _actividad.NombreActividad);
                 sqlCommand.Parameters.AddWithValue("@horasAct", _actividad.HorasSemana);
                 sqlCommand.Parameters.AddWithValue("@horasTAct", _actividad.HorasTotalesAct);

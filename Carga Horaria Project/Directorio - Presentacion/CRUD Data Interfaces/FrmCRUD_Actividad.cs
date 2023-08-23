@@ -1,6 +1,7 @@
 ﻿using Directorio___Presentacion.ElementsStyles_Configuration;
 using Directorio_Logica;
 using System.Data;
+using System.Diagnostics;
 
 namespace Directorio___Presentacion
 {
@@ -11,7 +12,13 @@ namespace Directorio___Presentacion
         private string? idActividad = null;
         private string? idDepartamento = null;
         private DataTable dtData;
+        private DataTable dtProyectos;
         private bool Editar = false;
+        private bool openPanelCreate = false;
+        private string urlAval = string.Empty;
+        private int idProyecto = 0;
+        private int horasSemanales = 0;
+        private int horasTotales = 0;
 
         public FrmCRUD_Actividad()
         {
@@ -22,6 +29,7 @@ namespace Directorio___Presentacion
         {
             MostrarActividades();
             ListarTiposActividades();
+            
             clsStyles.tableStyle(dgLstRegistros);
             txtHorasSemanales.Enabled= false;
             txtHorasTotales.Enabled= false;
@@ -35,6 +43,7 @@ namespace Directorio___Presentacion
             dgLstRegistros.DataSource = dtData;
 
             dgLstRegistros.Columns[0].Visible = false;
+            dgLstRegistros.Columns[6].Visible = false;
         }
         private void ListarTiposActividades()
         {
@@ -44,6 +53,16 @@ namespace Directorio___Presentacion
             cmbTpActiv.ValueMember = "ID";
             cmbTpActiv.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbTpActiv.SelectedIndex = -1;
+        }
+        private void ListarProyectos()
+        {
+            CN_Proyecto objetoProyectoCNegocio = new CN_Proyecto();
+            dtProyectos = objetoProyectoCNegocio.MostrarRegistros();
+            cmbProyectos.DataSource = dtProyectos;
+            cmbProyectos.DisplayMember = "PROYECTO";
+            cmbProyectos.ValueMember = "idProyecto";
+            cmbProyectos.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbProyectos.SelectedIndex = -1;
         }
         #region Clicks Events
         private void btnGuardar_Click(object sender, EventArgs e)
@@ -63,6 +82,21 @@ namespace Directorio___Presentacion
                 MessageBox.Show("Debe ingresar las horas de la actividad para completar el registro.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+            if (cbProyecto.Checked && cmbProyectos.SelectedIndex == -1)
+            {
+                MessageBox.Show("Debe seleccionar un proyecto para completar el registro.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (ckboxSemanal.Checked)
+            {
+                horasSemanales = Convert.ToInt32(txtHorasSemanales.Text);
+                horasTotales = 0;
+            }
+            if (ckboxTotal.Checked)
+            {
+                horasTotales = Convert.ToInt32(txtHorasSemanales.Text);
+                horasSemanales = 0;
+            }
 
             if (Editar == false)
             {
@@ -70,10 +104,14 @@ namespace Directorio___Presentacion
                 {
                     int cmbValue = Convert.ToInt32(cmbTpActiv.SelectedValue);
                     
-                    objetoCNegocio.CreateActividadNeg(cmbValue.ToString(), txtNameActividad.Text, txtHorasSemanales.Text,txtHorasTotales.Text);
+                    objetoCNegocio.CreateActividadNeg(cmbValue.ToString(), idProyecto, txtNameActividad.Text, horasSemanales.ToString(), horasTotales.ToString());
                     MessageBox.Show("Actividad insertadada correctamente", "ACTIVIDAD REGISTRADA", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     MostrarActividades();
-                    //ClearTxtBox();
+                    clearInfoFrm();
+                }
+                catch (FormatException)
+                {
+                    MessageBox.Show("El valor seleccionado en el tipo de actividad no es válido.", "Error de formato", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 catch (Exception ex)
                 {
@@ -86,11 +124,11 @@ namespace Directorio___Presentacion
                 try
                 {
                     int cmbValue = Convert.ToInt32(cmbTpActiv.SelectedValue);
-                    objetoCNegocio.UpdateActividadNeg(idActividad, cmbValue.ToString(), txtNameActividad.Text, txtHorasSemanales.Text, txtHorasTotales.Text);
+                    objetoCNegocio.UpdateActividadNeg(idActividad, idProyecto, cmbValue.ToString(), txtNameActividad.Text, horasSemanales.ToString(), horasTotales.ToString());
                     MessageBox.Show("Actividad actualizada correctamente", "ACTIVIDAD ACTUALIZADA", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     MostrarActividades();
                     Editar = false;
-                    //ClearTxtBox();
+                    clearInfoFrm();
                 }
                 catch (Exception ex)
                 {
@@ -98,12 +136,17 @@ namespace Directorio___Presentacion
                 }
             }
             panelCreate.Visible = false;
+            openPanelCreate = false;
         }
 
         private void btnNew_Click(object sender, EventArgs e)
         {
             panelCreate.Visible = true;
             ckboxSemanal.Checked = true;
+            btnGuardar.Text = "Guardar";
+            openPanelCreate = !openPanelCreate;
+            panelCreate.Visible = openPanelCreate;
+            clearInfoFrm();
         }
 
         private void btnCloseWin_Click(object sender, EventArgs e)
@@ -120,10 +163,30 @@ namespace Directorio___Presentacion
                     panelCreate.Visible = true;
                     Editar = true;
                     idActividad = dgLstRegistros.CurrentRow.Cells[0].Value.ToString()!;
+                    txtNameActividad.Text = dgLstRegistros.CurrentRow.Cells[3].Value.ToString()!;
                     cmbTpActiv.Text = dgLstRegistros.CurrentRow.Cells[1].Value.ToString()!;
-                    txtNameActividad.Text = dgLstRegistros.CurrentRow.Cells[2].Value.ToString();
-                    txtHorasSemanales.Text = dgLstRegistros.CurrentRow.Cells[3].Value.ToString();
+                    idProyecto = Convert.ToInt32(dgLstRegistros.CurrentRow.Cells[6].Value);
 
+                    int numHSemanal = Convert.ToInt32(dgLstRegistros.CurrentRow.Cells[4].Value.ToString());
+                    int numHTotal = Convert.ToInt32(dgLstRegistros.CurrentRow.Cells[5].Value.ToString());
+
+                    if (numHSemanal != 0)
+                    {
+                        ckboxSemanal.Checked = true;
+                        txtHorasSemanales.Text = dgLstRegistros.CurrentRow.Cells[4].Value.ToString();
+                    }
+                    if (numHTotal != 0)
+                    {
+                        ckboxTotal.Checked = true;
+                        txtHorasTotales.Text = dgLstRegistros.CurrentRow.Cells[5].Value.ToString();
+                    }
+
+                    if (idProyecto != 0)
+                    {
+                        cbProyecto.Checked = true;
+                        cmbProyectos.SelectedIndex = idProyecto;
+                    }
+                    btnGuardar.Text = "Actualizar";
                 }
                 else
                 {
@@ -147,7 +210,7 @@ namespace Directorio___Presentacion
                     objetoCNegocio.DeleteActividadNeg(idActividad);
                     MessageBox.Show("Actividad eliminada correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     MostrarActividades();
-                    //ClearTxtBox();
+                    clearInfoFrm();
                 }
                 else
                 {
@@ -159,6 +222,23 @@ namespace Directorio___Presentacion
             {
                 MessageBox.Show("Excepción: No se pudo eliminar la Actividad seleccionada. Motivo: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            panelCreate.Visible = false;
+            openPanelCreate = false;
+            clearInfoFrm();
+        }
+
+        private void clearInfoFrm()
+        {
+            cmbTpActiv.SelectedIndex = -1;
+            txtHorasSemanales.Text= string.Empty;
+            txtHorasTotales.Text= string.Empty;
+            txtNameActividad.Text= string.Empty;
+            txtPresupuesto.Text= string.Empty;
+            cbProyecto.Checked = false;
         }
         #endregion
 
@@ -172,6 +252,10 @@ namespace Directorio___Presentacion
                 txtHorasTotales.Enabled = false;
                 txtHorasSemanales.Enabled = true;
             }
+            else
+            {
+                horasSemanales = 0;
+            }
         }
 
         private void ckboxTotal_CheckedChanged(object sender, EventArgs e)
@@ -183,6 +267,10 @@ namespace Directorio___Presentacion
                 txtHorasSemanales.Text = "0";
                 txtHorasSemanales.Enabled = false;
                 txtHorasTotales.Enabled = true;
+            }
+            else
+            {
+                horasTotales = 0;
             }
         }
 
@@ -219,6 +307,99 @@ namespace Directorio___Presentacion
 
             e.KeyChar = tecla;
             e.Handled = false;
+        }
+
+        private void cbProyecto_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbProyecto.Checked)
+            {
+                cmbProyectos.Enabled = true;
+                panelProyectos.Visible = true;
+            }
+            else {
+                cmbProyectos.Enabled = false;
+                panelProyectos.Visible = false;
+                cmbProyectos.SelectedIndex = -1;
+                dtFechaInicio.Text = string.Empty;
+                dtFechaFin.Text = string.Empty;
+                txtPresupuesto.Text = string.Empty;
+                pictBoxAval.Visible= false;
+                idProyecto = 0;
+            }
+        }
+
+        private void cbProyectos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbProyectos.SelectedIndex != -1 && cmbProyectos.SelectedValue.ToString() != null)
+            {
+                if (cmbProyectos.SelectedIndex != -1 && int.TryParse(cmbProyectos.SelectedValue.ToString(), out int selectedValue))
+                {
+                    DataRow selectedRow = ((DataRowView)cmbProyectos.SelectedItem).Row;
+
+                    // Obtener valores de la fila seleccionada
+                    idProyecto = Convert.ToInt32(selectedRow["idProyecto"]);
+                    string codigo = selectedRow["CÓDIGO"].ToString();
+                    string nombreProyecto = selectedRow["PROYECTO"].ToString();
+                    string fechaInicio = selectedRow["FECHA INICIO"].ToString();
+                    string fechaFin = selectedRow["FECHA FIN"].ToString();
+                    string presupuesto = selectedRow["PRESUPUESTO"].ToString();
+                    string tipo = selectedRow["TIPO"].ToString();
+                    string urlAvalGet = selectedRow["AVAL"].ToString();
+
+                    // Asignar valores a los campos de texto
+                    //txt.Text = codigo;
+                    dtFechaInicio.Value = DateTime.Parse(fechaInicio);
+                    dtFechaFin.Value = DateTime.Parse(fechaFin);
+                    txtPresupuesto.Text = presupuesto;
+                    txtCodeProyecto.Text = codigo;
+                    //txtT.Text = tipo;
+                    urlAval = urlAvalGet;
+                    pictBoxAval.Enabled= true;
+                    pictBoxAval.Visible = true;
+
+                }
+                else
+                {
+                    panelCheckProyecto.Visible = false;
+                    panelProyectos.Visible = false;
+                    cmbProyectos.SelectedIndex = -1;
+                }
+            }
+        }
+
+        private void cmbTpActiv_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbTpActiv.SelectedIndex != -1 && cmbTpActiv.SelectedValue.ToString() != null)
+            {
+                if (cmbTpActiv.SelectedIndex != -1 && int.TryParse(cmbTpActiv.SelectedValue.ToString(), out int selectedValue) && selectedValue == 3)
+                {
+                    ListarProyectos();
+                    panelCheckProyecto.Visible = true;
+                    //pictBoxAval.Image = Image.FromFile(@"Images\EPNLogo.png");
+                    pictBoxAval.Image = new Bitmap(Properties.Resources.archivo_pdf, new Size(40, 40));
+
+                }
+                else
+                {
+                    panelCheckProyecto.Visible = false;
+                    panelProyectos.Visible = false;
+                    cmbProyectos.SelectedIndex = -1;
+                    pictBoxAval.Enabled = false;
+                    pictBoxAval.Visible = false;
+                }
+            }
+        }
+
+        private void pictBoxAval_Click(object sender, EventArgs e)
+        {
+            if (urlAval != string.Empty)
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = urlAval,
+                    UseShellExecute = true
+                });
+            }
         }
     }
 }

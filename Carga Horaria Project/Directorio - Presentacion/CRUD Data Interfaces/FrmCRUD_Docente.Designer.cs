@@ -36,6 +36,8 @@
             this.dgLstRegistros = new System.Windows.Forms.DataGridView();
             this.label9 = new System.Windows.Forms.Label();
             this.panelCreate = new System.Windows.Forms.Panel();
+            this.txtEmail = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.txtTitulo = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.txtSNombre = new System.Windows.Forms.TextBox();
@@ -53,8 +55,6 @@
             this.btnNew = new System.Windows.Forms.Button();
             this.btnCloseWin = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.txtEmail = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgLstRegistros)).BeginInit();
             this.panelCreate.SuspendLayout();
@@ -143,7 +143,7 @@
             this.dgLstRegistros.RowHeadersWidth = 51;
             this.dgLstRegistros.RowTemplate.Height = 29;
             this.dgLstRegistros.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgLstRegistros.Size = new System.Drawing.Size(716, 381);
+            this.dgLstRegistros.Size = new System.Drawing.Size(779, 381);
             this.dgLstRegistros.TabIndex = 6;
             this.dgLstRegistros.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgLstRegistros_CellContentClick);
             // 
@@ -182,6 +182,26 @@
             this.panelCreate.Size = new System.Drawing.Size(1394, 178);
             this.panelCreate.TabIndex = 9;
             this.panelCreate.Visible = false;
+            // 
+            // txtEmail
+            // 
+            this.txtEmail.AllowDrop = true;
+            this.txtEmail.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txtEmail.Location = new System.Drawing.Point(204, 127);
+            this.txtEmail.Name = "txtEmail";
+            this.txtEmail.PlaceholderText = "Ingrese el email del docente";
+            this.txtEmail.Size = new System.Drawing.Size(387, 32);
+            this.txtEmail.TabIndex = 25;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label8.Location = new System.Drawing.Point(23, 127);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(171, 24);
+            this.label8.TabIndex = 24;
+            this.label8.Text = "Correo electrónico:";
             // 
             // txtTitulo
             // 
@@ -393,26 +413,6 @@
             this.label1.Size = new System.Drawing.Size(313, 35);
             this.label1.TabIndex = 1;
             this.label1.Text = "ADMINISTRAR DOCENTES";
-            // 
-            // txtEmail
-            // 
-            this.txtEmail.AllowDrop = true;
-            this.txtEmail.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txtEmail.Location = new System.Drawing.Point(204, 127);
-            this.txtEmail.Name = "txtEmail";
-            this.txtEmail.PlaceholderText = "Ingrese el email del docente";
-            this.txtEmail.Size = new System.Drawing.Size(387, 32);
-            this.txtEmail.TabIndex = 25;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label8.Location = new System.Drawing.Point(23, 127);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(171, 24);
-            this.label8.TabIndex = 24;
-            this.label8.Text = "Correo electrónico:";
             // 
             // FrmCRUD_Docente
             // 

@@ -31,6 +31,7 @@
             this.lblListaDocentes = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panelTotales = new System.Windows.Forms.Panel();
+            this.btnSendCorreo = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.lblTotalDocenciaF11 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
@@ -125,6 +126,7 @@
             // panelTotales
             // 
             this.panelTotales.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.panelTotales.Controls.Add(this.btnSendCorreo);
             this.panelTotales.Controls.Add(this.tableLayoutPanel1);
             this.panelTotales.Controls.Add(this.btnPrint);
             this.panelTotales.Controls.Add(this.panel8);
@@ -134,6 +136,19 @@
             this.panelTotales.Size = new System.Drawing.Size(455, 264);
             this.panelTotales.TabIndex = 16;
             this.panelTotales.Visible = false;
+            // 
+            // btnSendCorreo
+            // 
+            this.btnSendCorreo.BackColor = System.Drawing.Color.Orange;
+            this.btnSendCorreo.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnSendCorreo.ForeColor = System.Drawing.Color.White;
+            this.btnSendCorreo.Location = new System.Drawing.Point(215, 211);
+            this.btnSendCorreo.Name = "btnSendCorreo";
+            this.btnSendCorreo.Size = new System.Drawing.Size(158, 50);
+            this.btnSendCorreo.TabIndex = 9;
+            this.btnSendCorreo.Text = "Enviar por Email";
+            this.btnSendCorreo.UseVisualStyleBackColor = false;
+            this.btnSendCorreo.Click += new System.EventHandler(this.btnSendCorreo_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -407,7 +422,7 @@
             // panel2
             // 
             this.panel2.AutoScroll = true;
-            this.panel2.BackColor = System.Drawing.Color.SeaGreen;
+            this.panel2.BackColor = System.Drawing.Color.SteelBlue;
             this.panel2.Controls.Add(this.tableLayoutPanel2);
             this.panel2.Controls.Add(this.dgvAsignaturas);
             this.panel2.Controls.Add(this.panel3);
@@ -524,7 +539,7 @@
             // panel5
             // 
             this.panel5.AutoScroll = true;
-            this.panel5.BackColor = System.Drawing.Color.SeaGreen;
+            this.panel5.BackColor = System.Drawing.Color.SteelBlue;
             this.panel5.Controls.Add(this.dgvActividades);
             this.panel5.Controls.Add(this.panel6);
             this.panel5.Location = new System.Drawing.Point(17, 353);
@@ -784,5 +799,6 @@
         private Label label5;
         private Label lblTotalDocenciaF11;
         private Label label18;
+        private Button btnSendCorreo;
     }
 }

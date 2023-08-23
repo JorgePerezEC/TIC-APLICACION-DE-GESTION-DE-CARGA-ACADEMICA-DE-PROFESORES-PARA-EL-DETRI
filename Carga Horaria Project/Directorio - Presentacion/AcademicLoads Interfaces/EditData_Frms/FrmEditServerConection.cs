@@ -13,7 +13,7 @@ using System.Windows.Forms;
 
 namespace Directorio___Presentacion.AcademicLoads_Interfaces.EditData_Frms
 {
-    public partial class FrmEditServerConection : MaterialForm
+    public partial class FrmEditServerConection : Form
     {
         public FrmEditServerConection()
         {

@@ -244,6 +244,13 @@ namespace Directorio___Presentacion.CRUD_Data_Interfaces
             }
             else resul = true;
 
+            if (dtFechaInicio.Value > dtFechaFin.Value)
+            {
+                MessageBox.Show("La fecha de inicio debe ser anterior a la fecha de fin.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                resul = false;
+            }
+            else resul = true;
+
             return resul;
         }
 

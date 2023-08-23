@@ -32,6 +32,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btnCancelar = new MaterialSkin.Controls.MaterialButton();
             this.btnTestConection = new MaterialSkin.Controls.MaterialButton();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
             // txtServerName
@@ -46,7 +47,7 @@
             this.txtServerName.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.txtServerName.HideSelection = true;
             this.txtServerName.LeadingIcon = null;
-            this.txtServerName.Location = new System.Drawing.Point(429, 147);
+            this.txtServerName.Location = new System.Drawing.Point(667, 256);
             this.txtServerName.MaxLength = 32767;
             this.txtServerName.MouseState = MaterialSkin.MouseState.OUT;
             this.txtServerName.Name = "txtServerName";
@@ -58,7 +59,7 @@
             this.txtServerName.SelectionLength = 0;
             this.txtServerName.SelectionStart = 0;
             this.txtServerName.ShortcutsEnabled = true;
-            this.txtServerName.Size = new System.Drawing.Size(689, 48);
+            this.txtServerName.Size = new System.Drawing.Size(202, 48);
             this.txtServerName.TabIndex = 13;
             this.txtServerName.TabStop = false;
             this.txtServerName.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
@@ -72,9 +73,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(16, 128);
+            this.label1.Location = new System.Drawing.Point(446, 178);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(313, 48);
+            this.label1.Size = new System.Drawing.Size(313, 62);
             this.label1.TabIndex = 17;
             this.label1.Text = "INGRESE LA CADENA DE CONEXIÓN:";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -87,7 +88,7 @@
             this.btnCancelar.Depth = 0;
             this.btnCancelar.HighEmphasis = true;
             this.btnCancelar.Icon = null;
-            this.btnCancelar.Location = new System.Drawing.Point(580, 244);
+            this.btnCancelar.Location = new System.Drawing.Point(747, 397);
             this.btnCancelar.Margin = new System.Windows.Forms.Padding(5, 7, 5, 7);
             this.btnCancelar.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnCancelar.Name = "btnCancelar";
@@ -108,7 +109,7 @@
             this.btnTestConection.Depth = 0;
             this.btnTestConection.HighEmphasis = true;
             this.btnTestConection.Icon = null;
-            this.btnTestConection.Location = new System.Drawing.Point(288, 244);
+            this.btnTestConection.Location = new System.Drawing.Point(733, 329);
             this.btnTestConection.Margin = new System.Windows.Forms.Padding(5, 7, 5, 7);
             this.btnTestConection.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnTestConection.Name = "btnTestConection";
@@ -120,11 +121,20 @@
             this.btnTestConection.UseAccentColor = false;
             this.btnTestConection.UseVisualStyleBackColor = true;
             // 
+            // panel2
+            // 
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel2.Location = new System.Drawing.Point(4, 76);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(250, 680);
+            this.panel2.TabIndex = 18;
+            // 
             // FrmEditServerConection
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1125, 334);
+            this.ClientSize = new System.Drawing.Size(1125, 760);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnTestConection);
@@ -136,7 +146,6 @@
             this.MinimizeBox = false;
             this.Name = "FrmEditServerConection";
             this.Padding = new System.Windows.Forms.Padding(4, 76, 4, 4);
-            this.Sizable = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "EDITAR CONEXIÓN CON LA BASE DE DATOS";
             this.Load += new System.EventHandler(this.FrmEditServerConection_Load);
@@ -149,5 +158,7 @@
         private Label label1;
         private MaterialSkin.Controls.MaterialButton btnCancelar;
         private MaterialSkin.Controls.MaterialButton btnTestConection;
+        private Panel panel1;
+        private Panel panel2;
     }
 }

@@ -40,6 +40,7 @@
             this.btnReporteDocentesCargas = new System.Windows.Forms.Button();
             this.btnReportesMain = new System.Windows.Forms.Button();
             this.panelSubmenuGestionData = new System.Windows.Forms.Panel();
+            this.btnGestionProyectos = new System.Windows.Forms.Button();
             this.btnGestionSemestres = new System.Windows.Forms.Button();
             this.panelGestionDocentes = new System.Windows.Forms.Panel();
             this.btnTpDocentes = new System.Windows.Forms.Button();
@@ -68,7 +69,6 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.panelChildForm = new System.Windows.Forms.Panel();
             this.pixtbxLogo = new System.Windows.Forms.PictureBox();
-            this.btnGestionProyectos = new System.Windows.Forms.Button();
             this.panelMenuLateral.SuspendLayout();
             this.panelSubmenuReportes.SuspendLayout();
             this.panelSubmenuGestionData.SuspendLayout();
@@ -114,7 +114,7 @@
             this.btnConfigureServer.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.btnConfigureServer.Size = new System.Drawing.Size(262, 60);
             this.btnConfigureServer.TabIndex = 8;
-            this.btnConfigureServer.Text = "CONFIGURACIÓN SERVER";
+            this.btnConfigureServer.Text = "CONFIGURACIÓN";
             this.btnConfigureServer.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnConfigureServer.UseVisualStyleBackColor = false;
             this.btnConfigureServer.Click += new System.EventHandler(this.btnConfigureServer_Click);
@@ -278,6 +278,24 @@
             this.panelSubmenuGestionData.Name = "panelSubmenuGestionData";
             this.panelSubmenuGestionData.Size = new System.Drawing.Size(262, 652);
             this.panelSubmenuGestionData.TabIndex = 4;
+            // 
+            // btnGestionProyectos
+            // 
+            this.btnGestionProyectos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(130)))), ((int)(((byte)(173)))));
+            this.btnGestionProyectos.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnGestionProyectos.FlatAppearance.BorderSize = 0;
+            this.btnGestionProyectos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGestionProyectos.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnGestionProyectos.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btnGestionProyectos.Location = new System.Drawing.Point(0, 599);
+            this.btnGestionProyectos.Name = "btnGestionProyectos";
+            this.btnGestionProyectos.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
+            this.btnGestionProyectos.Size = new System.Drawing.Size(262, 53);
+            this.btnGestionProyectos.TabIndex = 9;
+            this.btnGestionProyectos.Text = "GESTIÓN DE PROYECTOS";
+            this.btnGestionProyectos.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnGestionProyectos.UseVisualStyleBackColor = false;
+            this.btnGestionProyectos.Click += new System.EventHandler(this.btnGestionProyectos_Click);
             // 
             // btnGestionSemestres
             // 
@@ -722,24 +740,6 @@
             this.pixtbxLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pixtbxLogo.TabIndex = 0;
             this.pixtbxLogo.TabStop = false;
-            // 
-            // btnGestionProyectos
-            // 
-            this.btnGestionProyectos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(130)))), ((int)(((byte)(173)))));
-            this.btnGestionProyectos.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnGestionProyectos.FlatAppearance.BorderSize = 0;
-            this.btnGestionProyectos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnGestionProyectos.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnGestionProyectos.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnGestionProyectos.Location = new System.Drawing.Point(0, 599);
-            this.btnGestionProyectos.Name = "btnGestionProyectos";
-            this.btnGestionProyectos.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.btnGestionProyectos.Size = new System.Drawing.Size(262, 53);
-            this.btnGestionProyectos.TabIndex = 9;
-            this.btnGestionProyectos.Text = "GESTIÓN DE PROYECTOS";
-            this.btnGestionProyectos.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnGestionProyectos.UseVisualStyleBackColor = false;
-            this.btnGestionProyectos.Click += new System.EventHandler(this.btnGestionProyectos_Click);
             // 
             // Main
             // 

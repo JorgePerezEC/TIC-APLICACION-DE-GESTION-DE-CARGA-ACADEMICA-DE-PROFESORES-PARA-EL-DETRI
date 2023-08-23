@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -18,6 +19,9 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
     {
         private string tipoAc = "";
         private CN_Actividad objetoCNegocio = new CN_Actividad();
+        private DataTable dtProyectos;
+        private int idProyecto = 0;
+        private string urlAval = string.Empty;
         public Frm_CreateNewActivity_Modal(string tipoActividad)
         {
             InitializeComponent();
@@ -50,6 +54,11 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
                 else if (index == 2)
                 {
                     txtTipoActividad.Text = "Investigación";
+                    panelCheckProyecto2.Visible = true;
+                    ckboxSemanal.Checked = true;
+                    ListarProyectos();
+                    panelCheckProyecto.Visible = true;
+                    pictBoxAval.Image = new Bitmap(Properties.Resources.archivo_pdf, new Size(40, 40));
                 }
                 else if (index == 3)
                 {
@@ -63,6 +72,16 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
                     
                 }
             }
+        }
+        private void ListarProyectos()
+        {
+            CN_Proyecto objetoProyectoCNegocio = new CN_Proyecto();
+            dtProyectos = objetoProyectoCNegocio.MostrarRegistros();
+            cmbProyectos.DataSource = dtProyectos;
+            cmbProyectos.DisplayMember = "PROYECTO";
+            cmbProyectos.ValueMember = "idProyecto";
+            cmbProyectos.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbProyectos.SelectedIndex = -1;
         }
 
         private void ListarTiposActividades()
@@ -120,7 +139,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
                 }
                 int cmbValue = Convert.ToInt32(cmbTpActiv.SelectedValue);
 
-                objetoCNegocio.CreateActividadNeg(cmbValue.ToString(), txtNameActividad.Text, txtHorasSemanales.Text, txtHorasTotales.Text);
+                objetoCNegocio.CreateActividadNeg(cmbValue.ToString(), idProyecto, txtNameActividad.Text, txtHorasSemanales.Text, txtHorasTotales.Text);
                 MessageBox.Show("Actividad insertadada correctamente");
 
                 FrmCUActividad_AL frmCuActividad = Application.OpenForms["FrmCUActividad_AL"] as FrmCUActividad_AL;
@@ -185,6 +204,79 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
         private void txtHorasSemanales_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void cbProyecto_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbProyecto.Checked)
+            {
+                cmbProyectos.Enabled = true;
+                panelProyectos.Visible = true;
+                panelProyectos.Height = 147;
+            }
+            else
+            {
+                cmbProyectos.Enabled = false;
+                panelProyectos.Visible = false;
+                cmbProyectos.SelectedIndex = -1;
+                dtFechaInicio.Text = string.Empty;
+                dtFechaFin.Text = string.Empty;
+                txtPresupuesto.Text = string.Empty;
+                pictBoxAval.Visible = false;
+                idProyecto = 0;
+                panelProyectos.Height = 0;
+            }
+        }
+
+        private void cmbProyectos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbProyectos.SelectedIndex != -1 && cmbProyectos.SelectedValue.ToString() != null)
+            {
+                if (cmbProyectos.SelectedIndex != -1 && int.TryParse(cmbProyectos.SelectedValue.ToString(), out int selectedValue))
+                {
+                    DataRow selectedRow = ((DataRowView)cmbProyectos.SelectedItem).Row;
+
+                    // Obtener valores de la fila seleccionada
+                    idProyecto = Convert.ToInt32(selectedRow["idProyecto"]);
+                    string codigo = selectedRow["CÓDIGO"].ToString();
+                    string nombreProyecto = selectedRow["PROYECTO"].ToString();
+                    string fechaInicio = selectedRow["FECHA INICIO"].ToString();
+                    string fechaFin = selectedRow["FECHA FIN"].ToString();
+                    string presupuesto = selectedRow["PRESUPUESTO"].ToString();
+                    string tipo = selectedRow["TIPO"].ToString();
+                    string urlAvalGet = selectedRow["AVAL"].ToString();
+
+                    // Asignar valores a los campos de texto
+                    //txt.Text = codigo;
+                    dtFechaInicio.Value = DateTime.Parse(fechaInicio);
+                    dtFechaFin.Value = DateTime.Parse(fechaFin);
+                    txtPresupuesto.Text = presupuesto;
+                    txtCodeProyecto.Text = codigo;
+                    //txtT.Text = tipo;
+                    urlAval = urlAvalGet;
+                    pictBoxAval.Enabled = true;
+                    pictBoxAval.Visible = true;
+
+                }
+                else
+                {
+                    panelCheckProyecto.Visible = false;
+                    panelProyectos.Visible = false;
+                    cmbProyectos.SelectedIndex = -1;
+                }
+            }
+        }
+
+        private void pictBoxAval_Click(object sender, EventArgs e)
+        {
+            if (urlAval != string.Empty)
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = urlAval,
+                    UseShellExecute = true
+                });
+            }
         }
     }
 }

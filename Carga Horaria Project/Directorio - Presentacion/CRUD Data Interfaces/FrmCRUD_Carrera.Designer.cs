@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label14 = new System.Windows.Forms.Label();
+            this.txtFiltro = new System.Windows.Forms.TextBox();
             this.btnEliminar = new System.Windows.Forms.Button();
             this.btnActualizar = new System.Windows.Forms.Button();
             this.dgLstRegistros = new System.Windows.Forms.DataGridView();
@@ -47,8 +49,6 @@
             this.btnNew = new System.Windows.Forms.Button();
             this.btnCloseWin = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.txtFiltro = new System.Windows.Forms.TextBox();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgLstRegistros)).BeginInit();
             this.panelCreate.SuspendLayout();
@@ -68,6 +68,32 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1394, 498);
             this.panel2.TabIndex = 5;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label14.ForeColor = System.Drawing.Color.White;
+            this.label14.Location = new System.Drawing.Point(78, 116);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(75, 28);
+            this.label14.TabIndex = 18;
+            this.label14.Text = "Filtrar:";
+            // 
+            // txtFiltro
+            // 
+            this.txtFiltro.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtFiltro.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.txtFiltro.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.txtFiltro.Location = new System.Drawing.Point(159, 114);
+            this.txtFiltro.Name = "txtFiltro";
+            this.txtFiltro.PlaceholderText = "...";
+            this.txtFiltro.Size = new System.Drawing.Size(535, 30);
+            this.txtFiltro.TabIndex = 17;
+            this.txtFiltro.TextChanged += new System.EventHandler(this.txtFiltro_TextChanged);
+            this.txtFiltro.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFiltro_KeyPress);
             // 
             // btnEliminar
             // 
@@ -138,6 +164,7 @@
             this.panelCreate.Controls.Add(this.label3);
             this.panelCreate.Controls.Add(this.label2);
             this.panelCreate.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelCreate.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.panelCreate.Location = new System.Drawing.Point(0, 95);
             this.panelCreate.Name = "panelCreate";
             this.panelCreate.Size = new System.Drawing.Size(1394, 178);
@@ -147,23 +174,26 @@
             // txtPensum
             // 
             this.txtPensum.AllowDrop = true;
-            this.txtPensum.Location = new System.Drawing.Point(516, 94);
+            this.txtPensum.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txtPensum.Location = new System.Drawing.Point(691, 92);
             this.txtPensum.Name = "txtPensum";
             this.txtPensum.PlaceholderText = "Ingrese el pensum de la carrera";
-            this.txtPensum.Size = new System.Drawing.Size(293, 27);
+            this.txtPensum.Size = new System.Drawing.Size(356, 32);
             this.txtPensum.TabIndex = 20;
             // 
             // txtCodigo
             // 
             this.txtCodigo.AllowDrop = true;
-            this.txtCodigo.Location = new System.Drawing.Point(516, 52);
+            this.txtCodigo.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txtCodigo.Location = new System.Drawing.Point(691, 50);
             this.txtCodigo.Name = "txtCodigo";
             this.txtCodigo.PlaceholderText = "Ingrese el código de la carrera";
-            this.txtCodigo.Size = new System.Drawing.Size(293, 27);
+            this.txtCodigo.Size = new System.Drawing.Size(356, 32);
             this.txtCodigo.TabIndex = 19;
             // 
             // cmbDepartamentos
             // 
+            this.cmbDepartamentos.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.cmbDepartamentos.FormattingEnabled = true;
             this.cmbDepartamentos.Items.AddRange(new object[] {
             "1",
@@ -186,10 +216,11 @@
             "18",
             "19",
             "20"});
-            this.cmbDepartamentos.Location = new System.Drawing.Point(159, 53);
+            this.cmbDepartamentos.Location = new System.Drawing.Point(212, 51);
             this.cmbDepartamentos.Name = "cmbDepartamentos";
-            this.cmbDepartamentos.Size = new System.Drawing.Size(226, 28);
+            this.cmbDepartamentos.Size = new System.Drawing.Size(325, 32);
             this.cmbDepartamentos.TabIndex = 18;
+            this.cmbDepartamentos.SelectedIndexChanged += new System.EventHandler(this.cmbDepartamentos_SelectedIndexChanged);
             // 
             // btnGuardar
             // 
@@ -212,49 +243,50 @@
             // txtNameCarreer
             // 
             this.txtNameCarreer.AllowDrop = true;
-            this.txtNameCarreer.Location = new System.Drawing.Point(159, 94);
+            this.txtNameCarreer.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txtNameCarreer.Location = new System.Drawing.Point(212, 92);
             this.txtNameCarreer.Name = "txtNameCarreer";
             this.txtNameCarreer.PlaceholderText = "Ingrese el nombre de la carrera";
-            this.txtNameCarreer.Size = new System.Drawing.Size(226, 27);
+            this.txtNameCarreer.Size = new System.Drawing.Size(325, 32);
             this.txtNameCarreer.TabIndex = 10;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft YaHei", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label6.Location = new System.Drawing.Point(408, 93);
+            this.label6.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label6.Location = new System.Drawing.Point(583, 91);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(78, 23);
+            this.label6.Size = new System.Drawing.Size(83, 24);
             this.label6.TabIndex = 6;
             this.label6.Text = "Pensum:";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft YaHei", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label7.Location = new System.Drawing.Point(408, 52);
+            this.label7.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label7.Location = new System.Drawing.Point(583, 50);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(74, 23);
+            this.label7.Size = new System.Drawing.Size(74, 24);
             this.label7.TabIndex = 5;
             this.label7.Text = "Código:";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft YaHei", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label3.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label3.Location = new System.Drawing.Point(28, 94);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(82, 23);
+            this.label3.Size = new System.Drawing.Size(84, 24);
             this.label3.TabIndex = 3;
             this.label3.Text = "Nombre:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft YaHei", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label2.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label2.Location = new System.Drawing.Point(28, 53);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(136, 23);
+            this.label2.Size = new System.Drawing.Size(144, 24);
             this.label2.TabIndex = 2;
             this.label2.Text = "Departamento: ";
             // 
@@ -314,32 +346,6 @@
             this.label1.Size = new System.Drawing.Size(312, 35);
             this.label1.TabIndex = 1;
             this.label1.Text = "ADMINISTRAR CARRERAS";
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label14.ForeColor = System.Drawing.Color.White;
-            this.label14.Location = new System.Drawing.Point(78, 116);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(75, 28);
-            this.label14.TabIndex = 18;
-            this.label14.Text = "Filtrar:";
-            // 
-            // txtFiltro
-            // 
-            this.txtFiltro.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtFiltro.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.txtFiltro.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.txtFiltro.Location = new System.Drawing.Point(159, 114);
-            this.txtFiltro.Name = "txtFiltro";
-            this.txtFiltro.PlaceholderText = "...";
-            this.txtFiltro.Size = new System.Drawing.Size(535, 30);
-            this.txtFiltro.TabIndex = 17;
-            this.txtFiltro.TextChanged += new System.EventHandler(this.txtFiltro_TextChanged);
-            this.txtFiltro.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFiltro_KeyPress);
             // 
             // FrmCRUD_Carrera
             // 

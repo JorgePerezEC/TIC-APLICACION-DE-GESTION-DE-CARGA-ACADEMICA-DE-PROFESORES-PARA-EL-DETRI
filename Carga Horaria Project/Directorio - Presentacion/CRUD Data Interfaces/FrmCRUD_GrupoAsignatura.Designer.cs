@@ -36,6 +36,12 @@
             this.dgLstRegistros = new System.Windows.Forms.DataGridView();
             this.label9 = new System.Windows.Forms.Label();
             this.panelCreate = new System.Windows.Forms.Panel();
+            this.txtCode = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtNivel = new System.Windows.Forms.TextBox();
+            this.txtType = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.cmbGR = new System.Windows.Forms.ComboBox();
             this.cmbAsignaturas = new System.Windows.Forms.ComboBox();
             this.btnGuardar = new System.Windows.Forms.Button();
@@ -45,12 +51,6 @@
             this.btnNew = new System.Windows.Forms.Button();
             this.btnCloseWin = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.txtCode = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.txtNivel = new System.Windows.Forms.TextBox();
-            this.txtType = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgLstRegistros)).BeginInit();
             this.panelCreate.SuspendLayout();
@@ -175,8 +175,66 @@
             this.panelCreate.TabIndex = 12;
             this.panelCreate.Visible = false;
             // 
+            // txtCode
+            // 
+            this.txtCode.Enabled = false;
+            this.txtCode.Location = new System.Drawing.Point(285, 82);
+            this.txtCode.Name = "txtCode";
+            this.txtCode.Size = new System.Drawing.Size(248, 27);
+            this.txtCode.TabIndex = 25;
+            this.txtCode.TabStop = false;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label6.Location = new System.Drawing.Point(48, 79);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(193, 24);
+            this.label6.TabIndex = 24;
+            this.label6.Text = "Código de asignatura:";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label4.Location = new System.Drawing.Point(48, 127);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(172, 24);
+            this.label4.TabIndex = 20;
+            this.label4.Text = "Tipo de asignatura:";
+            // 
+            // txtNivel
+            // 
+            this.txtNivel.Enabled = false;
+            this.txtNivel.Location = new System.Drawing.Point(285, 168);
+            this.txtNivel.Name = "txtNivel";
+            this.txtNivel.Size = new System.Drawing.Size(248, 27);
+            this.txtNivel.TabIndex = 23;
+            this.txtNivel.TabStop = false;
+            // 
+            // txtType
+            // 
+            this.txtType.Enabled = false;
+            this.txtType.Location = new System.Drawing.Point(285, 126);
+            this.txtType.Name = "txtType";
+            this.txtType.Size = new System.Drawing.Size(248, 27);
+            this.txtType.TabIndex = 21;
+            this.txtType.TabStop = false;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label5.Location = new System.Drawing.Point(48, 165);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(177, 24);
+            this.label5.TabIndex = 22;
+            this.label5.Text = "Nivel de asignatura:";
+            // 
             // cmbGR
             // 
+            this.cmbGR.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmbGR.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.cmbGR.FormattingEnabled = true;
             this.cmbGR.Items.AddRange(new object[] {
@@ -200,15 +258,16 @@
             "GR18",
             "GR19",
             "GR20"});
-            this.cmbGR.Location = new System.Drawing.Point(1032, 29);
+            this.cmbGR.Location = new System.Drawing.Point(948, 32);
             this.cmbGR.Name = "cmbGR";
-            this.cmbGR.Size = new System.Drawing.Size(97, 32);
+            this.cmbGR.Size = new System.Drawing.Size(131, 32);
             this.cmbGR.TabIndex = 19;
             // 
             // cmbAsignaturas
             // 
             this.cmbAsignaturas.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.cmbAsignaturas.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cmbAsignaturas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmbAsignaturas.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.cmbAsignaturas.FormattingEnabled = true;
             this.cmbAsignaturas.Items.AddRange(new object[] {
@@ -332,63 +391,6 @@
             this.label1.Size = new System.Drawing.Size(578, 35);
             this.label1.TabIndex = 1;
             this.label1.Text = "ADMINISTRAR GRUPOS O GRs POR ASIGNATURA";
-            // 
-            // txtCode
-            // 
-            this.txtCode.Enabled = false;
-            this.txtCode.Location = new System.Drawing.Point(285, 82);
-            this.txtCode.Name = "txtCode";
-            this.txtCode.Size = new System.Drawing.Size(248, 27);
-            this.txtCode.TabIndex = 25;
-            this.txtCode.TabStop = false;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label6.Location = new System.Drawing.Point(48, 79);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(193, 24);
-            this.label6.TabIndex = 24;
-            this.label6.Text = "Código de asignatura:";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label4.Location = new System.Drawing.Point(48, 127);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(172, 24);
-            this.label4.TabIndex = 20;
-            this.label4.Text = "Tipo de asignatura:";
-            // 
-            // txtNivel
-            // 
-            this.txtNivel.Enabled = false;
-            this.txtNivel.Location = new System.Drawing.Point(285, 168);
-            this.txtNivel.Name = "txtNivel";
-            this.txtNivel.Size = new System.Drawing.Size(248, 27);
-            this.txtNivel.TabIndex = 23;
-            this.txtNivel.TabStop = false;
-            // 
-            // txtType
-            // 
-            this.txtType.Enabled = false;
-            this.txtType.Location = new System.Drawing.Point(285, 126);
-            this.txtType.Name = "txtType";
-            this.txtType.Size = new System.Drawing.Size(248, 27);
-            this.txtType.TabIndex = 21;
-            this.txtType.TabStop = false;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label5.Location = new System.Drawing.Point(48, 165);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(177, 24);
-            this.label5.TabIndex = 22;
-            this.label5.Text = "Nivel de asignatura:";
             // 
             // FrmCRUD_GrupoAsignatura
             // 

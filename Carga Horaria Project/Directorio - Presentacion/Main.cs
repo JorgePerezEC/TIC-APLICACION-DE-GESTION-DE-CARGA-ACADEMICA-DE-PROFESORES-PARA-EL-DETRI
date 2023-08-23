@@ -295,7 +295,7 @@ namespace Directorio___Presentacion
 
         private void btnConfigureServer_Click(object sender, EventArgs e)
         {
-            FrmEditServerConection frmEditServerConection = new FrmEditServerConection();
+            FrmSettings frmEditServerConection = new FrmSettings();
             frmEditServerConection.ShowDialog();
         }
 

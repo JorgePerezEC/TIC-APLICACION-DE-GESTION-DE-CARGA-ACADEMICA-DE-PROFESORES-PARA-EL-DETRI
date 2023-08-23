@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -22,13 +23,18 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
     {
 
         private int idAcLoad;
+        private int idProyecto;
+        private int idActividad;
         private string idActividadCarga;
+        private string urlAval;
         private int idActividadCargaEdit;
         //private int idActividad;
         private string ActividadTipo;
         private List<string> DataEditLst;
         private CN_CargaHoraria objetoNegocioCargaHoraria = new CN_CargaHoraria();
         private CN_Actividad objNegocioActividad = new CN_Actividad();
+        private DataTable dtProyectos;
+        private DataTable dtProyectoInfo;
         int count = 0;
 
 
@@ -51,8 +57,15 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
             panelInfoActividad.Visible = true;
         }
 
+        private void ListarProyectos()
+        {
+            CN_Proyecto objetoProyectoCNegocio = new CN_Proyecto();
+            dtProyectos = objetoProyectoCNegocio.MostrarRegistros();
+        }
+
         private void FrmCUActividad_AL_Load(object sender, EventArgs e)
         {
+            ListarProyectos();
             if (EditarL)
             {
                 btnAgregar.Text = "Actualizar";
@@ -90,6 +103,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
                     {
                         txtHorasTotales.Text = DataEditLst.ElementAt(3);
                     }
+                    
 
                 }
                 else if (ActividadTipo == "Gestion")
@@ -184,11 +198,34 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
                         txtHorasTotales.Text = DataEditLst.ElementAt(3);
                     }
                 }
+                idActividad = Convert.ToInt32(cmbActividad.SelectedValue);
+                CN_Proyecto objProjNegocio = new CN_Proyecto();
+                dtProyectoInfo = objProjNegocio.GetProjectInfo_Negocio(idActividad);
+
+                ////Obtener valores de la fila seleccionada
+                idProyecto = Convert.ToInt32(dtProyectoInfo.Rows[0]["IDP"]);
+                if (idProyecto != 0)
+                {
+                    pictBoxAval.Image = new Bitmap(Properties.Resources.archivo_pdf, new Size(40, 40));
+                    txtCodeProyecto.Text = (string)dtProyectoInfo.Rows[0]["codigoProyecto"];
+                    urlAval = (string)dtProyectoInfo.Rows[0]["urlAval"];
+                    txtNombreProyecto.Text = (string)dtProyectoInfo.Rows[0]["nombreProyecto"];
+                    txtPresupuesto.Text = dtProyectoInfo.Rows[0]["presupuesto"].ToString();
+                    panelProyectos.Visible = true;
+                    pictBoxAval.Visible = true;
+                }
+                else
+                {
+                    panelProyectos.Visible = false;
+                }
             }
             else
             {
-                if (ActividadTipo == "Investigacion") btnCrearActividad.Text = "Crear Actividad de Investigación";
-                else if(ActividadTipo == "Gestion") btnCrearActividad.Text = "Crear Actividad de Gestión";
+                if (ActividadTipo == "Investigacion") 
+                { 
+                    btnCrearActividad.Text = "Crear Actividad de Investigación";
+                }
+                else if (ActividadTipo == "Gestion") btnCrearActividad.Text = "Crear Actividad de Gestión";
                 else if (ActividadTipo == "D11") btnCrearActividad.Text = "Crear Actividad de Docencia 1:1";
                 else if (ActividadTipo == "F11") btnCrearActividad.Text = "Crear Actividad de Docencia";
                 ListarActividadesGral();
@@ -368,10 +405,26 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
                 txtHorasActividad.Text = objNegocioActividad.GetHorasActividadNegocio(cmbValueActiv.ToString()).ToString();
                 txtHorasTotales.Text = objNegocioActividad.GetHorasTotalesActividadNegocio(cmbValueActiv.ToString()).ToString();
                 txtHorasActividad.Enabled = true;
-            }
-            else
-            {
-                
+
+                CN_Proyecto objProjNegocio = new CN_Proyecto();
+                dtProyectoInfo = objProjNegocio.GetProjectInfo_Negocio(cmbValueActiv);
+
+                ////Obtener valores de la fila seleccionada
+                idProyecto = Convert.ToInt32(dtProyectoInfo.Rows[0]["IDP"]);
+                if (idProyecto != 0)
+                {
+                    pictBoxAval.Image = new Bitmap(Properties.Resources.archivo_pdf, new Size(40, 40));
+                    txtCodeProyecto.Text = (string)dtProyectoInfo.Rows[0]["codigoProyecto"];
+                    urlAval = (string)dtProyectoInfo.Rows[0]["urlAval"];
+                    txtNombreProyecto.Text = (string)dtProyectoInfo.Rows[0]["nombreProyecto"];
+                    txtPresupuesto.Text = dtProyectoInfo.Rows[0]["presupuesto"].ToString();
+                    panelProyectos.Visible = true;
+                    pictBoxAval.Visible = true;
+                }
+                else
+                {
+                    panelProyectos.Visible = false;
+                }
             }
         }
 
@@ -442,6 +495,23 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Sub_Frms
             if (!char.IsDigit(e.KeyChar) && e.KeyChar != '\b')
             {
                 e.Handled = true;
+            }
+        }
+
+        private void txtHorasTotales_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictBoxAval_Click(object sender, EventArgs e)
+        {
+            if (urlAval != string.Empty)
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = urlAval,
+                    UseShellExecute = true
+                });
             }
         }
     }

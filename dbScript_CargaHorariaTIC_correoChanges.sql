@@ -844,13 +844,16 @@ GO
 -- Stored Procedure to create one row from  "tblActividad"
 CREATE OR ALTER PROCEDURE [dbo].[spAddActividad]
 	@idTpAct int,
+	@idProyecto int,
 	@nameAct varchar(255),
 	@horasAct int,
 	@horasTAct int
 AS
 	BEGIN 
-		INSERT INTO tblActividad(idTpAct_f,nombreActividad,cantHoraSemana,cantHoraTotal, estadoActividad)
-		VALUES(@idTpAct, @nameAct, @horasAct,@horasTAct,1)
+		IF @idProyecto = 0
+        SET @idProyecto = NULL;
+		INSERT INTO tblActividad(idTpAct_f,idProyecto_f,nombreActividad,cantHoraSemana,cantHoraTotal, estadoActividad)
+		VALUES(@idTpAct,@idProyecto, @nameAct, @horasAct,@horasTAct,1)
 	END
 GO
 -- Stored Procedure to create one row from  "tblCargaHoraria"
@@ -1240,10 +1243,27 @@ GO
 CREATE OR ALTER PROCEDURE [dbo].[spReadAllActividades]
 AS 
 BEGIN 
-    SELECT idActividad AS ID,tp.nombreTpAct AS 'Tipo', nombreActividad AS 'Actividad', cantHoraSemana AS 'Horas Semanales', cantHoraTotal AS 'Horas Totales'
+    SELECT idActividad AS ID,tp.nombreTpAct AS 'Tipo', ISNULL(P.codigoProyecto, 'SIN PROYECTO') AS 'Código proyecto' ,nombreActividad AS 'Actividad', cantHoraSemana AS 'Horas Semanales', cantHoraTotal AS 'Horas Totales',
+	ISNULL(P.idProyecto, 0) AS IDP
     FROM   tblActividad act
 	INNER JOIN tblTipoActividad tp  on act.idTpAct_f = tp.idTpAct
+	LEFT JOIN tblProyecto P ON act.idProyecto_f = P.idProyecto
 END
+--exec [spReadAllActividades]
+GO
+-- Stored Procedure to get activities with project from  "tblActividad"
+CREATE OR ALTER PROCEDURE [dbo].[spGetProjectInfoFromActivity]
+@idActividad INT
+AS 
+BEGIN 
+    SELECT  P.codigoProyecto ,P.nombreProyecto,P.tipoProyecto, P.fechaInicio, P.fechaFin,P.urlAval,P.presupuesto,
+	ISNULL(P.idProyecto, 0) AS IDP
+    FROM   tblActividad act
+	INNER JOIN tblTipoActividad tp  on act.idTpAct_f = tp.idTpAct
+	LEFT JOIN tblProyecto P ON act.idProyecto_f = P.idProyecto
+	WHERE act.idActividad = @idActividad
+END
+--exec [spGetProjectInfoFromActivity] 27
 GO
 -- Stored Procedure to Get Activity Hours from  "tblActividad" based on idActividad
 CREATE OR ALTER PROCEDURE [dbo].[spGetHoraActividad]
@@ -1725,13 +1745,18 @@ GO
 CREATE OR ALTER PROCEDURE [dbo].[spUpdateActividad]
 	@id int,
 	@idTpAct int,
+	@idProyecto INT,
 	@nameAct varchar(255),
 	@horasAct int,
 	@horasTAct int
+
 AS
 	BEGIN
+		IF @idProyecto = 0
+        SET @idProyecto = NULL;
+
 		UPDATE tblActividad
-		SET idTpAct_f = @idTpAct, nombreActividad = @nameAct, cantHoraSemana = @horasAct,
+		SET idTpAct_f = @idTpAct, idProyecto_f = @idProyecto,nombreActividad = @nameAct, cantHoraSemana = @horasAct,
 			cantHoraTotal = @horasTAct ,estadoActividad = 1
 		WHERE idActividad = @id;
 	END
@@ -2198,11 +2223,6 @@ CREATE OR ALTER PROCEDURE [dbo].[spReadAllCargaActividadesI]
 @idCrgHoraria int
 AS
 BEGIN 
-	--SELECT interActiv.idActivCrgs AS ID,activ.nombreActividad AS 'Actividad',
-	--	interActiv.horasSemana AS 'Horas Semanales'
-	--FROM   tblActividadCargas interActiv
-	--INNER JOIN tblActividad activ  on interActiv.idActividad = activ.idActividad
-	--WHERE (interActiv.idCrgHoraria = @idCrgHoraria AND activ.idTpAct_f=3)
 	SELECT 
     interActiv.idActivCrgs AS ID, 
     activ.nombreActividad AS 'ACTIVIDAD',
@@ -2215,12 +2235,15 @@ BEGIN
         WHEN interActiv.horaTotal IS NULL OR interActiv.horaTotal = 0 
         THEN 'NA' 
         ELSE CAST(interActiv.horaTotal AS VARCHAR(10))
-    END AS 'HORAS TOTALES'
+    END AS 'HORAS TOTALES',
+	ISNULL(P.nombreProyecto, 'SIN PROYECTO') AS 'PROYECTO'
 	FROM tblActividadCargas interActiv
 	INNER JOIN tblActividad activ on interActiv.idActividad = activ.idActividad
+	LEFT JOIN tblProyecto P ON activ.idProyecto_f = P.idProyecto
 	WHERE (interActiv.idCrgHoraria = @idCrgHoraria AND activ.idTpAct_f = 3);
 END
 GO
+--exec [spReadAllCargaActividadesI] 1
 -- Stored Procedure to Read all Actividades from a Specifica Academic Load from tblActividadCargas
 CREATE OR ALTER PROCEDURE [dbo].[spReadAllCargaActividades]
 @idCrgHoraria int
@@ -3730,7 +3753,7 @@ PRINT 'DataBase Created';
 -- END SCRIPT
 
 -- NUEVOS SPS AGREGADOS 21-AGO
-
+ 
 
 
 -------------------------------

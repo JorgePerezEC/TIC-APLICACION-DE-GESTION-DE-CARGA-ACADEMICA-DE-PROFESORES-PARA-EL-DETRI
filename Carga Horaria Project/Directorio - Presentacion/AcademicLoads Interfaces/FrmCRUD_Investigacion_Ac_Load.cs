@@ -101,7 +101,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
 
         private void dgLstRegistros_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == 4 && e.RowIndex >= 0) //Editar
+            if (e.ColumnIndex == 5 && e.RowIndex >= 0) //Editar
             {
                 Editar = true;
                 idActividadCarga = Convert.ToInt32(dgLstRegistros.Rows[e.RowIndex].Cells["ID"].Value);
@@ -112,7 +112,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
                 frm.ShowDialog();
                 Editar = false;
             }
-            else if (e.ColumnIndex == 5 && e.RowIndex >= 0) //Eliminar
+            else if (e.ColumnIndex == 6 && e.RowIndex >= 0) //Eliminar
             {
                 DialogResult result = MessageBox.Show("¿Está seguro que desea eliminar el registro?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 

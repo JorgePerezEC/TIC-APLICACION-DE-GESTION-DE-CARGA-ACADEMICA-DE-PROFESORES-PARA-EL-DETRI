@@ -87,7 +87,7 @@ namespace Directorio_Logica
         #endregion
 
         #region CRUD Methods
-        public bool CreateActividadNeg(string idTpAct, string nameActividad, string horasSemanal, string horasTotales)
+        public bool CreateActividadNeg(string idTpAct, int idProyecto, string nameActividad, string horasSemanal, string horasTotales)
         {
             try
             {
@@ -99,10 +99,21 @@ namespace Directorio_Logica
                     HorasSemana = Convert.ToInt32(horasSemanal),
                     HorasTotalesAct = Convert.ToInt32(horasTotales)
                 };
-                objetoCData.CreateActividad(ObjActividad);
+
+                ClsProyecto ObjProyecto = new ClsProyecto()
+                {
+                    IdProyecto = idProyecto
+                };
+                objetoCData.CreateActividad(ObjActividad, ObjProyecto);
 
                 return true;
 
+            }
+            catch (FormatException ex)
+            {
+                string variableConError = GetVariableConError(idTpAct, horasSemanal, horasTotales); // Reemplaza esto por la lógica real para identificar la variable
+                MessageBox.Show($"Error de formato en la variable '{variableConError}': {ex.Message}", "Error de formato", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
             }
             catch (Exception ex)
             {
@@ -112,8 +123,27 @@ namespace Directorio_Logica
             }
 
         }
+        private string GetVariableConError(string idTpAct, string horasSemanal, string horasTotales)
+        {
+            if (!int.TryParse(idTpAct, out _))
+            {
+                return "idTpAct";
+            }
+            else if (!int.TryParse(horasSemanal, out _))
+            {
+                return "horasSemanal";
+            }
+            else if (!int.TryParse(horasTotales, out _))
+            {
+                return "horasTotales";
+            }
+            else
+            {
+                return "Variable desconocida";
+            }
+        }
 
-        public bool UpdateActividadNeg(string idActividad, string idTpAct, string nameActividad, string horasSemanal, string horasTotales)
+        public bool UpdateActividadNeg(string idActividad, int idProyecto, string idTpAct, string nameActividad, string horasSemanal, string horasTotales)
         {
             try
             {
@@ -125,7 +155,11 @@ namespace Directorio_Logica
                     HorasSemana = Convert.ToInt32(horasSemanal),
                     HorasTotalesAct = Convert.ToInt32(horasTotales)
                 };
-                objetoCData.UpdateActividad(ObjActividad);
+                ClsProyecto ObjProyecto = new ClsProyecto()
+                {
+                    IdProyecto = idProyecto
+                };
+                objetoCData.UpdateActividad(ObjActividad, ObjProyecto);
 
 
                 return true;

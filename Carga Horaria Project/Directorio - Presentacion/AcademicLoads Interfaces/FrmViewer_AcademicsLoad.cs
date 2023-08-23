@@ -611,5 +611,10 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
                 btnPrint_Click(btnPrint, EventArgs.Empty);
             }
         }
+
+        private void btnSendCorreo_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
