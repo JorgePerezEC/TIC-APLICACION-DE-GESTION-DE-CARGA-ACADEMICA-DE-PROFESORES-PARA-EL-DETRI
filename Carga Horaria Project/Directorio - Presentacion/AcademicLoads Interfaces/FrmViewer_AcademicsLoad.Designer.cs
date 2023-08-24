@@ -139,7 +139,7 @@
             // 
             // btnSendCorreo
             // 
-            this.btnSendCorreo.BackColor = System.Drawing.Color.Orange;
+            this.btnSendCorreo.BackColor = System.Drawing.Color.DarkOrange;
             this.btnSendCorreo.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnSendCorreo.ForeColor = System.Drawing.Color.White;
             this.btnSendCorreo.Location = new System.Drawing.Point(215, 211);
@@ -148,6 +148,7 @@
             this.btnSendCorreo.TabIndex = 9;
             this.btnSendCorreo.Text = "Enviar por Email";
             this.btnSendCorreo.UseVisualStyleBackColor = false;
+            this.btnSendCorreo.Visible = false;
             this.btnSendCorreo.Click += new System.EventHandler(this.btnSendCorreo_Click);
             // 
             // tableLayoutPanel1
@@ -309,7 +310,7 @@
             // 
             // btnPrint
             // 
-            this.btnPrint.BackColor = System.Drawing.Color.Orange;
+            this.btnPrint.BackColor = System.Drawing.Color.DarkOrange;
             this.btnPrint.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnPrint.ForeColor = System.Drawing.Color.White;
             this.btnPrint.Location = new System.Drawing.Point(28, 211);

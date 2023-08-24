@@ -91,14 +91,10 @@
 
   <ItemGroup>
     <None Remove="App.config" />
-    <None Remove="appsettingsdetri.json" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="App.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="appsettingsdetri.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

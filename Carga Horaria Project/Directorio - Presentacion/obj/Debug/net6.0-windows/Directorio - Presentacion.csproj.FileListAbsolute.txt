@@ -432,7 +432,6 @@ C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\C
 C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\Carga Horaria Project\Directorio - Presentacion\obj\Debug\net6.0-windows\Directorio - Presentacion.AssemblyInfo.cs
 C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\Carga Horaria Project\Directorio - Presentacion\obj\Debug\net6.0-windows\Directorio - Presentacion.csproj.CoreCompileInputs.cache
 C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\Carga Horaria Project\Directorio - Presentacion\bin\Debug\net6.0-windows\Directorio - Presentacion.exe
-C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\Carga Horaria Project\Directorio - Presentacion\bin\Debug\net6.0-windows\appsettingsdetri.json
 C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\Carga Horaria Project\Directorio - Presentacion\bin\Debug\net6.0-windows\App.config
 C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\Carga Horaria Project\Directorio - Presentacion\bin\Debug\net6.0-windows\Images\EPNLogo.png
 C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\Carga Horaria Project\Directorio - Presentacion\bin\Debug\net6.0-windows\Images\warning.png
@@ -518,3 +517,4 @@ C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\C
 C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\Carga Horaria Project\Directorio - Presentacion\obj\Debug\net6.0-windows\Directorio - Presentacion.genruntimeconfig.cache
 C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\Carga Horaria Project\Directorio - Presentacion\obj\Debug\net6.0-windows\ref\Directorio - Presentacion.dll
 C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\Carga Horaria Project\Directorio - Presentacion\obj\Debug\net6.0-windows\Directorio___Presentacion.AcademicLoads_Interfaces.EditData_Frms.Settings_Frms.FrmServerDB.resources
+C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\Carga Horaria Project\Directorio - Presentacion\obj\Debug\net6.0-windows\Directorio___Presentacion.MailSend.FrmSendMail.resources

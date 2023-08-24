@@ -276,6 +276,14 @@ namespace Directorio_Logica
             };
             string docenteName = objetoCData.GetDocenteNameByCrgHoraria_DAL(ObjCrgHoraria);
             return docenteName;
+        }public string GetDocenteMailByCrgHoraria_Negocio(string idCargaHoraria)
+        {
+            ClsCargaHoraria ObjCrgHoraria = new ClsCargaHoraria()
+            {
+                IdCargaHoraria = Convert.ToInt32(idCargaHoraria)
+            };
+            string docenteMail = objetoCData.GetDocenteMailByCrgHoraria_DAL(ObjCrgHoraria);
+            return docenteMail;
         }
         public string GetDocenteNameTypeByCrgHoraria_Negocio(string idCargaHoraria, string idSemestre)
         {

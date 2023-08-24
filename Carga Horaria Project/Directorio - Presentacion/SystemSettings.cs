@@ -11,7 +11,6 @@ namespace Directorio___Presentacion
         public SystemSettings()
         {
             config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            //config = ConfigurationManager.OpenExeConfiguration(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);
             
         }
         public string GetConnectionString(string key)
@@ -27,6 +26,10 @@ namespace Directorio___Presentacion
         public string GetCorreoElectronico()
         {
             return ConfigurationManager.AppSettings["CorreoElectronico"];
+        }
+        public string GetSmptServer()
+        {
+            return ConfigurationManager.AppSettings["SmtpServer"];
         }
 
         public string GetPasswordCorreo()
@@ -44,6 +47,12 @@ namespace Directorio___Presentacion
         public void SavePasswordCorreo(string password)
         {
             config.AppSettings.Settings["PasswordCorreo"].Value = password;
+            config.Save(ConfigurationSaveMode.Modified);
+            ConfigurationManager.RefreshSection("appSettings");
+        }
+        public void SaveSmptServer(string smtpServerName)
+        {
+            config.AppSettings.Settings["SmtpServer"].Value = smtpServerName;
             config.Save(ConfigurationSaveMode.Modified);
             ConfigurationManager.RefreshSection("appSettings");
         }

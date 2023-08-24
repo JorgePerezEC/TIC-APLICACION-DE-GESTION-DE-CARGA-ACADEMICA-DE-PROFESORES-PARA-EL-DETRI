@@ -30,6 +30,7 @@ using iText.IO.Image;
 using Image = iText.Layout.Element.Image;
 using ScottPlot.Drawing.Colormaps;
 using iText.Layout.Borders;
+using Directorio___Presentacion.MailSend;
 
 namespace Directorio___Presentacion.Reportes_Frms
 {
@@ -42,6 +43,7 @@ namespace Directorio___Presentacion.Reportes_Frms
         private bool rbSiCumpleChecked;
         private bool rbNoCumpleChecked;
         private int horasExigibles;
+        private string docenteMail;
         private List<int> idsCargaHorariaList = new List<int>();
 
         CN_Semestre objSemestre_N = new CN_Semestre();
@@ -197,6 +199,8 @@ namespace Directorio___Presentacion.Reportes_Frms
 
         private void btnExportAll_Click(object sender, EventArgs e)
         {
+            List<CorreoAdjunto> correosAdjuntosList = new List<CorreoAdjunto>();
+
             idsCargaHorariaList = objCarga_N.GetIdsCargaHorariaLst_ByIdSemestre_Negocio(cmbSemestre.SelectedValue.ToString());
 
             // Crear un objeto FolderBrowserDialog
@@ -212,7 +216,7 @@ namespace Directorio___Presentacion.Reportes_Frms
                     {
                         // Obtener el nombre del docente (si es necesario) desde la base de datos o donde sea que esté almacenado
                         string docenteName = objCarga_N.GetDocenteNameByCrgHoraria_Negocio(idCargaHoraria.ToString());
-
+                        string docenteMail = objCarga_N.GetDocenteMailByCrgHoraria_Negocio(idCargaHoraria.ToString());
                         // Establecer el nombre de archivo con el nombre del docente y la información adicional
                         string formattedDateTime = DateTime.Now.ToString("yyyyMMdd_HHmmss");
                         string fileName = docenteName + "_CA_" + cmbSemestre.Text + "_" + formattedDateTime + ".pdf";
@@ -220,8 +224,22 @@ namespace Directorio___Presentacion.Reportes_Frms
 
                         // Generar el documento y guardarlo en filePath
                         GenerarDocumentoPDF(filePath, idCargaHoraria, docenteName);
+
+                        CorreoAdjunto correoAdjunto = new CorreoAdjunto
+                        {
+                            CorreoDestino = docenteMail,
+                            RutaArchivo = filePath
+                        };
+                        correosAdjuntosList.Add(correoAdjunto);
                     }
                 }
+            }
+            DialogResult result = MessageBox.Show("¿Desea enviar por correo electrónico los documentos generados a cada docente?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                FrmSendMail frmMail = new FrmSendMail(correosAdjuntosList);
+                frmMail.ShowDialog();
             }
 
         }
@@ -323,6 +341,12 @@ namespace Directorio___Presentacion.Reportes_Frms
             DataTable dt = objCarga_N_L.LoadAllActividades_Negocio(idCH.ToString());
 
             DataTable dtAsignaturas = objCarga_N2_L.LoadAsignaturas_Negocio(idCH.ToString());
+
+            if (dtAsignaturas.Columns.Count > 0)
+            {
+                int lastColumnIndex = dtAsignaturas.Columns.Count - 1;
+                dtAsignaturas.Columns.RemoveAt(lastColumnIndex);
+            }
             // Crea una tabla con 4 columnas
             Table tableAsignaturas = new Table(dtAsignaturas.Columns.Count - 1);
 

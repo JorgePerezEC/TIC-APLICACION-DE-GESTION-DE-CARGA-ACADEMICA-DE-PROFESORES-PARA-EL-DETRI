@@ -24,6 +24,8 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.EditData_Frms.Setti
         private void FrmServerDB_Load(object sender, EventArgs e)
         {
             GetStringConnection();
+            btnCancelar.Visible = false;
+            btnGuardar.Visible = false;
             cadenaPorDefecto = settings.GetConnectionString("MyDefaultConnection");
         }
 

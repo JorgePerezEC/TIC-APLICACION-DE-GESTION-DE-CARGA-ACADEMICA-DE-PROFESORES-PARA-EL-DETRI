@@ -412,7 +412,7 @@
             // 
             this.btnExportAll.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.btnExportAll.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnExportAll.Location = new System.Drawing.Point(1365, 292);
+            this.btnExportAll.Location = new System.Drawing.Point(1361, 263);
             this.btnExportAll.Name = "btnExportAll";
             this.btnExportAll.Size = new System.Drawing.Size(140, 70);
             this.btnExportAll.TabIndex = 3;

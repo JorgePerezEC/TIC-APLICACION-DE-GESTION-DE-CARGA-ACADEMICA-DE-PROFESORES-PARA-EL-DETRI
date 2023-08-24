@@ -94,6 +94,9 @@
     <Compile Update="ElementsStyles_Configuration\BtnDefault.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Update="MailSend\FrmSendMail.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -110,5 +113,9 @@
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
 </Project>

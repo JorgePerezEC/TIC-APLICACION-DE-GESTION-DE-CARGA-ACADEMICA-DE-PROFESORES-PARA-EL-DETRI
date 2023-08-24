@@ -32,8 +32,8 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.panelChild = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.btnConfigurarCorreo = new MaterialSkin.Controls.MaterialButton();
-            this.btnCofigurarServer = new MaterialSkin.Controls.MaterialButton();
+            this.btnCofigurarServer = new System.Windows.Forms.Button();
+            this.btnConfigurarCorreo = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -47,7 +47,7 @@
             this.panel1.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1013, 816);
+            this.panel1.Size = new System.Drawing.Size(1013, 580);
             this.panel1.TabIndex = 0;
             // 
             // panelChild
@@ -56,7 +56,7 @@
             this.panelChild.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelChild.Location = new System.Drawing.Point(252, 0);
             this.panelChild.Name = "panelChild";
-            this.panelChild.Size = new System.Drawing.Size(761, 816);
+            this.panelChild.Size = new System.Drawing.Size(761, 580);
             this.panelChild.TabIndex = 1;
             // 
             // panel2
@@ -67,62 +67,52 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(252, 816);
+            this.panel2.Size = new System.Drawing.Size(252, 580);
             this.panel2.TabIndex = 0;
-            // 
-            // btnConfigurarCorreo
-            // 
-            this.btnConfigurarCorreo.AutoSize = false;
-            this.btnConfigurarCorreo.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnConfigurarCorreo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(229)))), ((int)(((byte)(230)))));
-            this.btnConfigurarCorreo.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            this.btnConfigurarCorreo.Depth = 0;
-            this.btnConfigurarCorreo.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnConfigurarCorreo.HighEmphasis = true;
-            this.btnConfigurarCorreo.Icon = null;
-            this.btnConfigurarCorreo.Location = new System.Drawing.Point(0, 55);
-            this.btnConfigurarCorreo.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.btnConfigurarCorreo.MouseState = MaterialSkin.MouseState.HOVER;
-            this.btnConfigurarCorreo.Name = "btnConfigurarCorreo";
-            this.btnConfigurarCorreo.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.btnConfigurarCorreo.Size = new System.Drawing.Size(252, 55);
-            this.btnConfigurarCorreo.TabIndex = 4;
-            this.btnConfigurarCorreo.Text = "CONFIGURAR CORREO";
-            this.btnConfigurarCorreo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnConfigurarCorreo.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.btnConfigurarCorreo.UseAccentColor = false;
-            this.btnConfigurarCorreo.UseVisualStyleBackColor = false;
-            this.btnConfigurarCorreo.Click += new System.EventHandler(this.btnConfigurarCorreo_Click);
             // 
             // btnCofigurarServer
             // 
-            this.btnCofigurarServer.AutoSize = false;
-            this.btnCofigurarServer.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnCofigurarServer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(229)))), ((int)(((byte)(230)))));
-            this.btnCofigurarServer.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            this.btnCofigurarServer.Depth = 0;
+            this.btnCofigurarServer.AutoEllipsis = true;
+            this.btnCofigurarServer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(86)))), ((int)(((byte)(227)))));
             this.btnCofigurarServer.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnCofigurarServer.HighEmphasis = true;
-            this.btnCofigurarServer.Icon = null;
+            this.btnCofigurarServer.FlatAppearance.BorderSize = 0;
+            this.btnCofigurarServer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCofigurarServer.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnCofigurarServer.ForeColor = System.Drawing.Color.White;
+            this.btnCofigurarServer.Image = global::Directorio___Presentacion.Properties.Resources.database;
+            this.btnCofigurarServer.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnCofigurarServer.Location = new System.Drawing.Point(0, 0);
-            this.btnCofigurarServer.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.btnCofigurarServer.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnCofigurarServer.Name = "btnCofigurarServer";
-            this.btnCofigurarServer.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.btnCofigurarServer.Size = new System.Drawing.Size(252, 55);
-            this.btnCofigurarServer.TabIndex = 3;
-            this.btnCofigurarServer.Text = "CONFIGURAR SERVER";
-            this.btnCofigurarServer.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCofigurarServer.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.btnCofigurarServer.UseAccentColor = false;
+            this.btnCofigurarServer.Size = new System.Drawing.Size(252, 48);
+            this.btnCofigurarServer.TabIndex = 5;
+            this.btnCofigurarServer.Text = "         CONFIGURAR SERVIDOR";
             this.btnCofigurarServer.UseVisualStyleBackColor = false;
             this.btnCofigurarServer.Click += new System.EventHandler(this.btnCofigurarServer_Click);
+            // 
+            // btnConfigurarCorreo
+            // 
+            this.btnConfigurarCorreo.AutoEllipsis = true;
+            this.btnConfigurarCorreo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(86)))), ((int)(((byte)(227)))));
+            this.btnConfigurarCorreo.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnConfigurarCorreo.FlatAppearance.BorderSize = 0;
+            this.btnConfigurarCorreo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnConfigurarCorreo.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnConfigurarCorreo.ForeColor = System.Drawing.Color.White;
+            this.btnConfigurarCorreo.Image = global::Directorio___Presentacion.Properties.Resources.correo;
+            this.btnConfigurarCorreo.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnConfigurarCorreo.Location = new System.Drawing.Point(0, 48);
+            this.btnConfigurarCorreo.Name = "btnConfigurarCorreo";
+            this.btnConfigurarCorreo.Size = new System.Drawing.Size(252, 48);
+            this.btnConfigurarCorreo.TabIndex = 6;
+            this.btnConfigurarCorreo.Text = "       CONFIGURAR CORREO";
+            this.btnConfigurarCorreo.UseVisualStyleBackColor = false;
+            this.btnConfigurarCorreo.Click += new System.EventHandler(this.btnConfigurarCorreo_Click);
             // 
             // FrmSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1013, 816);
+            this.ClientSize = new System.Drawing.Size(1013, 580);
             this.Controls.Add(this.panel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -142,7 +132,7 @@
         private Panel panel1;
         private Panel panel2;
         private Panel panelChild;
-        private MaterialSkin.Controls.MaterialButton btnConfigurarCorreo;
-        private MaterialSkin.Controls.MaterialButton btnCofigurarServer;
+        private Button btnConfigurarCorreo;
+        private Button btnCofigurarServer;
     }
 }

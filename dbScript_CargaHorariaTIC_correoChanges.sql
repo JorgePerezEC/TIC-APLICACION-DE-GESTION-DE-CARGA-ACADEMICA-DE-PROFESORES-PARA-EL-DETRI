@@ -1463,6 +1463,17 @@ BEGIN
 	WHERE ch.idCargaHoraria = @idCrgHoraria AND doc.estadoDocente = 1
 END
 GO
+-- Stored Procedure to Get Docente Name from  "tblCargaHoraria" based on idCargaHoraria
+CREATE OR ALTER PROCEDURE [dbo].[spGetDocenteMailByCrgHoraria]
+@idCrgHoraria int
+AS 
+BEGIN 
+    SELECT doc.emailDocente
+	FROM tblCargaHoraria ch
+	INNER JOIN tblDocente doc ON ch.idDocente = doc.idDocente
+	WHERE ch.idCargaHoraria = @idCrgHoraria AND doc.estadoDocente = 1
+END
+GO
 -- Stored Procedure to Get Docente Type Name from  "tblCargaHoraria" based on idCargaHoraria
 CREATE OR ALTER PROCEDURE [dbo].[spGetDocenteNameTypeByCrgHoraria]
 @idCrgHoraria int,
@@ -3374,10 +3385,10 @@ INSERT INTO tblDocente VALUES(1,'Edison','Ramiro','Tatayo','Vinueza','MSc','mmmm
 INSERT INTO tblDocente VALUES(1,'Christian','Jose','Tipantuña','Tenelema','MSc','mmmmm',1); ----TTC
 INSERT INTO tblDocente VALUES(1,'Luis','Felipe','Urquiza','Aguiar','PhD','mmmmm',1); --TTC
 INSERT INTO tblDocente VALUES(1,'Jose','David','Vega','Sanchez','PhD','mmmmm',1); --OTC
-INSERT INTO tblDocente VALUES(1,'Monica','De Lourdes','Vinueza','Rhor','MSc','mmmmm',1); --TTC
-INSERT INTO tblDocente VALUES(1,'Francisco','Javier','Vizuete','Bassante','Ingeniería','mmmmm',1);--DESACTIVO --TTC
-INSERT INTO tblDocente VALUES(1,'Jose','Adrian','Zambrano','Miranda','MSc','mmmmm',1); --DESACTIVO --TTC
-INSERT INTO tblDocente VALUES(1,'Rommel','David','Salgado','Camacas','Ingeniero','mmmmm',1); --TDTC
+INSERT INTO tblDocente VALUES(1,'Monica','De Lourdes','Vinueza','Rhor','MSc','parzivalgunter.18@gmail.com',1); --TTC
+INSERT INTO tblDocente VALUES(1,'Francisco','Javier','Vizuete','Bassante','Ingeniería','jorge.perez01epn@gmail.com',1);--DESACTIVO --TTC
+INSERT INTO tblDocente VALUES(1,'Jose','Adrian','Zambrano','Miranda','MSc','jorge.perez01@epn.edu.ec',1); --DESACTIVO --TTC
+INSERT INTO tblDocente VALUES(1,'Rommel','David','Salgado','Camacas','Ingeniero','yonkoucreed@gmail.com',1); --TDTC
 -- CREATE SEMESTRE PREV
 GO
 -- Table: Actividad

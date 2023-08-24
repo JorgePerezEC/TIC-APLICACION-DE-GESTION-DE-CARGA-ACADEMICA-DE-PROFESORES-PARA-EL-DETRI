@@ -150,6 +150,7 @@ namespace Directorio___Presentacion.CRUD_Interfaces
             txtPNombre.Text = string.Empty;
             txtSApellido.Text = string.Empty;
             txtSNombre.Text = string.Empty;
+            txtEmail.Text = string.Empty;
             cmbDepartamentos.SelectedIndex = -1;
             panelCreate.Visible = false;
         }
@@ -171,7 +172,7 @@ namespace Directorio___Presentacion.CRUD_Interfaces
                     txtPApellido.Text = lastnames[0];
                     txtSApellido.Text = lastnames[1];
                     txtTitulo.Text = dgLstRegistros.CurrentRow.Cells[4].Value.ToString();
-                    
+                    txtEmail.Text = dgLstRegistros.CurrentRow.Cells[5].Value.ToString();
                 }
                 else
                 {

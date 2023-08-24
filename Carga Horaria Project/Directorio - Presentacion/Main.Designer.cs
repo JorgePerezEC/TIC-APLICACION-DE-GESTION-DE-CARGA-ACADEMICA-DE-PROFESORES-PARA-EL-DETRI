@@ -109,12 +109,14 @@
             this.btnConfigureServer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnConfigureServer.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnConfigureServer.ForeColor = System.Drawing.Color.Transparent;
+            this.btnConfigureServer.Image = ((System.Drawing.Image)(resources.GetObject("btnConfigureServer.Image")));
+            this.btnConfigureServer.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnConfigureServer.Location = new System.Drawing.Point(0, 1474);
             this.btnConfigureServer.Name = "btnConfigureServer";
             this.btnConfigureServer.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.btnConfigureServer.Size = new System.Drawing.Size(262, 60);
             this.btnConfigureServer.TabIndex = 8;
-            this.btnConfigureServer.Text = "CONFIGURACIÓN";
+            this.btnConfigureServer.Text = "         CONFIGURACIÓN";
             this.btnConfigureServer.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnConfigureServer.UseVisualStyleBackColor = false;
             this.btnConfigureServer.Click += new System.EventHandler(this.btnConfigureServer_Click);

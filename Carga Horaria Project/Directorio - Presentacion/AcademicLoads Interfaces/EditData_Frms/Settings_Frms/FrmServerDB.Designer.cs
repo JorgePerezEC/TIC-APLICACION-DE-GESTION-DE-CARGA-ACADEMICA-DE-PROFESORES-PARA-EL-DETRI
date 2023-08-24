@@ -122,11 +122,11 @@
             // 
             // txtCadenaConexion
             // 
-            this.txtCadenaConexion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(84)))), ((int)(((byte)(23)))), ((int)(((byte)(163)))));
+            this.txtCadenaConexion.BackColor = System.Drawing.Color.Gainsboro;
             this.txtCadenaConexion.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtCadenaConexion.Enabled = false;
             this.txtCadenaConexion.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.txtCadenaConexion.ForeColor = System.Drawing.Color.White;
+            this.txtCadenaConexion.ForeColor = System.Drawing.Color.Black;
             this.txtCadenaConexion.Location = new System.Drawing.Point(209, 3);
             this.txtCadenaConexion.Multiline = true;
             this.txtCadenaConexion.Name = "txtCadenaConexion";
@@ -163,7 +163,7 @@
             this.materialButton1.Depth = 0;
             this.materialButton1.HighEmphasis = true;
             this.materialButton1.Icon = null;
-            this.materialButton1.Location = new System.Drawing.Point(73, 665);
+            this.materialButton1.Location = new System.Drawing.Point(73, 423);
             this.materialButton1.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.materialButton1.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialButton1.Name = "materialButton1";
