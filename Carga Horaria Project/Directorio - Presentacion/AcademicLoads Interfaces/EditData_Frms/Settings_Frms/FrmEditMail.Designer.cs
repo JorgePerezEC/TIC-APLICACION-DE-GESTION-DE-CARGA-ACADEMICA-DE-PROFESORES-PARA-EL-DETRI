@@ -36,6 +36,7 @@
             this.btnGuardar = new MaterialSkin.Controls.MaterialButton();
             this.btnEditar = new MaterialSkin.Controls.MaterialButton();
             this.label3 = new System.Windows.Forms.Label();
+            this.btnCancelar = new MaterialSkin.Controls.MaterialButton();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -47,7 +48,7 @@
             this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(3, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(180, 62);
+            this.label1.Size = new System.Drawing.Size(200, 62);
             this.label1.TabIndex = 0;
             this.label1.Text = "Correo electrónico:";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -61,22 +62,24 @@
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.txtCorreo, 1, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(84, 92);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(66, 92);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(552, 125);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(613, 125);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
             // txtPassword
             // 
             this.txtPassword.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txtPassword.BackColor = System.Drawing.Color.White;
+            this.txtPassword.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(84)))), ((int)(((byte)(23)))), ((int)(((byte)(163)))));
             this.txtPassword.Enabled = false;
-            this.txtPassword.Location = new System.Drawing.Point(205, 77);
+            this.txtPassword.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.txtPassword.ForeColor = System.Drawing.Color.White;
+            this.txtPassword.Location = new System.Drawing.Point(209, 77);
             this.txtPassword.Name = "txtPassword";
-            this.txtPassword.Size = new System.Drawing.Size(327, 32);
+            this.txtPassword.Size = new System.Drawing.Size(401, 32);
             this.txtPassword.TabIndex = 3;
             // 
             // label2
@@ -87,7 +90,7 @@
             this.label2.ForeColor = System.Drawing.Color.White;
             this.label2.Location = new System.Drawing.Point(3, 62);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(180, 63);
+            this.label2.Size = new System.Drawing.Size(200, 63);
             this.label2.TabIndex = 1;
             this.label2.Text = "Contraseña:";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -95,11 +98,13 @@
             // txtCorreo
             // 
             this.txtCorreo.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txtCorreo.BackColor = System.Drawing.Color.White;
+            this.txtCorreo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(84)))), ((int)(((byte)(23)))), ((int)(((byte)(163)))));
             this.txtCorreo.Enabled = false;
-            this.txtCorreo.Location = new System.Drawing.Point(205, 15);
+            this.txtCorreo.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.txtCorreo.ForeColor = System.Drawing.Color.White;
+            this.txtCorreo.Location = new System.Drawing.Point(209, 15);
             this.txtCorreo.Name = "txtCorreo";
-            this.txtCorreo.Size = new System.Drawing.Size(327, 32);
+            this.txtCorreo.Size = new System.Drawing.Size(401, 32);
             this.txtCorreo.TabIndex = 2;
             // 
             // btnGuardar
@@ -110,7 +115,7 @@
             this.btnGuardar.Depth = 0;
             this.btnGuardar.HighEmphasis = true;
             this.btnGuardar.Icon = null;
-            this.btnGuardar.Location = new System.Drawing.Point(288, 261);
+            this.btnGuardar.Location = new System.Drawing.Point(66, 273);
             this.btnGuardar.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnGuardar.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnGuardar.Name = "btnGuardar";
@@ -132,14 +137,14 @@
             this.btnEditar.Depth = 0;
             this.btnEditar.HighEmphasis = true;
             this.btnEditar.Icon = null;
-            this.btnEditar.Location = new System.Drawing.Point(80, 261);
+            this.btnEditar.Location = new System.Drawing.Point(279, 273);
             this.btnEditar.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnEditar.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnEditar.Name = "btnEditar";
             this.btnEditar.NoAccentTextColor = System.Drawing.Color.Empty;
             this.btnEditar.Size = new System.Drawing.Size(187, 45);
             this.btnEditar.TabIndex = 3;
-            this.btnEditar.Text = "editar correo";
+            this.btnEditar.Text = "actalizar credenciales";
             this.btnEditar.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             this.btnEditar.UseAccentColor = false;
             this.btnEditar.UseVisualStyleBackColor = true;
@@ -156,12 +161,35 @@
             this.label3.TabIndex = 4;
             this.label3.Text = "CONFIGURAR CREDENCIALES DEL CORREO ELECTRÓNICO";
             // 
+            // btnCancelar
+            // 
+            this.btnCancelar.AutoSize = false;
+            this.btnCancelar.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnCancelar.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.btnCancelar.Depth = 0;
+            this.btnCancelar.HighEmphasis = true;
+            this.btnCancelar.Icon = null;
+            this.btnCancelar.Location = new System.Drawing.Point(492, 273);
+            this.btnCancelar.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnCancelar.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnCancelar.Name = "btnCancelar";
+            this.btnCancelar.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.btnCancelar.Size = new System.Drawing.Size(187, 45);
+            this.btnCancelar.TabIndex = 5;
+            this.btnCancelar.Text = "cancelar";
+            this.btnCancelar.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnCancelar.UseAccentColor = false;
+            this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Visible = false;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
+            // 
             // FrmEditMail
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(33)))), ((int)(((byte)(73)))));
             this.ClientSize = new System.Drawing.Size(743, 769);
+            this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.btnEditar);
             this.Controls.Add(this.tableLayoutPanel1);
@@ -188,5 +216,6 @@
         private TextBox txtPassword;
         private TextBox txtCorreo;
         private Label label3;
+        private MaterialSkin.Controls.MaterialButton btnCancelar;
     }
 }

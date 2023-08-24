@@ -14,6 +14,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.EditData_Frms
     public partial class FrmSettings : Form
     {
         private FrmEditMail frmMailSon;
+        private FrmServerDB frmServerSon;
         public FrmSettings()
         {
             InitializeComponent();
@@ -45,5 +46,17 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.EditData_Frms
             childForm.Show();
         }
         #endregion
+
+        private void btnCofigurarServer_Click(object sender, EventArgs e)
+        {
+            frmServerSon = new FrmServerDB();
+            openChildForm(frmServerSon);
+        }
+
+        private void FrmSettings_Load(object sender, EventArgs e)
+        {
+            frmServerSon = new FrmServerDB();
+            openChildForm(frmServerSon);
+        }
     }
 }

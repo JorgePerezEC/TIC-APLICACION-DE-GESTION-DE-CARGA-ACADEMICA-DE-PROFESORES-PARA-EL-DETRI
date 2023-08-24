@@ -13,13 +13,13 @@
     <Compile Update="AcademicLoads Interfaces\EditData_Frms\FrmEditHorasExigibles.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="AcademicLoads Interfaces\EditData_Frms\FrmEditServerConection.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Update="AcademicLoads Interfaces\EditData_Frms\FrmSettings.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="AcademicLoads Interfaces\EditData_Frms\Settings_Frms\FrmEditMail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="AcademicLoads Interfaces\EditData_Frms\Settings_Frms\FrmServerDB.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="AcademicLoads Interfaces\Error_Frms\Frm_Err_HorasExigibles.cs">

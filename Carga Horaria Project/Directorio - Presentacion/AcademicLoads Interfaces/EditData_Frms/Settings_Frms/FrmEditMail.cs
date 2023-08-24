@@ -2,14 +2,23 @@
 using Newtonsoft.Json;
 using System.Configuration;
 using System.Reflection;
+using System.IO;
+using System;
+using System.Windows.Forms;
+using Microsoft.Extensions.Configuration;
 
 namespace Directorio___Presentacion.AcademicLoads_Interfaces.EditData_Frms.Settings_Frms
 {
     public partial class FrmEditMail : Form
     {
+        private string correo;
+        private string password;
+        private string jsonFilePath;
+        private SystemSettings settings = new SystemSettings();
         public FrmEditMail()
         {
             InitializeComponent();
+            jsonFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "appsettingsdetri.json");
         }
 
         private void btnEditar_Click(object sender, EventArgs e)
@@ -17,41 +26,43 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.EditData_Frms.Setti
             btnGuardar.Visible = true;
             txtCorreo.Enabled= true;
             txtPassword.Enabled= true;
+            btnEditar.Enabled= false;
+            btnCancelar.Enabled = true;
+            btnCancelar.Visible= true;
         }
+
 
         private void FrmEditMail_Load_1(object sender, EventArgs e)
         {
-            string resourceName = "NombreDelProyecto.appsetting.json"; // Cambia "NombreDelProyecto" al nombre real de tu proyecto
-            using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName))
-            {
-                if (stream != null)
-                {
-                    using (StreamReader reader = new StreamReader(stream))
-                    {
-                        string json = reader.ReadToEnd();
-                        ClsCredencialesCorreo credenciales = JsonConvert.DeserializeObject<ClsCredencialesCorreo>(json);
+            LoadCredentials();
 
-                        txtCorreo.Text = credenciales.CorreoElectronico;
-                        txtPassword.Text = credenciales.PasswordCorreo;
-                    }
-                }
-            }
+        }
+
+        private void LoadCredentials()
+        {
+            txtCorreo.Text = settings.GetCorreoElectronico();
+            txtPassword.Text = settings.GetPasswordCorreo();
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
             try
             {
-                ClsCredencialesCorreo nuevasCredenciales = new ClsCredencialesCorreo
+                if (txtPassword.Text == string.Empty || txtCorreo.Text == string.Empty)
                 {
-                    CorreoElectronico = txtCorreo.Text,
-                    PasswordCorreo = txtPassword.Text
-                };
-
-                string json = JsonConvert.SerializeObject(nuevasCredenciales);
-                File.WriteAllText("appsettings.json", json);
-
+                    MessageBox.Show("Por favor complete todos los campos para continuar.", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                settings.SaveCorreoElectronico(txtCorreo.Text);
+                settings.SavePasswordCorreo(txtPassword.Text);
                 MessageBox.Show("Credenciales guardadas correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                btnEditar.Enabled = true;
+                btnGuardar.Enabled = false;
+                btnCancelar.Enabled = false;
+                btnCancelar.Visible = false;
+                txtCorreo.Enabled = false;
+                txtPassword.Enabled= false;
+                LoadCredentials();
             }
             catch (Exception ex)
             {
@@ -59,40 +70,14 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.EditData_Frms.Setti
             }
         }
 
-        //private void FrmEditMail_Load_1(object sender, EventArgs e)
-        //{
-        //    string jsonFilePath = "appsettings.json";
-        //    if (File.Exists(jsonFilePath))
-        //    {
-        //        string json = File.ReadAllText(jsonFilePath);
-        //        MessageBox.Show(json);
-        //        ClsCredencialesCorreo credenciales = JsonConvert.DeserializeObject<ClsCredencialesCorreo>(json);
-
-        //        txtCorreo.Text = credenciales.CorreoElectronico;
-        //        txtPassword.Text = credenciales.PasswordCorreo;
-        //        MessageBox.Show(txtCorreo.Text);
-        //    }
-        //}
-
-        //private void btnGuardar_Click(object sender, EventArgs e)
-        //{
-        //    try
-        //    {
-        //        ClsCredencialesCorreo nuevasCredenciales = new ClsCredencialesCorreo
-        //        {
-        //            CorreoElectronico = txtCorreo.Text,
-        //            PasswordCorreo = txtPassword.Text
-        //        };
-
-        //        string json = JsonConvert.SerializeObject(nuevasCredenciales);
-        //        File.WriteAllText("appsettings.json", json);
-
-        //        MessageBox.Show("Credenciales guardadas correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show("Error al guardar las credenciales: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //    }
-        //}
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            LoadCredentials(); 
+            txtCorreo.Enabled = false; 
+            txtPassword.Enabled = false; 
+            btnGuardar.Visible = false;
+            btnCancelar.Visible = false;
+            btnEditar.Enabled = true;
+        }
     }
 }

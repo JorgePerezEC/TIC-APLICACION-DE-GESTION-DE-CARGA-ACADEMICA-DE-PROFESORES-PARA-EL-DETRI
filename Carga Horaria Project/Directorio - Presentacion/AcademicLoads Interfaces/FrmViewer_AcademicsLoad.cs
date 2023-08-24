@@ -21,6 +21,12 @@ using Image = iText.Layout.Element.Image;
 using ScottPlot.Drawing.Colormaps;
 using iText.Layout.Borders;
 
+//Dependencias para enviar correo
+using System.Net;
+using System.Net.Mail;
+using System.Net.Mime;
+
+
 namespace Directorio___Presentacion.AcademicLoads_Interfaces
 {
     public partial class FrmViewer_AcademicsLoad : Form
@@ -31,6 +37,8 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
         CN_Departamento objetoNDepartamento = new CN_Departamento();
         CN_CargaHoraria objetoCarga_N = new CN_CargaHoraria();
         CN_CargaHoraria objetoCarga_N_2 = new CN_CargaHoraria();
+
+        SystemSettings settings = new SystemSettings();
 
         private int cmbValueSemestre;
         private int idDocente;
@@ -59,6 +67,13 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
         private static string docenteName;
         private static string docenteTipo;
 
+        //Mail Variables
+        private static string correoSender;
+        private static string pswSender;
+        private string generatedFilePath = "";
+
+
+
         ClsStyles tableStyle = new ClsStyles();
 
         #region Constructor
@@ -77,6 +92,8 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
             cmbSemestre.SelectedValue = -1;
             cmbSemestre.SelectedIndex = -1;
             this.KeyDown += btnPrint_KeyDown;
+            correoSender = settings.GetCorreoElectronico();
+            pswSender = settings.GetPasswordCorreo();
         }
 
         private void ListarSemestres()
@@ -290,7 +307,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 string filePath = saveFileDialog1.FileName;
-
+                generatedFilePath = saveFileDialog1.FileName;
                 // Generar el documento y guardarlo en filePath
 
                 // Crea un objeto PdfDocument con el PdfWriter
@@ -614,7 +631,72 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
 
         private void btnSendCorreo_Click(object sender, EventArgs e)
         {
+            MailMessage mm = new MailMessage();
+            SmtpClient sc = new SmtpClient("smtp.gmail.com");
+            mm.From = new MailAddress(correoSender);
+            mm.To.Add("parzivalgunter.18@gmail.com");
+            mm.Subject = "Asunto del correo Test";
+            mm.Body = "Cuerpo del correo Test";
 
+            if (!string.IsNullOrEmpty(generatedFilePath))
+            {
+                Attachment archivo = new Attachment(generatedFilePath);
+                mm.Attachments.Add(archivo);
+            }
+
+            sc.Port = 587;
+            sc.Credentials = new System.Net.NetworkCredential(correoSender, pswSender);
+            sc.EnableSsl= true;
+            
+            try
+            {
+                // Enviar el correo
+                sc.Send(mm);
+                MessageBox.Show("Correo enviado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al enviar el correo: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            //// Crear un cliente SMTP para enviar el correo
+            //SmtpClient smtpClient = new SmtpClient("smtp.gmail.com")
+            //{
+            //    Port = 587,
+            //    Credentials = new NetworkCredential(correoSender, pswSender),
+            //    EnableSsl = true
+            //};
+
+            //// Crear un correo electrónico
+            //MailMessage mailMessage = new MailMessage
+            //{
+            //    From = new MailAddress(correoSender),
+            //    Subject = "Asunto del correo Test",
+            //    Body = "Cuerpo del correo Test"
+            //};
+            //MessageBox.Show(correoSender + " " + pswSender);
+
+            //// Agregar destinatarios
+            //mailMessage.To.Add("parzivalgunter.18@gmail.com");
+
+            //// Crear el archivo adjunto
+            //Attachment attachment = new Attachment("C:\\Users\\jorge\\Downloads\\TIC_JPerez FINAL V2.pdf", MediaTypeNames.Application.Pdf);
+            //ContentDisposition disposition = attachment.ContentDisposition;
+            //disposition.CreationDate = File.GetCreationTime("C:\\Users\\jorge\\Downloads\\TIC_JPerez FINAL V2.pdf");
+            //disposition.ModificationDate = File.GetLastWriteTime("C:\\Users\\jorge\\Downloads\\TIC_JPerez FINAL V2.pdf");
+            //disposition.ReadDate = File.GetLastAccessTime("C:\\Users\\jorge\\Downloads\\TIC_JPerez FINAL V2.pdf");
+            //mailMessage.Attachments.Add(attachment);
+
+            //try
+            //{
+            //    // Enviar el correo
+            //    smtpClient.Send(mailMessage);
+            //    MessageBox.Show("Correo enviado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show("Error al enviar el correo: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
         }
     }
 }

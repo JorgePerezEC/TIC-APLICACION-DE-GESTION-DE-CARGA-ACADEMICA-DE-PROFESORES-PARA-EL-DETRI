@@ -10,11 +10,13 @@ using System.Configuration;
 using System.Xml.Linq;
 using System.Runtime.Intrinsics.X86;
 using System.Diagnostics;
+//using Microsoft.Extensions.Configuration;
 
 namespace Directorio_Datos.DataBase
 {
     public class ManejadorDB
     {
+        private string? connectionString;
 
         //private static string dbName = "dbCargaHorariaTICtest"; //dbCargaHorariaJune
         //private static string pcName = "ASUS-GEORGE-AMA";
@@ -35,14 +37,19 @@ namespace Directorio_Datos.DataBase
                 sqlConexion.Close();
         }
 
-        public static void CambiarConexion(string CadenaConexion)
-        {
-            String cadenaNueva = CadenaConexion;
-            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            config.ConnectionStrings.ConnectionStrings["MyDatabaseConnection"].ConnectionString = cadenaNueva;
-            config.Save(ConfigurationSaveMode.Modified, true);
 
-            Application.Restart();
-        }
+        //public ManejadorDB()
+        //{
+        //    if (Program.Configuration != null)
+        //    {
+        //        var mySettings = Program.Configuration.GetSection("SystemSettings").Get<SystemSettings>();
+
+        //        if (mySettings != null)
+        //        {
+        //            connectionString = mySettings.CorreoElectronico;
+        //            //password = mySettings.PasswordCorreo;
+        //        }
+        //    }
+        //}
     }
 }

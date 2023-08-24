@@ -116,6 +116,7 @@
             this.btnCofigurarServer.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             this.btnCofigurarServer.UseAccentColor = false;
             this.btnCofigurarServer.UseVisualStyleBackColor = false;
+            this.btnCofigurarServer.Click += new System.EventHandler(this.btnCofigurarServer_Click);
             // 
             // FrmSettings
             // 
@@ -129,6 +130,7 @@
             this.Name = "FrmSettings";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "CONFIGURACIÓN";
+            this.Load += new System.EventHandler(this.FrmSettings_Load);
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
