@@ -109,7 +109,7 @@
             this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(13)))), ((int)(((byte)(76)))), ((int)(((byte)(146)))));
             this.panel4.Controls.Add(this.dgvHorario);
             this.panel4.Controls.Add(this.label3);
-            this.panel4.Location = new System.Drawing.Point(1097, 6);
+            this.panel4.Location = new System.Drawing.Point(1150, 6);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(589, 623);
             this.panel4.TabIndex = 3;
@@ -155,7 +155,7 @@
             this.dgLstRegistros.Name = "dgLstRegistros";
             this.dgLstRegistros.RowHeadersWidth = 51;
             this.dgLstRegistros.RowTemplate.Height = 29;
-            this.dgLstRegistros.Size = new System.Drawing.Size(1064, 509);
+            this.dgLstRegistros.Size = new System.Drawing.Size(1094, 509);
             this.dgLstRegistros.TabIndex = 2;
             this.dgLstRegistros.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgLstRegistros_CellContentClick);
             // 

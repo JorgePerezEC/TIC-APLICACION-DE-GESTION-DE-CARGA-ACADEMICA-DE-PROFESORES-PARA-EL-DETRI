@@ -133,6 +133,7 @@
             this.lstBoxAsignaturas.Name = "lstBoxAsignaturas";
             this.lstBoxAsignaturas.Size = new System.Drawing.Size(624, 144);
             this.lstBoxAsignaturas.TabIndex = 5;
+            this.lstBoxAsignaturas.TabStop = false;
             // 
             // tblPanelFiltros
             // 
@@ -217,7 +218,7 @@
             this.cmbCarreras.Location = new System.Drawing.Point(139, 37);
             this.cmbCarreras.Name = "cmbCarreras";
             this.cmbCarreras.Size = new System.Drawing.Size(313, 28);
-            this.cmbCarreras.TabIndex = 2;
+            this.cmbCarreras.TabIndex = 20;
             this.cmbCarreras.SelectedIndexChanged += new System.EventHandler(this.cmbCarreras_SelectedIndexChanged);
             // 
             // txtCodeFilter
@@ -225,7 +226,7 @@
             this.txtCodeFilter.Location = new System.Drawing.Point(139, 71);
             this.txtCodeFilter.Name = "txtCodeFilter";
             this.txtCodeFilter.Size = new System.Drawing.Size(313, 27);
-            this.txtCodeFilter.TabIndex = 3;
+            this.txtCodeFilter.TabIndex = 4;
             this.txtCodeFilter.TextChanged += new System.EventHandler(this.txtCodeFilter_TextChanged);
             // 
             // label7
@@ -311,7 +312,7 @@
             this.btnAddGR.Name = "btnAddGR";
             this.btnAddGR.NoAccentTextColor = System.Drawing.Color.Empty;
             this.btnAddGR.Size = new System.Drawing.Size(125, 38);
-            this.btnAddGR.TabIndex = 13;
+            this.btnAddGR.TabIndex = 2;
             this.btnAddGR.Text = "Agregar  o editar GR";
             this.btnAddGR.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             this.btnAddGR.UseAccentColor = false;

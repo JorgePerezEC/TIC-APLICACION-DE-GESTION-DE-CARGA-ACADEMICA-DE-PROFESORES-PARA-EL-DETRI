@@ -108,7 +108,7 @@
             this.btnEliminar.Location = new System.Drawing.Point(566, 47);
             this.btnEliminar.MaximumSize = new System.Drawing.Size(125, 41);
             this.btnEliminar.Name = "btnEliminar";
-            this.btnEliminar.Size = new System.Drawing.Size(125, 0);
+            this.btnEliminar.Size = new System.Drawing.Size(125, 41);
             this.btnEliminar.TabIndex = 7;
             this.btnEliminar.Text = "Eliminar";
             this.btnEliminar.UseVisualStyleBackColor = false;
@@ -125,7 +125,7 @@
             this.btnActualizar.Location = new System.Drawing.Point(408, 47);
             this.btnActualizar.MaximumSize = new System.Drawing.Size(125, 41);
             this.btnActualizar.Name = "btnActualizar";
-            this.btnActualizar.Size = new System.Drawing.Size(125, 0);
+            this.btnActualizar.Size = new System.Drawing.Size(125, 41);
             this.btnActualizar.TabIndex = 5;
             this.btnActualizar.Text = "Actualizar";
             this.btnActualizar.UseVisualStyleBackColor = false;

@@ -85,7 +85,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
             clsStyles.tableStyle(dgvCargasHorarias);
             ListarSemestres();
             cmbDocente.Enabled = false;
-            btnCrearCargaAcademica.Enabled= false;
+            btnCrearCargaAcademica.Enabled= true;
             btnNewCarga.Visible = false;
             panelHoras.Visible = false;
             cmbDocente.SelectedValue = -1;
@@ -217,7 +217,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
                         btnCrearCargaAcademica.Visible = false;
                         btnAsignaturas.BackColor = System.Drawing.Color.LightSeaGreen;
                         idCH = objetoCNegocio.GetIDCargaHorariaNegocio(cmbValueSemestre.ToString(), cmbValueDocente.ToString());
-                        MessageBox.Show("Carga Horaria creada previamente. Accediendo al modo edicion");
+                        //MessageBox.Show("Carga Horaria creada previamente. Accediendo al modo edicion");
                         frmAsigSon = new FrmCRUD_Asignaturas_Ac_Load(idCH, idSemestre);
                         openChildForm(frmAsigSon);
                         lblTipoDocente.Text = objetoCNegocio.GetDocenteNameTypeByCrgHoraria_Negocio(idCH.ToString(), cmbValueSemestre.ToString());
@@ -466,7 +466,6 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
             btnGestion.Visible = false;
             dgvCargasHorarias.Visible = false;
             btnCrearCargaAcademica.Visible = true;
-            btnCrearCargaAcademica.Enabled = false;
             btnNewCarga.Visible = false;
             btnDocencia.BackColor = System.Drawing.Color.LightSalmon;
             btnAsignaturas.BackColor = System.Drawing.Color.LightSeaGreen;

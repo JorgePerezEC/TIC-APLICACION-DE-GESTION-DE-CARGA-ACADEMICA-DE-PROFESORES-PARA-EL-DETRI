@@ -16,6 +16,7 @@ namespace Directorio___Presentacion.MailSend
     {
         private List<CorreoAdjunto> correosAdjuntos;
         SystemSettings settings = new SystemSettings();
+        private bool newMail = false;
 
         public FrmSendMail(List<CorreoAdjunto> correosAdjuntos)
         {
@@ -76,7 +77,15 @@ namespace Directorio___Presentacion.MailSend
                 MailMessage mm = new MailMessage();
                 SmtpClient sc = new SmtpClient(settings.GetSmptServer());
                 mm.From = new MailAddress(settings.GetCorreoElectronico());
-                mm.To.Add(correoAdjunto.CorreoDestino);
+                if (newMail)
+                {
+                    mm.To.Add(txtCorreoDestino.Text);
+                }
+                else
+                {
+                    mm.To.Add(correoAdjunto.CorreoDestino);
+                }
+                
                 mm.Subject = txtAsunto.Text;
                 mm.Body = txtBody.Text;
 
@@ -112,6 +121,7 @@ namespace Directorio___Presentacion.MailSend
                     if (correosAdjuntos.Count == 1)
                     {
                         MessageBox.Show("Correo enviado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        this.Close();
                     }
                 }
                 catch (Exception ex)
@@ -135,7 +145,7 @@ namespace Directorio___Presentacion.MailSend
         private void FrmSendMail_Load(object sender, EventArgs e)
         {
             txtCorreoDestino.Text = correosAdjuntos[0].CorreoDestino;
-            if (correosAdjuntos.Count > 2)
+            if (correosAdjuntos.Count > 1)
             {
                 btnEditMail.Visible = false;
                 txtCorreoDestino.Visible = false;
@@ -148,6 +158,7 @@ namespace Directorio___Presentacion.MailSend
         {
             txtCorreoDestino.Enabled = true;
             btnEditMail.Enabled = false;
+            newMail = true;
         }
     }
 }

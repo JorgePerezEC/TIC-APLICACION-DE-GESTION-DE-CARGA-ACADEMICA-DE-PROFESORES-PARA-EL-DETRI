@@ -62,9 +62,13 @@ namespace Directorio___Presentacion.CRUD_Interfaces
         private void btnNew_Click(object sender, EventArgs e)
         {
             Editar = false;
+            cmbAsignaturas.SelectedIndex = -1;
             btnGuardar.Text = "Guardar";
             openPanelCreate = !openPanelCreate;
             panelCreate.Visible = openPanelCreate;
+            txtCode.Text = string.Empty;
+            txtNivel.Text = string.Empty;
+            txtType.Text = string.Empty;
             ClearTxtBox();
         }
 
@@ -94,15 +98,22 @@ namespace Directorio___Presentacion.CRUD_Interfaces
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
+            
             try
             {
                 if (dgLstRegistros.Rows.Count > 0)
                 {
-                    idGrupo = dgLstRegistros.CurrentRow.Cells[0].Value.ToString()!;
-                    objetoCNegocio.DeleteGruposNeg(idGrupo);
-                    MessageBox.Show("Grupo de asignatura eliminado correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    MostrarAllGrs();
-                    ClearTxtBox();
+                    DialogResult result = MessageBox.Show("¿Está seguro que desea eliminar el registro?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                    if (result == DialogResult.Yes)
+                    {
+                        idGrupo = dgLstRegistros.CurrentRow.Cells[0].Value.ToString()!;
+                        objetoCNegocio.DeleteGruposNeg(idGrupo);
+                        MessageBox.Show("Grupo de asignatura eliminado correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MostrarAllGrs();
+                        ClearTxtBox();
+                    }
+                    
                 }
                 else
                 {
