@@ -26,6 +26,7 @@ namespace Directorio___Presentacion.CRUD_Interfaces
         private string pensum;
         private string estado;
         private DataTable dtData;
+        private bool openPanelCreate = false;
         public FrmCRUD_Carrera()
         {
             InitializeComponent();
@@ -76,7 +77,7 @@ namespace Directorio___Presentacion.CRUD_Interfaces
                     MessageBox.Show("Carrera insertadada correctamente", "CARRERA REGISTRADA", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     MostrarCarreras();
                     panelCreate.Visible = false;
-                    //ClearTxtBox();
+                    clearInfoFrm();
                 }
                 catch (Exception ex)
                 {
@@ -93,7 +94,7 @@ namespace Directorio___Presentacion.CRUD_Interfaces
                     MessageBox.Show("Carrera actualizada correctamente", "CARRERA ACTULIZADA", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     MostrarCarreras();
                     Editar = false;
-                    //ClearTxtBox();
+                    clearInfoFrm();
                 }
                 catch (Exception ex)
                 {
@@ -101,11 +102,24 @@ namespace Directorio___Presentacion.CRUD_Interfaces
                 }
             }
             panelCreate.Visible = false;
+            openPanelCreate = false;
         }
         private void btnNew_Click(object sender, EventArgs e)
         {
-            panelCreate.Visible = true;
+            Editar = false;
             btnGuardar.Text = "Guardar";
+            openPanelCreate = !openPanelCreate;
+            panelCreate.Visible = openPanelCreate;
+            clearInfoFrm();
+        }
+
+        private void clearInfoFrm()
+        {
+            cmbDepartamentos.SelectedIndex = -1;
+            txtCodigo.Text = string.Empty;
+            txtPensum.Text = string.Empty;
+            txtNameCarreer.Text = string.Empty;
+            
         }
 
         private void btnActualizar_Click(object sender, EventArgs e)

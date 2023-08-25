@@ -7,17 +7,17 @@
 -- PRESS F5 to Execute entire script
 --------------------------------------------
 USE master
---dbCargaHorariaTIC_DETRI  dbRespaldo
+--dbCargaHorariaTIC_DETRI_2023  dbRespaldo
 GO
-IF EXISTS (SELECT name FROM sys.databases WHERE name = 'dbCargaHorariaTIC_DETRI2')
+IF EXISTS (SELECT name FROM sys.databases WHERE name = 'dbCargaHorariaTIC_DETRI_2023')
 BEGIN
-    DROP DATABASE dbCargaHorariaTIC_DETRI2;
+    DROP DATABASE dbCargaHorariaTIC_DETRI_2023;
 END
 GO
 PRINT 'Creating DB';
-CREATE DATABASE dbCargaHorariaTIC_DETRI2;
+CREATE DATABASE dbCargaHorariaTIC_DETRI_2023;
 GO
-USE dbCargaHorariaTIC_DETRI2;
+USE dbCargaHorariaTIC_DETRI_2023;
 
 -----------------------------------------
 -- Table Creation Section
@@ -147,7 +147,6 @@ CREATE TABLE tblGrAsignatura(
 	CONSTRAINT uq_tblGrAsignatura UNIQUE(idAsignatura, grupoAsignatura)
 );
 GO
-
 -- Table: SemestreGrupoAsignatura intermedia
 CREATE TABLE tblSemestreGrAsignatura (
     idSemestreGrAsignatura int NOT NULL IDENTITY(1, 1) PRIMARY KEY,
@@ -1960,13 +1959,22 @@ AS
 	END
 GO
 -- Stored Procedure to delete one row from  "tblCargaHoraria"
-CREATE PROCEDURE [dbo].[spDeleteCargaHoraria]
+CREATE OR ALTER PROCEDURE [dbo].[spDeleteCargaHoraria]
 	@id int
 AS
 	BEGIN
-		DELETE FROM tblCargaHoraria 
-		WHERE idCargaHoraria = @id
-	END
+		BEGIN TRANSACTION;
+
+		-- Eliminar registros relacionados en tblActividadCargas
+		DELETE FROM tblActividadCargas WHERE idCrgHoraria = @id;
+		-- Eliminar registros relacionados en tblAsigCarga
+		DELETE FROM tblAsigCrgHoraria WHERE idCrgHoraria = @id;
+
+		-- Eliminar el registro de tblCargaHoraria
+		DELETE FROM tblCargaHoraria WHERE idCargaHoraria = @id;
+
+		COMMIT;
+		END
 GO
 -- Stored Procedure to delete one row from  "tblActividadCargas"
 CREATE PROCEDURE [dbo].[spDeleteActivCrgHoraria]
@@ -2403,6 +2411,7 @@ BEGIN
 	WHERE (idSemestre = @idSemestre AND idDocente= @idDocente)
 END
 GO
+--exec [spGetIdCargaHoraria] 1,2
 -- Stored Procedure to check an existing CargaHoraria register
 CREATE PROCEDURE [dbo].[spCheckExCargaHoraria]
 @idDocente int,
@@ -3349,47 +3358,53 @@ INSERT INTO tblDocente VALUES(1,'Ivan','Marcelo','Bernal','Carrillo','PhD','ivan
 INSERT INTO tblDocente VALUES(1,'Julio','Cesar','Caiza','Ñacato','PhD','julio.caiza@epn.edu.ec',1); -- TTC
 INSERT INTO tblDocente VALUES(1,'Xavier','Alexander','Calderon','Hinojosa','MSc','xavier.calderon@epn.edu.ec',1); -- TTC
 INSERT INTO tblDocente VALUES(1,'Luis','Fernando','Carrera','Suarez','PhD','fernando.carrera@epn.edu.ec',1); -- TTC
-INSERT INTO tblDocente VALUES(1,'Jorge','Eduardo','Carvajal','Rodriguez','MSc','mmmmm',1); --TTC desactivado
-INSERT INTO tblDocente VALUES(1,'William','Santiago','Coloma','Gomez','Ingeniería','mmmmm',1); -- Tec Doc TC
-INSERT INTO tblDocente VALUES(1,'Michael','Alexander','Curipallo','Martinez','Ingeniería','mmmmm',1); -- Tec Doc TC
-INSERT INTO tblDocente VALUES(1,'Luis','Efren','Diaz','Villacis','MSc','mmmmm',1); -- Tit TP
-INSERT INTO tblDocente VALUES(1,'Carlos','Roberto','Egas','Acosta','MSc','mmmmm',1);--Tit TC
-INSERT INTO tblDocente VALUES(1,'Jose','Antonio','Estrada','Jimenez','PhD','mmmmm',1);	--TTC
-INSERT INTO tblDocente VALUES(1,'Luis','Antonio','Flores','Asimbaya','MSc','mmmmm',1); --OTP
+INSERT INTO tblDocente VALUES(1,'Jorge','Eduardo','Carvajal','Rodriguez','MSc','jorge.carvajal@epn.edu.ec',1); --TTC desactivado
+INSERT INTO tblDocente VALUES(1,'William','Santiago','Coloma','Gomez','Ingeniería','william.coloma@epn.edu.ec',1); -- Tec Doc TC
+INSERT INTO tblDocente VALUES(1,'Michael','Alexander','Curipallo','Martinez','Ingeniería','michael.curipallo@epn.edu.ec',1); -- Tec Doc TC
+INSERT INTO tblDocente VALUES(1,'Luis','Efren','Diaz','Villacis','MSc','luis.diaz@epn.edu.ec',1); -- Tit TP
+INSERT INTO tblDocente VALUES(1,'Carlos','Roberto','Egas','Acosta','MSc','carlos.egas@epn.edu.ec',1);--Tit TC
+INSERT INTO tblDocente VALUES(1,'Jose','Antonio','Estrada','Jimenez','PhD','jose.estrada@epn.edu.ec',1);	--TTC
+INSERT INTO tblDocente VALUES(1,'Luis','Antonio','Flores','Asimbaya','MSc','luis.flores04@epn.edu.ec',1); --OTP
 INSERT INTO tblDocente VALUES(1,'William','Fernando','Flores','Cifuentes','MSc','fernando.flores@epn.edu.ec',1);  	 --TTC		
-INSERT INTO tblDocente VALUES(1,'Fabio','Matias','Gonzalez','Gonzalez','MSc','mmmmm',1);--TTC
-INSERT INTO tblDocente VALUES(1,'Felipe','Leonel','Grijalva','Arevalo','PhD','mmmmm',1); -- Invitado Tiempo Parcial
-INSERT INTO tblDocente VALUES(1,'Danny','Santiago','Guaman','Loachamin','PhD','mmmmm',1); --TTC
-INSERT INTO tblDocente VALUES(1,'Melany','Paola','Herrera','Herrera','Ingeniería','mmmmm',1); --Tec DocTC
-INSERT INTO tblDocente VALUES(1,'Carlos','Alfonso','Herrera','Muñoz','MSc','mmmmm',1);--TTC
-INSERT INTO tblDocente VALUES(1,'Pablo','Wilian','Hidalgo','Lascano','MSc','mmmmm',1); --TTC
-INSERT INTO tblDocente VALUES(1,'Marco','Fernando','Lara','Mina','MSc','mmmmm',1); --OTP
-INSERT INTO tblDocente VALUES(1,'Ricardo','Xavier','Llugsi','Cañar','MSc','mmmmm',1); -- TTC
-INSERT INTO tblDocente VALUES(1,'Gabriel','Roberto','Lopez','Fonseca','MSc','mmmmm',1); -- Invitado Tiempo Parcial
-INSERT INTO tblDocente VALUES(1,'Pablo','Anibal','Lupera','Morillo','PhD','mmmmm',1); ----TTC
-INSERT INTO tblDocente VALUES(1,'Raul','David','Mejia','Navarrete','MSc','mmmmm',1); -- --TTC
-INSERT INTO tblDocente VALUES(1,'Ricardo','Ivan','Mena','Villacis',',MSc','mmmmm',1); --OTC
-INSERT INTO tblDocente VALUES(1,'Ramiro','Eduardo','Morejon','Tobar','MSc','mmmmm',1); --TTC
-INSERT INTO tblDocente VALUES(1,'Diana','Veronica','Navarro','Mendez','PhD','mmmmm',1);--TTC
-INSERT INTO tblDocente VALUES(1,'Martha','Cecilia','Paredes','Paredes','PhD','mmmmm',1);--TTC
-INSERT INTO tblDocente VALUES(1,'Viviana','Cristina','Parraga','Villamar','MSc','mmmmm',1);--OTP
-INSERT INTO tblDocente VALUES(1,'Maria','Cristina','Ramos','Lopez','MSc','mmmmm',1) -- DESACTIVAR
-INSERT INTO tblDocente VALUES(1,'Diego','Javier','Reinoso','Chisaguano','PhD','mmmmm',1);--TTC
-INSERT INTO tblDocente VALUES(1,'Aldrin','Paul','Reyes','Narvaez','MSc','mmmmm',1);--TCTC
-INSERT INTO tblDocente VALUES(1,'Ana','Fernanda','Rodriguez','Hoyos','PhD','mmmmm',1); --TTC
-INSERT INTO tblDocente VALUES(1,'Tarquino','Fabian','Sanchez','Almeida','PhD','mmmmm',1); --TTC
-INSERT INTO tblDocente VALUES(1,'Franklin','Leonel','Sanchez','Catota','MSc','mmmmm',1); --TTC
-INSERT INTO tblDocente VALUES(1,'Marco','Fabian','Serrano','Gomez','Ingeniería','mmmmm',1); --TDTC
-INSERT INTO tblDocente VALUES(1,'Soraya','Lucia','Sinche','Maita','PhD','mmmmm',1); --TTC
-INSERT INTO tblDocente VALUES(1,'Edison','Ramiro','Tatayo','Vinueza','MSc','mmmmm',1); --TDTC
-INSERT INTO tblDocente VALUES(1,'Christian','Jose','Tipantuña','Tenelema','MSc','mmmmm',1); ----TTC
-INSERT INTO tblDocente VALUES(1,'Luis','Felipe','Urquiza','Aguiar','PhD','mmmmm',1); --TTC
-INSERT INTO tblDocente VALUES(1,'Jose','David','Vega','Sanchez','PhD','mmmmm',1); --OTC
-INSERT INTO tblDocente VALUES(1,'Monica','De Lourdes','Vinueza','Rhor','MSc','parzivalgunter.18@gmail.com',1); --TTC
-INSERT INTO tblDocente VALUES(1,'Francisco','Javier','Vizuete','Bassante','Ingeniería','jorge.perez01epn@gmail.com',1);--DESACTIVO --TTC
-INSERT INTO tblDocente VALUES(1,'Jose','Adrian','Zambrano','Miranda','MSc','jorge.perez01@epn.edu.ec',1); --DESACTIVO --TTC
-INSERT INTO tblDocente VALUES(1,'Rommel','David','Salgado','Camacas','Ingeniero','yonkoucreed@gmail.com',1); --TDTC
--- CREATE SEMESTRE PREV
+INSERT INTO tblDocente VALUES(1,'Fabio','Matias','Gonzalez','Gonzalez','MSc','fabio.gonzalez@epn.edu.ec',1);--TTC
+INSERT INTO tblDocente VALUES(1,'Felipe','Leonel','Grijalva','Arevalo','PhD','felipe.grijalva@epn.edu.ec',1); -- Invitado Tiempo Parcial
+INSERT INTO tblDocente VALUES(1,'Danny','Santiago','Guaman','Loachamin','PhD','danny.guaman@epn.edu.ec',1); --TTC
+INSERT INTO tblDocente VALUES(1,'Melany','Paola','Herrera','Herrera','Ingeniería','melany.herrera@epn.edu.ec',1); --Tec DocTC
+INSERT INTO tblDocente VALUES(1,'Carlos','Alfonso','Herrera','Muñoz','MSc','carlos.herrera@epn.edu.ec',1);--TTC
+INSERT INTO tblDocente VALUES(1,'Pablo','Wilian','Hidalgo','Lascano','MSc','pablo.hidalgo@epn.edu.ec',1); --TTC
+INSERT INTO tblDocente VALUES(1,'Marco','Fernando','Lara','Mina','MSc','marco.lara@epn.edu.ec',1); --OTP
+INSERT INTO tblDocente VALUES(1,'Ricardo','Xavier','Llugsi','Cañar','MSc','ricardo.llugsi@epn.edu.ec',1); -- TTC
+INSERT INTO tblDocente VALUES(1,'Gabriel','Roberto','Lopez','Fonseca','MSc','gabriel.lopez@epn.edu.ec',1); -- Invitado Tiempo Parcial
+INSERT INTO tblDocente VALUES(1,'Pablo','Anibal','Lupera','Morillo','PhD','pablo.lupera@epn.edu.ec',1); ----TTC
+INSERT INTO tblDocente VALUES(1,'Raul','David','Mejia','Navarrete','MSc','david.mejia@epn.edu.ec',1); -- --TTC
+INSERT INTO tblDocente VALUES(1,'Ricardo','Ivan','Mena','Villacis',',MSc','ricardo.menav@epn.edu.ec',1); --OTC
+INSERT INTO tblDocente VALUES(1,'Ramiro','Eduardo','Morejon','Tobar','MSc','ramiro.morejon@epn.edu.ec',1); --TTC
+INSERT INTO tblDocente VALUES(1,'Diana','Veronica','Navarro','Mendez','PhD','veronica.navarro@epn.edu.ec',1);--TTC
+INSERT INTO tblDocente VALUES(1,'Martha','Cecilia','Paredes','Paredes','PhD','cecilia.paredes@epn.edu.ec',1);--TTC
+INSERT INTO tblDocente VALUES(1,'Viviana','Cristina','Parraga','Villamar','MSc','viviana.parragav@epn.edu.ec',1);--OTP
+INSERT INTO tblDocente VALUES(1,'Maria','Cristina','Ramos','Lopez','MSc','maria.ramos@epn.edu.ec',1) -- DESACTIVAR
+INSERT INTO tblDocente VALUES(1,'Diego','Javier','Reinoso','Chisaguano','PhD','diego.reinoso@epn.edu.ec',1);--TTC
+INSERT INTO tblDocente VALUES(1,'Aldrin','Paul','Reyes','Narvaez','MSc','aldrin.reyesn@epn.edu.ec',1);--TCTC
+INSERT INTO tblDocente VALUES(1,'Ana','Fernanda','Rodriguez','Hoyos','PhD','ana.rodriguez@epn.edu.ec',1); --TTC
+INSERT INTO tblDocente VALUES(1,'Tarquino','Fabian','Sanchez','Almeida','PhD','tarquino.sanchez@epn.edu.ec',1); --TTC
+INSERT INTO tblDocente VALUES(1,'Franklin','Leonel','Sanchez','Catota','MSc','franklin.sanchez@epn.edu.ec',1); --TTC
+INSERT INTO tblDocente VALUES(1,'Marco','Fabian','Serrano','Gomez','Ingeniería','SIN CORREO',1); --TDTC
+INSERT INTO tblDocente VALUES(1,'Soraya','Lucia','Sinche','Maita','PhD','soraya.sinche@epn.edu.ec',1); --TTC
+INSERT INTO tblDocente VALUES(1,'Edison','Ramiro','Tatayo','Vinueza','MSc','edison.tatayo@epn.edu.ec',1); --TDTC
+INSERT INTO tblDocente VALUES(1,'Christian','Jose','Tipantuña','Tenelema','MSc','christian.tipantuna@epn.edu.ec',1); ----TTC
+INSERT INTO tblDocente VALUES(1,'Luis','Felipe','Urquiza','Aguiar','PhD','luis.urquiza@epn.edu.ec',1); --TTC
+INSERT INTO tblDocente VALUES(1,'Jose','David','Vega','Sanchez','PhD','jose.vega01@epn.edu.ec',1); --OTC
+--
+INSERT INTO tblDocente VALUES(1,'Monica','De Lourdes','Vinueza','Rhor','MSc','monica.vinueza@epn.edu.ec',1); --TTC
+INSERT INTO tblDocente VALUES(1,'Francisco','Javier','Vizuete','Bassante','Ingeniería','francisco.vizuete@epn.edu.ec',1);--DESACTIVO --TTC
+INSERT INTO tblDocente VALUES(1,'Jose','Adrian','Zambrano','Miranda','MSc','ana.zambrano@epn.edu.ec',1); --DESACTIVO --TTC
+INSERT INTO tblDocente VALUES(1,'Rommel','David','Salgado','Camacas','Ingeniero','SIN CORREO',1); --TDTC
+-- TEST VALUES EMAIL
+--INSERT INTO tblDocente VALUES(1,'Monica','De Lourdes','Vinueza','Rhor','MSc','parzivalgunter.18@gmail.com',1); --TTC
+--INSERT INTO tblDocente VALUES(1,'Francisco','Javier','Vizuete','Bassante','Ingeniería','jorge.perez01epn@gmail.com',1);--DESACTIVO --TTC   TEST CORREOS SEND
+--INSERT INTO tblDocente VALUES(1,'Jose','Adrian','Zambrano','Miranda','MSc','jorge.perez01@epn.edu.ec',1); --DESACTIVO --TTC
+--INSERT INTO tblDocente VALUES(1,'Rommel','David','Salgado','Camacas','Ingeniero','yonkoucreed@gmail.com',1); --TDTC
+
 GO
 -- Table: Actividad
 -- DATA INSERT

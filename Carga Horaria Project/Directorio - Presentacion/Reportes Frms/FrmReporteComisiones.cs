@@ -67,6 +67,11 @@ namespace Directorio___Presentacion.Reportes_Frms
                 // Cargar el contenido de la tabla
                 panelDataShow.Visible = true;
                 dtData = objCargaH.MostrarReporteActividadesComisiones_ByIdSemestre_Negocio(idSemestre);
+                if (dtData.Rows.Count > 0)
+                {
+                    btnExportPdf.Visible = true;
+                }
+                else { btnExportPdf.Visible = false; }
                 dtDataPDF = dtData;
                 //lblNumSiDocente.Text = dtData.Rows.Count.ToString();
                 //lblNumNoDocente.Text = dataNoAsignado.Rows.Count.ToString();

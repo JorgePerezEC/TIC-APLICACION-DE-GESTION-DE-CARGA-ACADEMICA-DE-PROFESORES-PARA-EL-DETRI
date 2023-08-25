@@ -22,6 +22,7 @@ namespace Directorio___Presentacion.CRUD_Interfaces
         private string? NombreGR = null;
         private bool Editar = false;
         private DataTable dtData;
+        private bool openPanelCreate = false;
         CN_GrAsignatura objetoCNegocio = new CN_GrAsignatura();
         public FrmCRUD_GrupoAsignatura()
         {
@@ -60,7 +61,11 @@ namespace Directorio___Presentacion.CRUD_Interfaces
 
         private void btnNew_Click(object sender, EventArgs e)
         {
-            panelCreate.Visible = true;
+            Editar = false;
+            btnGuardar.Text = "Guardar";
+            openPanelCreate = !openPanelCreate;
+            panelCreate.Visible = openPanelCreate;
+            ClearTxtBox();
         }
 
         private void btnActualizar_Click(object sender, EventArgs e)
@@ -151,13 +156,14 @@ namespace Directorio___Presentacion.CRUD_Interfaces
                 }
             }
             panelCreate.Visible = false;
+            openPanelCreate = false;
         }
 
         private void ClearTxtBox()
         {
-            panelCreate.Visible = false;
             cmbAsignaturas.SelectedIndex= -1;
             cmbGR.SelectedIndex= -1;
+            cmbGR.Text = string.Empty;
         }
 
         #endregion

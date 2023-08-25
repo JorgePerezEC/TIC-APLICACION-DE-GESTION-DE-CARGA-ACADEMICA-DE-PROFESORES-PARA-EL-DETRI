@@ -265,6 +265,7 @@
             // 
             // pictBoxAval
             // 
+            this.pictBoxAval.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictBoxAval.Location = new System.Drawing.Point(1217, 41);
             this.pictBoxAval.Name = "pictBoxAval";
             this.pictBoxAval.Size = new System.Drawing.Size(77, 62);

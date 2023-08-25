@@ -36,6 +36,7 @@
             this.dgLstRegistros = new System.Windows.Forms.DataGridView();
             this.label9 = new System.Windows.Forms.Label();
             this.panelCreate = new System.Windows.Forms.Panel();
+            this.btnCancelar = new System.Windows.Forms.Button();
             this.cmbCarrera = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
             this.txtNivel = new System.Windows.Forms.TextBox();
@@ -145,7 +146,7 @@
             this.dgLstRegistros.RowHeadersWidth = 51;
             this.dgLstRegistros.RowTemplate.Height = 29;
             this.dgLstRegistros.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgLstRegistros.Size = new System.Drawing.Size(1273, 410);
+            this.dgLstRegistros.Size = new System.Drawing.Size(1291, 410);
             this.dgLstRegistros.TabIndex = 6;
             this.dgLstRegistros.TabStop = false;
             // 
@@ -163,6 +164,7 @@
             // panelCreate
             // 
             this.panelCreate.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.panelCreate.Controls.Add(this.btnCancelar);
             this.panelCreate.Controls.Add(this.cmbCarrera);
             this.panelCreate.Controls.Add(this.label10);
             this.panelCreate.Controls.Add(this.txtNivel);
@@ -185,6 +187,24 @@
             this.panelCreate.Size = new System.Drawing.Size(1398, 220);
             this.panelCreate.TabIndex = 9;
             this.panelCreate.Visible = false;
+            // 
+            // btnCancelar
+            // 
+            this.btnCancelar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCancelar.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.btnCancelar.FlatAppearance.BorderSize = 0;
+            this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancelar.Font = new System.Drawing.Font("Roboto Black", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnCancelar.Location = new System.Drawing.Point(1268, 105);
+            this.btnCancelar.MaximumSize = new System.Drawing.Size(125, 41);
+            this.btnCancelar.Name = "btnCancelar";
+            this.btnCancelar.Size = new System.Drawing.Size(118, 36);
+            this.btnCancelar.TabIndex = 27;
+            this.btnCancelar.Text = "Cancelar";
+            this.btnCancelar.UseVisualStyleBackColor = false;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // cmbCarrera
             // 
@@ -495,5 +515,6 @@
         private Label label10;
         private Label label14;
         private TextBox txtFiltro;
+        private Button btnCancelar;
     }
 }

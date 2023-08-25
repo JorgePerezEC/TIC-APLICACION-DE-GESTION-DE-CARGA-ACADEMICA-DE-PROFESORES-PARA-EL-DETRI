@@ -66,6 +66,11 @@ namespace Directorio___Presentacion.Reportes_Frms
                 panelDataShow.Visible = true;
                 dtData = objAsignatura.MostrarRegistrosAsignaturaWithDocenteByIdSemestre_Negocio(idSemestre);
                 dtDataPDF = dtData;
+                if (dtData.Rows.Count > 0)
+                {
+                    btnExportPdf.Visible = true;
+                }
+                else { btnExportPdf.Visible = false; }
                 lblNumSiDocente.Text = dtData.Rows.Count.ToString();
                 DataTable dataNoAsignado = objAsignatura2.MostrarRegistrosAsignaturaWithOutDocenteByIdSemestre_Negocio(idSemestre);
                 lblNumNoDocente.Text = dataNoAsignado.Rows.Count.ToString();

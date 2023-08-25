@@ -36,6 +36,7 @@
             this.dgLstRegistros = new System.Windows.Forms.DataGridView();
             this.label9 = new System.Windows.Forms.Label();
             this.panelCreate = new System.Windows.Forms.Panel();
+            this.pictBoxCargar = new System.Windows.Forms.PictureBox();
             this.label10 = new System.Windows.Forms.Label();
             this.txtPresupuesto = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
@@ -60,6 +61,7 @@
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgLstRegistros)).BeginInit();
             this.panelCreate.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictBoxCargar)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -166,6 +168,7 @@
             // panelCreate
             // 
             this.panelCreate.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.panelCreate.Controls.Add(this.pictBoxCargar);
             this.panelCreate.Controls.Add(this.label10);
             this.panelCreate.Controls.Add(this.txtPresupuesto);
             this.panelCreate.Controls.Add(this.label8);
@@ -189,6 +192,16 @@
             this.panelCreate.Size = new System.Drawing.Size(1604, 324);
             this.panelCreate.TabIndex = 12;
             this.panelCreate.Visible = false;
+            // 
+            // pictBoxCargar
+            // 
+            this.pictBoxCargar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pictBoxCargar.Location = new System.Drawing.Point(1220, 217);
+            this.pictBoxCargar.Name = "pictBoxCargar";
+            this.pictBoxCargar.Size = new System.Drawing.Size(77, 62);
+            this.pictBoxCargar.TabIndex = 44;
+            this.pictBoxCargar.TabStop = false;
+            this.pictBoxCargar.Click += new System.EventHandler(this.pictBoxCargar_Click);
             // 
             // label10
             // 
@@ -314,10 +327,11 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancelar.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.btnCancelar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCancelar.FlatAppearance.BorderSize = 0;
             this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelar.Font = new System.Drawing.Font("Roboto Black", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnCancelar.Location = new System.Drawing.Point(1257, 139);
+            this.btnCancelar.Location = new System.Drawing.Point(1220, 112);
             this.btnCancelar.MaximumSize = new System.Drawing.Size(125, 41);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(125, 41);
@@ -332,10 +346,11 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnGuardar.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.btnGuardar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnGuardar.FlatAppearance.BorderSize = 0;
             this.btnGuardar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGuardar.Font = new System.Drawing.Font("Roboto Black", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnGuardar.Location = new System.Drawing.Point(1257, 58);
+            this.btnGuardar.Location = new System.Drawing.Point(1220, 31);
             this.btnGuardar.MaximumSize = new System.Drawing.Size(125, 41);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(125, 41);
@@ -449,6 +464,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgLstRegistros)).EndInit();
             this.panelCreate.ResumeLayout(false);
             this.panelCreate.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictBoxCargar)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
@@ -486,5 +502,6 @@
         private Label label8;
         private Label label10;
         private TextBox txtPresupuesto;
+        private PictureBox pictBoxCargar;
     }
 }

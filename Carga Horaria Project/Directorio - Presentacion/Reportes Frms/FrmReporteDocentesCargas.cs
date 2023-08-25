@@ -84,13 +84,18 @@ namespace Directorio___Presentacion.Reportes_Frms
             if (cmbSemestre.SelectedIndex > -1 && count > 2)
             {
                 panelFilters.Visible = true;
-                btnExportAll.Visible = true;
+                
                 lblSearch.Visible = true;
                 txtFiltro.Visible = true;
                 CN_CargaHoraria objCarga_N = new CN_CargaHoraria();
                 cmbValueSemestre = Convert.ToInt32(cmbSemestre.SelectedValue);
                 dgvReporteCargasDocentes.DataSource = null;
                 dtReporteData = objCarga_N.MostrarReporteDocentes_ByIdSemestre_Negocio(cmbValueSemestre.ToString());
+                if (dtReporteData.Rows.Count > 0)
+                {
+                    btnExportAll.Visible = true;
+                }
+                else { btnExportAll.Visible = false; }
                 dtDataPDF = dtReporteData.Copy();
                 //dgvReporteCargasDocentes.DataSource = objCarga_N.MostrarReporteDocentes_ByIdSemestre_Negocio(cmbValueSemestre.ToString());
                 dgvReporteCargasDocentes.DataSource = dtReporteData;
@@ -234,12 +239,12 @@ namespace Directorio___Presentacion.Reportes_Frms
                     }
                 }
             }
-            DialogResult result = MessageBox.Show("¿Desea enviar por correo electrónico los documentos generados a cada docente?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            DialogResult result = MessageBox.Show("Cargas Académicas exportadas exitosamente. ¿Desea enviar por correo electrónico los documentos generados a cada docente?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (result == DialogResult.Yes)
             {
                 FrmSendMail frmMail = new FrmSendMail(correosAdjuntosList);
-                frmMail.ShowDialog();
+                frmMail.Show();
             }
 
         }

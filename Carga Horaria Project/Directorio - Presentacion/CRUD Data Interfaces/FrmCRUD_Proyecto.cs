@@ -38,6 +38,7 @@ namespace Directorio___Presentacion.CRUD_Data_Interfaces
         {
             InitializeComponent();
             clsStyles.tableStyle(dgLstRegistros);
+            pictBoxCargar.Image = new Bitmap(Properties.Resources.drive, new Size(40, 40));
         }
 
         private void FrmCRUD_Proyecto_Load(object sender, EventArgs e)
@@ -67,7 +68,7 @@ namespace Directorio___Presentacion.CRUD_Data_Interfaces
             //Image as button
             DataGridViewImageColumn btnViewPdf = new DataGridViewImageColumn();
             btnViewPdf.HeaderText = "AVAL FILE";
-            btnViewPdf.Tag = true;
+            btnViewPdf.Tag = false;
             btnViewPdf.Image = new Bitmap(Properties.Resources.archivo_pdf, new Size(40, 40));
             btnViewPdf.ToolTipText = "Visualizar AVAL";
             dgLstRegistros.Columns.Add(btnViewPdf);
@@ -153,7 +154,7 @@ namespace Directorio___Presentacion.CRUD_Data_Interfaces
                     MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            openPanelCreate = false;
+            txtFiltro.Text = string.Empty;
             panelCreate.Visible = openPanelCreate;
         }
         private void btnEliminar_Click(object sender, EventArgs e)
@@ -193,6 +194,7 @@ namespace Directorio___Presentacion.CRUD_Data_Interfaces
 
         private void btnNew_Click(object sender, EventArgs e)
         {
+            Editar = false;
             btnGuardar.Text = "Guardar";
             openPanelCreate = !openPanelCreate;
             panelCreate.Visible = openPanelCreate;
@@ -299,6 +301,15 @@ namespace Directorio___Presentacion.CRUD_Data_Interfaces
                     UseShellExecute = true
                 });
             }
+        }
+
+        private void pictBoxCargar_Click(object sender, EventArgs e)
+        {
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = "https://drive.google.com/drive/folders/1-zAxEBb2KG1m8EG_TMVNKbAW1ykvaMnk?usp=sharing",
+                UseShellExecute = true
+            });
         }
     }
 }

@@ -94,7 +94,7 @@ namespace Directorio___Presentacion
             }
             if (ckboxTotal.Checked)
             {
-                horasTotales = Convert.ToInt32(txtHorasSemanales.Text);
+                horasTotales = Convert.ToInt32(txtHorasTotales.Text);
                 horasSemanales = 0;
             }
 
@@ -141,6 +141,7 @@ namespace Directorio___Presentacion
 
         private void btnNew_Click(object sender, EventArgs e)
         {
+            Editar = false;
             panelCreate.Visible = true;
             ckboxSemanal.Checked = true;
             btnGuardar.Text = "Guardar";

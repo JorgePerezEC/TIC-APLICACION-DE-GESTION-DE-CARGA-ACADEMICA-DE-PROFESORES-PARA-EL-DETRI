@@ -21,6 +21,7 @@ namespace Directorio___Presentacion.CRUD_Data_Interfaces
         private string? nameDepartamento = null;
         private string? emailDepartamento = null;
         private bool Editar = false;
+        private bool openPanelCreate = false;
         public FrmCRUD_Departamento()
         {
             InitializeComponent();
@@ -40,6 +41,8 @@ namespace Directorio___Presentacion.CRUD_Data_Interfaces
             CN_Departamento objetoCNegocio = new CN_Departamento();
             dgLstRegistros.DataSource = objetoCNegocio.MostrarDepartamentos();
             dgLstRegistros.Columns[0].Visible = false;
+            dgLstRegistros.Columns[1].HeaderText = "DEPARTAMENTO";
+            dgLstRegistros.Columns[2].HeaderText = "CORREO ELECTRÓNICO";
         }
 
 
@@ -103,20 +106,16 @@ namespace Directorio___Presentacion.CRUD_Data_Interfaces
                     MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+            openPanelCreate = false;
         }
 
         private void btnNew_Click(object sender, EventArgs e)
         {
             Editar = false;
-            if (panelCreate.Visible) {
-                panelCreate.Visible = false;
-                ClearTxtBox();
-            }
-            else
-            {
-                panelCreate.Visible = true;
-            }
-            
+            btnGuardar.Text = "Guardar";
+            openPanelCreate = !openPanelCreate;
+            panelCreate.Visible = openPanelCreate;
+            ClearTxtBox();
         }
 
         private void btnActualizar_Click(object sender, EventArgs e)
@@ -175,7 +174,6 @@ namespace Directorio___Presentacion.CRUD_Data_Interfaces
         {
             txtNameDepa.Text = string.Empty;
             txtEmailDepa.Text = string.Empty;
-            panelCreate.Visible = false;
         }
         private bool VerificacionCampos()
         {

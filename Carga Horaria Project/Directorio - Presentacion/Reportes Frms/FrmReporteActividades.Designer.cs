@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panelDataShow = new System.Windows.Forms.Panel();
+            this.btnExportPdf = new System.Windows.Forms.Button();
             this.panelLecturaDiv = new System.Windows.Forms.Panel();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.label5 = new System.Windows.Forms.Label();
@@ -54,7 +55,6 @@
             this.cmbSemestre = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnExportPdf = new System.Windows.Forms.Button();
             this.panelDataShow.SuspendLayout();
             this.panelLecturaDiv.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -79,6 +79,19 @@
             this.panelDataShow.Name = "panelDataShow";
             this.panelDataShow.Size = new System.Drawing.Size(1633, 719);
             this.panelDataShow.TabIndex = 6;
+            // 
+            // btnExportPdf
+            // 
+            this.btnExportPdf.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.btnExportPdf.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnExportPdf.Location = new System.Drawing.Point(1374, 86);
+            this.btnExportPdf.Name = "btnExportPdf";
+            this.btnExportPdf.Size = new System.Drawing.Size(140, 70);
+            this.btnExportPdf.TabIndex = 18;
+            this.btnExportPdf.Text = "EXPORTAR  EN PDF";
+            this.btnExportPdf.UseVisualStyleBackColor = false;
+            this.btnExportPdf.Visible = false;
+            this.btnExportPdf.Click += new System.EventHandler(this.btnExportPdf_Click);
             // 
             // panelLecturaDiv
             // 
@@ -408,18 +421,6 @@
             this.label1.Size = new System.Drawing.Size(928, 38);
             this.label1.TabIndex = 0;
             this.label1.Text = "REPORTE DE ACTIVIDADES ASIGNADAS EN CARGAS ACADÉMICAS";
-            // 
-            // btnExportPdf
-            // 
-            this.btnExportPdf.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
-            this.btnExportPdf.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnExportPdf.Location = new System.Drawing.Point(1374, 86);
-            this.btnExportPdf.Name = "btnExportPdf";
-            this.btnExportPdf.Size = new System.Drawing.Size(140, 70);
-            this.btnExportPdf.TabIndex = 18;
-            this.btnExportPdf.Text = "EXPORTAR  EN PDF";
-            this.btnExportPdf.UseVisualStyleBackColor = false;
-            this.btnExportPdf.Click += new System.EventHandler(this.btnExportPdf_Click);
             // 
             // FrmReporteActividades
             // 

@@ -72,6 +72,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
         private static string correoSender;
         private static string pswSender;
         private string generatedFilePath = "";
+        private DataTable dtDepartamentos;
 
 
 
@@ -105,17 +106,16 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
         }
 
         #region TreeView Fill Nodes
-
         private void FillTreeView(int idSemestre)
         {
-            // Obtener los datos de los departamentos
-            CN_Departamento objetoNDepartamento = new CN_Departamento();
-            DataTable dtDepartamentos = objetoNDepartamento.MostrarDepartamentosTV();
-
             // Crear el nodo padre del treeview
             TreeNode parentNode = new TreeNode("Departamentos");
             parentNode.Tag = "0";
             parentNode.Nodes.Clear();
+
+            // Obtener los datos de los departamentos
+            CN_Departamento objetoNDepartamento = new CN_Departamento();
+            dtDepartamentos = objetoNDepartamento.MostrarDepartamentosTV();
 
             // Recorrer la tabla y crear los nodos hijos
             foreach (DataRow row in dtDepartamentos.Rows)
@@ -140,11 +140,52 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
                     // Agregar el nodo nieto al nodo hijo
                     childNode.Nodes.Add(grandChildNode);
                 }
-            // Agregar el nodo padre al treeview
-            tvDocentesLst.Nodes.Add(parentNode);
             }
 
+            // Agregar el nodo padre al treeview una vez que se han agregado todos los nodos hijos
+            tvDocentesLst.Nodes.Add(parentNode);
         }
+
+
+        //private void FillTreeView(int idSemestre)
+        //{
+        //    // Obtener los datos de los departamentos
+        //    CN_Departamento objetoNDepartamento = new CN_Departamento();
+        //    DataTable dtDepartamentos = objetoNDepartamento.MostrarDepartamentosTV();
+
+        //    // Crear el nodo padre del treeview
+        //    TreeNode parentNode = new TreeNode("Departamentos");
+        //    parentNode.Tag = "0";
+        //    parentNode.Nodes.Clear();
+
+        //    // Recorrer la tabla y crear los nodos hijos
+        //    foreach (DataRow row in dtDepartamentos.Rows)
+        //    {
+        //        // Crear el nodo hijo
+        //        TreeNode childNode = new TreeNode(row["Departamento"].ToString());
+        //        childNode.Tag = row["ID"].ToString();
+
+        //        // Agregar el nodo hijo al nodo padre
+        //        parentNode.Nodes.Add(childNode);
+
+        //        // Obtener los datos de los docentes y crear los nodos nietos
+        //        CN_Docente objetoNDocente = new CN_Docente();
+        //        DataTable dtDocentes = objetoNDocente.MostrarDocentesByDepId(Convert.ToString(row["ID"]), idSemestre.ToString());
+        //        childNode.Nodes.Clear();
+
+        //        foreach (DataRow childRow in dtDocentes.Rows)
+        //        {
+        //            TreeNode grandChildNode = new TreeNode(childRow["Docente"].ToString());
+        //            grandChildNode.Tag = childRow["ID"].ToString();
+
+        //            // Agregar el nodo nieto al nodo hijo
+        //            childNode.Nodes.Add(grandChildNode);
+        //        }
+        //    // Agregar el nodo padre al treeview
+        //    tvDocentesLst.Nodes.Add(parentNode);
+        //    }
+
+        //}
 
         #endregion
 
@@ -162,68 +203,73 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces
 
         private void tvDocentesLst_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            CN_CargaHoraria objetoCarga_N = new CN_CargaHoraria();
-            CN_CargaHoraria objetoCarga_N_2 = new CN_CargaHoraria();
-
-            if (e.Node == ultimoNodoSeleccionado)
+            
+            if (e.Node.Parent != null && e.Node.Parent.Parent != null && e.Node.Parent.Parent.Text == "Departamentos")
             {
-                return;
-            }
+                
+                CN_CargaHoraria objetoCarga_N = new CN_CargaHoraria();
+                CN_CargaHoraria objetoCarga_N_2 = new CN_CargaHoraria();
 
-            dgvActividades.DataSource = null;
-            dgvAsignaturas.DataSource = null;
-
-            dgvAsignaturas.Refresh();
-            dgvActividades.Refresh();
-
-            int id;
-            cmbValueSemestre = Convert.ToInt32(cmbSemestre.SelectedValue);
-
-            if (int.TryParse(e.Node.Tag.ToString(), out id))
-            {
-                if (e.Node.Text == "Departamentos" || e.Node.Text == "DETRI") return;
-                else
+                if (e.Node == ultimoNodoSeleccionado)
                 {
-                    btnSendCorreo.Visible = false;
-                    panelDocenteInfo.Visible = true;
-                    panelMain.Visible = true;
-                    panelTotales.Visible = true;
-
-                    lblDocenteName.Text = string.Empty;
-                    lblTipoDocente.Text = string.Empty;
-                    lblSemestre.Text = string.Empty;
-                    lblHorasExigibles.Text = string.Empty;
-
-
-                    idCH = objetoCarga_N.GetIDCargaHorariaNegocio(cmbValueSemestre.ToString(), id.ToString());
-                    docenteName = objetoCarga_N.GetDocenteNameByCrgHoraria_Negocio(idCH.ToString());
-                    docenteMail = objetoCarga_N.GetDocenteMailByCrgHoraria_Negocio(idCH.ToString());
-                    docenteTipo = objetoCarga_N.GetDocenteNameTypeByCrgHoraria_Negocio(idCH.ToString(), cmbValueSemestre.ToString());
-                    horasExigibles = objetoCarga_N.CheckHorasExigiblesDocenteByIdCarga_Negocio(idCH.ToString());
-                    dgvAsignaturas.Refresh();
-                    dgvActividades.Refresh();
-
-                    dgvActividades.DataSource = null; // Eliminar el origen de datos actual
-                    dgvActividades.DataSource = objetoCarga_N.LoadAllActividades_Negocio(idCH.ToString());
-                    dgvActividades.Columns[0].Visible = false;
-
-                    dgvAsignaturas.DataSource = null; // Eliminar el origen de datos actual
-                    dgvAsignaturas.DataSource = objetoCarga_N_2.LoadAsignaturas_Negocio(idCH.ToString());
-                    dgvAsignaturas.Columns[0].Visible = false;
-
-                    tableStyle.tableStyle(dgvActividades);
-                    tableStyle.tableStyle(dgvAsignaturas);
-
-                    lblDocenteName.Text = docenteName;
-                    lblTipoDocente.Text = docenteTipo;
-                    lblSemestre.Text = cmbSemestre.Text;
-                    lblHorasExigibles.Text = horasExigibles.ToString();
-
-                    CalcularHoras(idCH);
+                    return;
                 }
-            }
 
-            ultimoNodoSeleccionado = e.Node;
+                dgvActividades.DataSource = null;
+                dgvAsignaturas.DataSource = null;
+
+                dgvAsignaturas.Refresh();
+                dgvActividades.Refresh();
+
+                int id;
+                cmbValueSemestre = Convert.ToInt32(cmbSemestre.SelectedValue);
+
+                if (int.TryParse(e.Node.Tag.ToString(), out id))
+                {
+                    if (e.Node.Text == "Departamentos" || e.Node.Text == "DETRI") return;
+                    else
+                    {
+                        btnSendCorreo.Visible = false;
+                        panelDocenteInfo.Visible = true;
+                        panelMain.Visible = true;
+                        panelTotales.Visible = true;
+
+                        lblDocenteName.Text = string.Empty;
+                        lblTipoDocente.Text = string.Empty;
+                        lblSemestre.Text = string.Empty;
+                        lblHorasExigibles.Text = string.Empty;
+
+                        idCH = objetoCarga_N.GetIDCargaHorariaNegocio(cmbValueSemestre.ToString(), id.ToString());
+
+                        docenteName = objetoCarga_N.GetDocenteNameByCrgHoraria_Negocio(idCH.ToString());
+                        docenteMail = objetoCarga_N.GetDocenteMailByCrgHoraria_Negocio(idCH.ToString());
+                        docenteTipo = objetoCarga_N.GetDocenteNameTypeByCrgHoraria_Negocio(idCH.ToString(), cmbValueSemestre.ToString());
+                        horasExigibles = objetoCarga_N.CheckHorasExigiblesDocenteByIdCarga_Negocio(idCH.ToString());
+                        dgvAsignaturas.Refresh();
+                        dgvActividades.Refresh();
+
+                        dgvActividades.DataSource = null; // Eliminar el origen de datos actual
+                        dgvActividades.DataSource = objetoCarga_N.LoadAllActividades_Negocio(idCH.ToString());
+                        dgvActividades.Columns[0].Visible = false;
+
+                        dgvAsignaturas.DataSource = null; // Eliminar el origen de datos actual
+                        dgvAsignaturas.DataSource = objetoCarga_N_2.LoadAsignaturas_Negocio(idCH.ToString());
+                        dgvAsignaturas.Columns[0].Visible = false;
+
+                        tableStyle.tableStyle(dgvActividades);
+                        tableStyle.tableStyle(dgvAsignaturas);
+
+                        lblDocenteName.Text = docenteName;
+                        lblTipoDocente.Text = docenteTipo;
+                        lblSemestre.Text = cmbSemestre.Text;
+                        lblHorasExigibles.Text = horasExigibles.ToString();
+
+                        CalcularHoras(idCH);
+                    }
+                }
+
+                ultimoNodoSeleccionado = e.Node;
+            }
         }
 
 

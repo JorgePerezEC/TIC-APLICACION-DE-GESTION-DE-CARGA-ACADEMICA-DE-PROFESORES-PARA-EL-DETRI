@@ -21,6 +21,7 @@ namespace Directorio___Presentacion.CRUD_Interfaces
         private string nameCarrera;
         private string estado;
         private DataTable dtData;
+        private bool openPanelCreate = false;
         public FrmCRUD_Asignatura()
         {
             InitializeComponent();
@@ -51,7 +52,10 @@ namespace Directorio___Presentacion.CRUD_Interfaces
         #region Clicks Events
         private void btnNew_Click(object sender, EventArgs e)
         {
-            panelCreate.Visible= true;
+            btnGuardar.Text = "Guardar";
+            openPanelCreate = !openPanelCreate;
+            panelCreate.Visible = openPanelCreate;
+            clearInfoFrm();
         }
 
         private void btnCloseWin_Click(object sender, EventArgs e)
@@ -61,7 +65,16 @@ namespace Directorio___Presentacion.CRUD_Interfaces
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            ValidarCampos();
+            if (cmbCarrera.SelectedIndex == -1)
+            {
+                MessageBox.Show("Debe seleccionar una Carrera para completar el registro.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (txtCodigo.Text == string.Empty || txtTipoAsignatura.Text == string.Empty || txtCodigo.Text == string.Empty || txtHSemanales.Text == string.Empty || txtHTotales.Text == string.Empty || txtNivel.Text == string.Empty)
+            {
+                MessageBox.Show("Debe completar todos los campos de texto para completar el registro.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             if (Editar == false)
             {
                 try
@@ -70,7 +83,7 @@ namespace Directorio___Presentacion.CRUD_Interfaces
                     MessageBox.Show("Asignatura insertadada correctamente", "ASIGANTURA REGISTRADA", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     MostrarAsignaturas();
                     panelCreate.Visible= false;
-                    //ClearTxtBox();
+                    clearInfoFrm();
                 }
                 catch (Exception ex)
                 {
@@ -86,13 +99,14 @@ namespace Directorio___Presentacion.CRUD_Interfaces
                     MessageBox.Show("Asignatura actualizada correctamente", "ASIGNATURA ACTUALIZADA", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     MostrarAsignaturas();
                     Editar = false;
-                    //ClearTxtBox();
+                    clearInfoFrm();
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+            txtFiltro.Text = string.Empty;
             panelCreate.Visible = false;
         }
 
@@ -116,6 +130,7 @@ namespace Directorio___Presentacion.CRUD_Interfaces
             {
                 if (dgLstRegistros.Rows.Count > 0)
                 {
+                    btnGuardar.Text = "Actualizar";
                     panelCreate.Visible = true;
                     Editar = true;
                     cmbCarrera.SelectedValue = dgLstRegistros.CurrentRow.Cells[1].Value.ToString()!;
@@ -149,7 +164,7 @@ namespace Directorio___Presentacion.CRUD_Interfaces
                     objetoCNegocio.DeleteAsignaturaNeg(idAsignatura);
                     MessageBox.Show("Asignatura eliminada correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     MostrarAsignaturas();
-                    //ClearTxtBox();
+                    txtFiltro.Text = string.Empty;
                 }
                 else
                 {
@@ -166,7 +181,11 @@ namespace Directorio___Presentacion.CRUD_Interfaces
 
         private void ntmNew_Click(object sender, EventArgs e)
         {
-            panelCreate.Visible = true;
+            Editar = false;
+            btnGuardar.Text = "Guardar";
+            openPanelCreate = !openPanelCreate;
+            panelCreate.Visible = openPanelCreate;
+            clearInfoFrm();
         }
 
         private void txtHTotales_KeyPress(object sender, KeyPressEventArgs e)
@@ -208,6 +227,23 @@ namespace Directorio___Presentacion.CRUD_Interfaces
         private void label14_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            panelCreate.Visible = false;
+            openPanelCreate = false;
+            clearInfoFrm();
+        }
+        private void clearInfoFrm()
+        {
+            cmbCarrera.SelectedIndex = -1;
+            txtCodigo.Text = string.Empty;
+            txtHSemanales.Text = string.Empty;
+            txtHTotales.Text = string.Empty;
+            txtNivel.Text = string.Empty;
+            txtNombreAsignatura.Text = string.Empty;
+            txtTipoAsignatura.Text = string.Empty;
         }
     }
 }

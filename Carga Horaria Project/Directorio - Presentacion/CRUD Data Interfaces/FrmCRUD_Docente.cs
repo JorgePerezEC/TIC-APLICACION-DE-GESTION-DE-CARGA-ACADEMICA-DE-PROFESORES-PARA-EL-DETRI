@@ -22,6 +22,7 @@ namespace Directorio___Presentacion.CRUD_Interfaces
         private string? idDocente = null;
         private bool Editar = false;
         private DataTable dtData;
+        private bool openPanelCreate = false;
         public FrmCRUD_Docente()
         {
             InitializeComponent();
@@ -53,15 +54,11 @@ namespace Directorio___Presentacion.CRUD_Interfaces
         #region Clicks events
         private void btnNew_Click(object sender, EventArgs e)
         {
-            if (panelCreate.Visible)
-            {
-                panelCreate.Visible = false;
-                ClearTxtBox();
-            }
-            else
-            {
-                panelCreate.Visible = true;
-            }
+            Editar = false;
+            btnGuardar.Text = "Guardar";
+            openPanelCreate = !openPanelCreate;
+            panelCreate.Visible = openPanelCreate;
+            ClearTxtBox();
         }
 
         private void btnCloseWin_Click(object sender, EventArgs e)
@@ -141,6 +138,7 @@ namespace Directorio___Presentacion.CRUD_Interfaces
                 }
             }
             panelCreate.Visible = false;
+            openPanelCreate = false;
         }
 
         private void ClearTxtBox()
@@ -152,7 +150,6 @@ namespace Directorio___Presentacion.CRUD_Interfaces
             txtSNombre.Text = string.Empty;
             txtEmail.Text = string.Empty;
             cmbDepartamentos.SelectedIndex = -1;
-            panelCreate.Visible = false;
         }
 
         private void btnActualizar_Click(object sender, EventArgs e)

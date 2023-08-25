@@ -68,6 +68,11 @@ namespace Directorio___Presentacion.Reportes_Frms
                 //lblNumSiDocente.Text = dtData.Rows.Count.ToString();
                 //lblNumNoDocente.Text = dataNoAsignado.Rows.Count.ToString();
                 dgvReporte.DataSource = dtData;
+                if (dtData.Rows.Count > 0)
+                {
+                    btnExportPdf.Visible = true;
+                }
+                else { btnExportPdf.Visible = false; }
                 dtDataPDF = dtData;
                 panelFilters.Visible = true;
 

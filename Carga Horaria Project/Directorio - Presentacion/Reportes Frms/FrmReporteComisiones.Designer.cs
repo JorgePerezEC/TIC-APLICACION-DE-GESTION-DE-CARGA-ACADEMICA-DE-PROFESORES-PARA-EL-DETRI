@@ -422,6 +422,7 @@
             this.btnExportPdf.TabIndex = 17;
             this.btnExportPdf.Text = "EXPORTAR  EN PDF";
             this.btnExportPdf.UseVisualStyleBackColor = false;
+            this.btnExportPdf.Visible = false;
             this.btnExportPdf.Click += new System.EventHandler(this.btnExportPdf_Click);
             // 
             // label16

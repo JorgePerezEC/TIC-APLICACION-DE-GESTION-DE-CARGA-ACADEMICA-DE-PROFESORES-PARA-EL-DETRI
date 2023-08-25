@@ -21,6 +21,7 @@ namespace Directorio___Presentacion.CRUD_Interfaces
         private bool Editar = false;
         private string nameTpDocente;
         private string estadoTpDocente;
+        private bool openPanelCreate = false;
         public FrmCRUD_TipoDocente()
         {
             InitializeComponent();
@@ -43,8 +44,19 @@ namespace Directorio___Presentacion.CRUD_Interfaces
         #region Clicks Events
         private void btnNew_Click(object sender, EventArgs e)
         {
-            panelNewTpActividad.Visible = true;
+            Editar = false;
+            btnGuardar.Text = "Guardar";
+            openPanelCreate = !openPanelCreate;
+            panelNewTpActividad.Visible = openPanelCreate;
+            clearInfoFrm();
         }
+
+        private void clearInfoFrm()
+        {
+            txtHorasExigibles.Text = string.Empty;
+            txtNameTpDoc.Text = string.Empty;
+        }
+
         private void btnGuardar_Click(object sender, EventArgs e)
         {
             if (txtHorasExigibles.Text == string.Empty || txtNameTpDoc.Text == string.Empty )
@@ -61,7 +73,7 @@ namespace Directorio___Presentacion.CRUD_Interfaces
                     MessageBox.Show("Tipo de docente insertado correctamente", "TIPO DE DOCENTE REGISTRADO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     MostrarTiposDocentes();
                     panelNewTpActividad.Visible = false;
-                    //ClearTxtBox();
+                    clearInfoFrm();
                 }
                 catch (Exception ex)
                 {
@@ -85,6 +97,7 @@ namespace Directorio___Presentacion.CRUD_Interfaces
                 }
             }
             panelNewTpActividad.Visible = false;
+            openPanelCreate = false;
         }
 
         private void btnActualizar_Click(object sender, EventArgs e)

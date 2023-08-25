@@ -40,6 +40,7 @@
             this.txtBody = new System.Windows.Forms.TextBox();
             this.btnSend = new MaterialSkin.Controls.MaterialButton();
             this.btnEditMail = new System.Windows.Forms.Button();
+            this.lblNota = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -51,7 +52,7 @@
             this.btnCancelar.Depth = 0;
             this.btnCancelar.HighEmphasis = true;
             this.btnCancelar.Icon = null;
-            this.btnCancelar.Location = new System.Drawing.Point(336, 466);
+            this.btnCancelar.Location = new System.Drawing.Point(337, 529);
             this.btnCancelar.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnCancelar.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnCancelar.Name = "btnCancelar";
@@ -179,7 +180,7 @@
             this.btnSend.Depth = 0;
             this.btnSend.HighEmphasis = true;
             this.btnSend.Icon = null;
-            this.btnSend.Location = new System.Drawing.Point(116, 466);
+            this.btnSend.Location = new System.Drawing.Point(117, 529);
             this.btnSend.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnSend.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnSend.Name = "btnSend";
@@ -203,12 +204,26 @@
             this.btnEditMail.UseVisualStyleBackColor = false;
             this.btnEditMail.Click += new System.EventHandler(this.btnEditMail_Click);
             // 
+            // lblNota
+            // 
+            this.lblNota.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblNota.ForeColor = System.Drawing.Color.White;
+            this.lblNota.Location = new System.Drawing.Point(122, 444);
+            this.lblNota.Name = "lblNota";
+            this.lblNota.Size = new System.Drawing.Size(565, 49);
+            this.lblNota.TabIndex = 12;
+            this.lblNota.Text = "NOTA: El asunto y cuerpo del mensaje será el mismo para todos los docentes. Los c" +
+    "orreos serán enviados a las direcciones de correo registradas en el sistema.";
+            this.lblNota.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblNota.Visible = false;
+            // 
             // FrmSendMail
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(33)))), ((int)(((byte)(73)))));
-            this.ClientSize = new System.Drawing.Size(863, 565);
+            this.ClientSize = new System.Drawing.Size(863, 605);
+            this.Controls.Add(this.lblNota);
             this.Controls.Add(this.btnEditMail);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.label3);
@@ -244,5 +259,6 @@
         private TextBox txtBody;
         private MaterialSkin.Controls.MaterialButton btnSend;
         private Button btnEditMail;
+        private Label lblNota;
     }
 }

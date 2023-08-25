@@ -255,7 +255,9 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Activate_Data_Frms
 
                     DataTable dtInfo = new DataTable();
                     dtInfo = objTpDocente.GetInfoTipoDocenteByName_Negocio(cmbSemestre.SelectedValue.ToString(), columnName);
+                   
                     bool habilitado = Convert.ToBoolean(dgvDocenteSemestre.Rows[rowIndex].Cells[2].Value);
+
                     if (dtInfo.Rows.Count > 0)
                     {
                         numHoras = Convert.ToInt32(dtInfo.Rows[0][1]);
@@ -265,6 +267,7 @@ namespace Directorio___Presentacion.AcademicLoads_Interfaces.Activate_Data_Frms
                         objSemestre_Neg.CreateOrUpdateSemestreDocente_Negocio(cmbSemestre.SelectedValue.ToString(), dgvDocenteSemestre.Rows[rowIndex].Cells[0].Value.ToString(), idTipoDocente.ToString(), numHoras.ToString(), habilitado.ToString());
 
                     }
+                    dtInfo.Clear();
                 }
             }
         }

@@ -23,6 +23,7 @@ namespace Directorio___Presentacion.CRUD_Interfaces
         private bool Editar = false;
         private int selectedYearCmb;
         private DataTable dtData;
+        private bool openPanelCreate = false;
         //private string? nameDepartamento = null;
         //private string? emailDepartamento = null;
         public FrmCRUD_Semestre()
@@ -65,14 +66,10 @@ namespace Directorio___Presentacion.CRUD_Interfaces
         private void btnNewSemestre_Click_1(object sender, EventArgs e)
         {
             Editar = false;
-            if (panelNewSemestre.Visible)
-            {
-                panelNewSemestre.Visible = false;
-            }
-            else
-            {
-                panelNewSemestre.Visible = true;
-            }
+            btnGuardar.Text = "Guardar";
+            openPanelCreate = !openPanelCreate;
+            panelNewSemestre.Visible = openPanelCreate;
+            ClearTxtBox();
         }
 
         private void btnCloseWin_Click_1(object sender, EventArgs e)
@@ -124,6 +121,7 @@ namespace Directorio___Presentacion.CRUD_Interfaces
                     MostrarSemestres();
                     ClearTxtBox();
                     panelNewSemestre.Visible = false;
+                    openPanelCreate = false;
                 }
                 catch (Exception ex)
                 {
@@ -139,6 +137,7 @@ namespace Directorio___Presentacion.CRUD_Interfaces
                     dtFechaFin.Value.ToString("yyyy-MM-dd"), cboxSemanasClase.Text, cboxSemanasTotales.Text);
                     MessageBox.Show("Semestre actualizado correctamente");
                     panelNewSemestre.Visible = false;
+                    openPanelCreate = false;
                     MostrarSemestres();
                     Editar = false;
                     ClearTxtBox();
