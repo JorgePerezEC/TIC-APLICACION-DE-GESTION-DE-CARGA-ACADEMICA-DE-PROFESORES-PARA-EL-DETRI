@@ -7,16 +7,17 @@
 -- PRESS F5 to Execute entire script
 --------------------------------------------
 USE master
+--dbCargaHorariaTIC_DETRI_2023  dbRespaldo
 GO
-IF EXISTS (SELECT name FROM sys.databases WHERE name = 'dbCargaHorariaJuly26')
+IF EXISTS (SELECT name FROM sys.databases WHERE name = 'dbCargaHorariaTIC_DETRI_2023')
 BEGIN
-    DROP DATABASE dbCargaHorariaJuly26;
+    DROP DATABASE dbCargaHorariaTIC_DETRI_2023;
 END
 GO
 PRINT 'Creating DB';
-CREATE DATABASE dbCargaHorariaJuly26;
+CREATE DATABASE dbCargaHorariaTIC_DETRI_2023;
 GO
-USE dbCargaHorariaJuly26;
+USE dbCargaHorariaTIC_DETRI_2023;
 
 -----------------------------------------
 -- Table Creation Section
@@ -68,6 +69,8 @@ CREATE TABLE tblDocente(
 	apellido1Docente varchar(50) NOT NULL,
 	apellido2Docente varchar(50) NOT NULL,
 	tituloDocente varchar(50) NOT NULL,
+	emailDocente varchar(50) NOT NULL,
+	estadoDocente int,
 	PRIMARY KEY (idDocente),
 	FOREIGN KEY (idDepa) REFERENCES tblDepartamento(idDepartamento) ON UPDATE  NO ACTION  ON DELETE  NO ACTION
 );
@@ -144,17 +147,6 @@ CREATE TABLE tblGrAsignatura(
 	CONSTRAINT uq_tblGrAsignatura UNIQUE(idAsignatura, grupoAsignatura)
 );
 GO
--- Table: HorarioAsig
-CREATE TABLE tblHorarioGrAsig(
-	idHorario int  NOT NULL IDENTITY(1, 1),--PK
-	idGrAsig int NOT NULL,
-	horaInicio time,
-	horaFin time,
-	dia varchar(50),
-	PRIMARY KEY (idHorario),
-	FOREIGN KEY (idGrAsig) REFERENCES tblGrAsignatura(idGrAsig) ON UPDATE  NO ACTION  ON DELETE  NO ACTION
-);
-GO
 -- Table: SemestreGrupoAsignatura intermedia
 CREATE TABLE tblSemestreGrAsignatura (
     idSemestreGrAsignatura int NOT NULL IDENTITY(1, 1) PRIMARY KEY,
@@ -164,6 +156,32 @@ CREATE TABLE tblSemestreGrAsignatura (
     CONSTRAINT FK_SemestreGrAsignatura_Semestre FOREIGN KEY (idSemestre) REFERENCES tblSemestre(idSemestre) ON UPDATE NO ACTION ON DELETE NO ACTION,
     CONSTRAINT FK_SemestreGrAsignatura_GrAsignatura FOREIGN KEY (idGrAsig) REFERENCES tblGrAsignatura(idGrAsig) ON UPDATE NO ACTION ON DELETE NO ACTION
 );
+GO
+-- Table: DiaSemana
+CREATE TABLE tblDiaSemana (
+    idDiaSemana int NOT NULL IDENTITY(1, 1) PRIMARY KEY,
+    dia varchar(50) NOT NULL
+);
+GO
+CREATE TABLE tblHorarioGrAsig(
+    idHorario int NOT NULL IDENTITY(1, 1) PRIMARY KEY,
+    idSemestreGrAsignatura int NOT NULL, -- FK
+    horaInicio time NOT NULL,
+    horaFin time NOT NULL,
+    idDiaSemana int NOT NULL,
+	isActive bit NOT NULL,
+    FOREIGN KEY (idSemestreGrAsignatura) REFERENCES tblSemestreGrAsignatura(idSemestreGrAsignatura) ON UPDATE NO ACTION ON DELETE NO ACTION,
+	FOREIGN KEY (idDiaSemana) REFERENCES tblDiaSemana(idDiaSemana) ON UPDATE NO ACTION ON DELETE NO ACTION
+); 
+--CREATE TABLE tblHorarioGrAsig(  respaldo 10AGO
+--    idHorario int NOT NULL IDENTITY(1, 1) PRIMARY KEY,
+--    idSemestreGrAsignatura int NOT NULL, -- FK
+--    horaInicio time NOT NULL,
+--    horaFin time NOT NULL,
+--    dia varchar(50) NOT NULL,
+--	isActive bit NOT NULL,
+--    FOREIGN KEY (idSemestreGrAsignatura) REFERENCES tblSemestreGrAsignatura(idSemestreGrAsignatura) ON UPDATE NO ACTION ON DELETE NO ACTION
+--);
 GO
 -- Table: SemestreAsignatura intermedia
 CREATE TABLE tblSemestreAsignatura (
@@ -184,16 +202,30 @@ CREATE TABLE tblTipoDocenteSemestre (
     CONSTRAINT FK_TipoDocenteSemestre_TipoDocente FOREIGN KEY (idTipoDocente) REFERENCES tblTipoDocente(idTipoDocente) ON UPDATE NO ACTION ON DELETE NO ACTION,
     CONSTRAINT FK_TipoDocenteSemestre_Semestre FOREIGN KEY (idSemestre) REFERENCES tblSemestre(idSemestre) ON UPDATE NO ACTION ON DELETE NO ACTION
 );
---GO
+GO
+CREATE TABLE tblProyecto (
+    idProyecto int NOT NULL IDENTITY(1, 1) PRIMARY KEY,
+	codigoProyecto varchar(50) NOT NULL,
+    nombreProyecto varchar(255) NOT NULL,
+	fechaInicio date NOT NULL,
+	fechaFin date NOT NULL,
+	presupuesto decimal(18, 2) NOT NULL,
+	tipoProyecto varchar(255) NOT NULL,
+	urlAval nvarchar(max), 
+	estadoProyecto bit NOT NULL
+);
+GO
 -- Table: Actividad
 CREATE TABLE tblActividad(
 	idActividad int  NOT NULL IDENTITY(1, 1) PRIMARY KEY,--PK
 	idTpAct_f int NOT NULL,--FK
+	idProyecto_f int, --FK
 	nombreActividad varchar(255) NOT NULL,
 	cantHoraSemana int,
 	cantHoraTotal int,
 	estadoActividad bit NOT NULL,
-	FOREIGN KEY (idTpAct_f) REFERENCES tblTipoActividad(idTpAct) ON UPDATE  NO ACTION  ON DELETE  NO ACTION
+	FOREIGN KEY (idTpAct_f) REFERENCES tblTipoActividad(idTpAct) ON UPDATE  NO ACTION  ON DELETE  NO ACTION,
+	FOREIGN KEY (idProyecto_f) REFERENCES tblProyecto(idProyecto) ON UPDATE NO ACTION ON DELETE NO ACTION
 );
 GO
 -- CARGA HORARIA TOTAL
@@ -270,6 +302,21 @@ AS
 		VALUES( @idDepa, @nameCarreer, @codCarrer,@pensum,1)
 	END
 GO
+--STored Procedute to create Proyectos
+CREATE PROCEDURE spAddProyecto
+    @codigoProyecto varchar(50),
+    @nombreProyecto varchar(255),
+    @fechaInicio date,
+    @fechaFin date,
+    @presupuesto decimal(18, 2),
+    @tipoProyecto varchar(255),
+    @urlAval nvarchar(max)
+AS
+BEGIN
+    INSERT INTO tblProyecto (codigoProyecto, nombreProyecto, fechaInicio, fechaFin, presupuesto, tipoProyecto, urlAval, estadoProyecto)
+    VALUES (@codigoProyecto, @nombreProyecto, @fechaInicio, @fechaFin, @presupuesto, @tipoProyecto, @urlAval,1);
+END;
+GO
 -- Stored Procedure to create one row from  "tblTipoDocente"
 CREATE PROCEDURE [dbo].[spAddTipoDocente]
 	@nameTP varchar(255),
@@ -330,12 +377,13 @@ CREATE PROCEDURE [dbo].[spAddDocente]
 	@name2 varchar(255),
 	@apellido1 varchar(255),
 	@apellido2 varchar(255),
-	@tituloDoc varchar(255)
+	@tituloDoc varchar(255),
+	@email varchar(50)
 AS
 	BEGIN 
 		INSERT INTO tblDocente(idDepa,nombre1Docente,nombre2Docente,
-		apellido1Docente,apellido2Docente,tituloDocente)
-		VALUES(@idDepa,@name1,@name2,@apellido1,@apellido2,@tituloDoc)
+		apellido1Docente,apellido2Docente,tituloDocente,emailDocente, estadoDocente)
+		VALUES(@idDepa,@name1,@name2,@apellido1,@apellido2,@tituloDoc,@email,1)
 	END
 GO
 --exec spAddSemestre '2023A',2023,'lunes,30 de enero 2023','2023-05-02',16,20,1
@@ -417,6 +465,114 @@ AS
 		END
 	END
 GO
+---- Stored Procedure to UPDATE one row into  "tblSemestreDocente"
+CREATE OR ALTER PROCEDURE [dbo].[spUpdateHorasExigiblesSemestreTpDocente]
+	@idSemestre int,
+	@idDocente int,
+	@numHoras int,
+	@result bit OUTPUT
+AS
+	BEGIN 
+		IF EXISTS(SELECT idSemestreTpDoc FROM tblSemestreTpDocente WHERE idSemestre = @idSemestre AND idDocente = @idDocente)
+		BEGIN
+			UPDATE tblSemestreTpDocente
+			SET numHorasSemestrales = @numHoras
+			WHERE idSemestre = @idSemestre AND idDocente = @idDocente
+
+			SET @result = 1
+		END
+		ELSE
+		BEGIN
+			SET @result = 0
+		END
+	END
+GO
+CREATE OR ALTER PROCEDURE spGetDocenteIfGrExisteInCargaHoraria
+    @idSemestre INT,
+	@idGr INT,
+	@docenteName varchar(100) OUT
+AS
+BEGIN
+	DECLARE @nameDoc varchar(100);
+    SELECT @nameDoc =  CONCAT(apellido1Docente,' ',apellido2Docente,' ',nombre1Docente,' ',nombre2Docente)
+    FROM tblAsigCrgHoraria ACH
+	INNER JOIN tblCargaHoraria CH ON ACH.idCrgHoraria = CH.idCargaHoraria
+	INNER JOIN tblDocente D ON CH.idDocente = D.idDocente
+    WHERE CH.idSemestre = @idSemestre AND ACH.idGrAsig = @idGr;
+
+	IF @nameDoc IS NULL
+	BEGIN
+		SET @docenteName = 'NONE'
+		PRINT @docenteName
+	END
+	ELSE
+	BEGIN
+		SET @docenteName = @nameDoc
+		PRINT @docenteName
+	END
+END;
+GO
+-- Stored Procedure to get type Docente Name based on idTipoDocente and idSemestre
+CREATE OR ALTER PROCEDURE spGetDataHorasExigiblesDocentesBySemestreAndName
+    @idSemestre INT,
+	@nombreTipoDocente varchar(100)
+AS
+BEGIN
+    DECLARE @RowCount INT;
+	DECLARE @RowCountDefault INT;
+
+    SELECT @RowCount = COUNT(*)
+    FROM tblTipoDocenteSemestre
+    WHERE idSemestre = @idSemestre;
+
+	SELECT @RowCountDefault = COUNT(*)
+    FROM tblTipoDocente
+
+
+    IF @RowCount > 0 AND @RowCountDefault = @RowCount
+    BEGIN
+        SELECT TDS.idTipoDocenteSemestre as ID,TDS.numHorasSemestrales as HORAS
+        FROM tblTipoDocenteSemestre TDS
+		INNER JOIN tblTipoDocente TD ON TDS.idTipoDocente = TD.idTipoDocente
+        WHERE idSemestre = @idSemestre and TD.nombreTipoDocente = @nombreTipoDocente
+    END
+    ELSE
+    BEGIN
+        SELECT idTipoDocente as ID,numHorasSemestrales as '# HORAS'
+		FROM tblTipoDocente
+		WHERE nombreTipoDocente = @nombreTipoDocente
+    END
+END;
+GO
+-- Stored Procedure to get the number of semester hours based on idTipoDocente and idSemestre
+CREATE OR ALTER PROCEDURE spGetHorasExigiblesDocentesBySemestre
+    @idSemestre INT
+AS
+BEGIN
+    DECLARE @RowCount INT;
+	DECLARE @RowCountDefault INT;
+
+    SELECT @RowCount = COUNT(*)
+    FROM tblTipoDocenteSemestre
+    WHERE idSemestre = @idSemestre;
+
+	SELECT @RowCountDefault = COUNT(*)
+    FROM tblTipoDocente
+
+    IF @RowCount > 0 AND @RowCountDefault = @RowCount
+    BEGIN
+        SELECT TDS.idTipoDocenteSemestre as ID, TD.nombreTipoDocente as 'TIPO DE DOCENTE' ,TDS.numHorasSemestrales as '# HORAS'
+        FROM tblTipoDocenteSemestre TDS
+		INNER JOIN tblTipoDocente TD ON TDS.idTipoDocente = TD.idTipoDocente
+        WHERE idSemestre = @idSemestre ORDER by ID;
+    END
+    ELSE
+    BEGIN
+        SELECT idTipoDocente as ID,nombreTipoDocente as 'TIPO DE DOCENTE',numHorasSemestrales as '# HORAS'
+		FROM tblTipoDocente ORDER by ID;
+    END
+END;
+GO
 ---- Stored Procedure to create or update one row into  "tblSemestreAsignatura"
 CREATE OR ALTER PROCEDURE [dbo].[spAddOrUpdateSemestreAsignatura]
 	@idSemestre int,
@@ -447,17 +603,224 @@ AS
 		VALUES(@idAsig,@Gr)
 	END
 GO
--- Stored Procedure to create one row from "tblHorarioGrAsig"
-CREATE PROCEDURE [dbo].[spAddHorarioAsig]
-	@idGr int,
-	@hIni time,
-	@hFin time,
-	@day varchar(50)
+--SP to create one row from tblGrAsignatura and get those id row
+CREATE OR ALTER PROCEDURE [dbo].[spAddGrAsignaturaOut]
+	@idAsig int,
+	@Gr varchar(20),
+	@InsertedID int OUTPUT
 AS
-	BEGIN 
-		INSERT INTO tblHorarioGrAsig(idGrAsig,horaInicio,horaFin, dia)
-		VALUES(@idGr, @hIni, @hFin,@day)
+BEGIN 
+	-- Verificar si ya existe un registro con el mismo grupoAsignatura
+    IF EXISTS (SELECT 1 FROM tblGrAsignatura WHERE grupoAsignatura = @Gr AND idAsignatura = @idAsig)
+    BEGIN
+        SELECT @InsertedID = idGrAsig FROM tblGrAsignatura WHERE grupoAsignatura = @Gr AND idAsignatura = @idAsig; -- Indicar que ya existe un registro con el mismo grupoAsignatura
+        RETURN; -- Salir del procedimiento sin realizar la inserción
+    END
+
+	INSERT INTO tblGrAsignatura(idAsignatura, grupoAsignatura)
+	VALUES (@idAsig, @Gr);
+
+	SET @InsertedID = SCOPE_IDENTITY();
+END
+GO
+--SP to verificar si existe GR en tblGrAsignatura
+CREATE OR ALTER PROCEDURE [dbo].[spVerificarGRexistente]
+--exec [spVerificarGRexistente] 98, GRD4
+	@idAsig int,
+	@Gr varchar(20),
+	@existeGR bit OUTPUT
+AS
+BEGIN
+	-- Verificar si ya existe un registro con el mismo grupoAsignatura
+    IF EXISTS (SELECT 1 FROM tblGrAsignatura WHERE grupoAsignatura = @Gr AND idAsignatura = @idAsig)
+    BEGIN
+        SET @existeGR = 1; -- Indicar que ya existe un registro con el mismo grupoAsignatura
+        RETURN; -- Salir del procedimiento sin realizar la inserción
+    END
+	ELSE
+	BEGIN
+		SET @existeGR = 0; 
 	END
+END
+GO
+-- Stored Procedure to create one row from "tblHorarioGrAsig"
+CREATE OR ALTER PROCEDURE [dbo].[spVerificarHorarioWithNumHorasAsignatura]
+    @idGrAsig			int,
+    @horasIngresadas	int,
+    @resultado			bit OUTPUT
+AS
+BEGIN
+	DECLARE @horasSemanalesAsignatura int
+    SET @resultado = 0 -- Inicializar con valor "False" (Error)
+
+	SELECT @horasSemanalesAsignatura = horasAsignaturaSemanales
+	FROM tblAsignatura A
+	INNER JOIN tblGrAsignatura GA ON A.idAsignatura = GA.idAsignatura
+	WHERE GA.idGrAsig = @idGrAsig
+
+	--Verificar si numero de horas del horario ingresado cumple con el numero de horas registradas
+	IF @horasIngresadas = @horasSemanalesAsignatura
+	BEGIN
+		SET @resultado = 1 -- Cambiar a valor "True" (Éxito)
+	END
+	ELSE
+	BEGIN
+		RETURN;
+	END
+END
+GO
+-- Stored Procedure to create one row from "tblHorarioGrAsig"
+CREATE OR ALTER PROCEDURE [dbo].[spAddHorarioAsig]
+    @idSemestre int,
+    @idGrAsig	int,
+    @horaInicio time,
+    @horaFin	time,
+    @dia		int	,
+    @resultado	bit OUTPUT
+AS
+BEGIN
+    DECLARE @idSemestreGrAsignatura int
+	DECLARE @idHorario int
+    SET @resultado = 0 -- Inicializar con valor "False" (Error)
+	
+	---------------------------------------------------------
+	-- Verificar si hay conflicto de horario
+	IF NOT EXISTS (
+		SELECT 1
+		FROM tblHorarioGrAsig HGA
+		INNER JOIN tblSemestreGrAsignatura SGA ON HGA.idSemestreGrAsignatura = SGA.idSemestreGrAsignatura
+		WHERE SGA.idGrAsig = @idGrAsig AND HGA.isActive = 1
+			AND idDiaSemana = @dia
+			AND (
+				(@horaInicio >= horaInicio AND @horaInicio < horaFin) OR
+				(@horaFin > horaInicio AND @horaFin <= horaFin) OR
+				(@horaInicio <= horaInicio AND @horaFin >= horaFin)
+			)
+	)
+	BEGIN
+		-- Verificar si ya existe un registro con el mismo idSemestre e idGrAsig
+		SELECT @idSemestreGrAsignatura = idSemestreGrAsignatura
+		FROM tblSemestreGrAsignatura
+		WHERE idSemestre = @idSemestre AND idGrAsig = @idGrAsig
+
+		IF @idSemestreGrAsignatura IS NULL
+		BEGIN
+			-- Insertar en tblSemestreGrAsignatura solo si no existe
+			INSERT INTO tblSemestreGrAsignatura (idSemestre, idGrAsig, isActive)
+			VALUES (@idSemestre, @idGrAsig, 1)
+        
+			SET @idSemestreGrAsignatura = SCOPE_IDENTITY() -- Obtener el ID recién insertado
+
+			-- Insertar en tblHorarioGrAsig usando el ID de tblSemestreGrAsignatura
+			INSERT INTO tblHorarioGrAsig (idSemestreGrAsignatura, horaInicio, horaFin, idDiaSemana, isActive)
+			VALUES (@idSemestreGrAsignatura, @horaInicio, @horaFin, @dia, 1)
+		END
+		ELSE
+        BEGIN
+			SELECT @idHorario = idHorario
+			FROM tblHorarioGrAsig
+			WHERE idSemestreGrAsignatura = @idSemestreGrAsignatura AND idDiaSemana = @dia
+
+			IF @idHorario IS NULL
+			BEGIN
+				INSERT INTO tblHorarioGrAsig (idSemestreGrAsignatura, horaInicio, horaFin, idDiaSemana, isActive)
+				VALUES (@idSemestreGrAsignatura, @horaInicio, @horaFin, @dia, 1)
+			END
+			ELSE
+			BEGIN
+				-- Actualizar en tblHorarioGrAsig usando el ID de tblSemestreGrAsignatura
+				UPDATE tblHorarioGrAsig
+				SET horaInicio = @horaInicio,
+					horaFin = @horaFin
+					--,idDiaSemana = @dia
+				WHERE idSemestreGrAsignatura = @idSemestreGrAsignatura
+					AND isActive = 1 AND idHorario = @idHorario
+			END
+        END
+
+		SET @resultado = 1 -- Cambiar a valor "True" (Éxito)
+	END
+	ELSE
+	BEGIN
+		SET @resultado = 0 -- Mantener valor "False" (Error)
+	END
+END
+GO
+-- Stored Procedure to create one row from "tblHorarioGrAsig"
+CREATE OR ALTER PROCEDURE [dbo].[spAddHorarioAsigNoOut]
+    @idSemestre int,
+    @idGrAsig	int,
+    @horaInicio time,
+    @horaFin	time,
+    @dia		int	
+AS
+BEGIN
+    DECLARE @idSemestreGrAsignatura int
+	DECLARE @idHorario int
+	
+	---------------------------------------------------------
+	-- Verificar si hay conflicto de horario
+	IF NOT EXISTS (
+		SELECT 1
+		FROM tblHorarioGrAsig HGA
+		INNER JOIN tblSemestreGrAsignatura SGA ON HGA.idSemestreGrAsignatura = SGA.idSemestreGrAsignatura
+		WHERE SGA.idGrAsig = @idGrAsig AND HGA.isActive = 1
+			AND idDiaSemana = @dia
+			AND (
+				(@horaInicio >= horaInicio AND @horaInicio < horaFin) OR
+				(@horaFin > horaInicio AND @horaFin <= horaFin) OR
+				(@horaInicio <= horaInicio AND @horaFin >= horaFin)
+			)
+	)
+	BEGIN
+		-- Verificar si ya existe un registro con el mismo idSemestre e idGrAsig
+		SELECT @idSemestreGrAsignatura = idSemestreGrAsignatura
+		FROM tblSemestreGrAsignatura
+		WHERE idSemestre = @idSemestre AND idGrAsig = @idGrAsig
+
+		IF @idSemestreGrAsignatura IS NULL
+		BEGIN
+			-- Insertar en tblSemestreGrAsignatura solo si no existe
+			INSERT INTO tblSemestreGrAsignatura (idSemestre, idGrAsig, isActive)
+			VALUES (@idSemestre, @idGrAsig, 1)
+        
+			SET @idSemestreGrAsignatura = SCOPE_IDENTITY() -- Obtener el ID recién insertado
+
+			-- Insertar en tblHorarioGrAsig usando el ID de tblSemestreGrAsignatura
+			INSERT INTO tblHorarioGrAsig (idSemestreGrAsignatura, horaInicio, horaFin, idDiaSemana, isActive)
+			VALUES (@idSemestreGrAsignatura, @horaInicio, @horaFin, @dia, 1)
+		END
+		ELSE
+        BEGIN
+			SELECT @idHorario = idHorario
+			FROM tblHorarioGrAsig
+			WHERE idSemestreGrAsignatura = @idSemestreGrAsignatura AND idDiaSemana = @dia
+
+			IF @idHorario IS NULL
+			BEGIN
+				INSERT INTO tblHorarioGrAsig (idSemestreGrAsignatura, horaInicio, horaFin, idDiaSemana, isActive)
+				VALUES (@idSemestreGrAsignatura, @horaInicio, @horaFin, @dia, 1)
+			END
+			ELSE
+			BEGIN
+				-- Actualizar en tblHorarioGrAsig usando el ID de tblSemestreGrAsignatura
+				UPDATE tblHorarioGrAsig
+				SET horaInicio = @horaInicio,
+					horaFin = @horaFin
+					--,idDiaSemana = @dia
+				WHERE idSemestreGrAsignatura = @idSemestreGrAsignatura
+					AND isActive = 1 AND idHorario = @idHorario
+			END
+        END
+
+		--SET @resultado = 1 -- Cambiar a valor "True" (Éxito)
+	END
+	--ELSE
+	--BEGIN
+	--	SET @resultado = 0 -- Mantener valor "False" (Error)
+	--END
+END
+---------------------------------------------------------
 GO
 -- Stored Procedure to create one row from "tblHorarioGrAsig" Version2
 
@@ -480,13 +843,16 @@ GO
 -- Stored Procedure to create one row from  "tblActividad"
 CREATE OR ALTER PROCEDURE [dbo].[spAddActividad]
 	@idTpAct int,
+	@idProyecto int,
 	@nameAct varchar(255),
 	@horasAct int,
 	@horasTAct int
 AS
 	BEGIN 
-		INSERT INTO tblActividad(idTpAct_f,nombreActividad,cantHoraSemana,cantHoraTotal, estadoActividad)
-		VALUES(@idTpAct, @nameAct, @horasAct,@horasTAct,1)
+		IF @idProyecto = 0
+        SET @idProyecto = NULL;
+		INSERT INTO tblActividad(idTpAct_f,idProyecto_f,nombreActividad,cantHoraSemana,cantHoraTotal, estadoActividad)
+		VALUES(@idTpAct,@idProyecto, @nameAct, @horasAct,@horasTAct,1)
 	END
 GO
 -- Stored Procedure to create one row from  "tblCargaHoraria"
@@ -553,6 +919,29 @@ BEGIN
     FROM   tblAsignatura a
 	INNER JOIN tblCarrera c ON a.idCarrera = c.idCarrera
 	WHERE estadoAsignatura = 1
+	ORDER BY 'Nombre de la Asignatura'
+END
+GO
+-- Stored Procedure to Read All Rows from  "tblAsignaturas" where had Groups
+IF OBJECT_ID('spReadAllAsignaturasWGroupsWHorario') IS NOT NULL
+BEGIN 
+    DROP PROC [dbo].[spReadAllAsignaturasWGroupsWHorario]
+END 
+GO
+CREATE OR ALTER PROC [dbo].[spReadAllAsignaturasWGroupsWHorario]
+@idSemestre int
+AS 
+BEGIN 
+	SELECT DISTINCT a.idAsignatura AS ID,CONCAT(a.nombreAsignatura,' - ',a.codigoAsignatura) AS Asignatura
+    FROM tblAsignatura a
+    INNER JOIN tblGrAsignatura g ON a.idAsignatura = g.idAsignatura
+	INNER JOIN tblSemestreGrAsignatura SGA ON g.idGrAsig = SGA.idGrAsig
+    LEFT JOIN tblAsigCrgHoraria c ON g.idGrAsig = c.idGrAsig
+	LEFT JOIN tblSemestreAsignatura sa ON a.idAsignatura = sa.idAsignatura
+	LEFT JOIN tblHorarioGrAsig HGA ON SGA.idSemestreGrAsignatura = HGA.idSemestreGrAsignatura
+    WHERE c.idAsigCrgHoraria IS NULL AND g.grupoAsignatura IS NOT NULL AND sa.isActive = 1 AND sa.idSemestre = @idSemestre
+	AND SGA.isActive = 1 AND HGA.isActive = 1 AND SGA.idSemestre = @idSemestre
+	ORDER BY Asignatura ASC
 END
 GO
 -- Stored Procedure to Read All Rows from  "tblAsignaturas" where had Groups
@@ -561,23 +950,46 @@ BEGIN
     DROP PROC [dbo].[spReadAllAsignaturasWGroups]
 END 
 GO
-CREATE PROC [dbo].[spReadAllAsignaturasWGroups]
+CREATE OR ALTER PROC [dbo].[spReadAllAsignaturasWGroups]
 @idSemestre int
 AS 
 BEGIN 
- --   SELECT DISTINCT a.idAsignatura AS ID, a.nombreAsignatura AS Asignatura
+	SELECT DISTINCT a.idAsignatura AS ID,CONCAT(a.nombreAsignatura,' - ',a.codigoAsignatura) AS Asignatura
+    FROM tblAsignatura a
+    INNER JOIN tblGrAsignatura g ON a.idAsignatura = g.idAsignatura
+    LEFT JOIN tblAsigCrgHoraria c ON g.idGrAsig = c.idGrAsig
+	LEFT JOIN tblSemestreAsignatura sa ON a.idAsignatura = sa.idAsignatura
+    --WHERE c.idAsigCrgHoraria IS NULL AND g.grupoAsignatura IS NOT NULL AND sa.isActive = 1 AND sa.idSemestre = @idSemestre
+	WHERE sa.isActive = 1 AND sa.idSemestre = @idSemestre AND a.estadoAsignatura = 1
+	ORDER BY Asignatura ASC
+END
+GO
+-- Stored Procedure to Read All Rows from  "tblAsignaturas" where had Groups
+IF OBJECT_ID('spReadAllAsignaturasWGroups_ByCarrera') IS NOT NULL
+BEGIN 
+    DROP PROC [dbo].[spReadAllAsignaturasWGroups_ByCarrera]
+END 
+GO
+CREATE PROC [dbo].[spReadAllAsignaturasWGroups_ByCarrera]
+@idSemestre int,
+@idCarrera int
+AS 
+BEGIN 
+	--SELECT DISTINCT a.idAsignatura AS ID, a.nombreAsignatura AS Asignatura
  --   FROM tblAsignatura a
  --   INNER JOIN tblGrAsignatura g ON a.idAsignatura = g.idAsignatura
  --   LEFT JOIN tblAsigCrgHoraria c ON g.idGrAsig = c.idGrAsig
 	--LEFT JOIN tblSemestreAsignatura sa ON a.idAsignatura = sa.idAsignatura
- --   WHERE c.idAsigCrgHoraria IS NULL AND g.grupoAsignatura IS NOT NULL AND sa.isActive = 1
-	--ORDER BY a.nombreAsignatura ASC
-	SELECT DISTINCT a.idAsignatura AS ID, a.nombreAsignatura AS Asignatura
+ --   WHERE c.idAsigCrgHoraria IS NULL AND g.grupoAsignatura IS NOT NULL AND sa.isActive = 1 AND sa.idSemestre = @idSemestre
+	--AND a.idCarrera = @idCarrera
+	--ORDER BY Asignatura ASC
+	SELECT DISTINCT a.idAsignatura AS ID,   CONCAT(a.nombreAsignatura,' - ',a.codigoAsignatura) AS Asignatura
     FROM tblAsignatura a
     INNER JOIN tblGrAsignatura g ON a.idAsignatura = g.idAsignatura
     LEFT JOIN tblAsigCrgHoraria c ON g.idGrAsig = c.idGrAsig
 	LEFT JOIN tblSemestreAsignatura sa ON a.idAsignatura = sa.idAsignatura
     WHERE c.idAsigCrgHoraria IS NULL AND g.grupoAsignatura IS NOT NULL AND sa.isActive = 1 AND sa.idSemestre = @idSemestre
+	AND a.idCarrera = @idCarrera
 	ORDER BY Asignatura ASC
 END
 GO
@@ -590,9 +1002,9 @@ GO
 CREATE PROC [dbo].[spReadAllAsignaturasCmb]
 AS 
 BEGIN 
-    SELECT DISTINCT a.idAsignatura AS ID, a.nombreAsignatura AS Asignatura
+    SELECT DISTINCT a.idAsignatura AS ID, CONCAT(a.nombreAsignatura,' - ',a.codigoAsignatura) AS Asignatura
     FROM tblAsignatura a
-	ORDER BY a.nombreAsignatura ASC
+	ORDER BY Asignatura ASC
 END
 GO
 -- Stored Procedure to Read All Rows from  "tblGrAsignatura"
@@ -604,7 +1016,7 @@ GO
 CREATE PROC [dbo].[spReadAllGrAsignaturas]
 AS 
 BEGIN 
-    SELECT gr.idGrAsig AS ID, asg.nombreAsignatura as Asignatura, gr.grupoAsignatura as GR
+    SELECT gr.idGrAsig AS ID, asg.nombreAsignatura as ASIGNATURA, gr.grupoAsignatura as GRUPO, asg.codigoAsignatura AS 'CÓDIGO', asg.tipoAsignatura AS TIPO
     FROM   tblGrAsignatura gr
 	INNER JOIN tblAsignatura asg ON gr.idAsignatura = asg.idAsignatura
 END
@@ -615,15 +1027,168 @@ BEGIN
     DROP PROC [dbo].[spReadAllHorariosAsignaturas]
 END 
 GO
-CREATE PROC [dbo].[spReadAllHorariosAsignaturas]
+CREATE or ALTER PROC [dbo].[spReadAllHorariosAsignaturas]
 AS 
 BEGIN 
-	SELECT gr.idHorario AS ID, asg.nombreAsignatura as Asignatura, gra.grupoAsignatura as Grupo,
-		gr.horaInicio AS 'Hora de Inicio', gr.horaFin AS 'Hora de Fin', gr.dia AS 'Día'
-	FROM   tblHorarioGrAsig gr
-		   INNER JOIN tblGrAsignatura gra ON gra.idGrAsig=gr.idGrAsig
-		   INNER JOIN tblAsignatura asg ON gra.idAsignatura=asg.idAsignatura
+    DECLARE @DaysOfWeek TABLE (
+        DayIndex INT,
+        DayName VARCHAR(10)
+    )
+
+    INSERT INTO @DaysOfWeek (DayIndex, DayName)
+    VALUES
+        (1, 'LUNES'),
+        (2, 'MARTES'),
+        (3, 'MIÉRCOLES'),
+        (4, 'JUEVES'),
+        (5, 'VIERNES'),
+        (6, 'SÁBADO'),
+        (7, 'DOMINGO')
+
+    DECLARE @DynamicSQL NVARCHAR(MAX)
+    SET @DynamicSQL = ''
+
+    SELECT @DynamicSQL = @DynamicSQL + 
+        ', MAX(CASE WHEN HGR.idDiaSemana = ''' + DayIndex + ''' THEN ISNULL(CONVERT(VARCHAR(5), HGR.horaInicio, 108) + '' - '' + CONVERT(VARCHAR(5), HGR.horaFin, 108), '''') ELSE '''' END) AS [' + DayName + ']'
+    FROM @DaysOfWeek
+    SET @DynamicSQL = 'SELECT HGR.idHorario AS ID, S.codigoSemestre AS SEMESTRE,A.nombreAsignatura as ASIGNATURA, GR.grupoAsignatura as GRUPO ' + @DynamicSQL +
+		', CONVERT(VARCHAR(5), HGR.horaInicio, 108) AS horaInicio, CONVERT(VARCHAR(5), HGR.horaFin, 108) AS horaFin, HGR.dia  ' +
+        ' FROM tblHorarioGrAsig HGR ' +
+        ' INNER JOIN tblSemestreGrAsignatura SGA ON HGR.idSemestreGrAsignatura = SGA.idSemestreGrAsignatura ' +
+        ' INNER JOIN tblGrAsignatura GR ON SGA.idGrAsig = GR.idGrAsig ' +
+        ' INNER JOIN tblAsignatura A ON GR.idAsignatura = A.idAsignatura ' +
+		' INNER JOIN tblSemestre S ON SGA.idSemestre = S.idSemestre ' +
+        ' WHERE HGR.isActive = 1 ' +
+        ' GROUP BY HGR.idHorario, A.nombreAsignatura, GR.grupoAsignatura, S.codigoSemestre, horaInicio, horaFin, HGR.dia'
+
+    EXEC sp_executesql @DynamicSQL
 END
+GO
+-- Stored Procedure to GET all HORARIOS from  "tblHorarioGrAsig" based on idGrAsig and idSemestre
+CREATE or alter PROC [dbo].[spGetAllHorariosByGRAsig]
+@idSemestre int,
+@idGrAsig   int
+AS 
+BEGIN 
+	DECLARE @idSemestreGrAsignatura int
+
+    SELECT @idSemestreGrAsignatura = SGA.idSemestreGrAsignatura 
+    FROM   tblSemestreGrAsignatura   SGA
+	WHERE SGA.idGrAsig = @idGrAsig
+	AND SGA.idSemestre = @idSemestre
+	PRINT(@idSemestreGrAsignatura)
+	IF @idSemestreGrAsignatura IS NOT NULL
+        BEGIN
+            SELECT idDiaSemana, horaInicio, horaFin
+			FROM tblHorarioGrAsig HGA
+			WHERE idSemestreGrAsignatura = @idSemestreGrAsignatura
+        END
+END
+GO
+--SP TO GET HORARIO TO VIEW
+CREATE or alter PROC [dbo].[spGetAllHorariosByGRAsigViewer]
+@idSemestre int,
+@idGrAsig   int
+AS 
+BEGIN 
+	DECLARE @idSemestreGrAsignatura int
+
+    SELECT @idSemestreGrAsignatura = SGA.idSemestreGrAsignatura 
+    FROM   tblSemestreGrAsignatura   SGA
+	WHERE SGA.idGrAsig = @idGrAsig
+	AND SGA.idSemestre = @idSemestre
+	PRINT(@idSemestreGrAsignatura)
+	IF @idSemestreGrAsignatura IS NOT NULL
+        BEGIN
+            SELECT DD.dia AS 'DÍA DE LA SEMANA',
+			ISNULL(CONVERT(VARCHAR(5), horaInicio, 108), 'N/A') AS 'HORA INICIO', 
+            ISNULL(CONVERT(VARCHAR(5), horaFin, 108), 'N/A') AS 'HORA FIN', horaInicio, horaFin,DD.dia
+			FROM tblHorarioGrAsig HGA
+			INNER JOIN tblDiaSemana DD ON HGA.idDiaSemana = DD.idDiaSemana
+			WHERE idSemestreGrAsignatura = @idSemestreGrAsignatura AND horaInicio <> horaFin
+        END
+END
+GO
+--SP TO GET DOCENTE HORARIO exec spGetHorarioForCargaHoraria 1
+CREATE OR ALTER PROCEDURE spGetHorarioForCargaHoraria
+    @idCargaHoraria int
+AS
+BEGIN
+    DECLARE @idSemestre AS int;
+    CREATE TABLE #LstidGRAsig (idGrAsig int);
+
+    SELECT @idSemestre = CH.idSemestre
+    FROM tblCargaHoraria CH
+    WHERE CH.idCargaHoraria = @idCargaHoraria;
+
+    INSERT INTO #LstidGRAsig (idGrAsig)
+    SELECT ACH.idGrAsig
+    FROM tblAsigCrgHoraria ACH
+    WHERE ACH.idCrgHoraria = @idCargaHoraria;
+
+    SELECT CONCAT(CONVERT(NVARCHAR(5), h.horaInicio, 108), ' - ', CONVERT(NVARCHAR(5), h.horaFin, 108)) AS HORA, ds.dia AS DÍA, 
+           CONCAT(g.grupoAsignatura,'-',A.nombreAsignatura) AS ASIGNATURA, h.horaInicio, h.horaFin, ds.dia, ds.idDiaSemana
+    FROM tblHorarioGrAsig h
+    INNER JOIN tblDiaSemana ds ON h.idDiaSemana = ds.idDiaSemana
+    INNER JOIN tblSemestreGrAsignatura sg ON h.idSemestreGrAsignatura = sg.idSemestreGrAsignatura
+    INNER JOIN tblGrAsignatura g ON sg.idGrAsig = g.idGrAsig
+    INNER JOIN tblAsignatura A ON g.idAsignatura = A.idAsignatura
+    WHERE h.isActive = 1 and sg.idSemestre = @idSemestre and sg.idGrAsig IN (SELECT idGrAsig FROM #LstidGRAsig) AND h.horaInicio <> h.horaFin
+    ORDER BY idDiaSemana ASC;
+
+    DROP TABLE #LstidGRAsig;
+END;
+GO
+--SP PARA VERIFICAR CRUCE DE HORARIO
+CREATE OR ALTER PROCEDURE spVerificarConflictoHorario
+    @idCargaHoraria int,
+	@idGrAsig		int,
+	@ConflictoHorario bit OUTPUT
+AS
+BEGIN
+    DECLARE @idSemestre AS int;
+	DECLARE @idSemestreGrAsig AS int;
+    CREATE TABLE #LstidGRAsigC (idGrAsig int);
+
+    SELECT @idSemestre = CH.idSemestre
+    FROM tblCargaHoraria CH
+    WHERE CH.idCargaHoraria = @idCargaHoraria;
+
+	SELECT @idSemestreGrAsig = idSemestreGrAsignatura
+	FROM tblSemestreGrAsignatura
+	WHERE idSemestre = @idSemestre AND idGrAsig = @idGrAsig
+
+    INSERT INTO #LstidGRAsigC (idGrAsig)
+    SELECT ACH.idGrAsig
+    FROM tblAsigCrgHoraria ACH
+    WHERE ACH.idCrgHoraria = @idCargaHoraria;
+
+    -- Obtener la horaInicio y horaFin del @idSemestreGrAsig actual
+    DECLARE @horaInicio time, @horaFin time, @diaWeek int;
+    SELECT @horaInicio = horaInicio, @horaFin = horaFin, @diaWeek = idDiaSemana
+    FROM tblHorarioGrAsig
+    WHERE idSemestreGrAsignatura = @idSemestreGrAsig;
+
+	SET @ConflictoHorario = 0; -- Suponemos que no hay conflicto inicialmente
+
+	IF EXISTS (
+		SELECT 1
+		FROM tblHorarioGrAsig h
+		INNER JOIN tblDiaSemana ds ON h.idDiaSemana = ds.idDiaSemana
+		INNER JOIN tblSemestreGrAsignatura sg ON h.idSemestreGrAsignatura = sg.idSemestreGrAsignatura
+		INNER JOIN tblGrAsignatura g ON sg.idGrAsig = g.idGrAsig
+		INNER JOIN tblAsignatura A ON g.idAsignatura = A.idAsignatura
+		WHERE h.isActive = 1
+		  AND sg.idGrAsig IN (SELECT idGrAsig FROM #LstidGRAsigC)
+		  AND h.idDiaSemana = @diaWeek
+		  AND ((@horaInicio <= h.horaFin AND @horaFin >= h.horaInicio) OR
+			   (@horaFin >= h.horaInicio AND @horaInicio <= h.horaFin))
+	)
+	BEGIN
+		SET @ConflictoHorario = 1;
+	END;
+	DROP TABLE #LstidGRAsigC;
+END;
 GO
 -- Stored Procedure to Read all departments from  "tblDepartamento"
 CREATE PROC [dbo].[spReadAllDepartamentos2Carrera]
@@ -677,10 +1242,27 @@ GO
 CREATE OR ALTER PROCEDURE [dbo].[spReadAllActividades]
 AS 
 BEGIN 
-    SELECT idActividad AS ID,tp.nombreTpAct AS 'Tipo', nombreActividad AS 'Actividad', cantHoraSemana AS 'Horas Semanales', cantHoraTotal AS 'Horas Totales'
+    SELECT idActividad AS ID,tp.nombreTpAct AS 'Tipo', ISNULL(P.codigoProyecto, 'SIN PROYECTO') AS 'Código proyecto' ,nombreActividad AS 'Actividad', cantHoraSemana AS 'Horas Semanales', cantHoraTotal AS 'Horas Totales',
+	ISNULL(P.idProyecto, 0) AS IDP
     FROM   tblActividad act
 	INNER JOIN tblTipoActividad tp  on act.idTpAct_f = tp.idTpAct
+	LEFT JOIN tblProyecto P ON act.idProyecto_f = P.idProyecto
 END
+--exec [spReadAllActividades]
+GO
+-- Stored Procedure to get activities with project from  "tblActividad"
+CREATE OR ALTER PROCEDURE [dbo].[spGetProjectInfoFromActivity]
+@idActividad INT
+AS 
+BEGIN 
+    SELECT  P.codigoProyecto ,P.nombreProyecto,P.tipoProyecto, P.fechaInicio, P.fechaFin,P.urlAval,P.presupuesto,
+	ISNULL(P.idProyecto, 0) AS IDP
+    FROM   tblActividad act
+	INNER JOIN tblTipoActividad tp  on act.idTpAct_f = tp.idTpAct
+	LEFT JOIN tblProyecto P ON act.idProyecto_f = P.idProyecto
+	WHERE act.idActividad = @idActividad
+END
+--exec [spGetProjectInfoFromActivity] 27
 GO
 -- Stored Procedure to Get Activity Hours from  "tblActividad" based on idActividad
 CREATE OR ALTER PROCEDURE [dbo].[spGetHoraActividad]
@@ -690,6 +1272,16 @@ BEGIN
     SELECT cantHoraSemana AS 'Horas'
     FROM   tblActividad
 	WHERE idActividad = @idActividad
+END
+GO
+--SP TO GET HORAS SEMANALES FOR ASIGNATURA
+CREATE OR ALTER PROCEDURE [dbo].[spGetHoraAsignatura]
+@idAsignatura int
+AS 
+BEGIN 
+    SELECT horasAsignaturaSemanales
+    FROM   tblAsignatura
+	WHERE idAsignatura = @idAsignatura
 END
 GO
 -- Stored Procedure to Get Activity Total Hours from  "tblActividad" based on idActividad
@@ -772,6 +1364,16 @@ GO
 ---------------------------------------------------
 -- READ ALL PROCEDURES
 ---------------------------------------------------
+-- SP to get all proyectos from tblProyecto
+CREATE PROCEDURE spReadAllProyectos
+AS
+BEGIN
+    SELECT idProyecto, codigoProyecto AS 'CÓDIGO', nombreProyecto AS PROYECTO, fechaInicio AS 'FECHA INICIO', fechaFin as 'FECHA FIN', 
+	presupuesto AS PRESUPUESTO, tipoProyecto AS TIPO, urlAval AS AVAL
+    FROM tblProyecto
+	WHERE estadoProyecto = 1
+END;
+GO
 -- Stored Procedure to Read All Investigation Activities from  "tblActividad"
 CREATE OR ALTER PROCEDURE [dbo].[spReadAllInvestigationActividades]
 AS 
@@ -843,9 +1445,10 @@ CREATE OR ALTER PROCEDURE [dbo].[spReadAllDocentes]
 AS 
 BEGIN 
     SELECT idDocente AS ID,dep.nombreDepartamento AS 'Departamento', CONCAT(nombre1Docente, ' ', nombre2Docente) Nombres,
-			CONCAT(apellido1Docente, ' ', apellido2Docente) Apellidos,tituloDocente AS 'Título'
+			CONCAT(apellido1Docente, ' ', apellido2Docente) Apellidos,tituloDocente AS 'Título', emailDocente AS Correo
     FROM   tblDocente car
 	INNER JOIN tblDepartamento dep  on car.idDepa = dep.idDepartamento
+	WHERE estadoDocente = 1
 END
 GO
 -- Stored Procedure to Get Docente Name from  "tblCargaHoraria" based on idCargaHoraria
@@ -856,7 +1459,18 @@ BEGIN
     SELECT CONCAT(apellido1Docente, ' ', apellido2Docente, ' ',nombre1Docente, ' ', nombre2Docente) NameDocente
 	FROM tblCargaHoraria ch
 	INNER JOIN tblDocente doc ON ch.idDocente = doc.idDocente
-	WHERE ch.idCargaHoraria = @idCrgHoraria
+	WHERE ch.idCargaHoraria = @idCrgHoraria AND doc.estadoDocente = 1
+END
+GO
+-- Stored Procedure to Get Docente Name from  "tblCargaHoraria" based on idCargaHoraria
+CREATE OR ALTER PROCEDURE [dbo].[spGetDocenteMailByCrgHoraria]
+@idCrgHoraria int
+AS 
+BEGIN 
+    SELECT doc.emailDocente
+	FROM tblCargaHoraria ch
+	INNER JOIN tblDocente doc ON ch.idDocente = doc.idDocente
+	WHERE ch.idCargaHoraria = @idCrgHoraria AND doc.estadoDocente = 1
 END
 GO
 -- Stored Procedure to Get Docente Type Name from  "tblCargaHoraria" based on idCargaHoraria
@@ -870,7 +1484,7 @@ BEGIN
 	INNER JOIN tblDocente doc ON ch.idDocente = doc.idDocente
 	INNER JOIN tblSemestreTpDocente std ON doc.idDocente = std.idDocente
 	INNER JOIN tblTipoDocente td ON std.idTipoDoc = td.idTipoDocente
-	WHERE ch.idCargaHoraria = @idCrgHoraria and  std.idSemestre =@idSemestre
+	WHERE ch.idCargaHoraria = @idCrgHoraria and  std.idSemestre =@idSemestre and doc.estadoDocente = 1
 END
 GO
 -- Stored Procedure to Read All rows from  "tblDocente"
@@ -878,7 +1492,7 @@ CREATE OR ALTER PROCEDURE [dbo].[spReadAllDocentesAllNames]
 AS 
 BEGIN 
     SELECT idDocente AS ID, CONCAT(apellido1Docente, ' ', apellido2Docente,' ', nombre1Docente, ' ', nombre2Docente) NombreDocente
-    FROM   tblDocente
+    FROM   tblDocente WHERE estadoDocente = 1
 	ORDER BY NombreDocente ASC
 END
 GO
@@ -890,7 +1504,7 @@ BEGIN
     SELECT D.idDocente AS ID, CONCAT(D.apellido1Docente, ' ', D.apellido2Docente,' ', D.nombre1Docente, ' ', D.nombre2Docente) NombreDocente
     FROM   tblSemestreTpDocente STP
 	INNER JOIN tblDocente D ON STP.idDocente = D.idDocente
-	WHERE STP.estadoSemestreDoc = 1 AND STP.idSemestre = @idSemestre AND STP.numHorasSemestrales > 0
+	WHERE STP.estadoSemestreDoc = 1 AND STP.idSemestre = @idSemestre AND STP.numHorasSemestrales > 0 AND D.estadoDocente = 1
 	ORDER BY NombreDocente ASC
 END
 GO
@@ -904,7 +1518,7 @@ BEGIN
     FROM   tblSemestreTpDocente STP
 	INNER JOIN tblDocente D ON STP.idDocente = D.idDocente
 	INNER JOIN tblTipoDocente TD ON STP.idTipoDoc = TD.idTipoDocente
-	WHERE STP.idSemestre = @idSemestre
+	WHERE STP.idSemestre = @idSemestre AND D.estadoDocente = 1
 	ORDER BY NombreDocente ASC
 END
 GO
@@ -942,7 +1556,7 @@ BEGIN
 	INNER JOIN tblDocente doc ON std.idDocente = doc.idDocente
 	INNER JOIN tblTipoDocente tp ON std.idTipoDoc = tp.idTipoDocente
 	INNER JOIN tblSemestre sm ON std.idSemestre = sm.idSemestre
-	WHERE std.idSemestre = @idSemestre
+	WHERE std.idSemestre = @idSemestre AND doc.estadoDocente = 1
 	ORDER BY NombreDocente ASC
 END
 GO
@@ -1011,12 +1625,13 @@ CREATE PROCEDURE [dbo].[spUpdateDocente]
 	@name2 varchar(255),
 	@apellido1 varchar(255),
 	@apellido2 varchar(255),
-	@tituloDoc varchar(255)
+	@tituloDoc varchar(255),
+	@email varchar(50)
 AS
 	BEGIN
 		UPDATE tblDocente
 		SET idDepa = @idDepa, nombre1Docente= @name1, nombre2Docente =@name2,
-			apellido1Docente = @apellido1, apellido2Docente = @apellido2, tituloDocente = @tituloDoc
+			apellido1Docente = @apellido1, apellido2Docente = @apellido2, tituloDocente = @tituloDoc, emailDocente =@email
 		WHERE idDocente = @id;
 	END
 GO
@@ -1052,6 +1667,30 @@ AS
 			estadoSemestreDoc = 1
 		WHERE idSemestreTpDoc = @id;
 	END
+GO
+--SP TO UPDATE PROYECTO FROM TBLPROYECTO
+CREATE PROCEDURE spUpdateProyecto
+    @idProyecto int,
+    @codigoProyecto varchar(50),
+    @nombreProyecto varchar(255),
+    @fechaInicio date,
+    @fechaFin date,
+    @presupuesto decimal(18, 2),
+    @tipoProyecto varchar(255),
+    @urlAval nvarchar(max)
+AS
+BEGIN
+    UPDATE tblProyecto
+    SET codigoProyecto = @codigoProyecto,
+        nombreProyecto = @nombreProyecto,
+        fechaInicio = @fechaInicio,
+        fechaFin = @fechaFin,
+        presupuesto = @presupuesto,
+        tipoProyecto = @tipoProyecto,
+        urlAval = @urlAval,
+        estadoProyecto = 1
+    WHERE idProyecto = @idProyecto;
+END;
 GO
 -- Stored Procedure to Update specific row from  "tblAsignatura"
 CREATE OR ALTER PROCEDURE [dbo].[spUpdateAsignatura]
@@ -1107,8 +1746,8 @@ CREATE PROCEDURE [dbo].[spUpdateHorarioAsig]
 AS
 	BEGIN
 		UPDATE tblHorarioGrAsig
-		SET idGrAsig = @idGr, horaInicio =@hIni,
-			horaFin = @hFin, dia = @day
+		SET idSemestreGrAsignatura = @idGr, horaInicio =@hIni,
+			horaFin = @hFin, idDiaSemana = @day, isActive = 1
 		WHERE idHorario = @id;
 	END
 GO
@@ -1116,13 +1755,18 @@ GO
 CREATE OR ALTER PROCEDURE [dbo].[spUpdateActividad]
 	@id int,
 	@idTpAct int,
+	@idProyecto INT,
 	@nameAct varchar(255),
 	@horasAct int,
 	@horasTAct int
+
 AS
 	BEGIN
+		IF @idProyecto = 0
+        SET @idProyecto = NULL;
+
 		UPDATE tblActividad
-		SET idTpAct_f = @idTpAct, nombreActividad = @nameAct, cantHoraSemana = @horasAct,
+		SET idTpAct_f = @idTpAct, idProyecto_f = @idProyecto,nombreActividad = @nameAct, cantHoraSemana = @horasAct,
 			cantHoraTotal = @horasTAct ,estadoActividad = 1
 		WHERE idActividad = @id;
 	END
@@ -1179,6 +1823,16 @@ AS
 		WHERE (idDepartamento = @id)
 	END
 GO
+-- SP to disable proyecto from tblProyectos
+CREATE PROCEDURE spDeleteProyecto
+    @idProyecto int
+AS
+BEGIN
+    UPDATE tblProyecto
+    SET estadoProyecto = 0
+    WHERE idProyecto = @idProyecto;
+END;
+GO
 -- Stored Procedure to delete one row from  "tblTipoActividad"
 CREATE PROCEDURE [dbo].[spDeleteTipoActividad]
 	@id int,
@@ -1213,8 +1867,9 @@ CREATE PROCEDURE [dbo].[spDeleteDocente]
 	@id	int
 AS
 	BEGIN
-		DELETE FROM tblDocente 
-		WHERE idDocente = @id
+		UPDATE tblDocente
+		SET estadoDocente = 0
+		WHERE idDocente = @id;
 	END
 GO
 -- Stored Procedure to delete one row from  "tblSemestre"
@@ -1289,8 +1944,9 @@ CREATE PROCEDURE [dbo].[spDeleteHorarioAsig]
 	@id int
 AS
 	BEGIN
-		DELETE FROM tblHorarioGrAsig 
-		WHERE idHorario = @id
+		UPDATE tblHorarioGrAsig
+		SET isActive = 0
+		WHERE idHorario = @id;
 	END
 GO
 -- Stored Procedure to delete one row from  "tblActividad"
@@ -1303,13 +1959,22 @@ AS
 	END
 GO
 -- Stored Procedure to delete one row from  "tblCargaHoraria"
-CREATE PROCEDURE [dbo].[spDeleteCargaHoraria]
+CREATE OR ALTER PROCEDURE [dbo].[spDeleteCargaHoraria]
 	@id int
 AS
 	BEGIN
-		DELETE FROM tblCargaHoraria 
-		WHERE idCargaHoraria = @id
-	END
+		BEGIN TRANSACTION;
+
+		-- Eliminar registros relacionados en tblActividadCargas
+		DELETE FROM tblActividadCargas WHERE idCrgHoraria = @id;
+		-- Eliminar registros relacionados en tblAsigCarga
+		DELETE FROM tblAsigCrgHoraria WHERE idCrgHoraria = @id;
+
+		-- Eliminar el registro de tblCargaHoraria
+		DELETE FROM tblCargaHoraria WHERE idCargaHoraria = @id;
+
+		COMMIT;
+		END
 GO
 -- Stored Procedure to delete one row from  "tblActividadCargas"
 CREATE PROCEDURE [dbo].[spDeleteActivCrgHoraria]
@@ -1337,18 +2002,64 @@ BEGIN
     DROP PROC [dbo].[spReadAllGroupsByAsig]
 END 
 GO
-CREATE PROC [dbo].[spReadAllGroupsByAsig]
-	@nameAsignatura varchar(150)
+CREATE OR ALTER PROC [dbo].[spReadAllGroupsByAsig]
+	@idAsignatura varchar(150)
 AS 
 BEGIN 
-    SELECT gr.idAsignatura AS ID, gr.grupoAsignatura AS Grupos
+    SELECT gr.idGrAsig AS ID, gr.grupoAsignatura AS Grupos
     FROM tblGrAsignatura gr
     INNER JOIN tblAsignatura asg ON gr.idAsignatura = asg.idAsignatura
-    WHERE asg.nombreAsignatura = @nameAsignatura
+    WHERE asg.idAsignatura = @idAsignatura
     AND NOT EXISTS (
         SELECT 1
         FROM tblAsigCrgHoraria ash
         WHERE ash.idGrAsig = gr.idGrAsig
+    )
+END
+GO
+-- Stored Procedure to Read All Groups by IdAsignatura from  "tblAsignatura"
+IF OBJECT_ID('spReadAllGroupsByAsigCmb') IS NOT NULL
+BEGIN 
+    DROP PROC [dbo].[spReadAllGroupsByAsigCmb]
+END 
+GO
+CREATE OR ALTER PROC [dbo].[spReadAllGroupsByAsigCmb]
+	@idAsignatura int
+AS 
+BEGIN 
+    SELECT gr.idGrAsig AS ID, gr.grupoAsignatura AS Grupos
+    FROM tblGrAsignatura gr
+    INNER JOIN tblAsignatura asg ON gr.idAsignatura = asg.idAsignatura
+    WHERE asg.idAsignatura = @idAsignatura
+	ORDER BY Grupos ASC
+END
+GO
+CREATE OR ALTER PROC [dbo].[spReadAllGroupsByAsigBySemestreCmb]
+	@idAsignatura	int,
+	@idSemestre		int
+AS 
+BEGIN 
+    SELECT gr.idGrAsig AS ID, gr.grupoAsignatura AS Grupos
+    FROM tblGrAsignatura gr
+    INNER JOIN tblAsignatura asg ON gr.idAsignatura = asg.idAsignatura
+    WHERE asg.idAsignatura = @idAsignatura
+END
+GO
+CREATE OR ALTER PROC [dbo].[spReadAllGroupsByAsigWithHorario]
+	@idAsignatura varchar(150),
+	@idSemestre int
+AS 
+BEGIN 
+    SELECT gr.idGrAsig AS ID, gr.grupoAsignatura AS Grupos
+    FROM tblGrAsignatura gr
+    INNER JOIN tblAsignatura asg ON gr.idAsignatura = asg.idAsignatura
+	INNER JOIN tblSemestreGrAsignatura SGA ON gr.idGrAsig = SGA.idGrAsig
+    WHERE asg.idAsignatura = @idAsignatura AND SGA.idSemestre = @idSemestre
+    AND NOT EXISTS (
+        SELECT 1
+        FROM tblAsigCrgHoraria ash
+		INNER JOIN tblCargaHoraria CH ON ash.idCrgHoraria = CH.idCargaHoraria
+        WHERE ash.idGrAsig = gr.idGrAsig AND CH.idSemestre = @idSemestre
     )
 END
 GO
@@ -1371,7 +2082,7 @@ CREATE PROCEDURE [dbo].[spDocentesByIdTV]
 AS
 	BEGIN 
 		SELECT idDocente AS ID, CONCAT(apellido1Docente,' ',apellido2Docente,' ',nombre1Docente,' ',nombre2Docente) AS Docente
-		FROM tblDocente WHERE idDepa = @id
+		FROM tblDocente WHERE idDepa = @id and estadoDocente = 1
 		ORDER BY Docente ASC
 	END
 GO
@@ -1389,7 +2100,7 @@ AS
 			INNER JOIN tblTipoDocente tp ON std.idTipoDoc = tp.idTipoDocente
 			INNER JOIN tblSemestre sm ON std.idSemestre = sm.idSemestre
 			INNER JOIN tblCargaHoraria ch ON std.idDocente = ch.idDocente
-			WHERE ch.idSemestre = @idSemestre AND doc.idDepa = @idDepa and std.idSemestre = @idSemestre
+			WHERE ch.idSemestre = @idSemestre AND doc.idDepa = @idDepa and std.idSemestre = @idSemestre and doc.estadoDocente = 1
 		) AS subquery
 		GROUP BY ID, Docente, codigoSemestre
 		ORDER BY Docente ASC
@@ -1401,7 +2112,7 @@ CREATE PROCEDURE [dbo].[spDocentesById]
 AS
 	BEGIN 
 		SELECT idDepa AS ID, CONCAT(apellido1Docente,' ',apellido2Docente,' ',nombre1Docente,' ',nombre2Docente) AS Departamento
-		FROM tblDocente WHERE idDepa = @id
+		FROM tblDocente WHERE idDepa = @id and estadoDocente = 1
 		ORDER BY Departamento ASC
 	END
 GO
@@ -1415,7 +2126,7 @@ AS
 BEGIN 
 	SET NOCOUNT ON;
 
-	SELECT ch.idCargaHoraria AS ID,CONCAT(d.apellido1Docente, ' ', d.apellido2Docente, ' ', d.nombre1Docente, ' ', d.nombre2Docente) AS Docente
+	SELECT ch.idCargaHoraria AS ID,CONCAT(d.apellido1Docente, ' ', d.apellido2Docente, ' ', d.nombre1Docente, ' ', d.nombre2Docente) AS DOCENTE
 	FROM tblCargaHoraria ch
 	INNER JOIN tblDocente d ON ch.idDocente = d.idDocente
 	INNER JOIN tblSemestreTpDocente std ON std.idDocente = d.idDocente
@@ -1431,7 +2142,7 @@ CREATE OR ALTER PROCEDURE [dbo].[spReadAllCargaAsignaturas]
 AS
 BEGIN 
 	SELECT interAsig.idAsigCrgHoraria AS ID,asig.tipoAsignatura AS TIPO,ASIG.codigoAsignatura as CÓDIGO,gr.grupoAsignatura as GR,asig.nombreAsignatura AS 'ASIGNATURA',
-		asig.horasAsignaturaSemanales AS 'HORAS SEMANALES', asig.horasAsignaturaTotales AS 'HORAS TOTALES'
+		asig.horasAsignaturaSemanales AS 'HORAS SEMANALES', asig.horasAsignaturaTotales AS 'HORAS TOTALES', asig.idAsignatura as IDA
 	FROM   tblAsigCrgHoraria interAsig
 	INNER JOIN tblGrAsignatura gr on interAsig.idGrAsig = gr.idGrAsig
 	INNER JOIN tblAsignatura asig  on gr.idAsignatura = asig.idAsignatura
@@ -1452,53 +2163,53 @@ BEGIN
 END
 GO
 -- Stored Procedure to Read all Actividades D11 from a Specifica Academic Load from tblActividadCargas
-CREATE PROCEDURE [dbo].[spReadAllCargaActividadesD11]
+CREATE OR ALTER  PROCEDURE [dbo].[spReadAllCargaActividadesD11]
 @idCrgHoraria int
 AS
 BEGIN 
 	SELECT 
     interActiv.idActivCrgs AS ID, 
-    activ.nombreActividad AS 'Actividad',
+    activ.nombreActividad AS 'ACTIVIDAD',
     CASE 
         WHEN interActiv.horasSemana IS NULL OR interActiv.horasSemana = 0 
         THEN 'NA' 
         ELSE CAST(interActiv.horasSemana AS VARCHAR(10))
-    END AS 'Horas Semanales',
+    END AS 'HORAS SEMANALES',
     CASE 
         WHEN interActiv.horaTotal IS NULL OR interActiv.horaTotal = 0 
         THEN 'NA' 
         ELSE CAST(interActiv.horaTotal AS VARCHAR(10))
-    END AS 'Horas Totales'
+    END AS 'HORAS TOTALES'
 	FROM tblActividadCargas interActiv
 	INNER JOIN tblActividad activ on interActiv.idActividad = activ.idActividad
 	WHERE (interActiv.idCrgHoraria = @idCrgHoraria AND activ.idTpAct_f = 1);
 END
 GO
 -- Stored Procedure to Read all Actividades F11 from a Specifica Academic Load from tblActividadCargas
-CREATE PROCEDURE [dbo].[spReadAllCargaActividadesF11]
+CREATE OR ALTER  PROCEDURE [dbo].[spReadAllCargaActividadesF11]
 @idCrgHoraria int
 AS
 BEGIN 
 	SELECT 
     interActiv.idActivCrgs AS ID, 
-    activ.nombreActividad AS 'Actividad',
+    activ.nombreActividad AS 'ACTIVIDAD',
     CASE 
         WHEN interActiv.horasSemana IS NULL OR interActiv.horasSemana = 0 
         THEN 'NA' 
         ELSE CAST(interActiv.horasSemana AS VARCHAR(10))
-    END AS 'Horas Semanales',
+    END AS 'HORAS SEMANALES',
     CASE 
         WHEN interActiv.horaTotal IS NULL OR interActiv.horaTotal = 0 
         THEN 'NA' 
         ELSE CAST(interActiv.horaTotal AS VARCHAR(10))
-    END AS 'Horas Totales'
+    END AS 'HORAS TOTALES'
 	FROM tblActividadCargas interActiv
 	INNER JOIN tblActividad activ on interActiv.idActividad = activ.idActividad
 	WHERE (interActiv.idCrgHoraria = @idCrgHoraria AND activ.idTpAct_f = 2);
 END
 GO
 -- Stored Procedure to Read all Actividades de Gestion from a Specifica Academic Load from tblActividadCargas
-CREATE PROCEDURE [dbo].[spReadAllCargaActividadesG]
+CREATE OR ALTER PROCEDURE [dbo].[spReadAllCargaActividadesG]
 @idCrgHoraria int
 AS
 BEGIN 
@@ -1509,17 +2220,17 @@ BEGIN
 	--WHERE (interActiv.idCrgHoraria = @idCrgHoraria AND activ.idTpAct_f=4)
 	SELECT 
     interActiv.idActivCrgs AS ID, 
-    activ.nombreActividad AS 'Actividad',
+    activ.nombreActividad AS 'ACTIVIDAD',
     CASE 
         WHEN interActiv.horasSemana IS NULL OR interActiv.horasSemana = 0 
         THEN 'NA' 
         ELSE CAST(interActiv.horasSemana AS VARCHAR(10))
-    END AS 'Horas Semanales',
+    END AS 'HORAS SEMANALES',
     CASE 
         WHEN interActiv.horaTotal IS NULL OR interActiv.horaTotal = 0 
         THEN 'NA' 
         ELSE CAST(interActiv.horaTotal AS VARCHAR(10))
-    END AS 'Horas Totales'
+    END AS 'HORAS TOTALES'
 	FROM tblActividadCargas interActiv
 	INNER JOIN tblActividad activ on interActiv.idActividad = activ.idActividad
 	WHERE (interActiv.idCrgHoraria = @idCrgHoraria AND activ.idTpAct_f = 4);
@@ -1527,51 +2238,49 @@ END
 GO
 
 -- Stored Procedure to Read all Actividades de Investigacion from a Specifica Academic Load from tblActividadCargas
-CREATE PROCEDURE [dbo].[spReadAllCargaActividadesI]
+CREATE OR ALTER PROCEDURE [dbo].[spReadAllCargaActividadesI]
 @idCrgHoraria int
 AS
 BEGIN 
-	--SELECT interActiv.idActivCrgs AS ID,activ.nombreActividad AS 'Actividad',
-	--	interActiv.horasSemana AS 'Horas Semanales'
-	--FROM   tblActividadCargas interActiv
-	--INNER JOIN tblActividad activ  on interActiv.idActividad = activ.idActividad
-	--WHERE (interActiv.idCrgHoraria = @idCrgHoraria AND activ.idTpAct_f=3)
 	SELECT 
     interActiv.idActivCrgs AS ID, 
-    activ.nombreActividad AS 'Actividad',
+    activ.nombreActividad AS 'ACTIVIDAD',
     CASE 
         WHEN interActiv.horasSemana IS NULL OR interActiv.horasSemana = 0 
         THEN 'NA' 
         ELSE CAST(interActiv.horasSemana AS VARCHAR(10))
-    END AS 'Horas Semanales',
+    END AS 'HORAS SEMANALES',
     CASE 
         WHEN interActiv.horaTotal IS NULL OR interActiv.horaTotal = 0 
         THEN 'NA' 
         ELSE CAST(interActiv.horaTotal AS VARCHAR(10))
-    END AS 'Horas Totales'
+    END AS 'HORAS TOTALES',
+	ISNULL(P.nombreProyecto, 'SIN PROYECTO') AS 'PROYECTO'
 	FROM tblActividadCargas interActiv
 	INNER JOIN tblActividad activ on interActiv.idActividad = activ.idActividad
+	LEFT JOIN tblProyecto P ON activ.idProyecto_f = P.idProyecto
 	WHERE (interActiv.idCrgHoraria = @idCrgHoraria AND activ.idTpAct_f = 3);
 END
 GO
+--exec [spReadAllCargaActividadesI] 1
 -- Stored Procedure to Read all Actividades from a Specifica Academic Load from tblActividadCargas
-CREATE PROCEDURE [dbo].[spReadAllCargaActividades]
+CREATE OR ALTER PROCEDURE [dbo].[spReadAllCargaActividades]
 @idCrgHoraria int
 AS
 BEGIN 
 	SELECT 
     interActiv.idActivCrgs AS ID, tpActiv.nombreTpAct AS Tipo,
-    activ.nombreActividad AS 'Actividad',
+    activ.nombreActividad AS 'ACTIVIDAD',
     CASE 
         WHEN interActiv.horasSemana IS NULL OR interActiv.horasSemana = 0 
         THEN 'NA'
         ELSE CAST(interActiv.horasSemana AS VARCHAR(10))
-    END AS 'Horas Semanales',
+    END AS 'HORAS SEMANALES',
     CASE 
         WHEN interActiv.horaTotal IS NULL OR interActiv.horaTotal = 0 
         THEN 'NA'
         ELSE CAST(interActiv.horaTotal AS VARCHAR(10))
-    END AS 'Horas Totales'
+    END AS 'HORAS TOTALES'
 	FROM tblActividadCargas interActiv
 	INNER JOIN tblActividad activ on interActiv.idActividad = activ.idActividad
 	INNER JOIN tblTipoActividad tpActiv on activ.idTpAct_f = tpActiv.idTpAct
@@ -1589,6 +2298,18 @@ BEGIN
 	INNER JOIN tblGrAsignatura gr  on interAsig.idGrAsig = gr.idGrAsig
 	INNER JOIN tblAsignatura asig on gr.idAsignatura = asig.idAsignatura
 	WHERE (interAsig.idCrgHoraria = @idCrgHoraria AND (asig.tipoAsignatura='Semestral')) --@idCrgHoraria
+END
+GO
+-- Stored Procedure to SUM all Modular Asignatures hours from a Specifica Academic Load from tblAsigCrgHoraria
+CREATE PROCEDURE [dbo].[spSumCargaClasesModular]
+@idCrgHoraria int
+AS
+BEGIN 
+	SELECT COALESCE(SUM(asig.horasAsignaturaTotales),0) AS 'HorasTotalesAsignaturasMod'
+	FROM   tblAsigCrgHoraria interAsig
+	INNER JOIN tblGrAsignatura gr  on interAsig.idGrAsig = gr.idGrAsig
+	INNER JOIN tblAsignatura asig on gr.idAsignatura = asig.idAsignatura
+	WHERE (interAsig.idCrgHoraria = @idCrgHoraria AND (asig.tipoAsignatura='Modular')) --@idCrgHoraria
 END
 GO
 -- Stored Procedure to SUM all Actividades Semanal hours de Docencia (D11) from a Specifica Academic Load from tblActividadCargas
@@ -1690,6 +2411,7 @@ BEGIN
 	WHERE (idSemestre = @idSemestre AND idDocente= @idDocente)
 END
 GO
+--exec [spGetIdCargaHoraria] 1,2
 -- Stored Procedure to check an existing CargaHoraria register
 CREATE PROCEDURE [dbo].[spCheckExCargaHoraria]
 @idDocente int,
@@ -1735,30 +2457,30 @@ BEGIN
 END
 GO
 -- Stored Procedure to get Asignature Level from tblAsignatura based on Asignature Name
-CREATE PROCEDURE [dbo].[spGetLevelAsignatura]
-@nameAsignatura varchar(250)
+CREATE OR ALTER PROCEDURE [dbo].[spGetLevelAsignatura]
+@idAsignatura int
 AS
 BEGIN 
 	SELECT nivelAsignatura FROM tblAsignatura
-	WHERE nombreAsignatura = @nameAsignatura
+	WHERE idAsignatura = @idAsignatura
 END
 GO
 -- Stored Procedure to get Asignature type from tblAsignatura based on Asignature Name
-CREATE PROCEDURE [dbo].[spGetTypeAsignatura]
-@nameAsignatura varchar(250)
+CREATE OR ALTER PROCEDURE [dbo].[spGetTypeAsignatura]
+@idAsignatura int
 AS
 BEGIN 
 	SELECT tipoAsignatura FROM tblAsignatura
-	WHERE nombreAsignatura = @nameAsignatura
+	WHERE idAsignatura = @idAsignatura
 END
 GO
 -- Stored Procedure to get Asignature Code from tblAsignatura based on Asignature Name
-CREATE PROCEDURE [dbo].[spGetCodeAsignatura]
-@nameAsignatura varchar(250)
+CREATE OR ALTER PROCEDURE [dbo].[spGetCodeAsignatura]
+@idAsignatura int
 AS
 BEGIN 
 	SELECT codigoAsignatura FROM tblAsignatura
-	WHERE nombreAsignatura = @nameAsignatura
+	WHERE idAsignatura = @idAsignatura
 END
 GO
 -- Stored Procedure to get IdActividad from tblActividad based on Activity Name
@@ -1821,6 +2543,112 @@ BEGIN
         SET @indice = @indice + 1
     END
 END
+GO
+CREATE OR ALTER PROCEDURE spCopySemestreHorarios
+    @idSemestreExistente INT,
+    @idSemestreNuevo INT,
+    @CopiaExitosa BIT OUTPUT
+AS
+BEGIN
+    --SET NOCOUNT ON;
+    DECLARE @TransactionName NVARCHAR(20) = 'CopySemestreData';
+
+    BEGIN TRY
+        BEGIN TRANSACTION @TransactionName;
+
+		INSERT INTO tblSemestreGrAsignatura (idSemestre, idGrAsig, isActive)
+		SELECT @idSemestreNuevo, idGrAsig, isActive
+		FROM tblSemestreGrAsignatura
+		WHERE idSemestre = @idSemestreExistente;
+
+		INSERT INTO tblHorarioGrAsig(idSemestreGrAsignatura, horaInicio, horaFin, idDiaSemana, isActive)
+		SELECT new_t1.idSemestreGrAsignatura, t2.horaInicio, t2.horaFin, t2.idDiaSemana, t2.isActive
+		FROM tblSemestreGrAsignatura AS t1
+		JOIN tblSemestreGrAsignatura AS new_t1 ON t1.idSemestre = @idSemestreExistente AND new_t1.idSemestre = @idSemestreNuevo AND t1.idGrAsig = new_t1.idGrAsig -- Aquí se igualan los idGrAsig también
+		JOIN tblHorarioGrAsig AS t2 ON t1.idSemestreGrAsignatura = t2.idSemestreGrAsignatura
+		WHERE t1.idSemestre = @idSemestreExistente;
+
+        -- Commit la transacción si todo se realizó exitosamente
+        SET @CopiaExitosa = 1;
+        COMMIT TRANSACTION @TransactionName;
+    END TRY
+    BEGIN CATCH
+        -- Rollback en caso de error
+        SET @CopiaExitosa = 0;
+        ROLLBACK TRANSACTION @TransactionName;
+		PRINT 'Error in transaction ' + @TransactionName + ': ' + ERROR_MESSAGE();
+    END CATCH;
+END;
+GO
+CREATE OR ALTER PROCEDURE spCopySemestreCargas
+    @idSemestreExistente INT,
+    @idSemestreNuevo INT,
+    @CopiaExitosa BIT OUTPUT
+AS
+BEGIN
+    --SET NOCOUNT ON;
+    DECLARE @TransactionName NVARCHAR(20) = 'CopySemestreCargasData';
+
+    BEGIN TRY
+        BEGIN TRANSACTION @TransactionName;
+
+		INSERT INTO tblCargaHoraria(idDocente, idSemestre)
+		SELECT idDocente,@idSemestreNuevo
+		FROM tblCargaHoraria
+		WHERE idSemestre = @idSemestreExistente;
+
+		-- Eliminar registros existentes en tblSemestreTpDocente creados por defecto por el trigger para el nuevo semestre
+		DELETE FROM tblSemestreTpDocente
+		WHERE idSemestre = @idSemestreNuevo
+
+		INSERT INTO tblSemestreTpDocente(idTipoDoc, idSemestre, idDocente, numHorasSemestrales, estadoSemestreDoc)
+		SELECT idTipoDoc,@idSemestreNuevo, idDocente, numHorasSemestrales, estadoSemestreDoc
+		FROM tblSemestreTpDocente
+		WHERE idSemestre = @idSemestreExistente;
+
+		DELETE FROM tblSemestreAsignatura
+		WHERE idSemestre = @idSemestreNuevo
+
+		INSERT INTO tblSemestreAsignatura(idSemestre, idAsignatura, isActive)
+		SELECT @idSemestreNuevo, idAsignatura, isActive
+		FROM tblSemestreAsignatura
+		WHERE idSemestre = @idSemestreExistente;
+
+		INSERT INTO tblAsigCrgHoraria(idCrgHoraria, idGrAsig, estadoAsigCrgDocencia)
+		SELECT new_t1.idCargaHoraria, t2.idGrAsig, t2.estadoAsigCrgDocencia
+		FROM tblCargaHoraria AS t1
+		JOIN tblCargaHoraria AS new_t1 ON t1.idSemestre = @idSemestreExistente AND new_t1.idSemestre = @idSemestreNuevo AND t1.idDocente = new_t1.idDocente -- Aquí se igualan los idDocnete también
+		JOIN tblAsigCrgHoraria AS t2 ON t1.idCargaHoraria = t2.idCrgHoraria
+		WHERE t1.idSemestre = @idSemestreExistente;
+
+		-- Eliminar registros existentes en tblActividadCargas para el nuevo semestre
+		DELETE FROM tblActividadCargas
+		WHERE idCrgHoraria IN (
+			SELECT new_t1.idCargaHoraria
+			FROM tblCargaHoraria AS t1
+			JOIN tblCargaHoraria AS new_t1 ON t1.idSemestre = @idSemestreExistente AND new_t1.idSemestre = @idSemestreNuevo AND t1.idDocente = new_t1.idDocente
+			WHERE t1.idSemestre = @idSemestreExistente
+		);
+
+		INSERT INTO tblActividadCargas(idCrgHoraria, idActividad, horasSemana, horaTotal, estadoActivCrgDocencia)
+		SELECT new_t1.idCargaHoraria, t2.idActividad, t2.horasSemana, t2.horaTotal, t2.estadoActivCrgDocencia
+		FROM tblCargaHoraria AS t1
+		JOIN tblCargaHoraria AS new_t1 ON t1.idSemestre = @idSemestreExistente AND new_t1.idSemestre = @idSemestreNuevo AND t1.idDocente = new_t1.idDocente -- Aquí se igualan los idDocnete también
+		JOIN tblActividadCargas AS t2 ON t1.idCargaHoraria = t2.idCrgHoraria
+		WHERE t1.idSemestre = @idSemestreExistente;
+
+
+        -- Commit la transacción si todo se realizó exitosamente
+        SET @CopiaExitosa = 1;
+        COMMIT TRANSACTION @TransactionName;
+    END TRY
+    BEGIN CATCH
+        -- Rollback en caso de error
+        SET @CopiaExitosa = 0;
+        ROLLBACK TRANSACTION @TransactionName;
+		PRINT 'Error in transaction ' + @TransactionName + ': ' + ERROR_MESSAGE();
+    END CATCH;
+END;
 GO
 -- Stored Procedure to copy data from other semester to another semester into "tblSemestreTpDocente"
 CREATE OR ALTER PROCEDURE [dbo].[spCopiarRegistrosHorasExigibles]
@@ -1996,6 +2824,12 @@ AS
 BEGIN 
 	SELECT ac.idActivCrgs AS ID, ta.nombreTpAct AS TIPO,a.nombreActividad AS 'ACTIVIDAD'
 	, CONCAT(d.apellido1Docente, ' ', d.apellido2Docente, ' ', d.nombre1Docente, ' ', d.nombre2Docente) AS 'DOCENTE ASIGNADO', 
+	CAST(
+    CASE
+        WHEN ac.horasSemana = 0 THEN ac.horaTotal / s.numSemanasClase
+        ELSE ac.horasSemana
+    END AS INT
+) AS 'HORAS SEMANALES',
 	(CASE WHEN ac.horaTotal = 0 THEN ac.horasSemana * s.numSemanasClase * 2 WHEN ac.horasSemana = 0 THEN ac.horaTotal  ELSE 0 END) AS 'HORAS TOTALES'
 	FROM tblActividadCargas ac
 	LEFT JOIN tblCargaHoraria ch ON ac.idCrgHoraria = ch.idCargaHoraria
@@ -2003,7 +2837,7 @@ BEGIN
 	INNER JOIN tblTipoActividad ta ON a.idTpAct_f = ta.idTpAct
 	INNER JOIN tblDocente d ON ch.idDocente = d.idDocente
 	INNER JOIN tblSemestre s ON ch.idSemestre = s.idSemestre
-	WHERE ch.idSemestre = @idSemestre
+	WHERE ch.idSemestre = 1--@idSemestre
 	AND (a.idTpAct_f = 3 OR a.idTpAct_f = 4)
 	ORDER BY TIPO
 END
@@ -2046,17 +2880,20 @@ CREATE OR ALTER PROCEDURE [dbo].[spGetAsignaturaGrBySemestreWithOutDocente_Repor
 AS 
 BEGIN 
     SELECT a.idAsignatura AS ID, a.codigoAsignatura AS CÓDIGO, ga.grupoAsignatura AS GRUPO, a.nombreAsignatura AS ASGINATURA, a.tipoAsignatura AS TIPO
-FROM tblAsignatura a
-INNER JOIN tblGrAsignatura ga ON a.idAsignatura = ga.idAsignatura
-WHERE a.idAsignatura IN (
-    SELECT sa.idAsignatura
-    FROM tblSemestreAsignatura sa
-    WHERE sa.isActive = 1 AND sa.idSemestre = @idSemestre
-) AND ga.idGrAsig NOT IN (
-    SELECT ach.idGrAsig
-    FROM tblAsigCrgHoraria ach
-)
-ORDER BY ASGINATURA ASC
+	FROM tblAsignatura a
+	INNER JOIN tblGrAsignatura ga ON a.idAsignatura = ga.idAsignatura
+	WHERE a.idAsignatura IN (
+		SELECT sa.idAsignatura
+		FROM tblSemestreAsignatura sa
+		WHERE sa.isActive = 1 AND sa.idSemestre = @idSemestre
+	) AND ga.idGrAsig NOT IN (
+		SELECT ach.idGrAsig
+		FROM tblAsigCrgHoraria ach
+	) AND ga.idGrAsig IN (
+		SELECT SGA.idGrAsig
+		FROM tblSemestreGrAsignatura SGA
+		WHERE SGA.idSemestre = @idSemestre and SGA.isActive = 1)
+	ORDER BY ASGINATURA ASC
 END
 GO
 
@@ -2102,8 +2939,130 @@ BEGIN
 	DECLARE @horaSemana3Mod INT;
 	DECLARE @horaSemana4Mod INT;
 	-- Se recupera el id de la Carga Horaria
+    SELECT @id_CargaH = COALESCE(i.idCrgHoraria, d.idCrgHoraria)
+    FROM inserted i
+    LEFT JOIN deleted d ON i.idCrgHoraria = d.idCrgHoraria;
+
+	
+	-- Se obtiene la suma de horasAsignatura semestrales mediante el procedimiento almacenado
+	SELECT @horasSemanalesAsignaturas = COALESCE(SUM(asig.horasAsignaturaSemanales),0)
+	FROM   tblAsigCrgHoraria interAsig
+	INNER JOIN tblGrAsignatura gr  on interAsig.idGrAsig = gr.idGrAsig
+	INNER JOIN tblAsignatura asig on gr.idAsignatura = asig.idAsignatura
+	WHERE (interAsig.idCrgHoraria = @id_CargaH AND (asig.tipoAsignatura='Semestral'));
+
+	SELECT @horasTotalesAsigModulares = COALESCE(SUM(asig.horasAsignaturaTotales),0)
+	FROM   tblAsigCrgHoraria interAsig
+	INNER JOIN tblGrAsignatura gr  on interAsig.idGrAsig = gr.idGrAsig
+	INNER JOIN tblAsignatura asig on gr.idAsignatura = asig.idAsignatura
+	WHERE (interAsig.idCrgHoraria = @id_CargaH AND (asig.tipoAsignatura='Modular'));
+	
+	 ---- Se verifica que las actividades 1, 2, 3 y 4 existan en la tabla tblActividadCargas
+  --  IF NOT EXISTS (SELECT 1 FROM tblActividadCargas WHERE idCrgHoraria = @id_CargaH AND idActividad IN (1, 2, 3, 4))
+  --  BEGIN
+  --      RAISERROR('No se encuentran las actividades por defecto de Docencia 1:1 en la Carga Horaria.', 16, 1)
+  --      ROLLBACK TRANSACTION
+  --      RETURN
+  --  END
+
+	-- Calcular horas por actividad
+    DECLARE @horasPorActividad DECIMAL(10, 2);
+    SET @horasPorActividad = CAST(@horasSemanalesAsignaturas / 4.0 AS DECIMAL(10, 2));
+
+	-- Distribuir horas en variables  -SEMESTRALES
+	IF @horasSemanalesAsignaturas > 0
+		BEGIN
+			SET @horaSemana1 = CEILING(@horasPorActividad);
+			IF @horaSemana1 <= 0 SET @horaSemana1 = 0;
+			SET @horaSemana2 = FLOOR(@horasPorActividad);
+			IF @horaSemana2 <= 0 SET @horaSemana2 = 0;
+			SET @horaSemana3 = FLOOR(@horasPorActividad);
+			IF @horaSemana3 <= 0 SET @horaSemana3 = 0;
+			SET @horaSemana4 = @horasSemanalesAsignaturas - @horaSemana1 - @horaSemana2 - @horaSemana3;
+			IF @horaSemana4 <= 0 SET @horaSemana4 = 0;
+		END
+    ELSE
+		BEGIN
+			SET @horaSemana1 = 0;
+			SET @horaSemana2 = 0;
+			SET @horaSemana3 = 0;
+			SET @horaSemana4 = 0;
+		END
+
+	DECLARE @horasPorActividadModular DECIMAL(10, 2);
+    SET @horasPorActividadModular = CAST(@horasTotalesAsigModulares / 4.0 AS DECIMAL(10, 2));
+    
+    -- Distribuir horas en variables  -MODULAR
+	IF @horasTotalesAsigModulares > 0
+		BEGIN
+			SET @horaSemana1Mod = CEILING(@horasPorActividadModular);
+			IF @horaSemana1Mod <= 0 SET @horaSemana1Mod = 0;
+			SET @horaSemana2Mod = FLOOR(@horasPorActividadModular);
+			IF @horaSemana2Mod <= 0 SET @horaSemana2Mod = 0;
+			SET @horaSemana3Mod = FLOOR(@horasPorActividadModular);
+			IF @horaSemana3Mod <= 0 SET @horaSemana3Mod = 0;
+			SET @horaSemana4Mod = @horasTotalesAsigModulares - @horaSemana1Mod - @horaSemana2Mod - @horaSemana3Mod;
+			IF @horaSemana4Mod <= 0 SET @horaSemana4Mod = 0;
+		END
+    ELSE
+		BEGIN
+			SET @horaSemana1Mod = 0;
+			SET @horaSemana2Mod = 0;
+			SET @horaSemana3Mod = 0;
+			SET @horaSemana4Mod = 0;
+		END
+
+    -- Recalcular horas de actividades de Docencia por defecto
+	UPDATE tblActividadCargas
+	SET horasSemana = @horaSemana1
+	WHERE idCrgHoraria = @id_CargaH AND idActividad = 1
+	UPDATE tblActividadCargas
+	SET horasSemana = @horaSemana2
+	WHERE idCrgHoraria = @id_CargaH AND idActividad = 2
+	UPDATE tblActividadCargas
+	SET horasSemana = @horaSemana3
+	WHERE idCrgHoraria = @id_CargaH AND idActividad = 3
+	UPDATE tblActividadCargas
+	SET horasSemana = @horaSemana4
+	WHERE idCrgHoraria = @id_CargaH AND idActividad = 4
+
+	-- Recalcular horas de actividades de Docencia por defecto PARA ASIG MODULARES
+	UPDATE tblActividadCargas
+	SET horaTotal = @horaSemana1Mod
+	WHERE idCrgHoraria = @id_CargaH AND idActividad = 1
+	UPDATE tblActividadCargas
+	SET horaTotal = @horaSemana2Mod
+	WHERE idCrgHoraria = @id_CargaH AND idActividad = 2
+	UPDATE tblActividadCargas
+	SET horaTotal = @horaSemana3Mod
+	WHERE idCrgHoraria = @id_CargaH AND idActividad = 3
+	UPDATE tblActividadCargas
+	SET horaTotal = @horaSemana4Mod
+	WHERE idCrgHoraria = @id_CargaH AND idActividad = 4
+END;
+GO
+CREATE TRIGGER tr_recalcularHorasDocencia_CargaH_afterDelete
+ON tblAsigCrgHoraria
+AFTER DELETE
+AS
+BEGIN
+	DECLARE @id_CargaH INT;
+	DECLARE @horasSemanalesAsignaturas INT;
+	DECLARE @horasTotalesAsigModulares INT;
+	DECLARE @horaSemana1 INT;
+	DECLARE @horaSemana2 INT;
+	DECLARE @horaSemana3 INT;
+	DECLARE @horaSemana4 INT;
+
+	DECLARE @horaSemana1Mod INT;
+	DECLARE @horaSemana2Mod INT;
+	DECLARE @horaSemana3Mod INT;
+	DECLARE @horaSemana4Mod INT;
+	-- Se recupera el id de la Carga Horaria
     SELECT @id_CargaH = idCrgHoraria
-    FROM inserted;
+    FROM deleted;
+	PRINT 'TRIGGER DELETE'
+	PRINT @id_CargaH
 
 	-- Se obtiene la suma de horasAsignatura semestrales mediante el procedimiento almacenado
 	SELECT @horasSemanalesAsignaturas = COALESCE(SUM(asig.horasAsignaturaSemanales),0)
@@ -2201,7 +3160,6 @@ BEGIN
 	SET horaTotal = @horaSemana4Mod
 	WHERE idCrgHoraria = @id_CargaH AND idActividad = 4
 END;
---tblAsigCrgHoraria
 GO
 -- TRIGGER PARA AGREGAR LOS DOCENTES AL NUEVO SEMESTRE CREADO
 CREATE TRIGGER tr_AddDocentesSemestreTpDocente
@@ -2238,7 +3196,7 @@ BEGIN
     
     -- Insertar los docentes en tblSemestreTpDocente solo si no existen previamente para el semestre
     INSERT INTO tblSemestreTpDocente (idTipoDoc, idSemestre, idDocente, numHorasSemestrales, estadoSemestreDoc)
-    SELECT 
+    SELECT
         1,
         @idSemestre,
         d.idDocente,
@@ -2337,6 +3295,21 @@ BEGIN
     SELECT idSemestre, @idAsignatura, 0
     FROM tblSemestre;
 END;
+GO
+--Trigger para actualizar num de horas semestrales al cambiar registros de la tabla que contiene el num de horas semestrales por semestre
+CREATE TRIGGER tr_UpdateSemestreTpDocente
+ON dbo.tblTipoDocenteSemestre
+AFTER UPDATE
+AS
+BEGIN
+    -- Actualizar los registros en tblSemestreTpDocente basados en los valores actualizados en tblTipoDocenteSemestre
+    UPDATE stp
+    SET stp.numHorasSemestrales = ins.numHorasSemestrales
+    FROM tblSemestreTpDocente stp
+    INNER JOIN inserted ins ON stp.idTipoDoc = ins.idTipoDocente AND stp.idSemestre = ins.idSemestre;
+END;
+
+
 -----------------------------------------
 -- Default Data Insert into DataBase Section
 -----------------------------------------
@@ -2355,188 +3328,180 @@ GO
 -- Table: Tipo Actividad
 -- DATA INSERT
 -- TABLA: Tipo Actividad    DATOS    ('Codigo Tipo Actividad','Nombre del tipo de Actividad')
-INSERT INTO tblTipoActividad VALUES('D11','Actividades Docente dentro del 1:1'); --Id=1
-INSERT INTO tblTipoActividad VALUES('D','Actividades Docente fuera del 1:1');    --Id=2
-INSERT INTO tblTipoActividad VALUES('I','Actividades de Investigacion'); --Id=3
-INSERT INTO tblTipoActividad VALUES('G','Actividades de Gestion');       --Id=4
+INSERT INTO tblTipoActividad VALUES('D11','Actividades Docente dentro del 1:1');	--Id=1
+INSERT INTO tblTipoActividad VALUES('D','Actividades Docente fuera del 1:1');		--Id=2
+INSERT INTO tblTipoActividad VALUES('I','Actividades de Investigacion');			--Id=3
+INSERT INTO tblTipoActividad VALUES('G','Actividades de Gestion');					--Id=4
 GO
 -- Table: Tipo Docente
 -- DATA INSERT
 --  TABLA: TipoDocente   DATOS    ('Nombre del TipoDocente','Estado')
 INSERT INTO tblTipoDocente VALUES('Profesor Titular a Tiempo Completo',928,1);	--Id=1
-INSERT INTO tblTipoDocente VALUES('Profesor Titular a Tiempo Parcial',928,1);	--Id=2
+INSERT INTO tblTipoDocente VALUES('Profesor Titular a Tiempo Parcial',441,1);	--Id=2
 INSERT INTO tblTipoDocente VALUES('Profesor Ocasional a Tiempo Completo',928,1);--Id=3
 INSERT INTO tblTipoDocente VALUES('Profesor Ocasional a Tiempo Parcial',928,1); --Id=4
 INSERT INTO tblTipoDocente VALUES('Tecnico Docente a Tiempo Completo',928,1);	--Id=5
-INSERT INTO tblTipoDocente VALUES('Tecnico Docente a Tiempo Parcial',928,1);	--Id=6
+INSERT INTO tblTipoDocente VALUES('Tecnico Docente a Tiempo Parcial',441,1);	--Id=6
 INSERT INTO tblTipoDocente VALUES('No asignado',0,1);	--Id=7
+INSERT INTO tblTipoDocente VALUES('Invitado',288,1);	--Id=8
 GO
 -- Table: Docente
 -- DATA INSERT
 --  TABLA: Docente- DATOS    (Id departamento,'Nombre1','Nombre2','Apellido1','Apellido2','Titulo Docente')
-INSERT INTO tblDocente VALUES(1,'Ana','Maria','Zambrano','Vizuete','PhD');
-INSERT INTO tblDocente VALUES(1,'Carlos','Francisco','Cevallos','Zambrano','MSc');
-INSERT INTO tblDocente VALUES(1,'Tania','Aleyda','Acosta','Hurtado','PhD');
-INSERT INTO tblDocente VALUES(1,'Robin','Gerardo','Alvarez','Rueda','PhD');
-INSERT INTO tblDocente VALUES(1,'Hernan','Vinicio','Barba','Molina','PhD');
-INSERT INTO tblDocente VALUES(1,'Pablo','Andres','Barbecho','Bautista','PhD');
-INSERT INTO tblDocente VALUES(1,'Ivan','Marcelo','Bernal','Carrillo','PhD');
-INSERT INTO tblDocente VALUES(1,'Julio','Cesar','Caiza','Ñacato','PhD');
-INSERT INTO tblDocente VALUES(1,'Xavier','Alexander','Calderon','Hinojosa','MSc');
-INSERT INTO tblDocente VALUES(1,'Luis','Fernando','Carrera','Suarez','PhD');
-INSERT INTO tblDocente VALUES(1,'Jorge','Eduardo','Carvajal','Rodriguez','MSc');
-INSERT INTO tblDocente VALUES(1,'William','Santiago','Coloma','Gomez','Ingeniería');
-INSERT INTO tblDocente VALUES(1,'Michael','Alexander','Curipallo','Martinez','Ingeniería');
-INSERT INTO tblDocente VALUES(1,'Luis','Efren','Diaz','Villacis','MSc');
-INSERT INTO tblDocente VALUES(1,'Carlos','Roberto','Egas','Acosta','MSc');
-INSERT INTO tblDocente VALUES(1,'Jose','Antonio','Estrada','Jimenez','PhD');	
-INSERT INTO tblDocente VALUES(1,'Luis','Antonio','Flores','Asimbaya','MSc');
-INSERT INTO tblDocente VALUES(1,'William','Fernando','Flores','Cifuentes','MSc');  			
-INSERT INTO tblDocente VALUES(1,'Fabio','Matias','Gonzalez','Gonzalez','MSc');
-INSERT INTO tblDocente VALUES(1,'Felipe','Leonel','Grijalva','Arevalo','PhD'); 
-INSERT INTO tblDocente VALUES(1,'Danny','Santiago','Guaman','Loachamin','PhD');
-INSERT INTO tblDocente VALUES(1,'Melany','Paola','Herrera','Herrera','Ingeniería');
-INSERT INTO tblDocente VALUES(1,'Carlos','Alfonso','Herrera','Muñoz','MSc');
-INSERT INTO tblDocente VALUES(1,'Pablo','Wilian','Hidalgo','Lascano','MSc'); 
-INSERT INTO tblDocente VALUES(1,'Marco','Fernando','Lara','Mina','MSc');
-INSERT INTO tblDocente VALUES(1,'Ricardo','Xavier','Llugsi','Cañar','MSc'); 
-INSERT INTO tblDocente VALUES(1,'Gabriel','Roberto','Lopez','Fonseca','MSc');
-INSERT INTO tblDocente VALUES(1,'Pablo','Anibal','Lupera','Morillo','PhD');
-INSERT INTO tblDocente VALUES(1,'Raul','David','Mejia','Navarrete','MSc'); 
-INSERT INTO tblDocente VALUES(1,'Ricardo','Ivan','Mena','Villacis',',MSc');
-INSERT INTO tblDocente VALUES(1,'Ramiro','Eduardo','Morejon','Tobar','MSc');
-INSERT INTO tblDocente VALUES(1,'Diana','Veronica','Navarro','Mendez','PhD');
-INSERT INTO tblDocente VALUES(1,'Martha','Cecilia','Paredes','Paredes','PhD');
-INSERT INTO tblDocente VALUES(1,'Viviana','Cristina','Parraga','Villamar','MSc');
-INSERT INTO tblDocente VALUES(1,'Maria','Cristina','Ramos','Lopez','MSc')
-INSERT INTO tblDocente VALUES(1,'Diego','Javier','Reinoso','Chisaguano','PhD');
-INSERT INTO tblDocente VALUES(1,'Aldrin','Paul','Reyes','Narvaez','MSc');
-INSERT INTO tblDocente VALUES(1,'Ana','Fernanda','Rodriguez','Hoyos','PhD');
-INSERT INTO tblDocente VALUES(1,'Tarquino','Fabian','Sanchez','Almeida','PhD');
-INSERT INTO tblDocente VALUES(1,'Franklin','Leonel','Sanchez','Catota','MSc');
-INSERT INTO tblDocente VALUES(1,'Marco','Fabian','Serrano','Gomez','Ingeniería');
-INSERT INTO tblDocente VALUES(1,'Soraya','Lucia','Sinche','Maita','PhD');
-INSERT INTO tblDocente VALUES(1,'Edison','Ramiro','Tatayo','Vinueza','MSc');
-INSERT INTO tblDocente VALUES(1,'Christian','Jose','Tipantuña','Tenelema','MSc');
-INSERT INTO tblDocente VALUES(1,'Luis','Felipe','Urquiza','Aguiar','PhD');
-INSERT INTO tblDocente VALUES(1,'Jose','David','Vega','Sanchez','PhD');
-INSERT INTO tblDocente VALUES(1,'Monica','De Lourdes','Vinueza','Rhor','MSc');
-INSERT INTO tblDocente VALUES(1,'Francisco','Javier','Vizuete','Bassante','Ingeniería');
-INSERT INTO tblDocente VALUES(1,'Jose','Adrian','Zambrano','Miranda','MSc');
--- CREATE SEMESTRE PREV
+INSERT INTO tblDocente VALUES(1,'Ana','Maria','Zambrano','Vizuete','PhD','ana.zambrano@epn.edu.ec',1);  --TTC
+INSERT INTO tblDocente VALUES(1,'Carlos','Francisco','Cevallos','Zambrano','MSc','francisco.cevallos@epn.edu.ec',1); --TTP
+INSERT INTO tblDocente VALUES(1,'Tania','Aleyda','Acosta','Hurtado','PhD','tania.acosta@epn.edu.ec',1); --TTC
+INSERT INTO tblDocente VALUES(1,'Robin','Gerardo','Alvarez','Rueda','PhD','robin.alvarez@epn.edu.ec',1); --TTC DESACTIVADO
+INSERT INTO tblDocente VALUES(1,'Hernan','Vinicio','Barba','Molina','PhD','hernan.barba@epn.edu.ec',1); --Oc TC
+INSERT INTO tblDocente VALUES(1,'Pablo','Andres','Barbecho','Bautista','PhD','pablo.barbecho@epn.edu.ec',1);
+INSERT INTO tblDocente VALUES(1,'Ivan','Marcelo','Bernal','Carrillo','PhD','ivan.bernal@epn.edu.ec',1); -- TTC
+INSERT INTO tblDocente VALUES(1,'Julio','Cesar','Caiza','Ñacato','PhD','julio.caiza@epn.edu.ec',1); -- TTC
+INSERT INTO tblDocente VALUES(1,'Xavier','Alexander','Calderon','Hinojosa','MSc','xavier.calderon@epn.edu.ec',1); -- TTC
+INSERT INTO tblDocente VALUES(1,'Luis','Fernando','Carrera','Suarez','PhD','fernando.carrera@epn.edu.ec',1); -- TTC
+INSERT INTO tblDocente VALUES(1,'Jorge','Eduardo','Carvajal','Rodriguez','MSc','jorge.carvajal@epn.edu.ec',1); --TTC desactivado
+INSERT INTO tblDocente VALUES(1,'William','Santiago','Coloma','Gomez','Ingeniería','william.coloma@epn.edu.ec',1); -- Tec Doc TC
+INSERT INTO tblDocente VALUES(1,'Michael','Alexander','Curipallo','Martinez','Ingeniería','michael.curipallo@epn.edu.ec',1); -- Tec Doc TC
+INSERT INTO tblDocente VALUES(1,'Luis','Efren','Diaz','Villacis','MSc','luis.diaz@epn.edu.ec',1); -- Tit TP
+INSERT INTO tblDocente VALUES(1,'Carlos','Roberto','Egas','Acosta','MSc','carlos.egas@epn.edu.ec',1);--Tit TC
+INSERT INTO tblDocente VALUES(1,'Jose','Antonio','Estrada','Jimenez','PhD','jose.estrada@epn.edu.ec',1);	--TTC
+INSERT INTO tblDocente VALUES(1,'Luis','Antonio','Flores','Asimbaya','MSc','luis.flores04@epn.edu.ec',1); --OTP
+INSERT INTO tblDocente VALUES(1,'William','Fernando','Flores','Cifuentes','MSc','fernando.flores@epn.edu.ec',1);  	 --TTC		
+INSERT INTO tblDocente VALUES(1,'Fabio','Matias','Gonzalez','Gonzalez','MSc','fabio.gonzalez@epn.edu.ec',1);--TTC
+INSERT INTO tblDocente VALUES(1,'Felipe','Leonel','Grijalva','Arevalo','PhD','felipe.grijalva@epn.edu.ec',1); -- Invitado Tiempo Parcial
+INSERT INTO tblDocente VALUES(1,'Danny','Santiago','Guaman','Loachamin','PhD','danny.guaman@epn.edu.ec',1); --TTC
+INSERT INTO tblDocente VALUES(1,'Melany','Paola','Herrera','Herrera','Ingeniería','melany.herrera@epn.edu.ec',1); --Tec DocTC
+INSERT INTO tblDocente VALUES(1,'Carlos','Alfonso','Herrera','Muñoz','MSc','carlos.herrera@epn.edu.ec',1);--TTC
+INSERT INTO tblDocente VALUES(1,'Pablo','Wilian','Hidalgo','Lascano','MSc','pablo.hidalgo@epn.edu.ec',1); --TTC
+INSERT INTO tblDocente VALUES(1,'Marco','Fernando','Lara','Mina','MSc','marco.lara@epn.edu.ec',1); --OTP
+INSERT INTO tblDocente VALUES(1,'Ricardo','Xavier','Llugsi','Cañar','MSc','ricardo.llugsi@epn.edu.ec',1); -- TTC
+INSERT INTO tblDocente VALUES(1,'Gabriel','Roberto','Lopez','Fonseca','MSc','gabriel.lopez@epn.edu.ec',1); -- Invitado Tiempo Parcial
+INSERT INTO tblDocente VALUES(1,'Pablo','Anibal','Lupera','Morillo','PhD','pablo.lupera@epn.edu.ec',1); ----TTC
+INSERT INTO tblDocente VALUES(1,'Raul','David','Mejia','Navarrete','MSc','david.mejia@epn.edu.ec',1); -- --TTC
+INSERT INTO tblDocente VALUES(1,'Ricardo','Ivan','Mena','Villacis',',MSc','ricardo.menav@epn.edu.ec',1); --OTC
+INSERT INTO tblDocente VALUES(1,'Ramiro','Eduardo','Morejon','Tobar','MSc','ramiro.morejon@epn.edu.ec',1); --TTC
+INSERT INTO tblDocente VALUES(1,'Diana','Veronica','Navarro','Mendez','PhD','veronica.navarro@epn.edu.ec',1);--TTC
+INSERT INTO tblDocente VALUES(1,'Martha','Cecilia','Paredes','Paredes','PhD','cecilia.paredes@epn.edu.ec',1);--TTC
+INSERT INTO tblDocente VALUES(1,'Viviana','Cristina','Parraga','Villamar','MSc','viviana.parragav@epn.edu.ec',1);--OTP
+INSERT INTO tblDocente VALUES(1,'Maria','Cristina','Ramos','Lopez','MSc','maria.ramos@epn.edu.ec',1) -- DESACTIVAR
+INSERT INTO tblDocente VALUES(1,'Diego','Javier','Reinoso','Chisaguano','PhD','diego.reinoso@epn.edu.ec',1);--TTC
+INSERT INTO tblDocente VALUES(1,'Aldrin','Paul','Reyes','Narvaez','MSc','aldrin.reyesn@epn.edu.ec',1);--TCTC
+INSERT INTO tblDocente VALUES(1,'Ana','Fernanda','Rodriguez','Hoyos','PhD','ana.rodriguez@epn.edu.ec',1); --TTC
+INSERT INTO tblDocente VALUES(1,'Tarquino','Fabian','Sanchez','Almeida','PhD','tarquino.sanchez@epn.edu.ec',1); --TTC
+INSERT INTO tblDocente VALUES(1,'Franklin','Leonel','Sanchez','Catota','MSc','franklin.sanchez@epn.edu.ec',1); --TTC
+INSERT INTO tblDocente VALUES(1,'Marco','Fabian','Serrano','Gomez','Ingeniería','SIN CORREO',1); --TDTC
+INSERT INTO tblDocente VALUES(1,'Soraya','Lucia','Sinche','Maita','PhD','soraya.sinche@epn.edu.ec',1); --TTC
+INSERT INTO tblDocente VALUES(1,'Edison','Ramiro','Tatayo','Vinueza','MSc','edison.tatayo@epn.edu.ec',1); --TDTC
+INSERT INTO tblDocente VALUES(1,'Christian','Jose','Tipantuña','Tenelema','MSc','christian.tipantuna@epn.edu.ec',1); ----TTC
+INSERT INTO tblDocente VALUES(1,'Luis','Felipe','Urquiza','Aguiar','PhD','luis.urquiza@epn.edu.ec',1); --TTC
+INSERT INTO tblDocente VALUES(1,'Jose','David','Vega','Sanchez','PhD','jose.vega01@epn.edu.ec',1); --OTC
+--
+INSERT INTO tblDocente VALUES(1,'Monica','De Lourdes','Vinueza','Rhor','MSc','monica.vinueza@epn.edu.ec',1); --TTC
+INSERT INTO tblDocente VALUES(1,'Francisco','Javier','Vizuete','Bassante','Ingeniería','francisco.vizuete@epn.edu.ec',1);--DESACTIVO --TTC
+INSERT INTO tblDocente VALUES(1,'Jose','Adrian','Zambrano','Miranda','MSc','ana.zambrano@epn.edu.ec',1); --DESACTIVO --TTC
+INSERT INTO tblDocente VALUES(1,'Rommel','David','Salgado','Camacas','Ingeniero','SIN CORREO',1); --TDTC
+-- TEST VALUES EMAIL
+--INSERT INTO tblDocente VALUES(1,'Monica','De Lourdes','Vinueza','Rhor','MSc','parzivalgunter.18@gmail.com',1); --TTC
+--INSERT INTO tblDocente VALUES(1,'Francisco','Javier','Vizuete','Bassante','Ingeniería','jorge.perez01epn@gmail.com',1);--DESACTIVO --TTC   TEST CORREOS SEND
+--INSERT INTO tblDocente VALUES(1,'Jose','Adrian','Zambrano','Miranda','MSc','jorge.perez01@epn.edu.ec',1); --DESACTIVO --TTC
+--INSERT INTO tblDocente VALUES(1,'Rommel','David','Salgado','Camacas','Ingeniero','yonkoucreed@gmail.com',1); --TDTC
+
 GO
 -- Table: Actividad
 -- DATA INSERT
 --  TABLA: Actividad   DATOS    (idTipoActividad,'Nombre Actividad',horas actividad, estado)
-INSERT INTO tblActividad VALUES(1,'Preparación y actualización de clases, seminarios, talleres, entre otros.',5,0,1);--Id=1
-INSERT INTO tblActividad VALUES(1,'Preparación, elaboración, aplicación y calificación de exámenes, trabajos y prácticas; consultas académicas.', 5,0,1);--Id=2
-INSERT INTO tblActividad VALUES(1,'Diseño y elaboración de material didáctico, guías docentes o syllabus.', 5,0,1);--Id=3
-INSERT INTO tblActividad VALUES(1,'Dirección, orientación y acompañamiento a través de tutorías presenciales o virtuales, individuales o grupales (seguimiento académico, seguimiento y evaluación de prácticas o pasantías preprofesionales).', 5,0,1);--Id=4
-INSERT INTO tblActividad VALUES(1,'Dirigir los aprendizajes prácticos y de laboratorio, bajo la coordinación de un profesor.', 5,0,1);--Id=5
-INSERT INTO tblActividad VALUES(2,'Dirección, codirección de trabajos de titulación para carreras y maestrías profesionalizantes.', 5,0,1);--Id=6
-INSERT INTO tblActividad VALUES(2,'Calificación de trabajos de titulación para carreras y maestrías profesionalizantes.', 5,0,1);--Id=7
-INSERT INTO tblActividad VALUES(2,'Participación en cursos de capacitación y actualización profesional debidamente autorizados por el Consejo de Departamento.', 5,0,1);--Id=8
-INSERT INTO tblActividad VALUES(2,'Escritura, elaboración y edición del libro.', 5,0,1);--Id=9
-INSERT INTO tblActividad VALUES(2,'Diseño e impartición de cursos de educación continua, capacitación y actualización profesional, inducción al personal académico vinculado al curso de nivelación.', 5,0,1);--Id=10
-INSERT INTO tblActividad VALUES(2,'Apoyo a las actividades de docencia que realiza el personal académico.', 5,0,1);--Id=11
-INSERT INTO tblActividad VALUES(3,'Revisor de artículos en revistas indexadas.', 5,0,1);--Id=12
-INSERT INTO tblActividad VALUES(3,'Publicación de artículo científico.', 5,0,1);--Id=13
-INSERT INTO tblActividad VALUES(3,'Tutoría estudiante doctorado FIEE.', 5,0,1);--Id=14
-INSERT INTO tblActividad VALUES(3,'Escritura - Proyecto de investigación interno sin financiamiento.',5,0,1);--Id=15
-INSERT INTO tblActividad VALUES(3,'Director de Proyecto de Investigación.', 5,0,1);--Id=16
-INSERT INTO tblActividad VALUES(3,'Colaborador de Proyecto de Investigación.', 5,0,1);--Id=17
-INSERT INTO tblActividad VALUES(3,'Propuesta - Proyecto de Investigación Interno sin financiamiento.', 5,0,1);--Id=18
-INSERT INTO tblActividad VALUES(3,'Elaboración de proyecto de investigación.', 5,0,1);--Id=19
-INSERT INTO tblActividad VALUES(3,'Co-Director de Proyecto de Investigación.', 5,0,1);--Id=20
-INSERT INTO tblActividad VALUES(3,'Apoyo a la Comisión organizadora ETCM.', 5,0,1);--Id=21
-INSERT INTO tblActividad VALUES(3,'Co-Director Tesis Doctoral.', 5,0,1);--Id=22
-INSERT INTO tblActividad VALUES(3,'Dirección proyecto externo.', 5,0,1);--Id=23
-INSERT INTO tblActividad VALUES(3,'Participación en Comité editorial ACOFI', 5,0,1);--Id=24
-INSERT INTO tblActividad VALUES(3,'Director Tesis Doctoral.', 5,0,1);--Id=25
-INSERT INTO tblActividad VALUES(3,'Comité Editorial EPN.', 5,0,1);--Id=26
-INSERT INTO tblActividad VALUES(3,'Estudiante Doctorado.', 5,0,1);--Id=27
-INSERT INTO tblActividad VALUES(4,'Miembro alterno Comisión de Evaluación Interna CEI.', 5,0,1);--Id=28
-INSERT INTO tblActividad VALUES(4,'Comisión de exámenes de autoevaluación.', 5,0,1);--Id=29
-INSERT INTO tblActividad VALUES(4,'CODEI.', 5,0,1);--Id=30
-INSERT INTO tblActividad VALUES(4,'Vicerrectorado de Docencia.', 5,0,1);--Id=31
-INSERT INTO tblActividad VALUES(4,'Coordinador - Comisión de Diseño de Maestría Profesional.', 5,0,1);--Id=32
-INSERT INTO tblActividad VALUES(4,'Representante de profesores ante Consejo de Facultad.', 5,0,1);--Id=33
-INSERT INTO tblActividad VALUES(4,'Comisión de Vinculación y Promoción DETRI.',5,0,1);--Id=34
-INSERT INTO tblActividad VALUES(4,'Responsable de Club', 5,0,1);--Id=35
-INSERT INTO tblActividad VALUES(4,'Administración de Laboratorio.', 5,0,1);--Id=36
-INSERT INTO tblActividad VALUES(4,'Comisión de propuesta de Maestría Profesional.', 5,0,1);--Id=37
-INSERT INTO tblActividad VALUES(4,'Comisión de Unidad de Titulación de Posgrado.', 5,0,1);--Id=38
-INSERT INTO tblActividad VALUES(4,'Comision Nueva Carrera.', 5,0,1);--Id=39
-INSERT INTO tblActividad VALUES(4,'Technical Chair - ETCM.', 5,0,1);--Id=40
-INSERT INTO tblActividad VALUES(4,'Coordinador - Maestría.', 5,0,1);--Id=41
-INSERT INTO tblActividad VALUES(4,'Coordinador de Carrera.', 5,0,1);--Id=42,0
-INSERT INTO tblActividad VALUES(4,'Comisión de propuesta de nueva Carrera.', 5,0,1);--Id=43
-INSERT INTO tblActividad VALUES(4,'Representante de la FIEE a la ESFOT.', 5,0,1);--Id=44
-INSERT INTO tblActividad VALUES(4,'Comisión Permanente de Gestión de Integración Curricular CPGIC', 5,0,1);--Id=45
-INSERT INTO tblActividad VALUES(4,'Consejo de Departamento DETRI.', 5,0,1);--Id=46
-INSERT INTO tblActividad VALUES(4,'Coordinador CPPP.', 5,0,1);--Id=47
-INSERT INTO tblActividad VALUES(4,'Coordinación de Maestría.', 5,0,1);--Id=48
-INSERT INTO tblActividad VALUES(4,'Director de Docencia.', 5,0,1);--Id=49
-INSERT INTO tblActividad VALUES(4,'Comisión de Seguimiento a Graduados.', 5,0,1);--Id=50
-INSERT INTO tblActividad VALUES(4,'Unidad de Mantenimiento electrónico (UME).', 5,0,1);--Id=51
-INSERT INTO tblActividad VALUES(4,'Decanato FIEE.', 5,0,1);--Id=52
-INSERT INTO tblActividad VALUES(4,'Comisión de Examen de Fin de Carrera.', 5,0,1);--Id=53
-INSERT INTO tblActividad VALUES(4,'Miembro Consejo de Departamento.', 5,0,1);--Id=54
-INSERT INTO tblActividad VALUES(4,'Comisión de Prácticas preprofesionales FIEE.', 5,0,1);--Id=55
-INSERT INTO tblActividad VALUES(4,'Comisión de Trabajo de Titulación.', 5,0,1);--Id=56
-INSERT INTO tblActividad VALUES(4,'Miembro comité doctoral.', 5,0,1);--Id=57
-INSERT INTO tblActividad VALUES(4,'Director de Investigación.', 5,0,1);--Id=58
-INSERT INTO tblActividad VALUES(4,'Directora de la ESFOT.', 5,0,1);--Id=59
-INSERT INTO tblActividad VALUES(4,'Jefe del DETRI.', 5,0,1);--Id=60
-INSERT INTO tblActividad VALUES(4,'Apoyo a las actividades de gestión.', 5,0,1);--Id=61
-INSERT INTO tblActividad VALUES(4,'Colaboración en la Comisión de Prácticas Preprofesionales y Pasantías.', 5,0,1);--Id=62
-INSERT INTO tblActividad VALUES(4,'Otras actividades.', 5,0,1);--Id=63
+INSERT INTO tblActividad(idTpAct_f, nombreActividad, cantHoraSemana, cantHoraTotal,estadoActividad) 
+VALUES
+(1,'Preparación y actualización de clases, seminarios, talleres, entre otros.',5,0,1),--Id=1
+(1,'Preparación, elaboración, aplicación y calificación de exámenes, trabajos y prácticas; consultas académicas.', 5,0,1),--Id=2
+(1,'Diseño y elaboración de material didáctico, guías docentes o syllabus.', 5,0,1),--Id=3
+(1,'Dirección, orientación y acompañamiento a través de tutorías presenciales o virtuales, individuales o grupales (seguimiento académico, seguimiento y evaluación de prácticas o pasantías preprofesionales).', 5,0,1),--Id=4
+(1,'Dirigir los aprendizajes prácticos y de laboratorio, bajo la coordinación de un profesor.', 5,0,1),--Id=5
+(2,'Dirección, codirección de trabajos de titulación para carreras y maestrías profesionalizantes.', 5,0,1),--Id=6
+(2,'Calificación de trabajos de titulación para carreras y maestrías profesionalizantes.', 5,0,1),--Id=7
+(2,'Participación en cursos de capacitación y actualización profesional debidamente autorizados por el Consejo de Departamento.', 5,0,1),--Id=8
+(2,'Escritura, elaboración y edición del libro.', 5,0,1),--Id=9
+(2,'Diseño e impartición de cursos de educación continua, capacitación y actualización profesional, inducción al personal académico vinculado al curso de nivelación.', 5,0,1),--Id=10
+(2,'Apoyo a las actividades de docencia que realiza el personal académico.', 5,0,1),--Id=11
+(3,'Revisor de artículos en revistas indexadas.', 5,0,1),--Id=12
+(3,'Publicación de artículo científico.', 5,0,1),--Id=13
+(3,'Tutoría estudiante doctorado FIEE.', 5,0,1),--Id=14
+(3,'Escritura - Proyecto de investigación interno sin financiamiento.',5,0,1),--Id=15
+(3,'Director de Proyecto de Investigación.', 5,0,1),--Id=16
+(3,'Colaborador de Proyecto de Investigación.', 5,0,1),--Id=17
+(3,'Propuesta - Proyecto de Investigación Interno sin financiamiento.', 5,0,1),--Id=18
+(3,'Elaboración de proyecto de investigación.', 5,0,1),--Id=19
+(3,'Co-Director de Proyecto de Investigación.', 5,0,1),--Id=20
+(3,'Apoyo a la Comisión organizadora ETCM.', 5,0,1),--Id=21
+(3,'Co-Director Tesis Doctoral.', 5,0,1),--Id=22
+(3,'Dirección proyecto externo.', 5,0,1),--Id=23
+(3,'Participación en Comité editorial ACOFI', 5,0,1),--Id=24
+(3,'Director Tesis Doctoral.', 5,0,1),--Id=25
+(3,'Comité Editorial EPN.', 5,0,1),--Id=26
+(3,'Estudiante Doctorado.', 5,0,1),--Id=27
+(4,'Miembro alterno Comisión de Evaluación Interna CEI.', 5,0,1),--Id=28
+(4,'Comisión de exámenes de autoevaluación.', 5,0,1),--Id=29
+(4,'CODEI.', 5,0,1),--Id=30
+(4,'Vicerrectorado de Docencia.', 5,0,1),--Id=31
+(4,'Coordinador - Comisión de Diseño de Maestría Profesional.', 5,0,1),--Id=32
+(4,'Representante de profesores ante Consejo de Facultad.', 5,0,1),--Id=33
+(4,'Comisión de Vinculación y Promoción DETRI.',5,0,1),--Id=34
+(4,'Responsable de Club', 5,0,1),--Id=35
+(4,'Administración de Laboratorio.', 5,0,1),--Id=36
+(4,'Comisión de propuesta de Maestría Profesional.', 5,0,1),--Id=37
+(4,'Comisión de Unidad de Titulación de Posgrado.', 5,0,1),--Id=38
+(4,'Comision Nueva Carrera.', 5,0,1),--Id=39
+(4,'Technical Chair - ETCM.', 5,0,1),--Id=40
+(4,'Coordinador - Maestría.', 5,0,1),--Id=41
+(4,'Coordinador de Carrera.', 5,0,1),--Id=42,0
+(4,'Comisión de propuesta de nueva Carrera.', 5,0,1),--Id=43
+(4,'Representante de la FIEE a la ESFOT.', 5,0,1),--Id=44
+(4,'Comisión Permanente de Gestión de Integración Curricular CPGIC', 5,0,1),--Id=45
+(4,'Consejo de Departamento DETRI.', 5,0,1),--Id=46
+(4,'Coordinador CPPP.', 5,0,1),--Id=47
+(4,'Coordinación de Maestría.', 5,0,1),--Id=48
+(4,'Director de Docencia.', 5,0,1),--Id=49
+(4,'Comisión de Seguimiento a Graduados.', 5,0,1),--Id=50
+(4,'Unidad de Mantenimiento electrónico (UME).', 5,0,1),--Id=51
+(4,'Decanato FIEE.', 5,0,1),--Id=52
+(4,'Comisión de Examen de Fin de Carrera.', 5,0,1),--Id=53
+(4,'Miembro Consejo de Departamento.', 5,0,1),--Id=54
+(4,'Comisión de Prácticas preprofesionales FIEE.', 5,0,1),--Id=55
+(4,'Comisión de Trabajo de Titulación.', 5,0,1),--Id=56
+(4,'Miembro comité doctoral.', 5,0,1),--Id=57
+(4,'Director de Investigación.', 5,0,1),--Id=58
+(4,'Directora de la ESFOT.', 5,0,1),--Id=59
+(4,'Jefe del DETRI.', 5,0,1),--Id=60
+(4,'Apoyo a las actividades de gestión.', 5,0,1),--Id=61
+(4,'Colaboración en la Comisión de Prácticas Preprofesionales y Pasantías.', 5,0,1),--Id=62
+(4,'Otras actividades.', 5,0,1);--Id=63
+GO
+--TABLE tblDiaSemana
+INSERT INTO tblDiaSemana VALUES
+('LUNES'),
+('MARTES'),
+('MIÉRCOLES'),
+('JUEVES'),
+('VIERNES'),
+('SÁBADO'),
+('DOMINGO')
 GO
 --  TABLA: Asignaturas   DATOS    (nombreAsignatura,'tipoAsignatura','codigoAsignatura',horasAsignaturaTotales,horasAsignaturaSemanales,nivelAsignatura, estadoAsignatura)
 --INSERTAR DATOS EN MATERIA---
 INSERT INTO tblAsignatura(idCarrera,nombreAsignatura,tipoAsignatura,codigoAsignatura,horasAsignaturaTotales,horasAsignaturaSemanales,
 						nivelAsignatura,estadoAsignatura)
-VALUES -- id=1  ==> 44
-
---('TEORÍA DE INFORMACIÓN Y CODIFICACIÓN','Semestral','TELD522',96,3,'Tercer Nivel',1),
---('TEORÍA DE INFORMACIÓN Y CODIFICACIÓN','Semestral','TELD522',96,3,'Tercer Nivel',1),
---('DISEÑO Y PROGRAMACIÓN DE SOFTWARE','Semestral','ITID543',144,5,'TercerNivel',1),
---('SISTEMAS EMBEBIDOS','Semestral','ITID553',144,5,'TercerNivel',1),
---('GESTIÓN ORGANIZACIONAL','Semestral','ADMD511',48,2,'TercerNivel',1),
---('CABLEADO ESTRUCTURADO AVANZADO','Semestral','ITID612',96,3,'TercerNivel',1),
---('REDES DE ÁREA LOCAL','Semestral','ITID623',144,5,'TercerNivel',1),
---('ENRUTAMIENTO','Semestral','ITID633',144,5,'TercerNivel',1),
---('SISTEMAS INALÁMBRICOS','Semestral','ITID643',144,5,'TercerNivel',1),
---('ALMACENAMIENTO Y PROCESAMIENTO DE DATOS','Semestral','ITID653',144,5,'TercerNivel',1),
---('GESTIÓN DE PROCESOS Y CALIDAD','Semestral','ADMD611',48,2,'TercerNivel',1),
---('APLICACIONES DISTRIBUIDAS','Semestral','ITID713',144,5,'TercerNivel',1),
---('REDES DE ÁREA EXTENDIDA','Semestral','ITID723',144,5,'TercerNivel',1),
---('SEGURIDAD EN REDES','Semestral','ITID733',144,5,'TercerNivel',1),
---('REDES E INTRANETS','Semestral','ITID742',96,3,'TercerNivel',1),
---('APLICACIONES WEB Y MÓVILES','Semestral','ITID753',144,5,'TercerNivel',1),
---('INGENIERÍA FINANCIERA','Semestral','ADMD711',48,2,'TercerNivel',1),
---('ASIGNATURA BÁSICA DE ITINERARIO','Semestral','ITID800',96,3,'TercerNivel',1),
---('EVALUACIÓN DE REDES','Semestral','ITID822',96,3,'TercerNivel',1),
---('REDES DE ÁREA LOCAL INALÁMBRICAS','Semestral','ITID832',96,3,'TercerNivel',1),
---('ADMINISTRACIÓN DE REDES','Semestral','ITID843',144,5,'TercerNivel',1),
---('MINERÍA DE DATOS','Semestral','ITID853',96,3,'TercerNivel',1),
---('SISTEMAS IoT','Semestral','ITID862',96,3,'TercerNivel',1),
---('DISEÑO DE TRABAJO DE INTEGRACIÓN CURRICULAR/PREPARACIÓN EXAMEN DE CARÁCTER COMPLEXIVO','Semestral','ITID871',48,2,'TercerNivel',1),
---('ASIGNATURA AVANZADA DE ITINERARIO','','ITID900',96,3,'TercerNivel',1),
---('REGULACIÓN DE LAS TECNOLOGÍAS DE LA INFORMACIÓN Y LA COMUNICACIÓN','Semestral','ITID941',48,2,'TercerNivel',1),
---('TRABAJO DE INTEGRACIÓN CURRICULAR/ EXAMEN DE CARÁCTER COMPLEXIVO','Semestral','TITD201',240,15,'TercerNivel',1)
+VALUES -- id=1  ==> 44   v2 -- id=1  ==> 39
 --Malla TICs
 (1,'HERRAMIENTAS INFORMÁTICAS', 'Semestral', 'ICOD111', 48, 2, 'Primer Nivel',1),
-(1,'CÁLCULO VECTORIAL', 'Semestral', 'IEED232', 96, 3, 'Segundo Nivel',1),
+--(1,'CÁLCULO VECTORIAL', 'Semestral', 'IEED232', 96, 3, 'Segundo Nivel',1), -- BORRAR 2
 (1,'PROGRAMACIÓN', 'Semestral', 'IEED252', 96, 3, 'Segundo Nivel',1),
 (1,'SISTEMAS DIGITALES', 'Semestral', 'IEED323', 96, 3, 'Tercer Nivel',1),
-(1,'DISPOSITIVOS ELECTRÓNICOS', 'Semestral', 'IEED333', 96, 3, 'Tercer Nivel',1),
-(1,'TEORÍA ELECTROMAGNÉTICA', 'Semestral', 'IEED333', 96, 4, 'Tercer Nivel',1),
+--(1,'DISPOSITIVOS ELECTRÓNICOS', 'Semestral', 'IEED333', 96, 3, 'Tercer Nivel',1), -- Borrar 4
+--(1,'TEORÍA ELECTROMAGNÉTICA', 'Semestral', 'IEED333', 96, 4, 'Tercer Nivel',1),  BORRAR 5
 (1,'FUNDAMENTOS DE CIRCUITOS ELÉCTRICOS', 'Semestral', 'IEED342', 96, 3, 'Tercer Nivel',1),
 (1,'ASIGNATURA DE ARTES Y HUMANIDADES', 'Semestral', 'CSHD300', 48, 2, 'Tercer Nivel',1),
 (1,'MATEMÁTICA DISCRETA', 'Semestral', 'IEED371', 48, 2, 'Tercer Nivel',1),
-(1,'INSTALACIONES ELÉCTRICAS Y COMUNICACIONES', 'Semestral', 'IEED413', 144, 4, 'Cuarto Nivel',1),
-(1,'ANÁLISIS DE SEÑALES DISCRETAS PARA COMUNICACIONES', 'Semestral', 'TELD423', 144, 3, 'Cuarto Nivel',1),
+--(1,'INSTALACIONES ELÉCTRICAS Y COMUNICACIONES', 'Semestral', 'IEED413', 144, 4, 'Cuarto Nivel',1), --BORRAR 9
+--(1,'ANÁLISIS DE SEÑALES DISCRETAS PARA COMUNICACIONES', 'Semestral', 'TELD423', 144, 3, 'Cuarto Nivel',1 ), BORRAR 10
 (1,'PROGRAMACIÓN AVANZADA', 'Semestral', 'ITID433', 144, 4, 'Cuarto Nivel',1),
 (1,'BASES DE DATOS', 'Semestral', 'ITID443', 144, 4, 'Cuarto Nivel',1),
 (1,'SISTEMAS OPERATIVOS', 'Semestral', 'ITID452', 96, 5, 'Cuarto Nivel',1),
@@ -2571,7 +3536,7 @@ VALUES -- id=1  ==> 44
 (1,'REGULACIÓN DE LAS TECNOLOGÍAS DE IA INFORMACIÓN Y LA COMUNICACIÓN', 'Semestral', 'ITID941', 48, 2, 'Noveno Nivel',1),
 (1,'TRABAJO DE INTEGRACIÓN CURRICULAR/EXAMEN DE CARÁCTER COMPLEXIVO', 'Semestral', 'TITD201', 240, 15, 'Noveno Nivel',1),
 --LABOS TICs
--- id=45  ==> 52
+-- id=45  ==> 52  -- id=40  ==> 47
 (1,'LABORATORIO DE SISTEMAS DIGITALES', 'Semestral', 'IEED323', 48, 2, 'Tercer Nivel',1),
 (1,'LABORATORIO DE DISPOSITIVOS ELECTRÓNICOS', 'Semestral', 'IEED333', 48, 2, 'Tercer Nivel',1),
 (1,'LABORATORIO DE FUNDAMENTOS DE CIRCUITOS ELÉCTRICOS', 'Semestral', 'IEED342', 48, 2, 'Tercer Nivel',1),
@@ -2582,20 +3547,20 @@ VALUES -- id=1  ==> 44
 (1,'LABORATORIO DE REDES DE ÁREA EXTENDIDA', 'Semestral', 'ITID723', 48, 2, 'Séptimo Nivel',1),
 
 --Malla Telecomunicaciones
--- id=53  ==> 97
+-- id=53  ==> 97 -- id=48  ==> 89
 (2,'HERRAMIENTAS INFORMÁTICAS', 'Semestral', 'ICOD111', 48, 2, 'Primer Nivel',1),
 (2,'CÁLCULO VECTORIAL ', 'Semestral', 'IEED232', 96, 3, 'Segundo Nivel',1),
 (2,'PROGRAMACIÓN ', 'Semestral', 'IEED252', 96, 3, 'Segundo Nivel',1),
 (2,'SISTEMAS DIGITALES ', 'Semestral', 'IEED323', 144, 3, 'Tercer Nivel',1),
-(2,'DISPOSITIVOS ELECTRÓNICOS ', 'Semestral', 'IEED333', 144, 5, 'Tercer Nivel',1),
+(2,'DISPOSITIVOS ELECTRÓNICOS ', 'Semestral', 'IEED333', 144, 3, 'Tercer Nivel',1),
 (2,'TEORÍA ELECTROMAGNÉTICA ', 'Semestral', 'IEED333', 96, 4, 'Tercer Nivel',1),
 (2,'FUNDAMENTOS DE CIRCUITOS ELÉCTRICOS ', 'Semestral', 'IEED342', 144, 5, 'Tercer Nivel',1),
 (2,'ASIGNATURA DE ARTES Y HUMANIDADES', 'Semestral', 'CSHD300', 48, 2, 'Tercer Nivel',1),
-(2,'MATEMÁTICA DISCRETA ', 'Semestral', 'IEED371', 48, 2, 'Tercer Nivel',1),
+--(2,'MATEMÁTICA DISCRETA ', 'Semestral', 'IEED371', 48, 2, 'Tercer Nivel',1),-- 61
 (2,'INSTALACIONES ELÉCTRICAS Y DE COMUNICACIONES', 'Semestral', 'IEED413', 144, 4, 'Cuarto Nivel',1),
 (2,'ANÁLISIS DE SEÑALES DISCRETAS PARA COMUNICACIONES ', 'Semestral', 'TELD423', 144, 3, 'Cuarto Nivel',1),
 (2,'CIRCUITOS ELECTRÓNICOS ', 'Semestral', 'IEED433', 144, 5, 'Cuarto Nivel',1),
-(2,'PROGRAMACIÓN AVANZADA ', 'Semestral', 'ITID433', 144, 4, 'Cuarto Nivel',1),
+--(2,'PROGRAMACIÓN AVANZADA ', 'Semestral', 'ITID433', 144, 4, 'Cuarto Nivel',1), 65
 (2,'SISTENA OPERATIVO LINUX', 'Semestral', 'TELD452', 96, 3, 'Cuarto Nivel',1),
 (2,'ASIGNATURA DE ECONOMÍA Y SOCIEDAD', 'Semestral', 'CSHD400', 48, 2, 'Cuarto Nivel',1),
 (2,'FUNDAMENTOS DE COMUNICACIONES ', 'Semestral', 'TELD513', 144, 5, 'Quinto Nivel',1),
@@ -2603,7 +3568,7 @@ VALUES -- id=1  ==> 44
 (2,'PROCESAMIENTO DIGITAL DE SEÑALES ', 'Semestral', 'TELD532', 96, 3, 'Quinto Nivel',1),
 (2,'SISTEMAS EMBEBIDOS ', 'Semestral', 'ITID553', 144, 5, 'Quinto Nivel',1),
 (2,'SISTEMAS DE TRANSMISIÓN ', 'Semestral', 'TELD553', 144, 5, 'Quinto Nivel',1),
-(2,'SISTEMAS DE CABLEADO ESTRUCTURADO', 'Semestral', 'ITID512', 96, 3, 'Quinto Nivel',1),
+--(2,'SISTEMAS DE CABLEADO ESTRUCTURADO', 'Semestral', 'ITID512', 96, 3, 'Quinto Nivel',1),  73
 (2,'COMUNICACIÓN DIGITAL ', 'Semestral', 'TELD613', 144, 4, 'Sexto Nivel',1),
 (2,'TELEMÁTICA BÁSICA', 'Semestral', 'TELD623', 144, 5, 'Sexto Nivel',1),
 (2,'ELECTRÓNICA DE RADIOFRECUENCIA ', 'Semestral', 'TELD633', 144, 5, 'Sexto Nivel',1),
@@ -2676,120 +3641,145 @@ INSERT INTO tblGrAsignatura(idAsignatura,grupoAsignatura)
 VALUES
 --TI Carreer
 --INGE HELPER
-(1, 'GR1'), (1, 'GR2'), -- HERRAMIENTAS INFORMÁTICAS
+(1, 'GR1'), (1, 'GR2'),(1, 'GR3'), (1, 'GR4'),(1, 'GR5'), (1, 'GR6'),(1, 'GR7'), (1, 'GR8'),(1, 'GR9'), (1, 'GR10'), -- HERRAMIENTAS INFORMÁTICAS
+--(2, 'GR1'), (2, 'GR2'), -- PROGRAMACIÓN ++++-- CÁLCULO VECTORIAL
 (2, 'GR1'), (2, 'GR2'), -- CÁLCULO VECTORIAL
-(3, 'GR1'), (3, 'GR2'), -- PROGRAMACIÓN
-(4, 'GR1'), (4, 'GR2'), -- SISTEMAS DIGITALES
-(5, 'GR1'), (5, 'GR2'), -- DISPOSITIVOS ELECTRÓNICOS
-(6, 'GR1'), (6, 'GR2'), -- TEORÍA ELECTROMAGNÉTICA
-(7, 'GR1'), (7, 'GR2'), -- FUNDAMENTOS DE CIRCUITOS ELÉCTRICOS
-(8, 'GR1'), (8, 'GR2'), -- ASIGNATURA DE ARTES Y HUMANIDADES
-(9, 'GR1'), (9, 'GR2'), -- MATEMÁTICA DISCRETA
-(10, 'GR1'), (10, 'GR2'), -- INSTALACIONES ELÉCTRICAS Y COMUNICACIONES
-(11, 'GR1'), (11, 'GR2'), -- ANÁLISIS DE SEÑALES DISCRETAS PARA COMUNICACIONES
-(12, 'GR1'), (12, 'GR2'), -- PROGRAMACIÓN AVANZADA
-(13, 'GR1'), (13, 'GR2'), -- BASES DE DATOS
-(14, 'GR1'), (14, 'GR2'), -- SISTEMAS OPERATIVOS
-(15, 'GR1'), (15, 'GR2'), -- ASIGNATURA DE ECONOMÍA Y SOCIEDAD
-(16, 'GR1'), (16, 'GR2'), -- SISTEMAS DE CABLEADO ESTRUCTURADO
-(17, 'GR1'), (17, 'GR2'), -- TRANSMISIÓN DIGITAL
-(18, 'GR1'), (18, 'GR2'), -- TEORÍA DE INFORMACIÓN Y CODIFICACIÓN
-(19, 'GR1'), (19, 'GR2'), -- DISEÑO Y PROGRAMACIÓN DE SOFTWARE
-(20, 'GR1'), (20, 'GR2'), -- SISTEMAS EMBEBIDOS
-(21, 'GR1'), (21, 'GR2'), -- GESTIÓN ORGANIZACIONAL
-(22, 'GR1'), (22, 'GR2'), -- CABLEADO ESTRUCTURADO AVANZADO
-(23, 'GR1'), (23, 'GR2'), -- REDES DE ÁREA LOCAL
-(24, 'GR1'), (24, 'GR2'), -- ENRUTAMIENTO
-(25, 'GR1'), (25, 'GR2'), -- SISTEMAS INALÁMBRICOS
-(26, 'GR1'), (26, 'GR2'), -- ALMACENAMIENTO Y PROCESAMIENTO DE DATOS
-(27, 'GR1'), (27, 'GR2'), -- GESTIÓN DE PROCESOS Y CALIDAD
-(28, 'GR1'), (28, 'GR2'), -- APLICACIONES DISTRIBUIDAS
-(29, 'GR1'), (29, 'GR2'), -- REDES DE ÁREA EXTENDIDA
-(30, 'GR1'), (30, 'GR2'), -- SEGURIDAD EN REDES
-(31, 'GR1'), (31, 'GR2'), -- REDES E INTRANETS
-(32, 'GR1'), (32, 'GR2'), -- APLICACIONES WEB Y MÓVILES
-(33, 'GR1'), (33, 'GR2'), -- INGENIERÍA FINANCIERA
-(34, 'GR1'), (34, 'GR2'), -- ASIGNATURA BÁSICA DE ITINERARIO
-(35, 'GR1'), (35, 'GR2'), -- EVALUACIÓN DE REDES
-(36, 'GR1'), (36, 'GR2'), -- REDES DE ÁREA LOCAL INALÁMBRICAS
-(37, 'GR1'), (37, 'GR2'), -- ADMINISTRACIÓN DE REDES
-(38, 'GR1'), (38, 'GR2'), -- MINERIA DE DATOS
-(39, 'GR1'), (39, 'GR2'), -- SISTEMAS IOT
-(40, 'GR1'), (40, 'GR2'), -- ASIGNATURA AVANZADA DE ITINERARIO
-(41, 'GR1'), (41, 'GR2'), -- PRÁCTICAS LABORALES
-(42, 'GR1'), (42, 'GR2'), -- PRÁCTICAS DE SERVICIO COMUNITARIO
-(43, 'GR1'), (43, 'GR2'), -- REGULACIÓN DE LAS TECNOLOGÍAS DE IA INFORMACIÓN Y LA COMUNICACIÓN
-(44, 'GR1'), (44, 'GR2'), -- TRABAJO DE INTEGRACIÓN CURRICULAR/EXAMEN DE CARÁCTER COMPLEXIVO
-(45, 'GR1'), (45, 'GR2'), (45, 'GR3'), (45, 'GR4'), -- LABORATORIO DE SISTEMAS DIGITALES		
-(46, 'GR1'), (46, 'GR2'), (46, 'GR3'), (46, 'GR4'), -- LABORATORIO DE DISPOSITIVOS ELECTRÓNICOS		
-(47, 'GR1'), (47, 'GR2'), (47, 'GR3'), (47, 'GR4'), -- LABORATORIO DE FUNDAMENTOS DE CIRCUITOS ELÉCTRICOS		
-(48, 'GR1'), (48, 'GR2'), (48, 'GR3'), (48, 'GR4'), -- LABORATORIO DE TRANSMISIÓN DIGITAL		
-(49, 'GR1'), (49, 'GR2'), (49, 'GR3'), (49, 'GR4'), -- LABORATORIO DE SISTEMAS EMBEBIDOS		
-(50, 'GR1'), (50, 'GR2'), (50, 'GR3'), (50, 'GR4'), -- LABORATORIO DE REDES DE ÁREA LOCAL		
-(51, 'GR1'), (51, 'GR2'), (51, 'GR3'), (51, 'GR4'), -- LABORATORIO DE ENRUTAMIENTO		
-(52, 'GR1'), (52, 'GR2'), (52, 'GR3'), (52, 'GR4'), -- LABORATORIO DE REDES DE ÁREA EXTENDIDA		
+(3, 'GR1'), (3, 'GR2'), -- SISTEMAS DIGITALES
+--(5, 'GR1'), (5, 'GR2'), -- DISPOSITIVOS ELECTRÓNICOS
+--(6, 'GR1'), (6, 'GR2'), -- TEORÍA ELECTROMAGNÉTICA
+(4, 'GR1'), (4, 'GR2'), -- FUNDAMENTOS DE CIRCUITOS ELÉCTRICOS
+(5, 'GR1'), (5, 'GR2'), -- ASIGNATURA DE ARTES Y HUMANIDADES
+(6, 'GR1'), (6, 'GR2'), -- MATEMÁTICA DISCRETA
+--(10, 'GR1'), (10, 'GR2'), -- INSTALACIONES ELÉCTRICAS Y COMUNICACIONES
+--(11, 'GR1'), (11, 'GR2'), -- ANÁLISIS DE SEÑALES DISCRETAS PARA COMUNICACIONES
+(7, 'GR1'), (7, 'GR2'), -- PROGRAMACIÓN AVANZADA
+(8, 'GR1'), (8, 'GR2'), -- BASES DE DATOS
+(9, 'GR1'), (9, 'GR2'), -- SISTEMAS OPERATIVOS
+(10, 'GR1'), (10, 'GR2'), -- ASIGNATURA DE ECONOMÍA Y SOCIEDAD
+(11, 'GR1'), (11, 'GR2'), -- SISTEMAS DE CABLEADO ESTRUCTURADO
+(12, 'GR1'), (12, 'GR2'), -- TRANSMISIÓN DIGITAL
+(13, 'GR1'), (13, 'GR2'), -- TEORÍA DE INFORMACIÓN Y CODIFICACIÓN
+(14, 'GR1'), (14, 'GR2'), -- DISEÑO Y PROGRAMACIÓN DE SOFTWARE
+(15, 'GR1'), (15, 'GR2'), -- SISTEMAS EMBEBIDOS
+(16, 'GR1'), (16, 'GR2'), -- GESTIÓN ORGANIZACIONAL
+(17, 'GR1'), (17, 'GR2'), -- CABLEADO ESTRUCTURADO AVANZADO
+(18, 'GR1'), (18, 'GR2'), -- REDES DE ÁREA LOCAL
+(19, 'GR1'), (19, 'GR2'), -- ENRUTAMIENTO
+(20, 'GR1'), (20, 'GR2'), -- SISTEMAS INALÁMBRICOS
+(21, 'GR1'), (21, 'GR2'), -- ALMACENAMIENTO Y PROCESAMIENTO DE DATOS
+(22, 'GR1'), (22, 'GR2'), -- GESTIÓN DE PROCESOS Y CALIDAD
+(23, 'GR1'), (23, 'GR2'), -- APLICACIONES DISTRIBUIDAS
+(24, 'GR1'), (24, 'GR2'), -- REDES DE ÁREA EXTENDIDA
+(25, 'GR1'), (25, 'GR2'), -- SEGURIDAD EN REDES
+(26, 'GR1'), (26, 'GR2'), -- REDES E INTRANETS
+(27, 'GR1'), (27, 'GR2'), -- APLICACIONES WEB Y MÓVILES
+(28, 'GR1'), (28, 'GR2'), -- INGENIERÍA FINANCIERA
+(29, 'GR1'), (29, 'GR2'), -- ASIGNATURA BÁSICA DE ITINERARIO
+(30, 'GR1'), (30, 'GR2'), -- EVALUACIÓN DE REDES
+(31, 'GR1'), (31, 'GR2'), -- REDES DE ÁREA LOCAL INALÁMBRICAS
+(32, 'GR1'), (32, 'GR2'), -- ADMINISTRACIÓN DE REDES
+(33, 'GR1'), (33, 'GR2'), -- MINERIA DE DATOS
+(34, 'GR1'), (34, 'GR2'), -- SISTEMAS IOT
+(35, 'GR1'), (35, 'GR2'), -- ASIGNATURA AVANZADA DE ITINERARIO
+(36, 'GR1'), (36, 'GR2'), -- PRÁCTICAS LABORALES
+(37, 'GR1'), (37, 'GR2'), -- PRÁCTICAS DE SERVICIO COMUNITARIO
+(38, 'GR1'), (38, 'GR2'), -- REGULACIÓN DE LAS TECNOLOGÍAS DE IA INFORMACIÓN Y LA COMUNICACIÓN
+(39, 'GR1'), (39, 'GR2'), -- TRABAJO DE INTEGRACIÓN CURRICULAR/EXAMEN DE CARÁCTER COMPLEXIVO
+(40, 'GR1'), (40, 'GR2'), (40, 'GR3'), (40, 'GR4'), -- LABORATORIO DE SISTEMAS DIGITALES		
+(41, 'GR1'), (41, 'GR2'), (41, 'GR3'), (41, 'GR4'), -- LABORATORIO DE DISPOSITIVOS ELECTRÓNICOS		
+(42, 'GR1'), (42, 'GR2'), (42, 'GR3'), (42, 'GR4'), -- LABORATORIO DE FUNDAMENTOS DE CIRCUITOS ELÉCTRICOS		
+(43, 'GR1'), (43, 'GR2'), (43, 'GR3'), (43, 'GR4'), -- LABORATORIO DE TRANSMISIÓN DIGITAL		
+(44, 'GR1'), (44, 'GR2'), (44, 'GR3'), (44, 'GR4'), -- LABORATORIO DE SISTEMAS EMBEBIDOS		
+(45, 'GR1'), (45, 'GR2'), (45, 'GR3'), (45, 'GR4'), -- LABORATORIO DE REDES DE ÁREA LOCAL		
+(46, 'GR1'), (46, 'GR2'), (46, 'GR3'), (46, 'GR4'), -- LABORATORIO DE ENRUTAMIENTO		
+(47, 'GR1'), (47, 'GR2'), (47, 'GR3'), (47, 'GR4'), -- LABORATORIO DE REDES DE ÁREA EXTENDIDA	
 -- TELECOMUNICACIONES
-(53, 'GR1'), (53, 'GR2'), -- HERRAMIENTAS INFORMÁTICAS
-(54, 'GR1'), (54, 'GR2'), -- CÁLCULO VECTORIAL 
-(55, 'GR1'), (55, 'GR2'), -- PROGRAMACIÓN 
-(56, 'GR1'), (56, 'GR2'), -- SISTEMAS DIGITALES 
-(57, 'GR1'), (57, 'GR2'), -- DISPOSITIVOS ELECTRÓNICOS 
-(58, 'GR1'), (58, 'GR2'), -- TEORÍA ELECTROMAGNÉTICA 
-(59, 'GR1'), (59, 'GR2'), -- FUNDAMENTOS DE CIRCUITOS ELÉCTRICOS 
-(60, 'GR1'), (60, 'GR2'), -- ASIGNATURA DE ARTES Y HUMANIDADES
-(61, 'GR1'), (61, 'GR2'), -- MATEMÁTICA DISCRETA 
-(62, 'GR1'), (62, 'GR2'), -- INSTALACIONES ELÉCTRICAS Y DE COMUNICACIONES
-(63, 'GR1'), (63, 'GR2'), -- ANÁLISIS DE SEÑALES DISCRETAS PARA COMUNICACIONES 
-(64, 'GR1'), (64, 'GR2'), -- CIRCUITOS ELECTRÓNICOS 
-(65, 'GR1'), (65, 'GR2'), -- PROGRAMACIÓN AVANZADA 
-(66, 'GR1'), (66, 'GR2'), -- SISTENA OPERATIVO LINUX
-(67, 'GR1'), (67, 'GR2'), -- ASIGNATURA DE ECONOMÍA Y SOCIEDAD
-(68, 'GR1'), (68, 'GR2'), -- FUNDAMENTOS DE COMUNICACIONES 
-(69, 'GR1'), (69, 'GR2'), -- TEORÍA DE LA INFORMACIÓN Y CODIFICACIÓN
-(70, 'GR1'), (70, 'GR2'), -- PROCESAMIENTO DIGITAL DE SEÑALES 
-(71, 'GR1'), (71, 'GR2'), -- SISTEMAS EMBEBIDOS 
-(72, 'GR1'), (72, 'GR2'), -- SISTEMAS DE TRANSMISIÓN 
-(73, 'GR1'), (73, 'GR2'), -- SISTEMAS DE CABLEADO ESTRUCTURADO
-(74, 'GR1'), (74, 'GR2'), -- COMUNICACIÓN DIGITAL 
-(75, 'GR1'), (75, 'GR2'), -- TELEMÁTICA BÁSICA
-(76, 'GR1'), (76, 'GR2'), -- ELECTRÓNICA DE RADIOFRECUENCIA 
-(77, 'GR1'), (77, 'GR2'), -- APLICACIONES CON SISTEMAS EMBEBIDOS 
-(78, 'GR1'), (78, 'GR2'), -- PROPAGACIÓN Y ANTENAS 
-(79, 'GR1'), (79, 'GR2'), -- GESTIÓN ORGANIZACIONAL 
-(80, 'GR1'), (80, 'GR2'), -- COMUNICACIONES ÓPTICAS
-(81, 'GR1'), (81, 'GR2'), -- TELEMÁTICA AVANZADA
-(82, 'GR1'), (82, 'GR2'), -- COMUNICACIONES INALÁMBRICAS
-(83, 'GR1'), (83, 'GR2'), -- TELEFONÍA IP
-(84, 'GR1'), (84, 'GR2'), -- INGENIERÍA DE MICROONDAS 
-(85, 'GR1'), (85, 'GR2'), -- GESTIÓN DE PROCESOS Y CALIDAD 
-(86, 'GR1'), (86, 'GR2'), -- ITINERARIO BÁSICO
-(87, 'GR1'), (87, 'GR2'), -- REDES ÓPTICAS
-(88, 'GR1'), (88, 'GR2'), -- INTRODUCCIÓN A DISEÑO DE REDES 
-(89, 'GR1'), (89, 'GR2'), -- SISTEMAS CELULARES
-(90, 'GR1'), (90, 'GR2'), -- FUNDAMENTOS DE SEGURIDAD
-(91, 'GR1'), (91, 'GR2'), -- INGENIERÍA FINANCIERA
-(92, 'GR1'), (92, 'GR2'), -- DISEÑO DE PROYECTOS DE TELECOMUNICACIONES 
-(93, 'GR1'), (93, 'GR2'), -- ITINERARIO AVANZADO
-(94, 'GR1'), (94, 'GR2'), -- PRÁCTICAS LABORALES
-(95, 'GR1'), (95, 'GR2'), -- PRÁCTICAS DE SERVICIO COMUNITARIO
-(96, 'GR1'), (96, 'GR2'), -- MARCO REGULATORIO DE LOS SERVICIOS DE TELECOMUNICACIONES
-(97, 'GR1'), (97, 'GR2'), -- TRABAJO DE INTEGRACIÓN CURRICULAR/EXAMEN DE CARÁCTER COMPLEXIVO
+(48, 'GR1'), (48, 'GR2'), -- HERRAMIENTAS INFORMÁTICAS
+(49, 'GR1'), (49, 'GR2'), -- CÁLCULO VECTORIAL 
+(50, 'GR1'), (50, 'GR2'), -- PROGRAMACIÓN 
+(51, 'GR1'), (51, 'GR2'), -- SISTEMAS DIGITALES 
+(52, 'GR1'), (52, 'GR2'), -- DISPOSITIVOS ELECTRÓNICOS 
+(54, 'GR1'), (54, 'GR2'), -- TEORÍA ELECTROMAGNÉTICA 
+(55, 'GR1'), (55, 'GR2'), -- FUNDAMENTOS DE CIRCUITOS ELÉCTRICOS 
+(56, 'GR1'), (56, 'GR2'), -- ASIGNATURA DE ARTES Y HUMANIDADES
+--(61, 'GR1'), (61, 'GR2'), -- MATEMÁTICA DISCRETA 
+(57, 'GR1'), (57, 'GR2'), -- INSTALACIONES ELÉCTRICAS Y DE COMUNICACIONES
+(58, 'GR1'), (58, 'GR2'), -- ANÁLISIS DE SEÑALES DISCRETAS PARA COMUNICACIONES 
+(59, 'GR1'), (59, 'GR2'), -- CIRCUITOS ELECTRÓNICOS 
+--(65, 'GR1'), (65, 'GR2'), -- PROGRAMACIÓN AVANZADA 
+(60, 'GR1'), (60, 'GR2'), -- SISTENA OPERATIVO LINUX
+(61, 'GR1'), (61, 'GR2'), -- ASIGNATURA DE ECONOMÍA Y SOCIEDAD
+(62, 'GR1'), (62, 'GR2'), -- FUNDAMENTOS DE COMUNICACIONES 
+(63, 'GR1'), (63, 'GR2'), -- TEORÍA DE LA INFORMACIÓN Y CODIFICACIÓN
+(64, 'GR1'), (64, 'GR2'), -- PROCESAMIENTO DIGITAL DE SEÑALES 
+(65, 'GR1'), (65, 'GR2'), -- SISTEMAS EMBEBIDOS 
+(66, 'GR1'), (66, 'GR2'), -- SISTEMAS DE TRANSMISIÓN 
+--(73, 'GR1'), (73, 'GR2'), -- SISTEMAS DE CABLEADO ESTRUCTURADO
+(67, 'GR1'), (67, 'GR2'), -- COMUNICACIÓN DIGITAL 
+(68, 'GR1'), (68, 'GR2'), -- TELEMÁTICA BÁSICA
+(69, 'GR1'), (69, 'GR2'), -- ELECTRÓNICA DE RADIOFRECUENCIA 
+(70, 'GR1'), (70, 'GR2'), -- APLICACIONES CON SISTEMAS EMBEBIDOS 
+(71, 'GR1'), (71, 'GR2'), -- PROPAGACIÓN Y ANTENAS 
+(72, 'GR1'), (72, 'GR2'), -- GESTIÓN ORGANIZACIONAL 
+(73, 'GR1'), (73, 'GR2'), -- COMUNICACIONES ÓPTICAS
+(74, 'GR1'), (74, 'GR2'), -- TELEMÁTICA AVANZADA
+(75, 'GR1'), (75, 'GR2'), -- COMUNICACIONES INALÁMBRICAS
+(76, 'GR1'), (76, 'GR2'), -- TELEFONÍA IP
+(77, 'GR1'), (77, 'GR2'), -- INGENIERÍA DE MICROONDAS 
+(78, 'GR1'), (78, 'GR2'), -- GESTIÓN DE PROCESOS Y CALIDAD 
+(79, 'GR1'), (79, 'GR2'), -- ITINERARIO BÁSICO
+(80, 'GR1'), (80, 'GR2'), -- REDES ÓPTICAS
+(81, 'GR1'), (81, 'GR2'), -- INTRODUCCIÓN A DISEÑO DE REDES 
+(82, 'GR1'), (82, 'GR2'), -- SISTEMAS CELULARES
+(83, 'GR1'), (83, 'GR2'), -- FUNDAMENTOS DE SEGURIDAD
+(84, 'GR1'), (84, 'GR2'), -- INGENIERÍA FINANCIERA
+(85, 'GR1'), (85, 'GR2'), -- DISEÑO DE PROYECTOS DE TELECOMUNICACIONES 
+(86, 'GR1'), (86, 'GR2'), -- ITINERARIO AVANZADO
+(87, 'GR1'), (87, 'GR2'), -- PRÁCTICAS LABORALES
+(88, 'GR1'), (88, 'GR2'), -- PRÁCTICAS DE SERVICIO COMUNITARIO
+(89, 'GR1'), (89, 'GR2'), -- MARCO REGULATORIO DE LOS SERVICIOS DE TELECOMUNICACIONES
+(90, 'GR1'), (90, 'GR2'), -- TRABAJO DE INTEGRACIÓN CURRICULAR/EXAMEN DE CARÁCTER COMPLEXIVO
 -- TIC MAESTRIA MATERIAS
-(98, 'GR1'), (98, 'GR2'), -- FUNDAMENTOS DE SEGURIDAD
-(99, 'GR1'), (99, 'GR2'), -- FUNDAMENTOS DE INTERNET DE LAS COSAS
-(100, 'GR1'), (100, 'GR2'), -- SEGURIDAD DE REDES I
-(101, 'GR1'), (101, 'GR2'), -- FUNDAMENTOS DE COMPUTACIÓN EN LA NUBE
-(102, 'GR1'), (102, 'GR2'), -- PROGRAMACIÓN PARA MANIPULACIÓN DE DATOS
-(103, 'GR1'), (103, 'GR2'), -- SEGURIDAD DE REDES II
-(104, 'GR1'), (104, 'GR2'), -- SEMINARIO DE GRADUACIÓN
-(105, 'GR1'), (105, 'GR2'), -- MODELOS DE NEGOCIOS EN LOS ECOSISTEMAS IOT
-(106, 'GR1'), (106, 'GR2'), -- APRENDIZAJE AUTOMÁTICO APLICADO
-(107, 'GR1'), (107, 'GR2'), -- SEGURIDAD EN ENDPOINTS
-(108, 'GR1'), (108, 'GR2'), -- MONITOREO Y DETECCIÓN DE INTRUSIÓN DE REDES
-(109, 'GR1'), (109, 'GR2'), -- APLICACIONES PARA INTERNET DE LAS COSAS
-(110, 'GR1'), (110, 'GR2'), -- TÓPICOS DE PLANIFICACIÓN Y REGULACIÓN EN TI
-(111, 'GR1'), (111, 'GR2'), -- TÉCNICAS DE HACKING
-(112, 'GR1'), (112, 'GR2') -- TRABAJO DE TITULACIÓN /EXAMEN COMPLEXIVO
+(91, 'GR1'), (91, 'GR2'), -- FUNDAMENTOS DE SEGURIDAD
+(92, 'GR1'), (92, 'GR2'), -- FUNDAMENTOS DE INTERNET DE LAS COSAS
+(93, 'GR1'), (93, 'GR2'), -- SEGURIDAD DE REDES I
+(94, 'GR1'), (94, 'GR2'), -- FUNDAMENTOS DE COMPUTACIÓN EN LA NUBE
+(95, 'GR1'), (95, 'GR2'), -- PROGRAMACIÓN PARA MANIPULACIÓN DE DATOS
+(96, 'GR1'), (96, 'GR2'), -- SEGURIDAD DE REDES II
+(97, 'GR1'), (97, 'GR2'), -- SEMINARIO DE GRADUACIÓN
+(98, 'GR1'), (98, 'GR2'), -- MODELOS DE NEGOCIOS EN LOS ECOSISTEMAS IOT
+(99, 'GR1'), (99, 'GR2'), -- APRENDIZAJE AUTOMÁTICO APLICADO
+(100, 'GR1'), (100, 'GR2'), -- SEGURIDAD EN ENDPOINTS
+(101, 'GR1'), (101, 'GR2'), -- MONITOREO Y DETECCIÓN DE INTRUSIÓN DE REDES
+(102, 'GR1'), (102, 'GR2'), -- APLICACIONES PARA INTERNET DE LAS COSAS
+(103, 'GR1'), (103, 'GR2'), -- TÓPICOS DE PLANIFICACIÓN Y REGULACIÓN EN TI
+(104, 'GR1'), (104, 'GR2'), -- TÉCNICAS DE HACKING
+(105, 'GR1'), (105, 'GR2'); -- TRABAJO DE TITULACIÓN /EXAMEN COMPLEXIVO
 --PARTE 2 TIC MAESTRIAS
+GO
+--ADD HORARIOS
+--                             idSemestre, idGrAsig, horaInicio, horaFin, dia
+--exec [spAddHorarioAsigNoOut]  1,1,'08:00', '10:00',1
+--exec [spAddHorarioAsigNoOut]  1,1,'08:00', '10:00',2
+--exec [spAddHorarioAsigNoOut]  1,1,'00:00', '00:00',3
+--exec [spAddHorarioAsigNoOut]  1,1,'00:00', '00:00',4
+--exec [spAddHorarioAsigNoOut]  1,1,'00:00', '00:00',5
+--exec [spAddHorarioAsigNoOut]  1,1,'00:00', '00:00',6
+--exec [spAddHorarioAsigNoOut]  1,1,'00:00', '00:00',7
 
+--exec [spAddHorarioAsigNoOut]  1,1,'08:00', '10:00',1
+--exec [spAddHorarioAsigNoOut]  1,1,'08:00', '10:00',2
+--exec [spAddHorarioAsigNoOut]  1,1,'00:00', '00:00',3
+--exec [spAddHorarioAsigNoOut]  1,1,'00:00', '00:00',4
+--exec [spAddHorarioAsigNoOut]  1,1,'00:00', '00:00',5
+--exec [spAddHorarioAsigNoOut]  1,1,'00:00', '00:00',6
+--exec [spAddHorarioAsigNoOut]  1,1,'00:00', '00:00',7
+ 
+PRINT 'DataBase Created';
 -- END SCRIPT
+
+-- NUEVOS SPS AGREGADOS 21-AGO
+ 
+
+
+-------------------------------
