@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "0pYAfBuCbKvPXGpJPEm7PVJyPqBDx92QzPGUESGcHI0WvA6Pt3glA3bzIZMkJkfPOSJJ7AB0UpGYgISdaZ6hAw==",
+  "dgSpecHash": "SrmHC+P9vlbar/rChgmISPpwgdD5HHkDDykoDlZCsPpqwzKfLgoeIBfxW3SUEQLlKuvAE27yV+jt6SrYEyANag==",
   "success": true,
   "projectFilePath": "C:\\Users\\jorge\\OneDrive - Escuela Politécnica Nacional\\TESIS LAPTOP SYNC\\resp\\Carga Horaria Project\\Directorio - Presentacion\\Directorio - Presentacion.csproj",
   "expectedPackageFiles": [
@@ -144,10 +144,7 @@
     "C:\\Users\\jorge\\.nuget\\packages\\system.threading.thread\\4.3.0\\system.threading.thread.4.3.0.nupkg.sha512",
     "C:\\Users\\jorge\\.nuget\\packages\\system.threading.threadpool\\4.3.0\\system.threading.threadpool.4.3.0.nupkg.sha512",
     "C:\\Users\\jorge\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
-    "C:\\Users\\jorge\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
-    "C:\\Users\\jorge\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x64\\6.0.13\\microsoft.netcore.app.runtime.win-x64.6.0.13.nupkg.sha512",
-    "C:\\Users\\jorge\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x64\\6.0.13\\microsoft.windowsdesktop.app.runtime.win-x64.6.0.13.nupkg.sha512",
-    "C:\\Users\\jorge\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x64\\6.0.13\\microsoft.aspnetcore.app.runtime.win-x64.6.0.13.nupkg.sha512"
+    "C:\\Users\\jorge\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512"
   ],
   "logs": []
 }
