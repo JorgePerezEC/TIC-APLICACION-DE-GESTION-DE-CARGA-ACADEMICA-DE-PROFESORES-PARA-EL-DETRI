@@ -31,8 +31,6 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.label14 = new System.Windows.Forms.Label();
             this.txtFiltro = new System.Windows.Forms.TextBox();
-            this.btnEliminar = new System.Windows.Forms.Button();
-            this.btnActualizar = new System.Windows.Forms.Button();
             this.dgLstRegistros = new System.Windows.Forms.DataGridView();
             this.label9 = new System.Windows.Forms.Label();
             this.panelCreate = new System.Windows.Forms.Panel();
@@ -49,15 +47,17 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.txtCode = new System.Windows.Forms.TextBox();
-            this.btnCancelar = new System.Windows.Forms.Button();
-            this.btnGuardar = new System.Windows.Forms.Button();
             this.txtNameProyecto = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.btnNew = new System.Windows.Forms.Button();
-            this.btnCloseWin = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.btnEliminar = new System.Windows.Forms.Button();
+            this.btnActualizar = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.btnGuardar = new System.Windows.Forms.Button();
+            this.btnCancelar = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgLstRegistros)).BeginInit();
             this.panelCreate.SuspendLayout();
@@ -68,10 +68,10 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(13)))), ((int)(((byte)(76)))), ((int)(((byte)(146)))));
-            this.panel2.Controls.Add(this.label14);
-            this.panel2.Controls.Add(this.txtFiltro);
             this.panel2.Controls.Add(this.btnEliminar);
             this.panel2.Controls.Add(this.btnActualizar);
+            this.panel2.Controls.Add(this.label14);
+            this.panel2.Controls.Add(this.txtFiltro);
             this.panel2.Controls.Add(this.dgLstRegistros);
             this.panel2.Controls.Add(this.label9);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -101,46 +101,10 @@
             this.txtFiltro.Location = new System.Drawing.Point(177, 99);
             this.txtFiltro.Name = "txtFiltro";
             this.txtFiltro.PlaceholderText = "...";
-            this.txtFiltro.Size = new System.Drawing.Size(510, 30);
+            this.txtFiltro.Size = new System.Drawing.Size(558, 30);
             this.txtFiltro.TabIndex = 17;
             this.txtFiltro.TextChanged += new System.EventHandler(this.txtFiltro_TextChanged);
             this.txtFiltro.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFiltro_KeyPress);
-            // 
-            // btnEliminar
-            // 
-            this.btnEliminar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnEliminar.BackColor = System.Drawing.Color.LightBlue;
-            this.btnEliminar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnEliminar.Font = new System.Drawing.Font("Roboto Black", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnEliminar.Location = new System.Drawing.Point(562, 34);
-            this.btnEliminar.MaximumSize = new System.Drawing.Size(125, 41);
-            this.btnEliminar.Name = "btnEliminar";
-            this.btnEliminar.Size = new System.Drawing.Size(125, 41);
-            this.btnEliminar.TabIndex = 31;
-            this.btnEliminar.TabStop = false;
-            this.btnEliminar.Text = "ELIMINAR";
-            this.btnEliminar.UseVisualStyleBackColor = false;
-            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
-            // 
-            // btnActualizar
-            // 
-            this.btnActualizar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnActualizar.BackColor = System.Drawing.Color.LightBlue;
-            this.btnActualizar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnActualizar.Font = new System.Drawing.Font("Roboto Black", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnActualizar.Location = new System.Drawing.Point(364, 34);
-            this.btnActualizar.MaximumSize = new System.Drawing.Size(125, 41);
-            this.btnActualizar.Name = "btnActualizar";
-            this.btnActualizar.Size = new System.Drawing.Size(125, 41);
-            this.btnActualizar.TabIndex = 30;
-            this.btnActualizar.TabStop = false;
-            this.btnActualizar.Text = "ACTUALIZAR";
-            this.btnActualizar.UseVisualStyleBackColor = false;
-            this.btnActualizar.Click += new System.EventHandler(this.btnActualizar_Click);
             // 
             // dgLstRegistros
             // 
@@ -168,6 +132,8 @@
             // panelCreate
             // 
             this.panelCreate.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.panelCreate.Controls.Add(this.btnGuardar);
+            this.panelCreate.Controls.Add(this.btnCancelar);
             this.panelCreate.Controls.Add(this.pictBoxCargar);
             this.panelCreate.Controls.Add(this.label10);
             this.panelCreate.Controls.Add(this.txtPresupuesto);
@@ -181,8 +147,6 @@
             this.panelCreate.Controls.Add(this.label6);
             this.panelCreate.Controls.Add(this.label4);
             this.panelCreate.Controls.Add(this.txtCode);
-            this.panelCreate.Controls.Add(this.btnCancelar);
-            this.panelCreate.Controls.Add(this.btnGuardar);
             this.panelCreate.Controls.Add(this.txtNameProyecto);
             this.panelCreate.Controls.Add(this.label3);
             this.panelCreate.Controls.Add(this.label2);
@@ -321,44 +285,6 @@
             this.txtCode.Size = new System.Drawing.Size(391, 32);
             this.txtCode.TabIndex = 2;
             // 
-            // btnCancelar
-            // 
-            this.btnCancelar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancelar.BackColor = System.Drawing.Color.PaleTurquoise;
-            this.btnCancelar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCancelar.FlatAppearance.BorderSize = 0;
-            this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancelar.Font = new System.Drawing.Font("Roboto Black", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnCancelar.Location = new System.Drawing.Point(1220, 112);
-            this.btnCancelar.MaximumSize = new System.Drawing.Size(125, 41);
-            this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(125, 41);
-            this.btnCancelar.TabIndex = 24;
-            this.btnCancelar.Text = "CANCELAR";
-            this.btnCancelar.UseVisualStyleBackColor = false;
-            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
-            // 
-            // btnGuardar
-            // 
-            this.btnGuardar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnGuardar.BackColor = System.Drawing.Color.PaleTurquoise;
-            this.btnGuardar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnGuardar.FlatAppearance.BorderSize = 0;
-            this.btnGuardar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnGuardar.Font = new System.Drawing.Font("Roboto Black", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnGuardar.Location = new System.Drawing.Point(1220, 31);
-            this.btnGuardar.MaximumSize = new System.Drawing.Size(125, 41);
-            this.btnGuardar.Name = "btnGuardar";
-            this.btnGuardar.Size = new System.Drawing.Size(125, 41);
-            this.btnGuardar.TabIndex = 5;
-            this.btnGuardar.Text = "GUARDAR";
-            this.btnGuardar.UseVisualStyleBackColor = false;
-            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
-            // 
             // txtNameProyecto
             // 
             this.txtNameProyecto.AllowDrop = true;
@@ -392,49 +318,14 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.panel1.Controls.Add(this.btnNew);
-            this.panel1.Controls.Add(this.btnCloseWin);
+            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1604, 95);
             this.panel1.TabIndex = 10;
-            // 
-            // btnNew
-            // 
-            this.btnNew.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnNew.BackColor = System.Drawing.Color.PaleTurquoise;
-            this.btnNew.FlatAppearance.BorderSize = 0;
-            this.btnNew.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnNew.Font = new System.Drawing.Font("Roboto Black", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnNew.Location = new System.Drawing.Point(433, 39);
-            this.btnNew.MaximumSize = new System.Drawing.Size(125, 41);
-            this.btnNew.Name = "btnNew";
-            this.btnNew.Size = new System.Drawing.Size(125, 30);
-            this.btnNew.TabIndex = 1;
-            this.btnNew.Text = "NUEVO";
-            this.btnNew.UseVisualStyleBackColor = false;
-            this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
-            // 
-            // btnCloseWin
-            // 
-            this.btnCloseWin.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCloseWin.BackColor = System.Drawing.Color.LightCoral;
-            this.btnCloseWin.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnCloseWin.Font = new System.Drawing.Font("Roboto Black", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnCloseWin.Location = new System.Drawing.Point(1220, 39);
-            this.btnCloseWin.MaximumSize = new System.Drawing.Size(125, 41);
-            this.btnCloseWin.Name = "btnCloseWin";
-            this.btnCloseWin.Size = new System.Drawing.Size(125, 24);
-            this.btnCloseWin.TabIndex = 5;
-            this.btnCloseWin.Text = "CERRAR";
-            this.btnCloseWin.UseVisualStyleBackColor = false;
-            this.btnCloseWin.Click += new System.EventHandler(this.btnCloseWin_Click);
             // 
             // label1
             // 
@@ -445,6 +336,146 @@
             this.label1.Size = new System.Drawing.Size(319, 35);
             this.label1.TabIndex = 1;
             this.label1.Text = "ADMNISTRAR PROYECTOS";
+            // 
+            // btnEliminar
+            // 
+            this.btnEliminar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.btnEliminar.AutoSize = true;
+            this.btnEliminar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(116)))), ((int)(((byte)(91)))));
+            this.btnEliminar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnEliminar.FlatAppearance.BorderSize = 0;
+            this.btnEliminar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEliminar.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnEliminar.ForeColor = System.Drawing.Color.Transparent;
+            this.btnEliminar.Image = global::Directorio___Presentacion.Properties.Resources.DEL2white;
+            this.btnEliminar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnEliminar.Location = new System.Drawing.Point(573, 29);
+            this.btnEliminar.MaximumSize = new System.Drawing.Size(162, 46);
+            this.btnEliminar.MinimumSize = new System.Drawing.Size(162, 46);
+            this.btnEliminar.Name = "btnEliminar";
+            this.btnEliminar.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
+            this.btnEliminar.Size = new System.Drawing.Size(162, 46);
+            this.btnEliminar.TabIndex = 46;
+            this.btnEliminar.Text = "ELIMINAR";
+            this.btnEliminar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnEliminar.UseVisualStyleBackColor = false;
+            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
+            // 
+            // btnActualizar
+            // 
+            this.btnActualizar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.btnActualizar.AutoSize = true;
+            this.btnActualizar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(116)))), ((int)(((byte)(91)))));
+            this.btnActualizar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnActualizar.FlatAppearance.BorderSize = 0;
+            this.btnActualizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnActualizar.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnActualizar.ForeColor = System.Drawing.Color.Transparent;
+            this.btnActualizar.Image = global::Directorio___Presentacion.Properties.Resources.EDIT1white;
+            this.btnActualizar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnActualizar.Location = new System.Drawing.Point(362, 29);
+            this.btnActualizar.MaximumSize = new System.Drawing.Size(162, 46);
+            this.btnActualizar.MinimumSize = new System.Drawing.Size(162, 46);
+            this.btnActualizar.Name = "btnActualizar";
+            this.btnActualizar.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
+            this.btnActualizar.Size = new System.Drawing.Size(162, 46);
+            this.btnActualizar.TabIndex = 45;
+            this.btnActualizar.Text = "EDITAR";
+            this.btnActualizar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnActualizar.UseVisualStyleBackColor = false;
+            this.btnActualizar.Click += new System.EventHandler(this.btnActualizar_Click);
+            // 
+            // button1
+            // 
+            this.button1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(58)))), ((int)(((byte)(97)))));
+            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.button1.ForeColor = System.Drawing.Color.Transparent;
+            this.button1.Image = global::Directorio___Presentacion.Properties.Resources.cerrar1white;
+            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button1.Location = new System.Drawing.Point(1245, 28);
+            this.button1.MaximumSize = new System.Drawing.Size(162, 46);
+            this.button1.MinimumSize = new System.Drawing.Size(162, 46);
+            this.button1.Name = "button1";
+            this.button1.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
+            this.button1.Size = new System.Drawing.Size(162, 46);
+            this.button1.TabIndex = 34;
+            this.button1.Text = "CERRAR";
+            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.btnCloseWin_Click);
+            // 
+            // button2
+            // 
+            this.button2.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(58)))), ((int)(((byte)(97)))));
+            this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button2.FlatAppearance.BorderSize = 0;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button2.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.button2.ForeColor = System.Drawing.Color.Transparent;
+            this.button2.Image = global::Directorio___Presentacion.Properties.Resources.add1white;
+            this.button2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button2.Location = new System.Drawing.Point(415, 28);
+            this.button2.MaximumSize = new System.Drawing.Size(162, 46);
+            this.button2.MinimumSize = new System.Drawing.Size(162, 46);
+            this.button2.Name = "button2";
+            this.button2.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
+            this.button2.Size = new System.Drawing.Size(162, 46);
+            this.button2.TabIndex = 33;
+            this.button2.Text = "NUEVO";
+            this.button2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.btnNew_Click);
+            // 
+            // btnGuardar
+            // 
+            this.btnGuardar.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnGuardar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(58)))), ((int)(((byte)(97)))));
+            this.btnGuardar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnGuardar.FlatAppearance.BorderSize = 0;
+            this.btnGuardar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGuardar.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnGuardar.ForeColor = System.Drawing.Color.Transparent;
+            this.btnGuardar.Image = global::Directorio___Presentacion.Properties.Resources.SAVE1white;
+            this.btnGuardar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnGuardar.Location = new System.Drawing.Point(1245, 65);
+            this.btnGuardar.MaximumSize = new System.Drawing.Size(162, 46);
+            this.btnGuardar.MinimumSize = new System.Drawing.Size(162, 46);
+            this.btnGuardar.Name = "btnGuardar";
+            this.btnGuardar.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
+            this.btnGuardar.Size = new System.Drawing.Size(162, 46);
+            this.btnGuardar.TabIndex = 45;
+            this.btnGuardar.Text = "GUARDAR";
+            this.btnGuardar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnGuardar.UseVisualStyleBackColor = false;
+            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
+            // 
+            // btnCancelar
+            // 
+            this.btnCancelar.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnCancelar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(58)))), ((int)(((byte)(97)))));
+            this.btnCancelar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCancelar.FlatAppearance.BorderSize = 0;
+            this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancelar.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnCancelar.ForeColor = System.Drawing.Color.Transparent;
+            this.btnCancelar.Image = global::Directorio___Presentacion.Properties.Resources.cancel1;
+            this.btnCancelar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCancelar.Location = new System.Drawing.Point(1245, 137);
+            this.btnCancelar.MaximumSize = new System.Drawing.Size(162, 46);
+            this.btnCancelar.MinimumSize = new System.Drawing.Size(162, 46);
+            this.btnCancelar.Name = "btnCancelar";
+            this.btnCancelar.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
+            this.btnCancelar.Size = new System.Drawing.Size(162, 46);
+            this.btnCancelar.TabIndex = 46;
+            this.btnCancelar.Text = "CANCELAR";
+            this.btnCancelar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnCancelar.UseVisualStyleBackColor = false;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // FrmCRUD_Proyecto
             // 
@@ -476,20 +507,14 @@
         private Panel panel2;
         private Label label14;
         private TextBox txtFiltro;
-        private Button btnEliminar;
-        private Button btnActualizar;
         private DataGridView dgLstRegistros;
         private Label label9;
         private Panel panelCreate;
-        private Button btnGuardar;
         private TextBox txtNameProyecto;
         private Label label3;
         private Label label2;
         private Panel panel1;
-        private Button btnNew;
-        private Button btnCloseWin;
         private Label label1;
-        private Button btnCancelar;
         private TextBox txtCode;
         private TextBox txtType;
         private TextBox txtURL;
@@ -503,5 +528,11 @@
         private Label label10;
         private TextBox txtPresupuesto;
         private PictureBox pictBoxCargar;
+        private Button btnEliminar;
+        private Button btnActualizar;
+        private Button button1;
+        private Button button2;
+        private Button btnGuardar;
+        private Button btnCancelar;
     }
 }

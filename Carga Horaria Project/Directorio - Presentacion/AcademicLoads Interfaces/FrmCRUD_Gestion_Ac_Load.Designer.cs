@@ -32,9 +32,9 @@
             this.label2 = new System.Windows.Forms.Label();
             this.dgLstRegistros = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnAddActividad = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnAddActividad = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgLstRegistros)).BeginInit();
             this.panel1.SuspendLayout();
@@ -78,13 +78,36 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.LightSeaGreen;
-            this.panel1.Controls.Add(this.panel3);
             this.panel1.Controls.Add(this.btnAddActividad);
+            this.panel1.Controls.Add(this.panel3);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1609, 81);
             this.panel1.TabIndex = 4;
+            // 
+            // btnAddActividad
+            // 
+            this.btnAddActividad.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnAddActividad.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(58)))), ((int)(((byte)(97)))));
+            this.btnAddActividad.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAddActividad.FlatAppearance.BorderSize = 0;
+            this.btnAddActividad.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAddActividad.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnAddActividad.ForeColor = System.Drawing.Color.Transparent;
+            this.btnAddActividad.Image = global::Directorio___Presentacion.Properties.Resources.add1white;
+            this.btnAddActividad.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAddActividad.Location = new System.Drawing.Point(470, 12);
+            this.btnAddActividad.MaximumSize = new System.Drawing.Size(220, 62);
+            this.btnAddActividad.MinimumSize = new System.Drawing.Size(220, 62);
+            this.btnAddActividad.Name = "btnAddActividad";
+            this.btnAddActividad.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.btnAddActividad.Size = new System.Drawing.Size(220, 62);
+            this.btnAddActividad.TabIndex = 43;
+            this.btnAddActividad.Text = "AGREGAR ACTIVIDAD";
+            this.btnAddActividad.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnAddActividad.UseVisualStyleBackColor = false;
+            this.btnAddActividad.Click += new System.EventHandler(this.btnAddActividad_Click);
             // 
             // panel3
             // 
@@ -105,21 +128,6 @@
             this.label1.Size = new System.Drawing.Size(348, 38);
             this.label1.TabIndex = 0;
             this.label1.Text = "Gestión de Carga Gestión";
-            // 
-            // btnAddActividad
-            // 
-            this.btnAddActividad.BackColor = System.Drawing.Color.Khaki;
-            this.btnAddActividad.FlatAppearance.BorderSize = 0;
-            this.btnAddActividad.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAddActividad.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnAddActividad.ForeColor = System.Drawing.Color.DimGray;
-            this.btnAddActividad.Location = new System.Drawing.Point(469, 25);
-            this.btnAddActividad.Name = "btnAddActividad";
-            this.btnAddActividad.Size = new System.Drawing.Size(182, 31);
-            this.btnAddActividad.TabIndex = 0;
-            this.btnAddActividad.Text = "Agregar Actividad";
-            this.btnAddActividad.UseVisualStyleBackColor = false;
-            this.btnAddActividad.Click += new System.EventHandler(this.btnAddActividad_Click);
             // 
             // FrmCRUD_Gestion_Ac_Load
             // 
@@ -148,7 +156,7 @@
         private Panel panel1;
         private Panel panel3;
         private Label label1;
-        private Button btnAddActividad;
         private Label label2;
+        private Button btnAddActividad;
     }
 }

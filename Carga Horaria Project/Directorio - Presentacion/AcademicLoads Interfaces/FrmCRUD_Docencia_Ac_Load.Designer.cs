@@ -35,9 +35,9 @@
             this.dgLstRegistrosD11 = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnAddActividadF11 = new System.Windows.Forms.Button();
+            this.btnAddActividadD11 = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnAddActividadD11 = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgLstRegistrosF11)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgLstRegistrosD11)).BeginInit();
@@ -108,8 +108,8 @@
             // 
             this.panel1.BackColor = System.Drawing.Color.LightSeaGreen;
             this.panel1.Controls.Add(this.btnAddActividadF11);
-            this.panel1.Controls.Add(this.panel3);
             this.panel1.Controls.Add(this.btnAddActividadD11);
+            this.panel1.Controls.Add(this.panel3);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
@@ -118,18 +118,49 @@
             // 
             // btnAddActividadF11
             // 
-            this.btnAddActividadF11.BackColor = System.Drawing.Color.Khaki;
+            this.btnAddActividadF11.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnAddActividadF11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(58)))), ((int)(((byte)(97)))));
+            this.btnAddActividadF11.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAddActividadF11.FlatAppearance.BorderSize = 0;
             this.btnAddActividadF11.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAddActividadF11.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnAddActividadF11.ForeColor = System.Drawing.Color.DimGray;
-            this.btnAddActividadF11.Location = new System.Drawing.Point(682, 25);
+            this.btnAddActividadF11.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnAddActividadF11.ForeColor = System.Drawing.Color.Transparent;
+            this.btnAddActividadF11.Image = global::Directorio___Presentacion.Properties.Resources.add1white;
+            this.btnAddActividadF11.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAddActividadF11.Location = new System.Drawing.Point(755, 12);
+            this.btnAddActividadF11.MaximumSize = new System.Drawing.Size(250, 62);
+            this.btnAddActividadF11.MinimumSize = new System.Drawing.Size(250, 62);
             this.btnAddActividadF11.Name = "btnAddActividadF11";
-            this.btnAddActividadF11.Size = new System.Drawing.Size(182, 31);
-            this.btnAddActividadF11.TabIndex = 2;
-            this.btnAddActividadF11.Text = "Agregar Actividad F11";
+            this.btnAddActividadF11.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.btnAddActividadF11.Size = new System.Drawing.Size(250, 62);
+            this.btnAddActividadF11.TabIndex = 42;
+            this.btnAddActividadF11.Text = "AGREGAR ACTIVIDAD F11";
+            this.btnAddActividadF11.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnAddActividadF11.UseVisualStyleBackColor = false;
             this.btnAddActividadF11.Click += new System.EventHandler(this.btnAddActividadF11_Click);
+            // 
+            // btnAddActividadD11
+            // 
+            this.btnAddActividadD11.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnAddActividadD11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(58)))), ((int)(((byte)(97)))));
+            this.btnAddActividadD11.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAddActividadD11.FlatAppearance.BorderSize = 0;
+            this.btnAddActividadD11.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAddActividadD11.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnAddActividadD11.ForeColor = System.Drawing.Color.Transparent;
+            this.btnAddActividadD11.Image = global::Directorio___Presentacion.Properties.Resources.add1white;
+            this.btnAddActividadD11.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAddActividadD11.Location = new System.Drawing.Point(475, 12);
+            this.btnAddActividadD11.MaximumSize = new System.Drawing.Size(250, 62);
+            this.btnAddActividadD11.MinimumSize = new System.Drawing.Size(250, 62);
+            this.btnAddActividadD11.Name = "btnAddActividadD11";
+            this.btnAddActividadD11.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.btnAddActividadD11.Size = new System.Drawing.Size(250, 62);
+            this.btnAddActividadD11.TabIndex = 41;
+            this.btnAddActividadD11.Text = "AGREGAR ACTIVIDAD D11";
+            this.btnAddActividadD11.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnAddActividadD11.UseVisualStyleBackColor = false;
+            this.btnAddActividadD11.Click += new System.EventHandler(this.btnAddActividadD11_Click);
             // 
             // panel3
             // 
@@ -150,21 +181,6 @@
             this.label1.Size = new System.Drawing.Size(367, 38);
             this.label1.TabIndex = 0;
             this.label1.Text = "Gestión de Carga Docencia";
-            // 
-            // btnAddActividadD11
-            // 
-            this.btnAddActividadD11.BackColor = System.Drawing.Color.Khaki;
-            this.btnAddActividadD11.FlatAppearance.BorderSize = 0;
-            this.btnAddActividadD11.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAddActividadD11.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnAddActividadD11.ForeColor = System.Drawing.Color.DimGray;
-            this.btnAddActividadD11.Location = new System.Drawing.Point(469, 25);
-            this.btnAddActividadD11.Name = "btnAddActividadD11";
-            this.btnAddActividadD11.Size = new System.Drawing.Size(182, 31);
-            this.btnAddActividadD11.TabIndex = 0;
-            this.btnAddActividadD11.Text = "Agregar Actividad D11";
-            this.btnAddActividadD11.UseVisualStyleBackColor = false;
-            this.btnAddActividadD11.Click += new System.EventHandler(this.btnAddActividadD11_Click);
             // 
             // CRUD_Docencia_Ac_Load
             // 
@@ -194,10 +210,10 @@
         private Panel panel1;
         private Panel panel3;
         private Label label1;
-        private Button btnAddActividadD11;
         private DataGridView dgLstRegistrosF11;
         private Label label3;
         private Label label2;
+        private Button btnAddActividadD11;
         private Button btnAddActividadF11;
     }
 }

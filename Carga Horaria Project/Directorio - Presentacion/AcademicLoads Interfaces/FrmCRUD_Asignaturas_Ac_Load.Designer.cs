@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnAddAsignatura = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnAddAsignatura = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.dgvHorario = new System.Windows.Forms.DataGridView();
@@ -49,13 +49,36 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.LightSeaGreen;
-            this.panel1.Controls.Add(this.panel3);
             this.panel1.Controls.Add(this.btnAddAsignatura);
+            this.panel1.Controls.Add(this.panel3);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1686, 82);
             this.panel1.TabIndex = 0;
+            // 
+            // btnAddAsignatura
+            // 
+            this.btnAddAsignatura.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnAddAsignatura.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(58)))), ((int)(((byte)(97)))));
+            this.btnAddAsignatura.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAddAsignatura.FlatAppearance.BorderSize = 0;
+            this.btnAddAsignatura.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAddAsignatura.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnAddAsignatura.ForeColor = System.Drawing.Color.Transparent;
+            this.btnAddAsignatura.Image = global::Directorio___Presentacion.Properties.Resources.add1white;
+            this.btnAddAsignatura.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAddAsignatura.Location = new System.Drawing.Point(485, 13);
+            this.btnAddAsignatura.MaximumSize = new System.Drawing.Size(233, 62);
+            this.btnAddAsignatura.MinimumSize = new System.Drawing.Size(233, 62);
+            this.btnAddAsignatura.Name = "btnAddAsignatura";
+            this.btnAddAsignatura.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.btnAddAsignatura.Size = new System.Drawing.Size(233, 62);
+            this.btnAddAsignatura.TabIndex = 40;
+            this.btnAddAsignatura.Text = "AGREGAR ASIGNATURA";
+            this.btnAddAsignatura.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnAddAsignatura.UseVisualStyleBackColor = false;
+            this.btnAddAsignatura.Click += new System.EventHandler(this.btnAddAsignatura_Click);
             // 
             // panel3
             // 
@@ -76,21 +99,6 @@
             this.label1.Size = new System.Drawing.Size(320, 38);
             this.label1.TabIndex = 0;
             this.label1.Text = "Gestión de Asignaturas";
-            // 
-            // btnAddAsignatura
-            // 
-            this.btnAddAsignatura.BackColor = System.Drawing.Color.Khaki;
-            this.btnAddAsignatura.FlatAppearance.BorderSize = 0;
-            this.btnAddAsignatura.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAddAsignatura.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnAddAsignatura.ForeColor = System.Drawing.Color.DimGray;
-            this.btnAddAsignatura.Location = new System.Drawing.Point(469, 25);
-            this.btnAddAsignatura.Name = "btnAddAsignatura";
-            this.btnAddAsignatura.Size = new System.Drawing.Size(182, 31);
-            this.btnAddAsignatura.TabIndex = 1;
-            this.btnAddAsignatura.Text = "Agregar Asignatura";
-            this.btnAddAsignatura.UseVisualStyleBackColor = false;
-            this.btnAddAsignatura.Click += new System.EventHandler(this.btnAddAsignatura_Click);
             // 
             // panel2
             // 
@@ -186,7 +194,6 @@
         #endregion
 
         private Panel panel1;
-        private Button btnAddAsignatura;
         private Panel panel2;
         private DataGridView dgLstRegistros;
         private Panel panel3;
@@ -195,5 +202,6 @@
         private Panel panel4;
         private DataGridView dgvHorario;
         private Label label3;
+        private Button btnAddAsignatura;
     }
 }

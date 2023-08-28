@@ -53,9 +53,9 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.dgvReporteCargasDocentes = new System.Windows.Forms.DataGridView();
-            this.btnExportAll = new System.Windows.Forms.Button();
             this.lblSearch = new System.Windows.Forms.Label();
             this.txtFiltro = new System.Windows.Forms.TextBox();
+            this.btnExportAll = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panelFilters.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -408,19 +408,6 @@
             this.dgvReporteCargasDocentes.TabStop = false;
             this.dgvReporteCargasDocentes.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvReporteCargasDocentes_CellFormatting);
             // 
-            // btnExportAll
-            // 
-            this.btnExportAll.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
-            this.btnExportAll.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnExportAll.Location = new System.Drawing.Point(1361, 263);
-            this.btnExportAll.Name = "btnExportAll";
-            this.btnExportAll.Size = new System.Drawing.Size(140, 70);
-            this.btnExportAll.TabIndex = 3;
-            this.btnExportAll.Text = "EXPORTAR TODOS EN PDF";
-            this.btnExportAll.UseVisualStyleBackColor = false;
-            this.btnExportAll.Visible = false;
-            this.btnExportAll.Click += new System.EventHandler(this.btnExportAll_Click);
-            // 
             // lblSearch
             // 
             this.lblSearch.AutoSize = true;
@@ -449,6 +436,28 @@
             this.txtFiltro.TextChanged += new System.EventHandler(this.txtFiltro_TextChanged);
             this.txtFiltro.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFiltro_KeyPress);
             // 
+            // btnExportAll
+            // 
+            this.btnExportAll.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnExportAll.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(116)))), ((int)(((byte)(91)))));
+            this.btnExportAll.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnExportAll.FlatAppearance.BorderSize = 0;
+            this.btnExportAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExportAll.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnExportAll.ForeColor = System.Drawing.Color.Transparent;
+            this.btnExportAll.Image = global::Directorio___Presentacion.Properties.Resources.pdfExportWhite;
+            this.btnExportAll.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnExportAll.Location = new System.Drawing.Point(1181, 264);
+            this.btnExportAll.Name = "btnExportAll";
+            this.btnExportAll.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
+            this.btnExportAll.Size = new System.Drawing.Size(162, 65);
+            this.btnExportAll.TabIndex = 18;
+            this.btnExportAll.Text = "EXPORTAR";
+            this.btnExportAll.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnExportAll.UseVisualStyleBackColor = false;
+            this.btnExportAll.Visible = false;
+            this.btnExportAll.Click += new System.EventHandler(this.btnExportAll_Click);
+            // 
             // FrmReporteDocentesCargas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -456,9 +465,9 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(76)))), ((int)(((byte)(146)))));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(1528, 958);
+            this.Controls.Add(this.btnExportAll);
             this.Controls.Add(this.lblSearch);
             this.Controls.Add(this.txtFiltro);
-            this.Controls.Add(this.btnExportAll);
             this.Controls.Add(this.dgvReporteCargasDocentes);
             this.Controls.Add(this.panel1);
             this.Name = "FrmReporteDocentesCargas";
@@ -506,8 +515,8 @@
         private Label label14;
         private Label label15;
         private Panel panelFilters;
-        private Button btnExportAll;
         private Label lblSearch;
         private TextBox txtFiltro;
+        private Button btnExportAll;
     }
 }

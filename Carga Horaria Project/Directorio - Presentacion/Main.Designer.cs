@@ -65,6 +65,7 @@
             this.btnHabilitarDocentes = new System.Windows.Forms.Button();
             this.btnAdminCargas = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.pictBoxLogo = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panelChildForm = new System.Windows.Forms.Panel();
@@ -77,6 +78,7 @@
             this.panelGestActividades.SuspendLayout();
             this.panelSubmenuAdminCargas.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictBoxLogo)).BeginInit();
             this.panelChildForm.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pixtbxLogo)).BeginInit();
             this.SuspendLayout();
@@ -111,7 +113,7 @@
             this.btnConfigureServer.ForeColor = System.Drawing.Color.Transparent;
             this.btnConfigureServer.Image = ((System.Drawing.Image)(resources.GetObject("btnConfigureServer.Image")));
             this.btnConfigureServer.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnConfigureServer.Location = new System.Drawing.Point(0, 1474);
+            this.btnConfigureServer.Location = new System.Drawing.Point(0, 1553);
             this.btnConfigureServer.Name = "btnConfigureServer";
             this.btnConfigureServer.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.btnConfigureServer.Size = new System.Drawing.Size(262, 60);
@@ -126,7 +128,7 @@
             this.lblAutores.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.lblAutores.Font = new System.Drawing.Font("Calibri", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblAutores.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.lblAutores.Location = new System.Drawing.Point(0, 1534);
+            this.lblAutores.Location = new System.Drawing.Point(0, 1613);
             this.lblAutores.Name = "lblAutores";
             this.lblAutores.Padding = new System.Windows.Forms.Padding(7, 0, 0, 7);
             this.lblAutores.Size = new System.Drawing.Size(262, 58);
@@ -146,7 +148,7 @@
             this.panelSubmenuReportes.Controls.Add(this.btnReporteDocentesCargas);
             this.panelSubmenuReportes.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelSubmenuReportes.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.panelSubmenuReportes.Location = new System.Drawing.Point(0, 1209);
+            this.panelSubmenuReportes.Location = new System.Drawing.Point(0, 1288);
             this.panelSubmenuReportes.Name = "panelSubmenuReportes";
             this.panelSubmenuReportes.Size = new System.Drawing.Size(262, 265);
             this.panelSubmenuReportes.TabIndex = 6;
@@ -250,7 +252,7 @@
             this.btnReportesMain.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnReportesMain.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnReportesMain.ForeColor = System.Drawing.Color.Transparent;
-            this.btnReportesMain.Location = new System.Drawing.Point(0, 1149);
+            this.btnReportesMain.Location = new System.Drawing.Point(0, 1228);
             this.btnReportesMain.Name = "btnReportesMain";
             this.btnReportesMain.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.btnReportesMain.Size = new System.Drawing.Size(262, 60);
@@ -276,7 +278,7 @@
             this.panelSubmenuGestionData.Controls.Add(this.btnGestionActividades);
             this.panelSubmenuGestionData.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelSubmenuGestionData.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.panelSubmenuGestionData.Location = new System.Drawing.Point(0, 497);
+            this.panelSubmenuGestionData.Location = new System.Drawing.Point(0, 576);
             this.panelSubmenuGestionData.Name = "panelSubmenuGestionData";
             this.panelSubmenuGestionData.Size = new System.Drawing.Size(262, 652);
             this.panelSubmenuGestionData.TabIndex = 4;
@@ -556,7 +558,7 @@
             this.btnGestion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGestion.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnGestion.ForeColor = System.Drawing.Color.Transparent;
-            this.btnGestion.Location = new System.Drawing.Point(0, 437);
+            this.btnGestion.Location = new System.Drawing.Point(0, 516);
             this.btnGestion.Name = "btnGestion";
             this.btnGestion.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.btnGestion.Size = new System.Drawing.Size(262, 60);
@@ -576,7 +578,7 @@
             this.panelSubmenuAdminCargas.Controls.Add(this.btnHabilitarDocentes);
             this.panelSubmenuAdminCargas.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelSubmenuAdminCargas.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.panelSubmenuAdminCargas.Location = new System.Drawing.Point(0, 177);
+            this.panelSubmenuAdminCargas.Location = new System.Drawing.Point(0, 256);
             this.panelSubmenuAdminCargas.Name = "panelSubmenuAdminCargas";
             this.panelSubmenuAdminCargas.Size = new System.Drawing.Size(262, 260);
             this.panelSubmenuAdminCargas.TabIndex = 2;
@@ -679,7 +681,7 @@
             this.btnAdminCargas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAdminCargas.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnAdminCargas.ForeColor = System.Drawing.Color.Transparent;
-            this.btnAdminCargas.Location = new System.Drawing.Point(0, 117);
+            this.btnAdminCargas.Location = new System.Drawing.Point(0, 196);
             this.btnAdminCargas.Name = "btnAdminCargas";
             this.btnAdminCargas.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.btnAdminCargas.Size = new System.Drawing.Size(262, 60);
@@ -692,20 +694,32 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(0)))), ((int)(((byte)(90)))));
+            this.panel1.Controls.Add(this.pictBoxLogo);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(262, 117);
+            this.panel1.Size = new System.Drawing.Size(262, 196);
             this.panel1.TabIndex = 0;
+            // 
+            // pictBoxLogo
+            // 
+            this.pictBoxLogo.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pictBoxLogo.Image = global::Directorio___Presentacion.Properties.Resources.owliconnew;
+            this.pictBoxLogo.Location = new System.Drawing.Point(0, 0);
+            this.pictBoxLogo.Name = "pictBoxLogo";
+            this.pictBoxLogo.Size = new System.Drawing.Size(262, 100);
+            this.pictBoxLogo.TabIndex = 1;
+            this.pictBoxLogo.TabStop = false;
             // 
             // label1
             // 
+            this.label1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.label1.Font = new System.Drawing.Font("Calibri", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label1.Location = new System.Drawing.Point(11, 8);
+            this.label1.Location = new System.Drawing.Point(0, 91);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(248, 105);
+            this.label1.Size = new System.Drawing.Size(262, 105);
             this.label1.TabIndex = 0;
             this.label1.Text = "DETRI ADMINISTRADOR DE CARGAS HORARIAS";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -753,7 +767,7 @@
             this.Controls.Add(this.panelMenuLateral);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Main";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Tag = "DETRI ACA";
             this.Text = "ADMIN - CARGAS ACADÉMICAS";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
@@ -767,6 +781,7 @@
             this.panelGestActividades.ResumeLayout(false);
             this.panelSubmenuAdminCargas.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictBoxLogo)).EndInit();
             this.panelChildForm.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pixtbxLogo)).EndInit();
             this.ResumeLayout(false);
@@ -815,5 +830,6 @@
         private Button btnCopiarDatos;
         private Button btnConfigureServer;
         private Button btnGestionProyectos;
+        private PictureBox pictBoxLogo;
     }
 }

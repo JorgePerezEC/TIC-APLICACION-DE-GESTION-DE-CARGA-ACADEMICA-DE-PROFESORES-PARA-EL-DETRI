@@ -232,6 +232,7 @@ namespace Directorio___Presentacion
         private void Main_Load(object sender, EventArgs e)
         {
             pixtbxLogo.Image = Image.FromFile(@"Images\EPNLogo.png");
+            pictBoxLogo.SizeMode = PictureBoxSizeMode.Zoom;
         }
 
         private void btnReporteDocentesCargas_Click(object sender, EventArgs e)

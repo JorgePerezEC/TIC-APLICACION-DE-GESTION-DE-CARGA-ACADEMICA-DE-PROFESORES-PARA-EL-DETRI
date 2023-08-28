@@ -82,10 +82,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="CRUD Data Interfaces\SubForms_HorasExigibles\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <EditorConfigFiles Remove="C:\Users\jorge\OneDrive - Escuela Politécnica Nacional\TESIS LAPTOP SYNC\resp\Carga Horaria Project\Directorio - Presentacion\.editorconfig" />
   </ItemGroup>
 

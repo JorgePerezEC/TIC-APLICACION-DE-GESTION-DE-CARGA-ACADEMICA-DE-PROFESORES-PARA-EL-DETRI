@@ -58,6 +58,9 @@
     <Compile Update="AcademicLoads Interfaces\Sub_Frms\Frm_CreateNewAsignatura_Modal.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="CRUD Data Interfaces\BUTTONS\FrmButtonsStyle.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="CRUD Data Interfaces\FrmCRUD_Actividad.cs">
       <SubType>Form</SubType>
     </Compile>

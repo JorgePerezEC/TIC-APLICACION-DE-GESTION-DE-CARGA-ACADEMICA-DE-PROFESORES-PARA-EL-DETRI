@@ -73,13 +73,22 @@
             // 
             // btnExportPdf
             // 
-            this.btnExportPdf.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
-            this.btnExportPdf.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnExportPdf.Location = new System.Drawing.Point(613, 10);
+            this.btnExportPdf.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnExportPdf.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(116)))), ((int)(((byte)(91)))));
+            this.btnExportPdf.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnExportPdf.FlatAppearance.BorderSize = 0;
+            this.btnExportPdf.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExportPdf.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnExportPdf.ForeColor = System.Drawing.Color.Transparent;
+            this.btnExportPdf.Image = global::Directorio___Presentacion.Properties.Resources.pdfExportWhite;
+            this.btnExportPdf.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnExportPdf.Location = new System.Drawing.Point(775, 15);
             this.btnExportPdf.Name = "btnExportPdf";
-            this.btnExportPdf.Size = new System.Drawing.Size(140, 70);
-            this.btnExportPdf.TabIndex = 18;
-            this.btnExportPdf.Text = "EXPORTAR  EN PDF";
+            this.btnExportPdf.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
+            this.btnExportPdf.Size = new System.Drawing.Size(162, 65);
+            this.btnExportPdf.TabIndex = 21;
+            this.btnExportPdf.Text = "EXPORTAR";
+            this.btnExportPdf.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnExportPdf.UseVisualStyleBackColor = false;
             this.btnExportPdf.Visible = false;
             this.btnExportPdf.Click += new System.EventHandler(this.btnExportPdf_Click);
