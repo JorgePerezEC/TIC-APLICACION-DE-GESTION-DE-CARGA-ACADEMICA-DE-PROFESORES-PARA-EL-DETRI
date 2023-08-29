@@ -3777,9 +3777,3 @@ GO
  
 PRINT 'DataBase Created';
 -- END SCRIPT
-
--- NUEVOS SPS AGREGADOS 21-AGO
- 
-
-
--------------------------------

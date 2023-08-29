@@ -3,12 +3,21 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0-windows</TargetFramework>
-    <RootNamespace>Directorio___Presentacion</RootNamespace>
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
 
 	<NoWarn>CS8618</NoWarn>
+
+	<PlatformTarget>AnyCPU</PlatformTarget>
+
+	<AssemblyName>DETRI ADMIN CA</AssemblyName>
+
+	<ApplicationIcon>owliconnew.ico</ApplicationIcon>
+
+	<Authors>Jorge Perez</Authors>
+
+	<RootNamespace>Directorio___Presentacion</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -93,6 +102,7 @@
     <Content Include="App.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="owliconnew.ico" />
   </ItemGroup>
 
   <ItemGroup>
